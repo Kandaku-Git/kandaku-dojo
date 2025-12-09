@@ -7,7 +7,25 @@
     <link rel="stylesheet" href="scripts/styles.css">
 </head>
 <body>
+    <!-- Conteneur principal -->
+    <div id="mon-conteneur"></div>
 
+    <!-- Moteur JS -->
+    <script src="scripts/diaporama.js"></script>
+   
+    <!-- Affichage direct -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Lancement avec un seul paramètre : le nom du dossier technique
+            // Tout le reste est chargé automatiquement
+            new Diaporama('mon-conteneur', {
+                technique: "Bassai_Dai"
+            });
+        });
+    </script>
+    <!-- FIN : Affichage direct -->
+    
+    <!-- Accès au diaporama depuis <a>
     <a href="#" onclick="return loadDiaporama(event, 'Bassai_Dai')">Bassai Dai</a>
     <a href="#" style="margin-left: 20px;" onclick="return loadDiaporama(event, 'Heisoku')">Heisoku</a>
 
@@ -33,6 +51,7 @@
             return false;
         }
     </script>
-
+    -->
 </body>
 </html>
+
