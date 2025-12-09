@@ -1,0 +1,109 @@
+<html>
+<head>
+<!-- Apparence de la page -->
+<link href="../apparence_page.css" rel="stylesheet" type="text/css">
+<!-- Apparence de la page (fin) -->
+
+<!-- Diaporama -->
+<script language="JavaScript" src="a_diaporama.js"></script>
+<!-- Diaporama (fin) -->
+
+<!--Definition kata-->
+<script language="JavaScript" src="a_vocabulaire.js"></script>
+<!--Definition kata (fin) -->
+
+    <title>Techniques</title>
+
+<!--Sous menu -->
+	<script type="text/javascript" src="../sous_menu_ie5.js"></script>
+    <script type="text/javascript" src="../sous_menu_dropdown.js"></script>
+<!--Sous menu (fin) -->
+
+
+<script language="JavaScript">
+function affiche(technique,nbre_diapo) {
+nom.length = 0;
+numero = 1;
+if (nbre_diapo == 1) {
+	nom[1] = "../images/"+technique+".gif";
+	document.image.src = nom[1];
+	}
+ else {
+	for (i=1; i < nbre_diapo+1 ; i++)
+		nom[i] = "../images/"+technique+"/"+technique+"_"+i+".gif";
+	numero = nbre_diapo;
+	auto();
+	}
+}
+</script>
+
+</head>
+
+<body bgcolor="white" background="../images/fond_page.gif">
+<!-- Entete -->
+<script language="JavaScript" src="a_entete.js"></script>
+<!-- Entete (fin) -->
+
+<br>
+
+<!-- Les Menus -->
+<script language="JavaScript" src="a_menu_principal.js"></script>
+<script language="JavaScript" src="a_menu_techniques.js"></script>
+<!-- Les Menus (fin) -->
+
+<br>
+
+<table width="100%">
+<tr>
+<!-- Diaporama -->
+	<td width="35%" align="center" valign="middle">
+		<!-- Affichage -->
+		<table border="2" align="center" bgcolor="#FFFFFF">
+		  <tr><td>
+<img src="../images/accueil.gif" width="350" height="350" name="image">
+	  </td></tr></table>
+	  <script language="JavaScript">
+
+	  <!-- *** 1 *** Paramètres pour le kata: nom,nbre d'images --->
+	   affiche("renojidachi",1); 
+
+	   </script>
+		<!-- Controleur -->
+		<div align="center"> 
+<br>
+<img name="precedent" onClick="precedente();" src="../images/precedent.gif" onMouseOver="document.precedent.src='../images/precedent_over.gif'" onMouseOut="document.precedent.src='../images/precedent.gif'">
+&nbsp;&nbsp;&nbsp; 
+<img src="../images/play-pause.gif" name="automat" width="42px" height="17px" onClick="auto();" onMouseOver="document.automat.src='../images/play-pause_over.gif'" onMouseOut="document.automat.src='../images/play-pause.gif'">
+&nbsp;&nbsp;&nbsp; 
+<img src="../images/suivant.gif" name="suivant" onClick="suivante()" onMouseOver="document.suivant.src='../images/suivant_over.gif'" onMouseOut="document.suivant.src='../images/suivant.gif'">
+		</div>
+	</td>
+<!-- Diaporama (fin) -->
+
+	<td align="center" valign="middle">
+
+<!-- Description de la technique -->
+<table width="80%" border=1 bgcolor="#FFFFFF" class="detail_kata_technique">
+  <tr>
+    <td align="center" class="technique_titre">RENOJI DACHI 
+<!--
+	<br>
+    <span class="technique_sous_titre">soustitre</span>
+-->
+	</td>
+  </tr>
+  <tr>
+    <td width=50% class="technique_corps">
+. Jambes tendues <br>
+. Les deux pieds sont à 90° l'un de l'autre <br>
+. Les talons sont sur la même ligne, un peu espacés 	  
+		</td>
+  </tr>
+</table>
+<!-- Description de la technique (fin) -->
+	
+	</td>
+</tr>
+</table>
+</body>
+</html>
