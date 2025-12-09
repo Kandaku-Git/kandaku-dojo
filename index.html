@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lecteur Diaporama</title>
+    <link rel="stylesheet" href="scripts/styles.css">
+</head>
+<body>
+
+    <a href="#" onclick="return loadDiaporama(event, 'Bassai_Dai')">Bassai Dai</a>
+    <a href="#" style="margin-left: 20px;" onclick="return loadDiaporama(event, 'Heisoku')">Heisoku</a>
+
+    <div id="mon-conteneur"></div>
+
+    <script src="scripts/diaporama.js"></script>
+    <script>
+        let diaporama = null;
+
+        function loadDiaporama(event, technique) {
+            // Empêche le lien de faire son action par défaut (navigation)
+            event.preventDefault();
+
+            // Si une instance existe et possède une méthode destroy, on la détruit
+            if (diaporama && typeof diaporama.destroy === 'function') {
+                diaporama.destroy();
+            }
+
+            // Création d'une nouvelle instance avec la technique demandée
+            diaporama = new Diaporama('mon-conteneur', { technique: technique });
+
+            // Retourne false pour être sûr de bloquer toute action par défaut du lien
+            return false;
+        }
+    </script>
+
+</body>
+</html>
