@@ -13,6 +13,8 @@ Site de karaté Shotokan
 ## A faire
 - [x] Créer le dépôt kandaku-dojo
 - [x] Connecter le projet à Vercel
+- [ ] Mise à jour des techniques et katas
+- [ ] Déploiement de la structure de base du site et d'un partie du contenu
 - [ ] Diaporama lexique et vidéo
 - [ ] Techniques hors ligne
 - [ ] Humaniser les schemas
