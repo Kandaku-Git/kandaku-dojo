@@ -5,11 +5,12 @@ Site de karaté Shotokan
 - [ ] Kakete Uke
 
 ## Bugs diaporama
+ATTENTION : RECHARGER LES SCRIPTS DANS L'IA POUR CONTINUER (Retour arrière le 11/12/25 à 00:18)
 - [x] Agrandir les lignes du bas (L1, L2 et contrôle)
 - [x] Passage de technique à kata fait avancer d’une technique
-- [x] Description ne défile pas (ex: Zuki)
-- [x] Diapo en pause - On va sur une tech - on met play sur la tech - le diaporama se met automatiquement en lpay
-- [x] Ne pas chercher dans le vocabulaire si les mots sont entre <> ou «»
+- [ ] Description ne défile pas (ex: Zuki)
+- [ ] Mettre le diapo en pause lors du clic sur un lien ou D de description
+- [ ] Ne pas chercher dans le vocabulaire si les mots sont entre <> ou «»
 
 ## A faire
 - [x] Créer le dépôt kandaku-dojo
