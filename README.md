@@ -6,9 +6,9 @@ Site de karaté Shotokan
 
 ## Bugs diaporama
 - [x] Agrandir les lignes du bas (L1, L2 et contrôle)
-- [ ] Passage de technique à kata fait avancer d’une technique
+- [x] Passage de technique à kata fait avancer d’une technique
 - [ ] Description ne défile pas (ex: Zuki)
-- [ ] Diapo en pause - On va sur une tech - on met play sur la tech - le diaporama se met automatiquement en lpay
+- [x] Diapo en pause - On va sur une tech - on met play sur la tech - le diaporama se met automatiquement en lpay
 - [x] Ne pas chercher dans le vocabulaire si les mots sont entre <> ou «»
 
 ## A faire
