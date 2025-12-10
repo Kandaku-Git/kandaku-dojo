@@ -1,7 +1,9 @@
 /**
- * DIAPORAMA v16.2
- * - Styles.css mis à jour : Marges description réduites (10%)
- * - Moteur JS stable (Navigation, Tactile, Scroll)
+ * DIAPORAMA v16.0
+ * - Modification Navigation Liens :
+ * 1. Arrêt du diaporama courant avant transition.
+ * 2. Sauvegarde de l'état "Pause" dans l'historique.
+ * 3. Le sous-diaporama s'ouvre en mode "Pause" (pas de démarrage auto).
  */
 
 class Diaporama {
@@ -143,7 +145,7 @@ class Diaporama {
                 resolve(); return;
             }
             const script = document.createElement('script');
-            script.src = "scripts/vocabulaire.js";
+            script.src = "vocabulaire.js";
             script.onload = () => {
                 if (window.VOCABULAIRE_TECHNIQUE) this.parseVocabulary(window.VOCABULAIRE_TECHNIQUE);
                 resolve();
@@ -261,8 +263,16 @@ class Diaporama {
 
     /**
      * Charge un nouveau diaporama (via un lien).
+     * Arrête le diaporama actuel, sauvegarde l'état PAUSE et ouvre le nouveau en PAUSE.
      */
     async loadSubDiaporama(targetTechnique) {
+        // 1. Arrêt immédiat et mise en pause
+        this.stopAutoSlide();
+        this.state.isPlaying = false; // On force l'état pause
+        this.dom.icons.play.classList.remove('diaporama-hidden');
+        this.dom.icons.pause.classList.add('diaporama-hidden');
+
+        // 2. Sauvegarde de l'état (qui est maintenant Pause)
         this.state.history.push({
             config: { ...this.config }, 
             index: this.state.currentIndex,
@@ -271,8 +281,7 @@ class Diaporama {
             isPlaying: false // On mémorise Pause
         });
 
-        this.stopAutoSlide();
-
+        // 3. Reset config
         this.config.technique = targetTechnique;
         this.config.nombrePhotos = this.defaults.nombrePhotos;
         this.config.extension = this.defaults.extension; 
@@ -294,11 +303,13 @@ class Diaporama {
         this.bindEvents();
         this.dom.btns.back.classList.remove('diaporama-hidden');
         
-        this.state.isPlaying = false;
+        // 4. Initialisation en mode Pause
+        this.state.isPlaying = false; // Le nouveau commence en pause
         this.dom.icons.play.classList.remove('diaporama-hidden');
         this.dom.icons.pause.classList.add('diaporama-hidden');
         
         this.showSlide(0);
+        // Pas de startAutoSlide() ici
     }
 
     /**
@@ -313,6 +324,7 @@ class Diaporama {
         this.state.slideData = previousState.slideData;
         this.state.fixedData = previousState.fixedData;
         
+        // Restauration de l'état de lecture
         this.state.isPlaying = previousState.isPlaying;
 
         this.renderDOM(); 
@@ -493,42 +505,23 @@ class Diaporama {
             this.dom.btns.fs.classList.toggle('active', isFs);
         });
 
-        // --- GESTION CLICK DESCRIPTION : IMPORTANT ---
         this.dom.slides.forEach(slide => {
             const details = slide.querySelector('.diaporama-details');
             if (details) {
-                // 1. Capture position de départ
-                let startX = 0;
-                let startY = 0;
-                
                 details.addEventListener('pointerdown', (e) => {
                     e.stopPropagation();
-                    startX = e.clientX;
-                    startY = e.clientY;
                 });
                 
-                // 2. Vérification au relâchement
                 details.addEventListener('pointerup', (e) => {
                     if (e.target.tagName === 'A' || e.target.classList.contains('diaporama-link')) return;
-                    e.stopPropagation();
-                    
-                    // Calcul de la distance parcourue
-                    const dist = Math.sqrt(
-                        Math.pow(e.clientX - startX, 2) + 
-                        Math.pow(e.clientY - startY, 2)
-                    );
-                    
-                    // Si on a bougé de moins de 10px, c'est un clic, pas un scroll
-                    if (dist < 10) {
-                        if (this.state.isDetailsOpen) {
-                            this.toggleDetails();
-                        }
+                    e.stopPropagation(); 
+                    if (this.state.isDetailsOpen) {
+                        this.toggleDetails();
                     }
                 });
             }
         });
 
-        // --- GESTION TACTILE AVANCÉE SUR L'IMAGE (Scrubbing + Clics) ---
         let startX = 0;
         let isDrag = false;
         
@@ -582,7 +575,6 @@ class Diaporama {
 
         this.dom.slider.addEventListener('pointermove', (e) => {
             if (!this.state.isScrubbing) return;
-            // Seuil augmenté à 10px pour tolérance mouvement doigt
             if (Math.abs(e.clientX - startX) > 10) {
                 isDrag = true;
                 handleScrubbing(e.clientX, this.dom.slider);
@@ -597,9 +589,8 @@ class Diaporama {
                 const now = new Date().getTime();
                 const timeDiff = now - this.state.lastTapTime;
                 
-                // Délai de 250ms pour double tap
                 if (timeDiff < 250 && timeDiff > 0) {
-                    // --- DOUBLE CLIC ---
+                    // DOUBLE CLIC
                     if (this.state.tapTimeout) clearTimeout(this.state.tapTimeout);
                     
                     this.state.isPlaying = false;
@@ -610,18 +601,15 @@ class Diaporama {
                     if (!this.state.isDetailsOpen) {
                         this.toggleDetails(); 
                     }
-                    this.state.lastTapTime = 0; // Reset pour éviter triple clic
+                    this.state.lastTapTime = 0;
                 } else {
-                    // --- CLIC SIMPLE (Différé) ---
+                    // CLIC SIMPLE
                     this.state.lastTapTime = now;
                     this.state.tapTimeout = setTimeout(() => {
-                        // Si le timer n'a pas été annulé par un double tap
                         if (!this.state.isDetailsOpen) {
                             if (this.state.isPlaying) {
-                                // En lecture : on met en pause
                                 this.togglePlay();
                             } else {
-                                // [MODIFIÉ] En pause : on avance d'une image et on relance
                                 this.showSlide(this.state.currentIndex + 1);
                                 this.state.isPlaying = true;
                                 this.dom.icons.play.classList.add('diaporama-hidden');
