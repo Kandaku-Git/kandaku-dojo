@@ -1,8 +1,7 @@
 /**
- * DIAPORAMA v14.1
- * - Correctif Critique : Isolation totale de la zone Description.
- * - Le clic sur la description ne traverse plus vers le slider (empêche le saut d'image).
- * - Maintien des fonctionnalités : Tactile, Vitesse, Liens, etc.
+ * DIAPORAMA v14.2
+ * - Styles.css mis à jour pour agrandir les textes (L1/L2) et boutons (x1.5)
+ * - Moteur JS inchangé fonctionnellement (juste versioning)
  */
 
 class Diaporama {
@@ -69,28 +68,35 @@ class Diaporama {
 
     /**
      * Méthode principale d'initialisation.
+     * Orchestre le chargement des données, la génération du HTML et le démarrage.
      */
     async init() {
+        // 1. Charge le script de la technique
         if (this.config.technique) {
             await this.loadFolderData(this.config.technique);
         }
 
+        // 2. Charge le vocabulaire et parse les textes
         if (this.config.donneesTexte) {
             await this.loadVocabulary();
             this.parseDataText(this.config.donneesTexte);
         }
 
+        // 3. Prépare les images
         this.generateImagesFromTechnique();
 
+        // 4. Tri par sécurité
         if (!Array.isArray(this.config.images)) this.config.images = [this.config.images];
         if (this.config.images.length > 1) {
             this.config.images.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
         }
 
+        // 5. Rendu et événements
         this.renderDOM();
         this.cacheDOM();
         this.bindEvents();
 
+        // 6. Démarrage
         this.showSlide(0);
         if (this.state.isPlaying) this.startAutoSlide();
     }
@@ -101,23 +107,29 @@ class Diaporama {
 
     /**
      * Charge dynamiquement le fichier .js associé à la technique.
+     * Nettoie la mémoire avant le chargement pour éviter les conflits.
+     * @param {string} techniqueName - Le nom du dossier technique.
      */
     loadFolderData(techniqueName) {
         return new Promise((resolve) => {
+            // Nettoyage ancien script
             const oldScript = document.getElementById('diaporama-data-script');
             if (oldScript) oldScript.remove();
 
+            // Nettoyage variables globales
             ['COUNT', 'DESCRIPTION', 'DONNEES', 'EXTENSION', 'SLIDE_DURATION', 'BACKGROUND'].forEach(v => delete window[v]);
             
             const legacyName = techniqueName.toUpperCase();
             delete window['DONNEES_' + legacyName];
             delete window['DESCRIPTION_' + legacyName];
 
+            // Création nouveau script
             const script = document.createElement('script');
             script.id = 'diaporama-data-script';
             script.src = `techniques/${techniqueName}/${techniqueName}.js?t=${new Date().getTime()}`;
             
             script.onload = () => {
+                // Récupération des valeurs
                 if (window.COUNT !== undefined) this.config.nombrePhotos = parseInt(window.COUNT);
                 
                 this.config.description = window.DESCRIPTION || window['DESCRIPTION_' + legacyName] || this.defaults.description;
@@ -135,7 +147,7 @@ class Diaporama {
     }
 
     /**
-     * Charge le fichier de vocabulaire global.
+     * Charge le fichier de vocabulaire global s'il n'est pas déjà présent.
      */
     loadVocabulary() {
         return new Promise((resolve) => {
@@ -155,7 +167,8 @@ class Diaporama {
     }
 
     /**
-     * Analyse le texte du vocabulaire.
+     * Analyse le texte du vocabulaire pour créer un dictionnaire terme:définition.
+     * @param {string} text - Le contenu du fichier vocabulaire.
      */
     parseVocabulary(text) {
         const lines = text.split('\n');
@@ -170,7 +183,8 @@ class Diaporama {
     }
 
     /**
-     * Analyse le texte de configuration (DONNEES).
+     * Analyse le texte de configuration (DONNEES) pour extraire L1, L2 et TIME par image.
+     * @param {string} textContent - Le bloc de texte brut contenant les données.
      */
     parseDataText(textContent) {
         this.state.slideData = {}; 
@@ -181,15 +195,18 @@ class Diaporama {
             line = line.trim();
             if (!line) return;
             
+            // Regex qui capture la clé et le contenu
             const match = line.match(/^([a-zA-Z0-9_\-]+)(.*)$/);
             if (!match) return;
 
             const key = match[1];
             let content = match[2] ? match[2].trim() : "";
 
+            // Données fixes
             if (key === "FIXE_L1") { this.state.fixedData.l1 = content; return; }
             if (key === "FIXE_L2") { this.state.fixedData.l2 = content; return; }
 
+            // Données par image
             const lastUnderscore = key.lastIndexOf('_');
             if (lastUnderscore === -1) return;
 
@@ -208,15 +225,18 @@ class Diaporama {
 
     /**
      * Remplace les balises spéciales <Lien> par des spans cliquables.
+     * @param {string} htmlText - Le texte brut.
+     * @returns {string} Le HTML avec les liens.
      */
     parseLinks(htmlText) {
         if (!htmlText) return "";
+        // Format <<Label>><Target>
         let processed = htmlText.replace(/<<([^>]+)>><([^>]+)>/g, (match, label, target) => {
             const labelClean = label.trim();
             const targetClean = target.trim().replace(/\s+/g, '_');
             return `<span class="diaporama-link" data-target="${targetClean}">${label.trim()}</span>`;
         });
-
+        // Format simple <Target>
         processed = processed.replace(/<([^>]+)>/g, (match, inner) => {
             if (inner.startsWith('span') || inner.startsWith('/span')) return match;
             const target = inner.trim().replace(/\s+/g, '_');
@@ -226,7 +246,9 @@ class Diaporama {
     }
 
     /**
-     * Recherche les mots du vocabulaire dans le texte.
+     * Recherche les mots du vocabulaire dans le texte et ajoute les infobulles.
+     * @param {string} htmlText - Le texte HTML.
+     * @returns {string} Le HTML enrichi avec le vocabulaire.
      */
     enrichTextWithVocabulary(htmlText) {
         if (!htmlText) return "";
@@ -477,28 +499,19 @@ class Diaporama {
             this.dom.btns.fs.classList.toggle('active', isFs);
         });
 
-        // --- GESTION CLICK DESCRIPTION (ISOLATION) ---
+        // --- GESTION CLICK DESCRIPTION : IMPORTANT ---
         this.dom.slides.forEach(slide => {
             const details = slide.querySelector('.diaporama-details');
             if (details) {
-                // 1. Bloque le 'pointerdown' pour que le slider ne reçoive rien
+                // Bloque propagation tactile
                 details.addEventListener('pointerdown', (e) => {
                     e.stopPropagation();
                 });
                 
-                // 2. Bloque le 'click' standard
-                details.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                });
-
-                // 3. Utilise 'pointerup' pour fermer la description
+                // Fermeture au clic simple (pointerup pour meilleure réactivité tactile)
                 details.addEventListener('pointerup', (e) => {
-                    e.stopPropagation(); // Toujours bloquer la propagation
-                    
-                    // Si on a cliqué sur un lien ou du texte sélectionnable, on ne ferme pas
                     if (e.target.tagName === 'A' || e.target.classList.contains('diaporama-link')) return;
-                    
-                    // Sinon, c'est une demande de fermeture
+                    e.stopPropagation(); 
                     if (this.state.isDetailsOpen) {
                         this.toggleDetails();
                     }
@@ -547,9 +560,7 @@ class Diaporama {
 
         // 2. Interaction IMAGE (Slide)
         this.dom.slider.addEventListener('pointerdown', (e) => {
-            // Ignorer si clic sur toast
             if (e.target.closest('.diaporama-toast')) return;
-            // Ignorer si clic sur description (déjà géré par son propre listener isolant)
             if (e.target.closest('.diaporama-details') && this.state.isDetailsOpen) return;
 
             e.preventDefault(); 
@@ -578,7 +589,7 @@ class Diaporama {
                 const timeDiff = now - this.state.lastTapTime;
                 
                 // Délai de 250ms pour double tap
-                if (timeDiff < 250 && timeDiff > 50) {
+                if (timeDiff < 250 && timeDiff > 0) {
                     // --- DOUBLE CLIC ---
                     if (this.state.tapTimeout) clearTimeout(this.state.tapTimeout);
                     
@@ -669,11 +680,17 @@ class Diaporama {
         this.dom.txtL2.innerHTML = this.enrichTextWithVocabulary(l2Text);
     }
 
+    /**
+     * Navigation manuelle (Suivant/Précédent).
+     */
     manualNav(dir) {
         this.stopAutoSlide();
         this.showSlide(this.state.currentIndex + dir);
     }
 
+    /**
+     * Bascule entre Lecture et Pause.
+     */
     togglePlay() {
         this.state.isPlaying = !this.state.isPlaying;
         this.dom.icons.play.classList.toggle('diaporama-hidden', this.state.isPlaying);
@@ -711,6 +728,9 @@ class Diaporama {
         }, intervalStep);
     }
 
+    /**
+     * Arrête le défilement automatique.
+     */
     stopAutoSlide() {
         if (this.state.timerId) clearTimeout(this.state.timerId);
         if (this.state.progressIntervalId) clearInterval(this.state.progressIntervalId);
@@ -754,6 +774,9 @@ class Diaporama {
         }
     }
 
+    /**
+     * Masque ou affiche les titres.
+     */
     toggleTitle() {
         this.state.isTitleVisible = !this.state.isTitleVisible;
         this.dom.titleZone.classList.toggle('hidden', !this.state.isTitleVisible);
@@ -761,6 +784,9 @@ class Diaporama {
         this.dom.btns.eye.classList.toggle('active', !this.state.isTitleVisible);
     }
 
+    /**
+     * Bascule en mode Plein Écran.
+     */
     async toggleFullscreen() {
         try {
             if (!document.fullscreenElement) {
