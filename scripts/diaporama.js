@@ -1,7 +1,8 @@
 /**
- * DIAPORAMA v14.2
- * - Styles.css mis à jour pour agrandir les textes (L1/L2) et boutons (x1.5)
- * - Moteur JS inchangé fonctionnellement (juste versioning)
+ * DIAPORAMA v15.0
+ * - Inversion du pipeline de rendu : Vocabulaire AVANT Liens
+ * - Protection stricte des contenus entre <...> et "..." lors de la recherche de vocabulaire
+ * - Maintient toutes les fonctionnalités précédentes (Tactile, Fullscreen, etc.)
  */
 
 class Diaporama {
@@ -68,35 +69,28 @@ class Diaporama {
 
     /**
      * Méthode principale d'initialisation.
-     * Orchestre le chargement des données, la génération du HTML et le démarrage.
      */
     async init() {
-        // 1. Charge le script de la technique
         if (this.config.technique) {
             await this.loadFolderData(this.config.technique);
         }
 
-        // 2. Charge le vocabulaire et parse les textes
         if (this.config.donneesTexte) {
             await this.loadVocabulary();
             this.parseDataText(this.config.donneesTexte);
         }
 
-        // 3. Prépare les images
         this.generateImagesFromTechnique();
 
-        // 4. Tri par sécurité
         if (!Array.isArray(this.config.images)) this.config.images = [this.config.images];
         if (this.config.images.length > 1) {
             this.config.images.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
         }
 
-        // 5. Rendu et événements
         this.renderDOM();
         this.cacheDOM();
         this.bindEvents();
 
-        // 6. Démarrage
         this.showSlide(0);
         if (this.state.isPlaying) this.startAutoSlide();
     }
@@ -107,29 +101,23 @@ class Diaporama {
 
     /**
      * Charge dynamiquement le fichier .js associé à la technique.
-     * Nettoie la mémoire avant le chargement pour éviter les conflits.
-     * @param {string} techniqueName - Le nom du dossier technique.
      */
     loadFolderData(techniqueName) {
         return new Promise((resolve) => {
-            // Nettoyage ancien script
             const oldScript = document.getElementById('diaporama-data-script');
             if (oldScript) oldScript.remove();
 
-            // Nettoyage variables globales
             ['COUNT', 'DESCRIPTION', 'DONNEES', 'EXTENSION', 'SLIDE_DURATION', 'BACKGROUND'].forEach(v => delete window[v]);
             
             const legacyName = techniqueName.toUpperCase();
             delete window['DONNEES_' + legacyName];
             delete window['DESCRIPTION_' + legacyName];
 
-            // Création nouveau script
             const script = document.createElement('script');
             script.id = 'diaporama-data-script';
             script.src = `techniques/${techniqueName}/${techniqueName}.js?t=${new Date().getTime()}`;
             
             script.onload = () => {
-                // Récupération des valeurs
                 if (window.COUNT !== undefined) this.config.nombrePhotos = parseInt(window.COUNT);
                 
                 this.config.description = window.DESCRIPTION || window['DESCRIPTION_' + legacyName] || this.defaults.description;
@@ -147,7 +135,7 @@ class Diaporama {
     }
 
     /**
-     * Charge le fichier de vocabulaire global s'il n'est pas déjà présent.
+     * Charge le fichier de vocabulaire.
      */
     loadVocabulary() {
         return new Promise((resolve) => {
@@ -156,7 +144,7 @@ class Diaporama {
                 resolve(); return;
             }
             const script = document.createElement('script');
-            script.src = "vocabulaire.js";
+            script.src = "scripts/vocabulaire.js";
             script.onload = () => {
                 if (window.VOCABULAIRE_TECHNIQUE) this.parseVocabulary(window.VOCABULAIRE_TECHNIQUE);
                 resolve();
@@ -167,8 +155,7 @@ class Diaporama {
     }
 
     /**
-     * Analyse le texte du vocabulaire pour créer un dictionnaire terme:définition.
-     * @param {string} text - Le contenu du fichier vocabulaire.
+     * Analyse le texte du vocabulaire.
      */
     parseVocabulary(text) {
         const lines = text.split('\n');
@@ -183,8 +170,7 @@ class Diaporama {
     }
 
     /**
-     * Analyse le texte de configuration (DONNEES) pour extraire L1, L2 et TIME par image.
-     * @param {string} textContent - Le bloc de texte brut contenant les données.
+     * Analyse le texte de configuration (DONNEES).
      */
     parseDataText(textContent) {
         this.state.slideData = {}; 
@@ -195,18 +181,15 @@ class Diaporama {
             line = line.trim();
             if (!line) return;
             
-            // Regex qui capture la clé et le contenu
             const match = line.match(/^([a-zA-Z0-9_\-]+)(.*)$/);
             if (!match) return;
 
             const key = match[1];
             let content = match[2] ? match[2].trim() : "";
 
-            // Données fixes
             if (key === "FIXE_L1") { this.state.fixedData.l1 = content; return; }
             if (key === "FIXE_L2") { this.state.fixedData.l2 = content; return; }
 
-            // Données par image
             const lastUnderscore = key.lastIndexOf('_');
             if (lastUnderscore === -1) return;
 
@@ -223,10 +206,37 @@ class Diaporama {
         });
     }
 
+    // --- TRAITEMENT DU TEXTE (Correctif Protection) ---
+
     /**
-     * Remplace les balises spéciales <Lien> par des spans cliquables.
-     * @param {string} htmlText - Le texte brut.
-     * @returns {string} Le HTML avec les liens.
+     * Ajoute les infobulles de vocabulaire.
+     * PROTEGE le contenu entre < > et entre " " pour ne pas le modifier.
+     */
+    enrichTextWithVocabulary(htmlText) {
+        if (!htmlText) return "";
+        let enriched = htmlText;
+        
+        Object.keys(this.state.vocabulary).forEach(term => {
+            // Regex complexe :
+            // Groupe 1 (Ignoré) : <[^>]+> (Balises/Liens) OU "[^"]+" (Attributs/Quotes)
+            // Groupe 2 (Ciblé) : Le mot recherché (\bterm\b)
+            const regex = new RegExp(`(<[^>]+>|"[^"]+")|(\\b${term}\\b)`, 'gi');
+            
+            enriched = enriched.replace(regex, (match, protectedPart, foundTerm) => {
+                // Si ça matche le groupe 1 (protection), on renvoie tel quel
+                if (protectedPart) return protectedPart;
+                
+                // Sinon (groupe 2), on enrichit
+                const def = this.state.vocabulary[term].replace(/"/g, '&quot;');
+                return `<span class="diaporama-vocab" data-def="${def}">${foundTerm}</span>`;
+            });
+        });
+        return enriched;
+    }
+
+    /**
+     * Transforme les balises <Lien> en HTML.
+     * Doit être exécuté APRÈS l'enrichissement pour ne pas casser le HTML généré.
      */
     parseLinks(htmlText) {
         if (!htmlText) return "";
@@ -238,29 +248,12 @@ class Diaporama {
         });
         // Format simple <Target>
         processed = processed.replace(/<([^>]+)>/g, (match, inner) => {
+            // On ignore les balises HTML déjà présentes (ex: celles du vocabulaire)
             if (inner.startsWith('span') || inner.startsWith('/span')) return match;
             const target = inner.trim().replace(/\s+/g, '_');
             return `<span class="diaporama-link" data-target="${target}">${inner.trim()}</span>`;
         });
         return processed;
-    }
-
-    /**
-     * Recherche les mots du vocabulaire dans le texte et ajoute les infobulles.
-     * @param {string} htmlText - Le texte HTML.
-     * @returns {string} Le HTML enrichi avec le vocabulaire.
-     */
-    enrichTextWithVocabulary(htmlText) {
-        if (!htmlText) return "";
-        let enriched = htmlText;
-        Object.keys(this.state.vocabulary).forEach(term => {
-            const regex = new RegExp(`\\b(${term})\\b`, 'gi');
-            enriched = enriched.replace(regex, (match) => {
-                const def = this.state.vocabulary[term].replace(/"/g, '&quot;');
-                return `<span class="diaporama-vocab" data-def="${def}">${match}</span>`;
-            });
-        });
-        return enriched;
     }
 
     /**
@@ -499,16 +492,13 @@ class Diaporama {
             this.dom.btns.fs.classList.toggle('active', isFs);
         });
 
-        // --- GESTION CLICK DESCRIPTION : IMPORTANT ---
         this.dom.slides.forEach(slide => {
             const details = slide.querySelector('.diaporama-details');
             if (details) {
-                // Bloque propagation tactile
                 details.addEventListener('pointerdown', (e) => {
                     e.stopPropagation();
                 });
                 
-                // Fermeture au clic simple (pointerup pour meilleure réactivité tactile)
                 details.addEventListener('pointerup', (e) => {
                     if (e.target.tagName === 'A' || e.target.classList.contains('diaporama-link')) return;
                     e.stopPropagation(); 
@@ -519,7 +509,6 @@ class Diaporama {
             }
         });
 
-        // --- GESTION TACTILE AVANCÉE SUR L'IMAGE (Scrubbing + Clics) ---
         let startX = 0;
         let isDrag = false;
         
@@ -573,7 +562,6 @@ class Diaporama {
 
         this.dom.slider.addEventListener('pointermove', (e) => {
             if (!this.state.isScrubbing) return;
-            // Seuil augmenté à 10px pour tolérance mouvement doigt
             if (Math.abs(e.clientX - startX) > 10) {
                 isDrag = true;
                 handleScrubbing(e.clientX, this.dom.slider);
@@ -588,7 +576,6 @@ class Diaporama {
                 const now = new Date().getTime();
                 const timeDiff = now - this.state.lastTapTime;
                 
-                // Délai de 250ms pour double tap
                 if (timeDiff < 250 && timeDiff > 0) {
                     // --- DOUBLE CLIC ---
                     if (this.state.tapTimeout) clearTimeout(this.state.tapTimeout);
@@ -601,19 +588,15 @@ class Diaporama {
                     if (!this.state.isDetailsOpen) {
                         this.toggleDetails(); 
                     }
-                    this.state.lastTapTime = 0; // Reset pour éviter triple clic
+                    this.state.lastTapTime = 0;
                 } else {
-                    // --- CLIC SIMPLE (Différé) ---
-                    // On attend pour voir si un 2ème clic arrive
+                    // --- CLIC SIMPLE ---
                     this.state.lastTapTime = now;
                     this.state.tapTimeout = setTimeout(() => {
-                        // Si le timer n'a pas été annulé par un double tap
                         if (!this.state.isDetailsOpen) {
                             if (this.state.isPlaying) {
-                                // En lecture : on met en pause
                                 this.togglePlay();
                             } else {
-                                // [MODIFIÉ] En pause : on avance d'une image et on relance
                                 this.showSlide(this.state.currentIndex + 1);
                                 this.state.isPlaying = true;
                                 this.dom.icons.play.classList.add('diaporama-hidden');
@@ -657,6 +640,7 @@ class Diaporama {
 
     /**
      * Met à jour les textes L1/L2.
+     * Applique l'enrichissement de texte (vocabulaire) PUIS la création des liens.
      */
     updateDataText() {
         const fullPath = this.config.images[this.state.currentIndex]; 
@@ -673,24 +657,20 @@ class Diaporama {
             if (this.state.slideData[filename].l2) l2Text = this.state.slideData[filename].l2;
         }
 
-        l1Text = this.parseLinks(l1Text);
-        l2Text = this.parseLinks(l2Text);
+        // 1. Enrichissement du vocabulaire (sur le texte brut)
+        l1Text = this.enrichTextWithVocabulary(l1Text);
+        l2Text = this.enrichTextWithVocabulary(l2Text);
 
-        this.dom.txtL1.innerHTML = this.enrichTextWithVocabulary(l1Text);
-        this.dom.txtL2.innerHTML = this.enrichTextWithVocabulary(l2Text);
+        // 2. Création des liens (ajoute des balises par dessus)
+        this.dom.txtL1.innerHTML = this.parseLinks(l1Text);
+        this.dom.txtL2.innerHTML = this.parseLinks(l2Text);
     }
 
-    /**
-     * Navigation manuelle (Suivant/Précédent).
-     */
     manualNav(dir) {
         this.stopAutoSlide();
         this.showSlide(this.state.currentIndex + dir);
     }
 
-    /**
-     * Bascule entre Lecture et Pause.
-     */
     togglePlay() {
         this.state.isPlaying = !this.state.isPlaying;
         this.dom.icons.play.classList.toggle('diaporama-hidden', this.state.isPlaying);
@@ -728,9 +708,6 @@ class Diaporama {
         }, intervalStep);
     }
 
-    /**
-     * Arrête le défilement automatique.
-     */
     stopAutoSlide() {
         if (this.state.timerId) clearTimeout(this.state.timerId);
         if (this.state.progressIntervalId) clearInterval(this.state.progressIntervalId);
