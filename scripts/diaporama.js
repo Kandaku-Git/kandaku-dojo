@@ -1,8 +1,9 @@
 /**
- * DIAPORAMA v15.0
- * - Inversion du pipeline de rendu : Vocabulaire AVANT Liens
- * - Protection stricte des contenus entre <...> et "..." lors de la recherche de vocabulaire
- * - Maintient toutes les fonctionnalités précédentes (Tactile, Fullscreen, etc.)
+ * DIAPORAMA v16.0
+ * - Modification Navigation Liens :
+ * 1. Arrêt du diaporama courant avant transition.
+ * 2. Sauvegarde de l'état "Pause" dans l'historique.
+ * 3. Le sous-diaporama s'ouvre en mode "Pause" (pas de démarrage auto).
  */
 
 class Diaporama {
@@ -144,7 +145,7 @@ class Diaporama {
                 resolve(); return;
             }
             const script = document.createElement('script');
-            script.src = "scripts/vocabulaire.js";
+            script.src = "vocabulaire.js";
             script.onload = () => {
                 if (window.VOCABULAIRE_TECHNIQUE) this.parseVocabulary(window.VOCABULAIRE_TECHNIQUE);
                 resolve();
@@ -206,27 +207,20 @@ class Diaporama {
         });
     }
 
-    // --- TRAITEMENT DU TEXTE (Correctif Protection) ---
+    // --- TRAITEMENT DU TEXTE ---
 
     /**
      * Ajoute les infobulles de vocabulaire.
-     * PROTEGE le contenu entre < > et entre " " pour ne pas le modifier.
      */
     enrichTextWithVocabulary(htmlText) {
         if (!htmlText) return "";
         let enriched = htmlText;
         
         Object.keys(this.state.vocabulary).forEach(term => {
-            // Regex complexe :
-            // Groupe 1 (Ignoré) : <[^>]+> (Balises/Liens) OU "[^"]+" (Attributs/Quotes)
-            // Groupe 2 (Ciblé) : Le mot recherché (\bterm\b)
             const regex = new RegExp(`(<[^>]+>|"[^"]+")|(\\b${term}\\b)`, 'gi');
             
             enriched = enriched.replace(regex, (match, protectedPart, foundTerm) => {
-                // Si ça matche le groupe 1 (protection), on renvoie tel quel
                 if (protectedPart) return protectedPart;
-                
-                // Sinon (groupe 2), on enrichit
                 const def = this.state.vocabulary[term].replace(/"/g, '&quot;');
                 return `<span class="diaporama-vocab" data-def="${def}">${foundTerm}</span>`;
             });
@@ -236,19 +230,15 @@ class Diaporama {
 
     /**
      * Transforme les balises <Lien> en HTML.
-     * Doit être exécuté APRÈS l'enrichissement pour ne pas casser le HTML généré.
      */
     parseLinks(htmlText) {
         if (!htmlText) return "";
-        // Format <<Label>><Target>
         let processed = htmlText.replace(/<<([^>]+)>><([^>]+)>/g, (match, label, target) => {
             const labelClean = label.trim();
             const targetClean = target.trim().replace(/\s+/g, '_');
             return `<span class="diaporama-link" data-target="${targetClean}">${label.trim()}</span>`;
         });
-        // Format simple <Target>
         processed = processed.replace(/<([^>]+)>/g, (match, inner) => {
-            // On ignore les balises HTML déjà présentes (ex: celles du vocabulaire)
             if (inner.startsWith('span') || inner.startsWith('/span')) return match;
             const target = inner.trim().replace(/\s+/g, '_');
             return `<span class="diaporama-link" data-target="${target}">${inner.trim()}</span>`;
@@ -273,17 +263,25 @@ class Diaporama {
 
     /**
      * Charge un nouveau diaporama (via un lien).
+     * Arrête le diaporama actuel, sauvegarde l'état PAUSE et ouvre le nouveau en PAUSE.
      */
     async loadSubDiaporama(targetTechnique) {
+        // 1. Arrêt immédiat et mise en pause
+        this.stopAutoSlide();
+        this.state.isPlaying = false; // On force l'état pause
+        this.dom.icons.play.classList.remove('diaporama-hidden');
+        this.dom.icons.pause.classList.add('diaporama-hidden');
+
+        // 2. Sauvegarde de l'état (qui est maintenant Pause)
         this.state.history.push({
             config: { ...this.config }, 
             index: this.state.currentIndex,
             slideData: { ...this.state.slideData },
-            fixedData: { ...this.state.fixedData } 
+            fixedData: { ...this.state.fixedData },
+            isPlaying: false // On mémorise Pause
         });
 
-        this.stopAutoSlide();
-
+        // 3. Reset config
         this.config.technique = targetTechnique;
         this.config.nombrePhotos = this.defaults.nombrePhotos;
         this.config.extension = this.defaults.extension; 
@@ -304,8 +302,14 @@ class Diaporama {
         this.cacheDOM();
         this.bindEvents();
         this.dom.btns.back.classList.remove('diaporama-hidden');
+        
+        // 4. Initialisation en mode Pause
+        this.state.isPlaying = false; // Le nouveau commence en pause
+        this.dom.icons.play.classList.remove('diaporama-hidden');
+        this.dom.icons.pause.classList.add('diaporama-hidden');
+        
         this.showSlide(0);
-        this.startAutoSlide();
+        // Pas de startAutoSlide() ici
     }
 
     /**
@@ -320,13 +324,23 @@ class Diaporama {
         this.state.slideData = previousState.slideData;
         this.state.fixedData = previousState.fixedData;
         
+        // Restauration de l'état de lecture
+        this.state.isPlaying = previousState.isPlaying;
+
         this.renderDOM(); 
         this.cacheDOM();
         this.bindEvents();
         
         this.dom.btns.back.classList.toggle('diaporama-hidden', this.state.history.length === 0);
+        
         this.showSlide(previousState.index);
-        this.startAutoSlide();
+
+        if (this.state.isPlaying) {
+            this.startAutoSlide();
+        } else {
+            this.dom.icons.play.classList.remove('diaporama-hidden');
+            this.dom.icons.pause.classList.add('diaporama-hidden');
+        }
     }
 
     /**
@@ -486,7 +500,6 @@ class Diaporama {
             }
         });
 
-        // Gestion de l'état actif du bouton plein écran
         document.addEventListener('fullscreenchange', () => {
             const isFs = document.fullscreenElement !== null;
             this.dom.btns.fs.classList.toggle('active', isFs);
@@ -577,7 +590,7 @@ class Diaporama {
                 const timeDiff = now - this.state.lastTapTime;
                 
                 if (timeDiff < 250 && timeDiff > 0) {
-                    // --- DOUBLE CLIC ---
+                    // DOUBLE CLIC
                     if (this.state.tapTimeout) clearTimeout(this.state.tapTimeout);
                     
                     this.state.isPlaying = false;
@@ -590,7 +603,7 @@ class Diaporama {
                     }
                     this.state.lastTapTime = 0;
                 } else {
-                    // --- CLIC SIMPLE ---
+                    // CLIC SIMPLE
                     this.state.lastTapTime = now;
                     this.state.tapTimeout = setTimeout(() => {
                         if (!this.state.isDetailsOpen) {
@@ -640,7 +653,6 @@ class Diaporama {
 
     /**
      * Met à jour les textes L1/L2.
-     * Applique l'enrichissement de texte (vocabulaire) PUIS la création des liens.
      */
     updateDataText() {
         const fullPath = this.config.images[this.state.currentIndex]; 
@@ -657,13 +669,11 @@ class Diaporama {
             if (this.state.slideData[filename].l2) l2Text = this.state.slideData[filename].l2;
         }
 
-        // 1. Enrichissement du vocabulaire (sur le texte brut)
-        l1Text = this.enrichTextWithVocabulary(l1Text);
-        l2Text = this.enrichTextWithVocabulary(l2Text);
+        l1Text = this.parseLinks(l1Text);
+        l2Text = this.parseLinks(l2Text);
 
-        // 2. Création des liens (ajoute des balises par dessus)
-        this.dom.txtL1.innerHTML = this.parseLinks(l1Text);
-        this.dom.txtL2.innerHTML = this.parseLinks(l2Text);
+        this.dom.txtL1.innerHTML = this.enrichTextWithVocabulary(l1Text);
+        this.dom.txtL2.innerHTML = this.enrichTextWithVocabulary(l2Text);
     }
 
     manualNav(dir) {
