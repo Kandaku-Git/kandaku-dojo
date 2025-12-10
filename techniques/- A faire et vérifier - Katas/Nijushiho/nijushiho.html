@@ -1,0 +1,261 @@
+<html>
+<head>
+<!-- Apparence de la page -->
+<link href="../apparence_page.css" rel="stylesheet" type="text/css">
+<!-- Apparence de la page (fin) -->
+
+<!-- Diaporama -->
+<script language="JavaScript" src="a_diaporama.js"></script>
+<!-- Diaporama (fin) -->
+
+<!--Definition kata-->
+<script language="JavaScript" src="a_vocabulaire.js"></script>
+<!--Definition kata (fin) -->
+
+    <title>Techniques</title>
+
+<!--Sous menu -->
+	<script type="text/javascript" src="../sous_menu_ie5.js"></script>
+    <script type="text/javascript" src="../sous_menu_dropdown.js"></script>
+<!--Sous menu (fin) -->
+
+
+<script language="JavaScript">
+function affiche(technique,nbre_diapo) {
+nom.length = 0;
+numero = 1;
+if (nbre_diapo == 1) {
+	nom[1] = "../images/"+technique+".gif";
+	document.image.src = nom[1];
+	}
+ else {
+	for (i=1; i < nbre_diapo+1 ; i++)
+		nom[i] = "../images/"+technique+"/"+technique+"_"+i+".gif";
+	numero = nbre_diapo;
+	auto();
+	}
+}
+</script>
+
+</head>
+
+<body bgcolor="white" background="../images/fond_page.gif">
+<!-- Entete -->
+<script language="JavaScript" src="a_entete.js"></script>
+<!-- Entete (fin) -->
+
+<br>
+
+<!-- Les Menus -->
+<script language="JavaScript" src="a_menu_principal.js"></script>
+<script language="JavaScript" src="a_menu_techniques.js"></script>
+<!-- Les Menus (fin) -->
+
+<br>
+
+<table width="100%">
+<tr>
+<!-- Diaporama -->
+	<td width="35%" align="center" valign="middle">
+		<!-- Affichage -->
+		<table border="2" align="center" bgcolor="#FFFFFF">
+		  <tr><td>
+<img src="../images/accueil.gif" width="350" height="350" name="image">
+	  </td></tr></table>
+	  <script language="JavaScript">
+
+	  <!-- *** 1 *** Paramètres pour le kata: nom,nbre d'images --->
+	   affiche("nijushiho",55); 
+
+	   </script>
+		<!-- Controleur -->
+		<div align="center"> 
+<br>
+<img name="precedent" onClick="precedente();" src="../images/precedent.gif" onMouseOver="document.precedent.src='../images/precedent_over.gif'" onMouseOut="document.precedent.src='../images/precedent.gif'">
+&nbsp;&nbsp;&nbsp; 
+<img src="../images/play-pause.gif" name="automat" width="42px" height="17px" onClick="auto();" onMouseOver="document.automat.src='../images/play-pause_over.gif'" onMouseOut="document.automat.src='../images/play-pause.gif'">
+&nbsp;&nbsp;&nbsp; 
+<img src="../images/suivant.gif" name="suivant" onClick="suivante()" onMouseOver="document.suivant.src='../images/suivant_over.gif'" onMouseOut="document.suivant.src='../images/suivant.gif'">
+		</div>
+	</td>
+<!-- Diaporama (fin) -->
+
+	<td align="center" valign="middle">
+
+<!-- Description de la technique -->
+<table width="100%" border=1 bgcolor="#FFFFFF" class="detail_kata_technique">
+  <tr>
+    <td colspan=2 align="center" class="kata_titre">NIJUSHIHO</td>
+  </tr>
+  <tr>
+    <td width=50% class="kata_technique">
+    <font size=2>
+1 -<a class=kata_technique href="d_yoi.html" onClick="newWindow(250,550)" target="coverwindow"> Yoi </a>  ... (
+<a class=kata_position href="d_hachijidachi.html" onClick="newWindow(250,630)" target="coverwindow">Hachiji Dachi </a> )<br>
+2 -<a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a>
+<a class=kata_technique href=# onClick="definition('nagashi')"> Nagashi </a>
+<a class=kata_technique href="d_teosaeuke.html" onClick="newWindow(350,740)" target="coverwindow"> Osae Uke </a>  ... ( 
+<a class=kata_position href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_position href="d_kokutsudachi.html" onClick="newWindow(310,720)" target="coverwindow"> Ko Kutsu Dachi </a> )<br>
+3 -<a class=kata_technique href=# onClick="definition('gyaku')"> Gyaku </a>
+<a class=kata_technique href="d_zuki.html" onClick="newWindow(550,850)" target="coverwindow"> Zuki </a>  ... ( 
+<a class=kata_position href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_position href="d_kokutsudachi.html" onClick="newWindow(310,720)" target="coverwindow"> Ko Kutsu Dachi </a> )<br>
+4 -<a class=kata_technique href="d_ ageempiuchi.html " onClick="newWindow(270,740)" target="coverwindow"> Age Empi Uchi </a>  ... (
+<a class=kata_position href="d_hachijidachi.html" onClick="newWindow(250,630)" target="coverwindow">Hachiji Dachi </a> )<br>
+5 -<a class=kata_technique href="d_ryogoshigamae.html" onClick="newWindow(255,720)" target="coverwindow"> Ryo Goshi Gamae </a>  ... ( 
+<a class=kata_position href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_position href="d_sanchindachi.html" onClick="newWindow(250,720)" target="coverwindow"> Sanchin Dachi </a> ) <br>
+6 -<a class=kata_technique href="d_awasezuki.html" onClick="newWindow(550,850)" target="coverwindow"> Awase Zuki </a>  ... ( 
+<a class=kata_position href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_position href="d_sanchindachi.html" onClick="newWindow(250,720)" target="coverwindow"> Sanchin Dachi </a> ) <br>
+7 -<a class=kata_technique href="d_sotouke.html" onClick="newWindow(320,740)" target="coverwindow"> Hasami Uke </a>  ... (
+<a class=kata_position href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_position href="d_hizagamae.html" onClick="newWindow(255,720)" target="coverwindow"> Hiza Gamae </a>) <br>
+8 -<a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a>
+<a class=kata_technique href="d_kakiwakeuke.html" onClick="newWindow(300,795)" target="coverwindow"> Kakiwake Uke </a>  ... ( 
+<a class=kata_position href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_position href="d_zenkutsudachi.html" onClick="newWindow(330,720)" target="coverwindow"> Zen Kutsu Dachi </a> )<br>
+9 -<a class=kata_technique href="d_jodanageuke.html" onClick="newWindow(360,795)" target="coverwindow"> Jodan Age Uke </a>  ... (
+<a class=kata_position href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_position href="d_zenkutsudachi.html" onClick="newWindow(330,720)" target="coverwindow"> Zen Kutsu Dachi </a> )<br>
+10-<a class=kata_technique href=# onClick="definition('jodan')"> Jodan </a>
+<a class=kata_technique href="d_ageempiuchi.html" onClick="newWindow(340,800)" target="coverwindow"> Tate Empi Uchi </a>  ... (
+<a class=kata_position href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_position href="d_zenkutsudachi.html" onClick="newWindow(330,720)" target="coverwindow"> Zen Kutsu Dachi </a> )<br>
+11-<a class=kata_technique href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a>
+<a class=kata_technique href=# onClick="definition('yoko')"> Yoko </a>
+ <a class=kata_technique href="d_tateshutouke.html" onClick="newWindow(330,800)" target="coverwindow"> Tate Shuto Uke </a>  ... (
+<a class=kata_position href="d_kibadachi.html" onClick="newWindow(250,720)" target="coverwindow"> Kiba Dachi </a> )<br>
+12-<a class=kata_technique href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a>
+<a class=kata_technique href="d_yokogeri.html" onClick="newWindow(350,650)" target="coverwindow"> Yoko Geri Kekomi </a> 
+... (<span class="kata_position">------------------</span>) <br>
+13-<a class=kata_technique href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_technique href="d_kagizuki.html" onClick="newWindow(300,800)" target="coverwindow"> Sokumen Zuki </a>  ... ( 
+<a class=kata_position href="d_kibadachi.html" onClick="newWindow(250,720)" target="coverwindow"> Kiba Dachi </a> )<br>
+14-<a class=kata_technique href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a>
+<a class=kata_technique href=# onClick="definition('yoko')"> Yoko </a>
+ <a class=kata_technique href="d_tateshutouke.html" onClick="newWindow(330,800)" target="coverwindow"> Tate Shuto Uke </a>  ... (
+<a class=kata_position href="d_kibadachi.html" onClick="newWindow(250,720)" target="coverwindow"> Kiba Dachi </a> )<br>
+15-<a class=kata_technique href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a>
+<a class=kata_technique href="d_yokogeri.html" onClick="newWindow(350,650)" target="coverwindow"> Yoko Geri Kekomi </a> 
+... (<span class="kata_position">------------------</span>) <br>
+16-<a class=kata_technique href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_technique href="d_kagizuki.html" onClick="newWindow(300,800)" target="coverwindow"> Sokumen Zuki </a>  ... ( 
+<a class=kata_position href="d_kibadachi.html" onClick="newWindow(250,720)" target="coverwindow"> Kiba Dachi </a> )<br>
+17-<a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a>
+<a class=kata_technique href=# onClick="definition('gyaku')"> Gyaku </a>
+<a class=kata_technique href="d_kakeuke.html" onClick="newWindow(300,795)" target="coverwindow"> Kake Uke </a>  ... ( 
+<a class=kata_position href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_position href="d_zenkutsudachi.html" onClick="newWindow(330,720)" target="coverwindow"> Zen Kutsu Dachi </a> )<br>
+17’-<a class=kata_technique href=# onClick="definition('jodan')"> Jodan </a>
+<a class=kata_technique href=# onClick="definition('gyaku')"> Gyaku </a>
+<a class=kata_technique href="d_teisho.html" onClick="newWindow(291,740)" target="coverwindow"> Teisho Uchi</a>  <br>
+---- <a class=kata_technique href=# onClick="definition('gedan')"> Gedan </a>
+<a class=kata_technique href="d_teisho.html" onClick="newWindow(291,740)" target="coverwindow"> Teisho Uchi</a>  ... (
+<a class=kata_position href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_position href="d_zenkutsudachi.html" onClick="newWindow(330,720)" target="coverwindow"> Zen Kutsu Dachi </a> )<br>
+18-<a class=kata_technique href=# onClick="definition('jodan')"> Jodan </a>
+<a class=kata_technique href=# onClick="definition('gyaku')"> Gyaku </a>
+<a class=kata_technique href="d_haito.html" onClick="newWindow(310,740)" target="coverwindow"> Haito Uchi</a> <br>
+---- <a class=kata_technique href=# onClick="definition('ushiro')"> Ushiro </a>
+<a class=kata_technique href=# onClick="definition('gedan')"> Gedan </a>
+<a class=kata_technique href="d_haito.html" onClick="newWindow(310,740)" target="coverwindow"> Haito Uke</a>  ... (
+<a class=kata_position href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_position href="d_zenkutsudachi.html" onClick="newWindow(330,720)" target="coverwindow"> Zen Kutsu Dachi </a> )<br>
+19-<a class=kata_technique href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_technique href=# onClick="definition('age')"> Age </a>
+<a class=kata_technique href="d_haishu.html" onClick="newWindow(320,740)" target="coverwindow"> Haishu Uchi </a>  ... (
+<a class=kata_position href="d_heisokudachi.html" onClick="newWindow(250,520)" target="coverwindow"> Heisoku Dachi </a> )<br>
+    </font>	</td>
+    <td class="kata_technique">
+	<font size=2>
+20- Saisie des deux mains (niveau gedan)  ... (
+<a class=kata_position href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_position href="d_zenkutsudachi.html" onClick="newWindow(330,720)" target="coverwindow"> Zen Kutsu Dachi </a> )<br>
+21-<a class=kata_technique href=# onClick="definition('juji')"> Juji </a>
+<a class=kata_technique href="d_zuki.html" onClick="newWindow(550,850)" target="coverwindow"> Zuki </a>  ... ( 
+<a class=kata_position href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_position href="d_fudodachi.html" onClick="newWindow(250,630)" target="coverwindow">Fudo Dachi </a> )<br>
+22-<a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a>
+<a class=kata_technique href="d_haishu.html" onClick="newWindow(320,740)" target="coverwindow"> Haishu Uke </a>  ... (
+<a class=kata_position href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_position href="d_kokutsudachi.html" onClick="newWindow(310,720)" target="coverwindow"> Ko Kutsu Dachi </a> )<br>
+23-<a class=kata_technique href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_technique href=# onClick="definition('jodan')"> Jodan </a>
+<a class=kata_technique href="d_ageempiuchi.html" onClick="newWindow(340,800)" target="coverwindow"> Tate Empi Uchi </a>  ... (
+<a class=kata_position href="d_kibadachi.html" onClick="newWindow(250,720)" target="coverwindow"> Kiba Dachi </a> )<br>
+24-<a class=kata_technique href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a>
+<a class=kata_technique href="d_zuki.html" onClick="newWindow(550,850)" target="coverwindow"> Zuki </a> <br> 
+---- <a class=kata_technique href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_technique href=# onClick="definition('jodan')"> Jodan </a>
+<a class=kata_technique href="d_sotouke.html" onClick="newWindow(443,810)" target="coverwindow"> Soto Uke </a>  ... (
+<a class=kata_position href="d_kibadachi.html" onClick="newWindow(250,720)" target="coverwindow"> Kiba Dachi </a> )<br>
+25-<a class=kata_technique href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_technique href="d_gedanbarai.html" onClick="newWindow(310,740)" target="coverwindow"> Gedan Barai </a>  ... ( 
+<a class=kata_position href="d_kibadachi.html" onClick="newWindow(250,720)" target="coverwindow"> Kiba Dachi </a> )<br>
+26-<a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a>
+<a class=kata_technique href="d_haishu.html" onClick="newWindow(320,740)" target="coverwindow"> Haishu Uke </a>  ... (
+<a class=kata_position href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_position href="d_kokutsudachi.html" onClick="newWindow(310,720)" target="coverwindow"> Ko Kutsu Dachi </a> )<br>
+27-<a class=kata_technique href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a>
+<a class=kata_technique href="d_maeempiuchi.html" onClick="newWindow(370,800)" target="coverwindow"> Mae Empi Uchi </a>  ... (
+<a class=kata_position href="d_kibadachi.html" onClick="newWindow(250,720)" target="coverwindow"> Kiba Dachi </a> )<br>
+28-<a class=kata_technique href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_technique href="d_gedanbarai.html" onClick="newWindow(310,740)" target="coverwindow"> Gedan Barai </a>  ... ( 
+<a class=kata_position href="d_kibadachi.html" onClick="newWindow(250,720)" target="coverwindow"> Kiba Dachi </a> )<br>
+29-<a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a>
+<a class=kata_technique href="d_haishu.html" onClick="newWindow(320,740)" target="coverwindow"> Haishu Uke </a>  ... (
+<a class=kata_position href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_position href="d_kokutsudachi.html" onClick="newWindow(310,720)" target="coverwindow"> Ko Kutsu Dachi </a> )<br>
+30-<a class=kata_technique href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_technique href=# onClick="definition('jodan')"> Jodan </a>
+<a class=kata_technique href="d_ageempiuchi.html" onClick="newWindow(340,800)" target="coverwindow"> Tate Empi Uchi </a>  ... (
+<a class=kata_position href="d_kibadachi.html" onClick="newWindow(250,720)" target="coverwindow"> Kiba Dachi </a> )<br>
+31-<a class=kata_technique href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a>
+<a class=kata_technique href="d_zuki.html" onClick="newWindow(550,850)" target="coverwindow"> Zuki </a> <br> 
+---- <a class=kata_technique href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_technique href=# onClick="definition('jodan')"> Jodan </a>
+<a class=kata_technique href="d_sotouke.html" onClick="newWindow(443,810)" target="coverwindow"> Soto Uke </a>  ... (
+<a class=kata_position href="d_kibadachi.html" onClick="newWindow(250,720)" target="coverwindow"> Kiba Dachi </a> )<br>
+32-<a class=kata_technique href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_technique href="d_gedanbarai.html" onClick="newWindow(310,740)" target="coverwindow"> Gedan Barai </a>  ... ( 
+<a class=kata_position href="d_kibadachi.html" onClick="newWindow(250,720)" target="coverwindow"> Kiba Dachi </a> )<br>
+33-<a class=kata_technique href="d_ryogoshigamae.html" onClick="newWindow(255,720)" target="coverwindow"> Ryo Goshi Gamae </a>  ... ( 
+<a class=kata_position href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_position href="d_sanchindachi.html" onClick="newWindow(250,720)" target="coverwindow"> Sanchin Dachi </a> ) <br>
+34-<a class=kata_technique href="d_awasezuki.html" onClick="newWindow(550,850)" target="coverwindow"> Awase Zuki </a>  ... ( 
+<a class=kata_position href=# onClick="definition('hidari')"> Hidari </a>
+<a class=kata_position href="d_sanchindachi.html" onClick="newWindow(250,720)" target="coverwindow"> Sanchin Dachi </a> ) <br>
+35-<a class=kata_technique href=# onClick="definition('mawashi')"> Mawashi </a>
+<a class=kata_technique href=# onClick="definition('tekubi')"> Tekubi </a>
+<a class=kata_technique href="d_kakeuke.html" onClick="newWindow(300,795)" target="coverwindow"> Kake Uke </a>  ... ( 
+<a class=kata_position href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_position href="d_sanchindachi.html" onClick="newWindow(250,720)" target="coverwindow"> Sanchin Dachi </a> ) <br>
+36-<a class=kata_technique href=# onClick="definition('gyaku')"> Gyaku </a>
+<a class=kata_technique href=# onClick="definition('jodan')"> Jodan </a>
+<a class=kata_technique href="d_teisho.html" onClick="newWindow(291,740)" target="coverwindow"> Teisho Uchi</a> <br>
+---- <a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a>
+<a class=kata_technique href="d_teisho.html" onClick="newWindow(291,740)" target="coverwindow"> Teisho Uchi</a>  ... (
+<a class=kata_position href=# onClick="definition('migi')"> Migi </a>
+<a class=kata_position href="d_sanchindachi.html" onClick="newWindow(250,720)" target="coverwindow"> Sanchin Dachi </a> ) <br>
+37-<a class=kata_technique href="d_yoi.html" onClick="newWindow(250,550)" target="coverwindow"> Yoi </a>  ... (
+<a class=kata_position href="d_hachijidachi.html" onClick="newWindow(250,630)" target="coverwindow">Hachiji Dachi </a> )<br>
+    </font>
+	</td>
+  </tr>
+</table>
+<!-- Description de la technique (fin) -->
+	
+	</td>
+</tr>
+</table>
+</body>
+</html>
