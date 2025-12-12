@@ -1,4 +1,4 @@
-/* VERSION 14.2 - Agrandissement x1.5 */
+/* CSS pour diaporama V1 */
 /* IMPORTATION DE LA POLICE LOBSTER */
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
@@ -18,8 +18,8 @@ body, html {
 
 #mon-conteneur {
     width: 100%;
-    height: 100vh; /* Fallback */
-    height: 100dvh; /* Hauteur dynamique mobile */
+    height: 100vh; 
+    height: 100dvh; 
 }
 
 /* --- STYLES DIAPORAMA --- */
@@ -27,7 +27,6 @@ body, html {
     width: min(100vw, 100vh); 
     height: min(100vw, 100vh); 
     aspect-ratio: 1/1; 
-    
     position: relative; 
     display: flex; 
     flex-direction: column; 
@@ -41,7 +40,10 @@ body, html {
     margin: auto; 
 }
 
-:fullscreen .diaporama-wrapper { 
+/* MODIFICATION ICI : Sélecteurs Fullscreen Robustes */
+:fullscreen .diaporama-wrapper,
+.diaporama-fullscreen-active .diaporama-wrapper,
+#mon-conteneur:fullscreen .diaporama-wrapper { 
     width: 100vh; 
     height: 100vh; 
     max-width: 100vw; 
@@ -49,7 +51,7 @@ body, html {
     color: #fff; 
 }
 
-/* --- ADAPTATION MOBILE (Responsive) --- */
+/* --- ADAPTATION MOBILE --- */
 @media (max-width: 768px) or (orientation: portrait) {
     .diaporama-wrapper {
         width: 100% !important;
@@ -66,15 +68,14 @@ body, html {
         padding: 0.5rem 0 !important;
     }
 
-    /* Contrôles compacts MAIS agrandis x1.5 pour mobile aussi */
-    .diaporama-btn svg { width: 30px !important; height: 30px !important; } /* Était 20px */
-    .diaporama-icon-text { font-size: 1.5rem !important; } /* Était 1rem */
-    .diaporama-toolbar { 
-        padding: 0 0.5rem 0.5rem 0.5rem !important; 
-        padding-bottom: env(safe-area-inset-bottom, 0.5rem) !important; 
+    .diaporama-btn svg { width: 30px !important; height: 30px !important; }
+    .diaporama-icon-text { font-size: 1.5rem !important; }
+    
+    .diaporama-controls { 
+        padding-bottom: env(safe-area-inset-bottom, 10px) !important; 
     }
     .diaporama-btn { padding: 8px !important; } 
-    .diaporama-btn-group { gap: 0.2rem !important; }
+    .diaporama-btn-group { gap: 0.5rem !important; }
     
     .diaporama-description-content { padding: 0 5% !important; font-size: 1.1rem !important; }
 }
@@ -129,25 +130,43 @@ body, html {
     opacity: 0; 
     transform: translateY(20px); 
     transition: all 0.4s ease; 
-    z-index: 20; 
-    pointer-events: none; 
+    z-index: 50; 
+    pointer-events: auto; 
     color: white; 
 }
 
+/* Conteneur de texte scrollable */
 .diaporama-description-content {
     width: 100%;
     max-width: 100%;
-    padding: 0 20%; 
+    padding: 0 10%; 
     text-align: left !important;
     box-sizing: border-box;
-    font-size: 1.3rem; /* Agrandissement du texte de description aussi */
+    font-size: 1.3rem;
     line-height: 1.6;
+    max-height: 80vh; 
+    overflow-y: auto; 
+    touch-action: pan-y; 
+    user-select: text; 
+    -webkit-user-select: text;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255,255,255,0.5) transparent;
+}
+
+.diaporama-description-content::-webkit-scrollbar {
+    width: 6px;
+}
+.diaporama-description-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+.diaporama-description-content::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 10px;
 }
 
 .diaporama-details-active .diaporama-details { 
     opacity: 1; 
     transform: translateY(0); 
-    pointer-events: auto;
 }
 
 /* --- TITRE --- */
@@ -185,7 +204,7 @@ body, html {
     text-align: center; 
     transition: all 0.3s ease; 
     z-index: 30; 
-    min-height: 100px; /* Augmenté pour accueillir le texte plus grand */
+    min-height: 100px; 
     display: flex; 
     flex-direction: column; 
     justify-content: center; 
@@ -200,7 +219,6 @@ body, html {
     opacity: 0; 
 }
 
-/* L1 AGRANDI (1.2 -> 1.8rem) */
 .diaporama-text-l1 { 
     font-size: 1.8rem; 
     font-weight: bold; 
@@ -216,7 +234,6 @@ body, html {
     font-weight: 800; 
 }
 
-/* L2 AGRANDI (0.95 -> 1.45rem) */
 .diaporama-text-l2 { 
     font-size: 1.45rem; 
     color: #008000; 
@@ -239,14 +256,14 @@ body, html {
 /* --- TOAST --- */
 .diaporama-toast { 
     position: absolute; 
-    bottom: 90px; /* Remonté un peu car contrôles plus hauts */
+    bottom: 120px; 
     left: 50%; 
     transform: translateX(-50%) translateY(20px); 
     background: rgba(50, 50, 50, 0.95); 
     color: white; 
     padding: 12px 24px; 
     border-radius: 30px; 
-    font-size: 1.1rem; /* Agrandit aussi le toast */
+    font-size: 1.1rem; 
     opacity: 0; 
     transition: all 0.2s ease; 
     pointer-events: none; 
@@ -261,40 +278,35 @@ body, html {
     transform: translateX(-50%) translateY(0); 
 }
 
-/* --- CONTROLES --- */
+/* --- CONTROLES (STRUCTURE 2 LIGNES) --- */
 .diaporama-controls { 
     background: rgba(0, 0, 0, 0.9); 
     border-top: 1px solid rgba(255,255,255,0.1); 
-    padding-bottom: 5px; 
+    padding: 10px 0;
     z-index: 30; 
     flex-shrink: 0; 
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
-.diaporama-progress-bg { 
-    width: 100%; 
-    height: 4px; 
-    background: #374151; 
-    margin-bottom: 8px; 
+.diaporama-controls-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    width: 100%;
 }
 
-.diaporama-progress-bar { 
-    height: 100%; 
-    background: #3b82f6; 
-    width: 0%; 
-    transition: width 0.05s linear; 
-}
-
-.diaporama-toolbar { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    padding: 0 1rem 0.5rem 1rem; 
+.diaporama-controls-bottom {
+    width: 100%;
+    padding: 0 10px 10px 10px;
 }
 
 .diaporama-btn-group { 
     display: flex; 
     align-items: center; 
-    gap: 1.2rem; /* Espacement augmenté */
+    gap: 1.2rem; 
 }
 
 .diaporama-btn { 
@@ -302,7 +314,7 @@ body, html {
     border: none; 
     color: rgba(255,255,255,0.7); 
     cursor: pointer; 
-    padding: 8px; /* Zone de clic agrandie */
+    padding: 8px; 
     transition: color 0.2s; 
     display: flex; 
     align-items: center; 
@@ -313,14 +325,12 @@ body, html {
     color: white; 
 }
 
-/* BOUTON D AGRANDI (1.2 -> 1.8rem) */
 .diaporama-icon-text {
     font-weight: 800;
     font-size: 1.8rem;
     font-family: sans-serif;
 }
 
-/* ICONES SVG AGRANDIES (24px -> 36px) */
 .diaporama-btn svg { 
     width: 36px; 
     height: 36px; 
@@ -335,16 +345,14 @@ body, html {
     display: none !important; 
 }
 
-/* JAUGE */
+/* JAUGE STYLES */
 .diaporama-gauge-container {
-    flex: 1; 
-    min-width: 20px;
-    height: 16px; /* Jauge un peu plus épaisse pour suivre les boutons */
+    width: 100%; 
+    height: 16px; 
     background: rgba(255, 255, 255, 0.15); 
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 10px;
     overflow: hidden;
-    margin: 0 15px;
     backdrop-filter: blur(4px); 
     box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);
     cursor: pointer; 

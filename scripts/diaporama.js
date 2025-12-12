@@ -1,22 +1,14 @@
 /**
- * DIAPORAMA v16.0
- * - Modification Navigation Liens :
- * 1. Arrêt du diaporama courant avant transition.
- * 2. Sauvegarde de l'état "Pause" dans l'historique.
- * 3. Le sous-diaporama s'ouvre en mode "Pause" (pas de démarrage auto).
+ * DIAPORAMA V1
+ * Le diaporama est construit à partir de toutes les images (extension commune et prédéfinie) ET d'un fichier .js contenus dans techniques/<DOSSIER>
+ * où <DOSSIER> est passé en paramètre
  */
 
 class Diaporama {
-    /**
-     * Constructeur : Initialise le conteneur, la configuration et l'état initial.
-     * @param {string} containerId - L'ID de la div conteneur dans le HTML.
-     * @param {Object} config - Les options de configuration (technique, extension, etc.).
-     */
     constructor(containerId, config) {
         this.container = document.getElementById(containerId);
         if (!this.container) return;
 
-        // Configuration CSS du conteneur pour garantir l'affichage
         Object.assign(this.container.style, {
             display: "flex",
             justifyContent: "center",
@@ -29,13 +21,12 @@ class Diaporama {
             height: "100%" 
         });
 
-        // Paramètres par défaut
         this.defaults = {
             images: [],
             title: "",
             subtitle: "",
             description: "",
-            slideDuration: 700, // Vitesse par défaut
+            slideDuration: 700,
             autoPlay: true,
             background: 1, 
             technique: null,
@@ -46,7 +37,6 @@ class Diaporama {
 
         this.config = Object.assign({}, this.defaults, config);
 
-        // État interne du diaporama
         this.state = {
             currentIndex: 0,
             isPlaying: this.config.autoPlay,
@@ -60,18 +50,16 @@ class Diaporama {
             vocabulary: {},
             history: [],
             isScrubbing: false,
-            lastTapTime: 0,
-            tapTimeout: null,
-            wasPlayingBeforeDetails: false
+            wasPlayingBeforeDetails: false,
+            isSecondary: false 
         };
 
         this.init();
     }
 
-    /**
-     * Méthode principale d'initialisation.
-     */
     async init() {
+        this.state.isSecondary = false;
+
         if (this.config.technique) {
             await this.loadFolderData(this.config.technique);
         }
@@ -96,13 +84,8 @@ class Diaporama {
         if (this.state.isPlaying) this.startAutoSlide();
     }
 
-    // ==========================================
-    // SECTION : CHARGEMENT DES DONNÉES
-    // ==========================================
+    // --- DONNÉES ---
 
-    /**
-     * Charge dynamiquement le fichier .js associé à la technique.
-     */
     loadFolderData(techniqueName) {
         return new Promise((resolve) => {
             const oldScript = document.getElementById('diaporama-data-script');
@@ -135,9 +118,6 @@ class Diaporama {
         });
     }
 
-    /**
-     * Charge le fichier de vocabulaire.
-     */
     loadVocabulary() {
         return new Promise((resolve) => {
             if (window.VOCABULAIRE_TECHNIQUE) {
@@ -145,7 +125,7 @@ class Diaporama {
                 resolve(); return;
             }
             const script = document.createElement('script');
-            script.src = "vocabulaire.js";
+            script.src = "scripts/vocabulaire.js";
             script.onload = () => {
                 if (window.VOCABULAIRE_TECHNIQUE) this.parseVocabulary(window.VOCABULAIRE_TECHNIQUE);
                 resolve();
@@ -155,9 +135,6 @@ class Diaporama {
         });
     }
 
-    /**
-     * Analyse le texte du vocabulaire.
-     */
     parseVocabulary(text) {
         const lines = text.split('\n');
         lines.forEach(line => {
@@ -170,9 +147,6 @@ class Diaporama {
         });
     }
 
-    /**
-     * Analyse le texte de configuration (DONNEES).
-     */
     parseDataText(textContent) {
         this.state.slideData = {}; 
         this.state.fixedData = { l1: "", l2: "" }; 
@@ -207,20 +181,26 @@ class Diaporama {
         });
     }
 
-    // --- TRAITEMENT DU TEXTE ---
+    // --- TRAITEMENT DU TEXTE (Ordre Inversé) ---
 
     /**
-     * Ajoute les infobulles de vocabulaire.
+     * Enrichit le texte avec le vocabulaire.
+     * PROTEGE (ignore) le contenu entre < > et entre " ".
      */
     enrichTextWithVocabulary(htmlText) {
         if (!htmlText) return "";
         let enriched = htmlText;
-        
         Object.keys(this.state.vocabulary).forEach(term => {
+            // Regex : 
+            // Groupe 1 : (<[^>]+>|"[^"]+") -> Capture ce qui est entre <...> ou "..."
+            // Groupe 2 : (\b${term}\b) -> Capture le mot du vocabulaire
             const regex = new RegExp(`(<[^>]+>|"[^"]+")|(\\b${term}\\b)`, 'gi');
             
             enriched = enriched.replace(regex, (match, protectedPart, foundTerm) => {
+                // Si ça matche le groupe 1 (protection), on renvoie tel quel
                 if (protectedPart) return protectedPart;
+                
+                // Sinon c'est le terme, on l'enrichit
                 const def = this.state.vocabulary[term].replace(/"/g, '&quot;');
                 return `<span class="diaporama-vocab" data-def="${def}">${foundTerm}</span>`;
             });
@@ -230,6 +210,7 @@ class Diaporama {
 
     /**
      * Transforme les balises <Lien> en HTML.
+     * Appelé APRÈS l'enrichissement.
      */
     parseLinks(htmlText) {
         if (!htmlText) return "";
@@ -238,7 +219,9 @@ class Diaporama {
             const targetClean = target.trim().replace(/\s+/g, '_');
             return `<span class="diaporama-link" data-target="${targetClean}">${label.trim()}</span>`;
         });
+
         processed = processed.replace(/<([^>]+)>/g, (match, inner) => {
+            // Ignore les balises HTML déjà créées par l'enrichissement (span)
             if (inner.startsWith('span') || inner.startsWith('/span')) return match;
             const target = inner.trim().replace(/\s+/g, '_');
             return `<span class="diaporama-link" data-target="${target}">${inner.trim()}</span>`;
@@ -246,9 +229,6 @@ class Diaporama {
         return processed;
     }
 
-    /**
-     * Génère le tableau des chemins d'images.
-     */
     generateImagesFromTechnique() {
         const { technique, nombrePhotos, extension } = this.config;
         this.config.images = [];
@@ -257,31 +237,22 @@ class Diaporama {
         }
     }
 
-    // ==========================================
-    // SECTION : NAVIGATION & ACTIONS
-    // ==========================================
+    // --- NAVIGATION ---
 
-    /**
-     * Charge un nouveau diaporama (via un lien).
-     * Arrête le diaporama actuel, sauvegarde l'état PAUSE et ouvre le nouveau en PAUSE.
-     */
     async loadSubDiaporama(targetTechnique) {
-        // 1. Arrêt immédiat et mise en pause
-        this.stopAutoSlide();
-        this.state.isPlaying = false; // On force l'état pause
-        this.dom.icons.play.classList.remove('diaporama-hidden');
-        this.dom.icons.pause.classList.add('diaporama-hidden');
-
-        // 2. Sauvegarde de l'état (qui est maintenant Pause)
         this.state.history.push({
             config: { ...this.config }, 
             index: this.state.currentIndex,
             slideData: { ...this.state.slideData },
             fixedData: { ...this.state.fixedData },
-            isPlaying: false // On mémorise Pause
+            isSecondary: this.state.isSecondary
         });
 
-        // 3. Reset config
+        this.stopAutoSlide();
+        this.state.isPlaying = false; 
+        this.updatePlayPauseIcon();
+        this.state.isSecondary = true;
+
         this.config.technique = targetTechnique;
         this.config.nombrePhotos = this.defaults.nombrePhotos;
         this.config.extension = this.defaults.extension; 
@@ -303,18 +274,12 @@ class Diaporama {
         this.bindEvents();
         this.dom.btns.back.classList.remove('diaporama-hidden');
         
-        // 4. Initialisation en mode Pause
-        this.state.isPlaying = false; // Le nouveau commence en pause
-        this.dom.icons.play.classList.remove('diaporama-hidden');
-        this.dom.icons.pause.classList.add('diaporama-hidden');
-        
+        this.state.isPlaying = true;
+        this.updatePlayPauseIcon();
         this.showSlide(0);
-        // Pas de startAutoSlide() ici
+        this.startAutoSlide();
     }
 
-    /**
-     * Restaure le diaporama précédent.
-     */
     restoreParentDiaporama() {
         if (this.state.history.length === 0) return;
         const previousState = this.state.history.pop();
@@ -323,60 +288,52 @@ class Diaporama {
         this.config = previousState.config;
         this.state.slideData = previousState.slideData;
         this.state.fixedData = previousState.fixedData;
-        
-        // Restauration de l'état de lecture
-        this.state.isPlaying = previousState.isPlaying;
+        this.state.isSecondary = previousState.isSecondary;
+
+        if (this.state.history.length === 0) this.state.isSecondary = false;
 
         this.renderDOM(); 
         this.cacheDOM();
         this.bindEvents();
         
-        this.dom.btns.back.classList.toggle('diaporama-hidden', this.state.history.length === 0);
+        if (this.state.history.length === 0) {
+            this.dom.btns.back.classList.add('diaporama-hidden');
+        } else {
+            this.dom.btns.back.classList.remove('diaporama-hidden');
+        }
+
+        this.state.isPlaying = false;
+        this.updatePlayPauseIcon();
         
         this.showSlide(previousState.index);
-
-        if (this.state.isPlaying) {
-            this.startAutoSlide();
-        } else {
-            this.dom.icons.play.classList.remove('diaporama-hidden');
-            this.dom.icons.pause.classList.add('diaporama-hidden');
-        }
     }
 
-    /**
-     * Affiche un message "Toast".
-     */
     showToast(message) {
         const toast = document.getElementById('diaporama-toast');
         if (!toast) return;
-        
         if (toast.classList.contains('visible') && toast.textContent === message) {
             this.hideToast();
             return;
         }
-        
         toast.textContent = message;
         toast.classList.add('visible');
         if (this.toastTimeout) clearTimeout(this.toastTimeout);
         this.toastTimeout = setTimeout(() => { this.hideToast(); }, 4000);
     }
 
-    /**
-     * Masque le message Toast.
-     */
     hideToast() {
         const toast = document.getElementById('diaporama-toast');
         if (toast) toast.classList.remove('visible');
         if (this.toastTimeout) clearTimeout(this.toastTimeout);
     }
 
-    // ==========================================
-    // SECTION : RENDU ET ÉVÉNEMENTS
-    // ==========================================
+    updatePlayPauseIcon() {
+        this.dom.icons.play.classList.toggle('diaporama-hidden', this.state.isPlaying);
+        this.dom.icons.pause.classList.toggle('diaporama-hidden', !this.state.isPlaying);
+    }
 
-    /**
-     * Génère le HTML complet du diaporama.
-     */
+    // --- RENDU ---
+
     renderDOM() {
         let bgStyle = "";
         const bg = this.config.background;
@@ -419,26 +376,20 @@ class Diaporama {
                     <p id="diaporama-text-l2" class="diaporama-text-l2"></p>
                 </div>
                 <div class="diaporama-controls">
-                    <div class="diaporama-progress-bg"><div id="diaporama-progress" class="diaporama-progress-bar"></div></div>
-                    <div class="diaporama-toolbar">
+                    <div class="diaporama-controls-top">
                         <div class="diaporama-btn-group">
-                            <button class="diaporama-btn" id="diaporama-prev" title="Image Précédente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
-                            <button class="diaporama-btn" id="diaporama-play" title="Lecture / Pause">
+                            <button class="diaporama-btn" id="diaporama-prev" title="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
+                            <button class="diaporama-btn" id="diaporama-play" title="Lecture/Pause">
                                 <svg id="icon-play" class="${this.state.isPlaying ? 'diaporama-hidden' : ''}" viewBox="0 0 24 24" fill="currentColor" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
                                 <svg id="icon-pause" class="${this.state.isPlaying ? '' : 'diaporama-hidden'}" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
                             </button>
-                            <button class="diaporama-btn" id="diaporama-next" title="Image Suivante"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button>
-                        </div>
-                        
-                        <div id="diaporama-gauge-container" class="diaporama-gauge-container" title="Faire glisser pour défiler">
-                            <div id="diaporama-gauge-fill" class="diaporama-gauge-fill"></div>
+                            <button class="diaporama-btn" id="diaporama-next" title="Suivant"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></button>
                         </div>
 
                         <div class="diaporama-btn-group">
                             <button class="diaporama-btn ${backBtnClass}" id="diaporama-back" title="Retour au menu précédent">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/></svg>
                             </button>
-                            <!-- BOUTON D -->
                             <button class="diaporama-btn" id="diaporama-info" title="Afficher la description">
                                 <span class="diaporama-icon-text">D</span>
                             </button>
@@ -446,14 +397,17 @@ class Diaporama {
                             <button class="diaporama-btn" id="diaporama-fs" title="Plein Écran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
                         </div>
                     </div>
+
+                    <div class="diaporama-controls-bottom">
+                        <div id="diaporama-gauge-container" class="diaporama-gauge-container" title="Faire glisser pour défiler">
+                            <div id="diaporama-gauge-fill" class="diaporama-gauge-fill"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         `;
     }
 
-    /**
-     * Met en cache les éléments du DOM pour un accès rapide.
-     */
     cacheDOM() {
         const $ = (id) => document.getElementById(id);
         const $$ = (sel) => document.querySelectorAll(sel);
@@ -463,7 +417,6 @@ class Diaporama {
             slides: $$('.diaporama-slide'),
             gaugeContainer: $('diaporama-gauge-container'),
             gaugeFill: $('diaporama-gauge-fill'),
-            progress: $('diaporama-progress'),
             titleZone: $('diaporama-title-zone'),
             mainTitle: document.querySelector('.diaporama-main-title'),
             txtL1: $('diaporama-text-l1'),
@@ -476,14 +429,11 @@ class Diaporama {
         };
     }
 
-    /**
-     * Attache tous les événements (Souris, Tactile, Clics).
-     */
     bindEvents() {
         const b = this.dom.btns;
         b.next.onclick = () => this.manualNav(1);
         b.prev.onclick = () => this.manualNav(-1);
-        b.play.onclick = () => this.togglePlay();
+        b.play.onclick = () => { if (!this.state.isSecondary) this.togglePlay(); };
         b.info.onclick = () => this.toggleDetails();
         b.eye.onclick = () => this.toggleTitle();
         b.fs.onclick = () => this.toggleFullscreen();
@@ -514,7 +464,8 @@ class Diaporama {
                 
                 details.addEventListener('pointerup', (e) => {
                     if (e.target.tagName === 'A' || e.target.classList.contains('diaporama-link')) return;
-                    e.stopPropagation(); 
+                    e.stopPropagation();
+                    
                     if (this.state.isDetailsOpen) {
                         this.toggleDetails();
                     }
@@ -541,8 +492,8 @@ class Diaporama {
             }
         };
 
-        // 1. Interaction JAUGE
         this.dom.gaugeContainer.addEventListener('pointerdown', (e) => {
+            if (this.state.isSecondary) return;
             this.state.isScrubbing = true;
             this.stopAutoSlide();
             this.dom.gaugeContainer.setPointerCapture(e.pointerId);
@@ -555,15 +506,17 @@ class Diaporama {
         });
 
         this.dom.gaugeContainer.addEventListener('pointerup', (e) => {
-            this.state.isScrubbing = false;
-            this.dom.gaugeContainer.releasePointerCapture(e.pointerId);
-            if (this.state.isPlaying) this.startAutoSlide();
+            if (this.state.isScrubbing) {
+                this.state.isScrubbing = false;
+                this.dom.gaugeContainer.releasePointerCapture(e.pointerId);
+                if (this.state.isPlaying) this.startAutoSlide();
+            }
         });
 
-        // 2. Interaction IMAGE (Slide)
         this.dom.slider.addEventListener('pointerdown', (e) => {
             if (e.target.closest('.diaporama-toast')) return;
             if (e.target.closest('.diaporama-details') && this.state.isDetailsOpen) return;
+            if (this.state.isSecondary) return;
 
             e.preventDefault(); 
             this.state.isScrubbing = true; 
@@ -582,42 +535,14 @@ class Diaporama {
         });
 
         this.dom.slider.addEventListener('pointerup', (e) => {
+            if (!this.state.isScrubbing) return;
+
             this.state.isScrubbing = false;
             this.dom.slider.releasePointerCapture(e.pointerId);
 
             if (!isDrag) {
-                const now = new Date().getTime();
-                const timeDiff = now - this.state.lastTapTime;
-                
-                if (timeDiff < 250 && timeDiff > 0) {
-                    // DOUBLE CLIC
-                    if (this.state.tapTimeout) clearTimeout(this.state.tapTimeout);
-                    
-                    this.state.isPlaying = false;
-                    this.dom.icons.play.classList.remove('diaporama-hidden');
-                    this.dom.icons.pause.classList.add('diaporama-hidden');
-                    this.stopAutoSlide();
-
-                    if (!this.state.isDetailsOpen) {
-                        this.toggleDetails(); 
-                    }
-                    this.state.lastTapTime = 0;
-                } else {
-                    // CLIC SIMPLE
-                    this.state.lastTapTime = now;
-                    this.state.tapTimeout = setTimeout(() => {
-                        if (!this.state.isDetailsOpen) {
-                            if (this.state.isPlaying) {
-                                this.togglePlay();
-                            } else {
-                                this.showSlide(this.state.currentIndex + 1);
-                                this.state.isPlaying = true;
-                                this.dom.icons.play.classList.add('diaporama-hidden');
-                                this.dom.icons.pause.classList.remove('diaporama-hidden');
-                                this.startAutoSlide();
-                            }
-                        }
-                    }, 250); 
+                if (!this.state.isDetailsOpen) {
+                    this.togglePlay();
                 }
             } else {
                 if (this.state.isPlaying) this.startAutoSlide();
@@ -625,9 +550,6 @@ class Diaporama {
         });
     }
 
-    /**
-     * Affiche une diapositive spécifique.
-     */
     showSlide(index) {
         if(this.state.isDetailsOpen) this.toggleDetails();
         this.hideToast();
@@ -651,9 +573,7 @@ class Diaporama {
         }
     }
 
-    /**
-     * Met à jour les textes L1/L2.
-     */
+    // --- MODIFICATION ICI : Ordre Vocabulaire / Liens inversé ---
     updateDataText() {
         const fullPath = this.config.images[this.state.currentIndex]; 
         const filename = fullPath.split('/').pop().split('.')[0];
@@ -669,11 +589,16 @@ class Diaporama {
             if (this.state.slideData[filename].l2) l2Text = this.state.slideData[filename].l2;
         }
 
+        // 1. Enrichissement Vocabulaire (avec protection <...> et "...")
+        l1Text = this.enrichTextWithVocabulary(l1Text);
+        l2Text = this.enrichTextWithVocabulary(l2Text);
+
+        // 2. Création des Liens (par dessus)
         l1Text = this.parseLinks(l1Text);
         l2Text = this.parseLinks(l2Text);
 
-        this.dom.txtL1.innerHTML = this.enrichTextWithVocabulary(l1Text);
-        this.dom.txtL2.innerHTML = this.enrichTextWithVocabulary(l2Text);
+        this.dom.txtL1.innerHTML = l1Text;
+        this.dom.txtL2.innerHTML = l2Text;
     }
 
     manualNav(dir) {
@@ -682,15 +607,12 @@ class Diaporama {
     }
 
     togglePlay() {
+        if (this.state.isSecondary) return;
         this.state.isPlaying = !this.state.isPlaying;
-        this.dom.icons.play.classList.toggle('diaporama-hidden', this.state.isPlaying);
-        this.dom.icons.pause.classList.toggle('diaporama-hidden', !this.state.isPlaying);
+        this.updatePlayPauseIcon();
         this.state.isPlaying ? this.startAutoSlide() : this.stopAutoSlide();
     }
 
-    /**
-     * Lance le minuteur pour la diapositive suivante.
-     */
     startAutoSlide() {
         if (this.state.timerId) clearTimeout(this.state.timerId);
         if (this.state.progressIntervalId) clearInterval(this.state.progressIntervalId);
@@ -727,9 +649,6 @@ class Diaporama {
         this.dom.progress.style.width = '0%';
     }
 
-    /**
-     * Ouvre ou ferme la description détaillée.
-     */
     toggleDetails() {
         this.state.isDetailsOpen = !this.state.isDetailsOpen;
         const slide = this.dom.slides[this.state.currentIndex];
@@ -747,23 +666,19 @@ class Diaporama {
             
             this.state.wasPlayingBeforeDetails = this.state.isPlaying;
             this.state.isPlaying = false;
-            this.dom.icons.play.classList.remove('diaporama-hidden');
-            this.dom.icons.pause.classList.add('diaporama-hidden');
+            this.updatePlayPauseIcon();
             this.stopAutoSlide();
 
         } else {
             slide.classList.remove('diaporama-details-active');
             this.dom.btns.info.classList.remove('active');
             
-            if(this.state.wasPlayingBeforeDetails) {
+            if(!this.state.isSecondary && this.state.wasPlayingBeforeDetails) {
                 this.togglePlay(); 
             }
         }
     }
 
-    /**
-     * Masque ou affiche les titres.
-     */
     toggleTitle() {
         this.state.isTitleVisible = !this.state.isTitleVisible;
         this.dom.titleZone.classList.toggle('hidden', !this.state.isTitleVisible);
@@ -771,9 +686,6 @@ class Diaporama {
         this.dom.btns.eye.classList.toggle('active', !this.state.isTitleVisible);
     }
 
-    /**
-     * Bascule en mode Plein Écran.
-     */
     async toggleFullscreen() {
         try {
             if (!document.fullscreenElement) {
