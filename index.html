@@ -2,56 +2,139 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
     <title>Lecteur Diaporama</title>
+
+    <!-- Feuille de style externe -->
     <link rel="stylesheet" href="scripts/styles.css">
+
+    <style>
+        /* Mise en page : liste à gauche, diaporama à droite */
+        body {
+            margin: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: #111;
+            color: #f5f5f5;
+        }
+
+        .page-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .kata-list {
+            width: 220px;
+            padding: 1rem;
+            box-sizing: border-box;
+            background: #1f2933;          /* fond foncé colonne gauche */
+            color: #e5e7eb;               /* texte clair */
+        }
+
+        .kata-list h2 {
+            margin-top: 0;
+            font-size: 1.1rem;
+            color: #f9fafb;
+        }
+
+        .kata-list ul {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0;
+        }
+
+        .kata-list li {
+            margin-bottom: 0.4rem;
+        }
+
+        .kata-list a {
+            display: block;
+            padding: 0.5rem 0.4rem;
+            text-decoration: none;
+            color: #e5e7eb;              /* texte clair */
+            border-radius: 4px;
+            background-color: transparent;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+
+        .kata-list a:hover {
+            background-color: #374151;    /* survol plus clair */
+            color: #f9fafb;
+        }
+
+        .kata-list a:active {
+            background-color: #4b5563;    /* clic */
+            color: #ffffff;
+        }
+
+        #mon-conteneur-wrapper {
+            flex: 1;
+            padding: 1rem;
+            box-sizing: border-box;
+            background: #111827;          /* fond pour la zone diaporama */
+            color: #f9fafb;
+        }
+
+        #mon-conteneur {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
 </head>
 <body>
-    <!-- Conteneur principal -->
-    <div id="mon-conteneur"></div>
 
-    <!-- Moteur JS -->
-    <script src="scripts/diaporama.js"></script>
-   
-    <!-- Affichage direct -->
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Lancement avec un seul paramètre : le nom du dossier technique
-            // Tout le reste est chargé automatiquement
-            new Diaporama('mon-conteneur', {
-                technique: "Bassai_Dai"
+<div class="page-wrapper">
+    <!-- Colonne gauche : liste des kata -->
+    <nav class="kata-list">
+        <h2>Kata</h2>
+        <ul>
+            <li><a href="#" data-technique="Heian_Shodan">Heian Shodan</a></li>
+            <li><a href="#" data-technique="Heian_Nidan">Heian Nidan</a></li>
+            <li><a href="#" data-technique="Heian_Sandan">Heian Sandan</a></li>
+            <li><a href="#" data-technique="Heian_Godan">Heian Godan</a></li>
+            <li><a href="#" data-technique="Bassai_Dai">Bassai Dai</a></li>
+        </ul>
+    </nav>
+
+    <!-- Colonne droite : diaporama -->
+    <div id="mon-conteneur-wrapper">
+        <div id="mon-conteneur"></div>
+    </div>
+</div>
+
+<!-- Moteur JS -->
+<script src="scripts/diaporama.js"></script>
+
+<script>
+    let diaporama = null;
+
+    function chargerDiaporama(technique) {
+        // Détruit une éventuelle instance existante
+        if (diaporama && typeof diaporama.destroy === 'function') {
+            diaporama.destroy();
+        }
+
+        // Crée une nouvelle instance avec la technique demandée
+        diaporama = new Diaporama('mon-conteneur', {
+            technique: technique
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Diaporama par défaut
+        chargerDiaporama('Heian_Shodan');
+
+        // Gestion des clics sur la liste
+        document.querySelectorAll('.kata-list a').forEach(lien => {
+            lien.addEventListener('click', (event) => {
+                event.preventDefault();
+                const technique = lien.getAttribute('data-technique');
+                chargerDiaporama(technique);
             });
         });
-    </script>
-    <!-- FIN : Affichage direct -->
-    
-    <!-- Accès au diaporama depuis <a>
-    <a href="#" onclick="return loadDiaporama(event, 'Bassai_Dai')">Bassai Dai</a>
-    <a href="#" style="margin-left: 20px;" onclick="return loadDiaporama(event, 'Heisoku')">Heisoku</a>
+    });
+</script>
 
-    <div id="mon-conteneur"></div>
-
-    <script src="scripts/diaporama.js"></script>
-    <script>
-        let diaporama = null;
-
-        function loadDiaporama(event, technique) {
-            // Empêche le lien de faire son action par défaut (navigation)
-            event.preventDefault();
-
-            // Si une instance existe et possède une méthode destroy, on la détruit
-            if (diaporama && typeof diaporama.destroy === 'function') {
-                diaporama.destroy();
-            }
-
-            // Création d'une nouvelle instance avec la technique demandée
-            diaporama = new Diaporama('mon-conteneur', { technique: technique });
-
-            // Retourne false pour être sûr de bloquer toute action par défaut du lien
-            return false;
-        }
-    </script>
-    -->
 </body>
 </html>
-
