@@ -8,9 +8,9 @@ Site de karaté Shotokan
 ATTENTION : RECHARGER LES SCRIPTS DANS L'IA POUR CONTINUER (Retour arrière le 11/12/25 à 00:18)
 - [x] Agrandir les lignes du bas (L1, L2 et contrôle)
 - [x] Passage de technique à kata fait avancer d’une technique
-- [ ] Description ne défile pas (ex: Zuki)
-- [ ] Mettre le diapo en pause lors du clic sur un lien ou D de description
-- [ ] Ne pas chercher dans le vocabulaire si les mots sont entre <> ou «»
+- [x] Description ne défile pas (ex: Zuki)
+- [x] Mettre le diapo en pause lors du clic sur un lien
+- [x] Ne pas chercher dans le vocabulaire si les mots sont entre <> ou «»
 
 ## A faire
 - [x] Créer le dépôt kandaku-dojo
