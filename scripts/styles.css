@@ -220,7 +220,7 @@ body, html {
 }
 
 .diaporama-text-l1 { 
-    font-size: 1.8rem; 
+    font-size: 1.5rem; 
     font-weight: bold; 
     color: #0000FF; 
     margin: 0; 
@@ -236,9 +236,10 @@ body, html {
 
 .diaporama-text-l2 { 
     font-size: 1.45rem; 
+    font-weight: bold; 
     color: #008000; 
-    margin: 6px 0 0 0; 
-    font-style: italic; 
+    margin: 0; 
+    line-height: 1.2; 
 }
 
 .diaporama-text-l2 .diaporama-link { 
