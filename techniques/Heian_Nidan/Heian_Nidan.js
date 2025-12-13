@@ -36,13 +36,13 @@ Heian_Nidan_5_L1
 Heian_Nidan_5_L2 
 Heian_Nidan_6_L1 <Haiwan Sokumen Uke>
 Heian_Nidan_6_L2 Migi <Kokutsu Dachi>
-Heian_Nidan_7_L1 Gyaku <Ura Zuki> / <<Uchi Komi>><Soto Uke>
+Heian_Nidan_7_L1 Gyaku <<Ura Zuki>><Zuki> / <<Uchi Komi>><Soto Uke>
 Heian_Nidan_7_L2 Migi <Kokutsu Dachi>
 Heian_Nidan_8_L1 Chudan Yoko <Zuki>
 Heian_Nidan_8_L2 Migi <Kokutsu Dachi>
 Heian_Nidan_9_L1 
 Heian_Nidan_9_L2 
-Heian_Nidan_10_L1 Migi Jodan <<Uraken> Uchi>><Uraken> / Migi <Yoko Geri> Keage
+Heian_Nidan_10_L1 Migi Jodan <<Uraken Uchi>><Uraken> / Migi <Yoko Geri> Keage
 Heian_Nidan_10_L2 
 Heian_Nidan_11_L1 <Shuto Uke>
 Heian_Nidan_11_L2 Hidari <Kokutsu Dachi>
