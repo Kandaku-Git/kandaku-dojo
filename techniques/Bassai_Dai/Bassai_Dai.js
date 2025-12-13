@@ -73,7 +73,7 @@ Bassai_Dai_11_L2 Migi <Zenkutsu Dachi>
 Bassai_Dai_12_L1 Gyaku <Uchi Uke>
 Bassai_Dai_12_L2 Migi <Zenkutsu Dachi>
 
-Bassai_Dai_13_L1 <Koshi Kamae>
+Bassai_Dai_13_L1 <Morote Tate Kamae>
 Bassai_Dai_13_L2 <Hachiji Dachi>
 
 Bassai_Dai_14_L1 <Tate Shuto Uke>
@@ -110,7 +110,7 @@ Bassai_Dai_24_L2 Hidari <Zenkutsu Dachi>
 
 
 
-Bassai_Dai_26_L1 <Yoko Fumikomi>
+Bassai_Dai_26_L1 Yoko <Fumikomi>
 Bassai_Dai_26_L2 .
 
 Bassai_Dai_27_L1 <Shuto Uke>
@@ -122,13 +122,13 @@ Bassai_Dai_28_L2 Migi <Kokutsu Dachi>
 Bassai_Dai_29_L1 Morote <Jodan Age Uke>
 Bassai_Dai_29_L2 <Heisoku Dachi>
 
-Bassai_Dai_30_L1 Morote <<Tetsui Uchi>><Tetsui>
+Bassai_Dai_30_L1 Morote <Tetsui> Uchi
 Bassai_Dai_30_L2 Migi <Zenkutsu Dachi>
 
 Bassai_Dai_31_L1 <Maite Zuki>
 Bassai_Dai_31_L2 Migi <Zenkutsu Dachi>
 
-Bassai_Dai_32_L1 Hidari <<Teisho Uke>><Teisho> / Migi <<Ura Nukite>><Nukite>
+Bassai_Dai_32_L1 Hidari <Teisho> Uke / Migi Ura <Nukite>
 Bassai_Dai_32_L2 Hidari <Zenkutsu Dachi>
 
 Bassai_Dai_33_L1 Hidari Yoko <Gedan barai> / Migi Yoko <Uchi Uke>
@@ -136,10 +136,10 @@ Bassai_Dai_33_L2 <Heisoku Dachi>
 
 
 
-Bassai_Dai_35_L1 <Yoko Fumikomi> / Migi <Gedan Barai>
+Bassai_Dai_35_L1 Yoko <Fumikomi> / Migi <Gedan Barai>
 Bassai_Dai_35_L2 <Kiba Dachi>
 
-Bassai_Dai_36_L1 Migi Chudan <<Haishu Uke>><Haishu>
+Bassai_Dai_36_L1 Migi Chudan <Haishu> Uke
 Bassai_Dai_36_L2 <Kiba Dachi>
 
 Bassai_Dai_37_L1 <Mikazuki Geri>
