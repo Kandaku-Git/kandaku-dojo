@@ -1,111 +1,75 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta charset="UTF-8" />
+  <title>Kandaku Dojo - Karaté Shotokan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Lecteur Diaporama</title>
+  <!-- Polices Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Oswald:wght@400;600&display=swap" rel="stylesheet" />
 
-    <!-- Feuille de style externe -->
-    <link rel="stylesheet" href="scripts/styles.css">
-
-    <style>
-        /* Mise en page : liste à gauche, diaporama à droite */
-        body {
-            margin: 0;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background-color: #111;
-            color: #f5f5f5;
-        }
-
-        .page-wrapper {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .kata-list {
-            width: 220px;
-            padding: 1rem;
-            box-sizing: border-box;
-            background: #1f2933;          /* fond foncé colonne gauche */
-            color: #e5e7eb;               /* texte clair */
-        }
-
-        .kata-list h2 {
-            margin-top: 0;
-            font-size: 1.1rem;
-            color: #f9fafb;
-        }
-
-        .kata-list ul {
-            list-style: none;
-            padding: 0;
-            margin: 0.5rem 0 0;
-        }
-
-        .kata-list li {
-            margin-bottom: 0.4rem;
-        }
-
-        .kata-list a {
-            display: block;
-            padding: 0.5rem 0.4rem;
-            text-decoration: none;
-            color: #e5e7eb;              /* texte clair */
-            border-radius: 4px;
-            background-color: transparent;
-            transition: background-color 0.15s ease, color 0.15s ease;
-        }
-
-        .kata-list a:hover {
-            background-color: #374151;    /* survol plus clair */
-            color: #f9fafb;
-        }
-
-        .kata-list a:active {
-            background-color: #4b5563;    /* clic */
-            color: #ffffff;
-        }
-
-        #mon-conteneur-wrapper {
-            flex: 1;
-            padding: 1rem;
-            box-sizing: border-box;
-            background: #111827;          /* fond pour la zone diaporama */
-            color: #f9fafb;
-        }
-
-        #mon-conteneur {
-            width: 100%;
-            height: 100%;
-        }
-    </style>
+  <!-- Feuille de styles principale -->
+  <link rel="stylesheet" href="scripts/styles.css" />
 </head>
 <body>
+  <header class="site-header">
+    <div class="logo-title">
+      <div class="logo-shotokan" aria-hidden="true">
+        <svg viewBox="0 0 100 100" role="img">
+          <circle cx="50" cy="50" r="45" class="logo-circle"></circle>
+          <path d="M20,60 C30,30 70,30 80,60 70,55 60,70 50,60 40,70 30,55 20,60 Z" class="logo-tiger"></path>
+          <path d="M35,30 L65,30 L50,50 Z" class="logo-kanji"></path>
+        </svg>
+      </div>
+      <div class="title-block">
+        <h1>Kandaku Dojo</h1>
+        <p class="subtitle">A virtual Shotokan Experience</p>
+      </div>
+    </div>
 
-<div class="page-wrapper">
-    <!-- Colonne gauche : liste des kata -->
-    <nav class="kata-list">
-        <h2>Kata</h2>
-        <ul>
-            <li><a href="#" data-technique="Heian_Shodan">Heian Shodan</a></li>
-            <li><a href="#" data-technique="Heian_Nidan">Heian Nidan</a></li>
-            <li><a href="#" data-technique="Heian_Sandan">Heian Sandan</a></li>
-            <li><a href="#" data-technique="Heian_Yondan">Heian Yondan</a></li>
-            <li><a href="#" data-technique="Heian_Godan">Heian Godan</a></li>
-            <li><a href="#" data-technique="Bassai_Dai">Bassai Dai</a></li>
-        </ul>
+    <button class="header-menu-button" id="headerMenuButton" type="button" aria-label="Ouvrir le menu" aria-expanded="false">
+      MENU
+    </button>
+  </header>
+
+  <div class="app-layout">
+    <!-- MENU OFF-CANVAS (contenu généré en JS) -->
+    <nav id="sideMenu" class="side-menu" role="navigation" aria-label="Navigation principale">
+      <ul class="menu-root" id="menuRoot">
+        <!-- Contenu généré par scripts/contenu-menu.js + scripts/menu.js -->
+      </ul>
     </nav>
 
-    <!-- Colonne droite : diaporama -->
-    <div id="mon-conteneur-wrapper">
-        <div id="mon-conteneur"></div>
-    </div>
-</div>
+    <!-- CONTENU PRINCIPAL -->
+    <main class="main-content">
+      <!-- Section Accueil -->
+      <section id="section-accueil" class="content-section is-active" aria-labelledby="menu-accueil">
+        <h2>Bienvenue au dojo virtuel</h2>
+        <p>
+          Ce site propose une porte d’entrée simple pour découvrir et réviser les bases du karaté Shotokan : techniques, kata, vocabulaire et ressources utiles.
+        </p>
+        <p>
+          Utilise le bouton MENU pour afficher la navigation, ou commence directement par les techniques fondamentales.
+        </p>
+        <button class="btn-accent" data-section="techniques">
+          Explorer les techniques
+        </button>
+      </section>
 
-<!-- Moteur JS -->
-<script src="scripts/diaporama.js"></script>
+      <!-- Section Techniques -->
+      <section id="section-techniques" class="content-section" aria-label="Techniques">
+        <h2>Techniques principales</h2>
+        <p>
+          Sélectionne une technique dans le menu “Techniques” (via le bouton MENU) pour afficher le diaporama associé. Chaque technique peut être illustrée par plusieurs images et commentaires.
+        </p>
+
+        <div id="mon-conteneur-wrapper" class="diaporama-wrapper">
+          <div id="mon-conteneur" class="diaporama-container">
+            <!-- Contenu géré par diaporama.js -->
+
+
 
 <script>
     let diaporama = null;
@@ -137,6 +101,224 @@
     });
 </script>
 
+
+
+
+          </div>
+        </div>
+      </section>
+
+      <!-- Section Vidéos -->
+      <section id="section-videos" class="content-section" aria-label="Vidéos">
+        <h2>Vidéos pédagogiques</h2>
+        <div class="videos-controls">
+          <label for="videoCategorie">Filtrer par catégorie :</label>
+          <select id="videoCategorie">
+            <option value="Tous">Toutes</option>
+            <option value="Kata">Kata</option>
+            <option value="Kihon">Kihon</option>
+            <option value="Kumite">Kumite</option>
+            <option value="Autre">Autres</option>
+          </select>
+        </div>
+        <div id="videosGrid" class="videos-grid" aria-live="polite">
+          <!-- Cartes vidéo générées par JS (liens externes) -->
+        </div>
+      </section>
+
+      <!-- Section Lexique -->
+      <section id="section-lexique" class="content-section" aria-label="Lexique japonais">
+        <h2>Lexique de termes japonais</h2>
+        <div class="lexique-search">
+          <label for="lexiqueSearch">Rechercher un terme :</label>
+          <input type="text" id="lexiqueSearch" placeholder="Rechercher un terme…" aria-label="Rechercher un terme dans le lexique" />
+        </div>
+        <div id="lexiqueListe" class="lexique-list">
+          <!-- Liste de termes générée par JS -->
+        </div>
+      </section>
+
+      <!-- Section Histoire - Origines -->
+      <section id="section-histoire-origines" class="content-section" aria-label="Origines du karaté">
+        <h2>Origines du karaté Shotokan</h2>
+        <p>
+          Le karaté Shotokan trouve ses racines dans les arts martiaux d’Okinawa, influencés par différentes écoles de combat asiatiques.
+        </p>
+        <p>
+          L’objectif de cette discipline est de développer un corps fort, un esprit clair et un comportement respectueux, au-delà de la simple dimension sportive.
+        </p>
+      </section>
+
+      <!-- Section Histoire - Dojo -->
+      <section id="section-histoire-dojo" class="content-section" aria-label="Histoire du dojo">
+        <h2>Histoire du dojo virtuel</h2>
+        <p>
+          Ce dojo virtuel a été conçu comme un support d’étude pour les pratiquants souhaitant réviser en autonomie, en complément de l’enseignement en salle.
+        </p>
+        <p>
+          L’objectif est de proposer une interface claire, rapide et personnalisable pour retrouver l’essentiel des techniques et ressources.
+        </p>
+      </section>
+
+      <!-- Section Liens -->
+      <section id="section-liens" class="content-section" aria-label="Liens utiles">
+        <h2>Liens utiles</h2>
+        <p>
+          Quelques ressources externes pour approfondir la pratique du karaté Shotokan. Les contenus proposés sur ces sites restent sous la responsabilité de leurs auteurs. [web:10][web:13][web:16]
+        </p>
+        <div class="links-grid">
+          <article class="link-card">
+            <h3>Fédération internationale Shotokan</h3>
+            <p>Site d’une fédération internationale dédiée au karaté Shotokan traditionnel.</p>
+            <a href="https://iskf.com" target="_blank" rel="noopener noreferrer" class="btn-link">Visiter</a>
+          </article>
+          <article class="link-card">
+            <h3>Shotokan Karate-Do International</h3>
+            <p>Organisation consacrée à la diffusion d’un karaté Shotokan authentique et structuré.</p>
+            <a href="https://www.skifworld.com" target="_blank" rel="noopener noreferrer" class="btn-link">Visiter</a>
+          </article>
+          <article class="link-card">
+            <h3>France Shotokan</h3>
+            <p>Réseau de dojos de karaté Shotokan en France, proposant cours et stages pour tous niveaux.</p>
+            <a href="https://franceshotokan.com" target="_blank" rel="noopener noreferrer" class="btn-link">Visiter</a>
+          </article>
+        </div>
+      </section>
+
+      <!-- Section Interface - Tutoriel -->
+      <section id="section-interface-tutoriel" class="content-section" aria-label="Tutoriel d’utilisation">
+        <h2>Tutoriel d’utilisation de l’interface</h2>
+        <p>
+          Le site fonctionne comme une petite application : tu utilises le bouton MENU pour ouvrir la navigation, choisir une section, puis le menu se replie automatiquement.
+        </p>
+        <ol class="tutoriel-steps">
+          <li>Clique sur le bouton MENU pour afficher le menu.</li>
+          <li>Choisis une rubrique (Techniques, Vidéos, Lexique…).</li>
+          <li>Pour les techniques, ouvre une catégorie puis clique sur une technique pour lancer le diaporama.</li>
+          <li>Dans Vidéos, clique sur une vignette pour ouvrir la vidéo dans un nouvel onglet.</li>
+          <li>Dans Lexique, tape un mot-clé pour filtrer les termes en temps réel.</li>
+          <li>Dans Personnalisation, modifie les couleurs pour adapter l’ambiance à ton goût.</li>
+        </ol>
+      </section>
+
+      <!-- Section Interface - Personnalisation -->
+      <section id="section-interface-personnalisation" class="content-section" aria-label="Personnalisation de l’interface">
+        <h2>Personnalisation des couleurs</h2>
+        <p>
+          Utilise les contrôles ci-dessous pour ajuster les couleurs principales du site. Les modifications s’appliquent immédiatement.
+        </p>
+        <form class="theme-form">
+          <div class="color-control">
+            <label for="colorBg">Fond principal</label>
+            <input type="color" id="colorBg" data-css-var="--color-bg" value="#101014" />
+          </div>
+          <div class="color-control">
+            <label for="colorSurface">Surfaces / cartes</label>
+            <input type="color" id="colorSurface" data-css-var="--color-surface" value="#181820" />
+          </div>
+          <div class="color-control">
+            <label for="colorText">Texte principal</label>
+            <input type="color" id="colorText" data-css-var="--color-text" value="#f5f5f5" />
+          </div>
+          <div class="color-control">
+            <label for="colorAccent">Couleur d’accent</label>
+            <input type="color" id="colorAccent" data-css-var="--color-accent" value="#d7263d" />
+          </div>
+          <div class="color-control">
+            <label for="colorHeader">Fond du header</label>
+            <input type="color" id="colorHeader" data-css-var="--color-header-bg" value="#14141c" />
+          </div>
+          <div class="color-control">
+            <label for="colorMenu">Fond du menu</label>
+            <input type="color" id="colorMenu" data-css-var="--color-menu-bg" value="#111118" />
+          </div>
+          <div class="color-control">
+            <label for="colorLinkHover">Survol des liens</label>
+            <input type="color" id="colorLinkHover" data-css-var="--color-link-hover" value="#ff3b4d" />
+          </div>
+        </form>
+      </section>
+
+      <!-- Section Contact -->
+      <section id="section-contact" class="content-section" aria-label="Formulaire de contact">
+        <h2>Me contacter</h2>
+        <p>
+          Utilise ce formulaire pour envoyer un message au responsable du dojo virtuel. Tous les champs marqués d’une astérisque sont obligatoires.
+        </p>
+        <form
+            id="contactForm"
+            action="https://api.web3forms.com/submit"
+            method="POST"
+            novalidate
+            >
+            <!-- Clé Web3Forms -->
+            <input type="hidden" name="access_key" value="30a86ac0-b1f9-49eb-8f7c-93392300afa9" />
+
+            <!-- Sujet de l'email (optionnel mais conseillé) -->
+            <input type="hidden" name="subject" value="Message depuis Kandaku Dojo" />
+
+            <!-- URL de redirection (si tu veux une page de remerciement) -->
+            <!-- <input type="hidden" name="redirect" value="https://ton-domaine.com/merci.html" /> -->
+
+            <!-- Adresse destinataire (facultatif : par défaut, l'email de ton compte Web3Forms) -->
+            <!-- <input type="hidden" name="to" value="kandaku@gmail.com" /> -->
+
+            <div class="form-group">
+                <label for="contactEmail">Adresse e-mail *</label>
+                <input
+                type="email"
+                id="contactEmail"
+                name="email"
+                required
+                placeholder="mon.adresse@mail.com"
+                autocomplete="email"
+                />
+                <span class="form-error" data-for="contactEmail"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="contactMessage">Message *</label>
+                <textarea
+                id="contactMessage"
+                name="message"
+                rows="4"
+                required
+                placeholder="Votre message…"
+                ></textarea>
+                <span class="form-error" data-for="contactMessage"></span>
+            </div>
+
+            <div class="form-group form-inline">
+                <label for="contactSubscribe">
+                <input type="checkbox" id="contactSubscribe" name="subscribe" />
+                S’abonner aux mises à jour
+                </label>
+            </div>
+
+            <div class="form-group captcha-group">
+                <label id="captchaQuestion" for="contactCaptcha">Question de vérification *</label>
+                <input type="number" id="contactCaptcha" name="captcha" required />
+                <span class="form-error" data-for="contactCaptcha"></span>
+            </div>
+
+            <button type="submit" class="btn-accent">Envoyer</button>
+            <p id="contactFeedback" class="form-feedback" aria-live="polite"></p>
+            </form>
+
+      </section>
+    </main>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; <span id="footerYear"></span> Dojo virtuel Shotokan – Contenus pédagogiques personnels.</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="scripts/contenu-menu.js"></script>
+  <script src="scripts/diaporama.js"></script>
+  <script src="scripts/lexique.js"></script>
+  <script src="scripts/vocabulaire.js"></script>
+  <script src="scripts/videos.js"></script>
+  <script src="scripts/menu.js"></script>
 </body>
 </html>
-
