@@ -1,0 +1,5014 @@
+window.LEXIQUE = [
+  {
+    "term": "Age",
+    "def": "Lever, monter, élever"
+  },
+  {
+    "term": "Age Tsuki",
+    "def": "Coup de poing court et remontant"
+  },
+  {
+    "term": "Age Uchi",
+    "def": "Uppercut"
+  },
+  {
+    "term": "Age Uke",
+    "def": "Blocage remontant"
+  },
+  {
+    "term": "Age Zuki",
+    "def": "Coup de poing remontant"
+  },
+  {
+    "term": "Ago",
+    "def": "Menton"
+  },
+  {
+    "term": "Ago Oshi",
+    "def": "Pousser uke au menton vers le haut (déstabilisation)"
+  },
+  {
+    "term": "Ago Tsuki",
+    "def": "Coup de poing en montant vers le menton"
+  },
+  {
+    "term": "Aï",
+    "def": "Amour - Harmonie - Unification"
+  },
+  {
+    "term": "Ai Hanmi",
+    "def": "position en miroir de l'adversaire"
+  },
+  {
+    "term": "Ai Te",
+    "def": "Uke à l' entraînement (non ennemi)"
+  },
+  {
+    "term": "Ai uchi",
+    "def": "En kumité, techniques simultanée et valables"
+  },
+  {
+    "term": "Aïki",
+    "def": "Union de l'énergie"
+  },
+  {
+    "term": "Aïki Jitsu",
+    "def": "Art de la maitrise de l'énergie"
+  },
+  {
+    "term": "Aïkido",
+    "def": "Art martial traditionnel japonais fondé par Morihei Uyeshiba - Voie de l'harmonie avec l'énergie universelle (maître UESHIBA)"
+  },
+  {
+    "term": "Aïkidoka",
+    "def": "Pratiquant d'Aïkido"
+  },
+  {
+    "term": "Aisatsu",
+    "def": "Salut, salutation"
+  },
+  {
+    "term": "Aïwan Uke",
+    "def": "Blocage bas avec l'avant-bras de l'extérieur vers l'intérieur"
+  },
+  {
+    "term": "Aka",
+    "def": "Rouge"
+  },
+  {
+    "term": "Aka No Kachi",
+    "def": "\"Rouge gagne\""
+  },
+  {
+    "term": "Aki",
+    "def": "Automne"
+  },
+  {
+    "term": "Akushu",
+    "def": "Une poignée de mains"
+  },
+  {
+    "term": "Amai",
+    "def": "Etre doux"
+  },
+  {
+    "term": "Ansha",
+    "def": "Générosité"
+  },
+  {
+    "term": "Antachi",
+    "def": "Au sol et l'adversaire debout"
+  },
+  {
+    "term": "Anza",
+    "def": "Position assise en tailleur"
+  },
+  {
+    "term": "Ao",
+    "def": "Bleu"
+  },
+  {
+    "term": "Arashi",
+    "def": "Tempête"
+  },
+  {
+    "term": "Arigatai",
+    "def": "Reconnaissant"
+  },
+  {
+    "term": "Arigato",
+    "def": "Merci"
+  },
+  {
+    "term": "Arigato Gozaimashita",
+    "def": "Merci beaucoup"
+  },
+  {
+    "term": "Aruku",
+    "def": "Marcher"
+  },
+  {
+    "term": "Ashi",
+    "def": "Pied, jambe - Déplacement, marcher"
+  },
+  {
+    "term": "Ashi Barai",
+    "def": "Balayage, fauchage des pieds"
+  },
+  {
+    "term": "Ashi Dome",
+    "def": "Contre avec la jambe"
+  },
+  {
+    "term": "Ashi Garami",
+    "def": "Torsion du coude par enroulement de jambe autour du bras"
+  },
+  {
+    "term": "Ashi Gatame Jime",
+    "def": "Etranglement avec l'aide d'une jambe"
+  },
+  {
+    "term": "Ashi Guruma",
+    "def": "Enroulement autour de la jambe"
+  },
+  {
+    "term": "Ashi Kubi",
+    "def": "Cheville"
+  },
+  {
+    "term": "Ashi Sabaki",
+    "def": "Pas glissé"
+  },
+  {
+    "term": "Ashi Ura",
+    "def": "Plante du pied"
+  },
+  {
+    "term": "Ashi Waza",
+    "def": "Terme générique regroupant l'ensemble des techniques de jambe ou de pied"
+  },
+  {
+    "term": "Ashi Yubi",
+    "def": "Orteils"
+  },
+  {
+    "term": "Ashino Ura",
+    "def": "Tranchant interne du pied"
+  },
+  {
+    "term": "Ataeru",
+    "def": "Remercier, récompenser, donner"
+  },
+  {
+    "term": "Atama",
+    "def": "Tête, cerveau"
+  },
+  {
+    "term": "Ate",
+    "def": "Visée (Point vitaux)"
+  },
+  {
+    "term": "Ate Waza",
+    "def": "Technique d'attaque des points vitaux"
+  },
+  {
+    "term": "Atemi",
+    "def": "Coup, frappe appliquée sur un point vital"
+  },
+  {
+    "term": "Atemi Waza",
+    "def": "Technique de frappe"
+  },
+  {
+    "term": "Atenai Yoni",
+    "def": "Avertissement sans pénalité"
+  },
+  {
+    "term": "Ateru",
+    "def": "Presser"
+  },
+  {
+    "term": "Ato",
+    "def": "Arrière, derrière"
+  },
+  {
+    "term": "Atoshibaraku",
+    "def": "En kumité \"Encore un peu de temps << 30 secondes >>\""
+  },
+  {
+    "term": "Awase Uke",
+    "def": "Blocage mains jointes"
+  },
+  {
+    "term": "Aya",
+    "def": "Vêtement"
+  },
+  {
+    "term": "Ayumi Ashi",
+    "def": "Avancer avec les pieds successivement en avant - Marche normale"
+  },
+  {
+    "term": "Barai",
+    "def": "Fauchage, balayage - Déviation"
+  },
+  {
+    "term": "Barate",
+    "def": "Fouet des doigts"
+  },
+  {
+    "term": "Basami",
+    "def": "Ciseau"
+  },
+  {
+    "term": "Bassai Dai",
+    "def": "Kata supérieur, veut dire << frapper un rocher >>"
+  },
+  {
+    "term": "Bo",
+    "def": "bâton long (environ 1,80 m), arme du Kobudo"
+  },
+  {
+    "term": "Bo Hiki",
+    "def": "Désarmer l'adversaire (bâton)"
+  },
+  {
+    "term": "Bo Jutsu",
+    "def": "Art guerrier de manier le bâton long"
+  },
+  {
+    "term": "Bo Odori",
+    "def": "Dance utilisant le bo"
+  },
+  {
+    "term": "Bo Oshi",
+    "def": "Blocage, défense contre une attaque au bâton"
+  },
+  {
+    "term": "Bo Tori",
+    "def": "Saisie du bâton de l'adversaire"
+  },
+  {
+    "term": "Bo Uke (Bo Oshi)",
+    "def": "Blocage, défense contre une attaque de bâton"
+  },
+  {
+    "term": "Bobu",
+    "def": "Guerre - Combat"
+  },
+  {
+    "term": "Bodhidarma",
+    "def": "Moine Indien du monastère Chinois de Shaolin qui créa le Kung-Fu"
+  },
+  {
+    "term": "Boin",
+    "def": "Empreinte du pouce - authentification de documents"
+  },
+  {
+    "term": "Boken",
+    "def": "Sabre de bois, utilisé pour l'entraînement"
+  },
+  {
+    "term": "Bokuto",
+    "def": "Sabre de bois, utilisé pour l'entraînement"
+  },
+  {
+    "term": "Boshi",
+    "def": "Pouce"
+  },
+  {
+    "term": "Boshi Ken",
+    "def": "Extrémité du pouce utilisée pour frapper"
+  },
+  {
+    "term": "Bu",
+    "def": "Guerrier - Guerre"
+  },
+  {
+    "term": "Bu Jutsu",
+    "def": "Techniques martiales, Art du guerrier"
+  },
+  {
+    "term": "Budo",
+    "def": "Littéralement Bu = guerrier ou harmonie et Do = la Voie. Voie martiale, art de cultiver la paix. Voie de l'harmonie. Nom adopté au XXème siècle pour l'ensemble des arts martiaux japonais dans leur application pacifique"
+  },
+  {
+    "term": "Budoka",
+    "def": "Pratiquant d'un art martial Japonais"
+  },
+  {
+    "term": "Bugei",
+    "def": "Art du combat pratiqué autrefois par les Samouraïs"
+  },
+  {
+    "term": "Bunkai",
+    "def": "Etude détaillée de l'application des techniques employées dans un kata, avec partenaires"
+  },
+  {
+    "term": "Bushi",
+    "def": "Nom donné à toute personne de la classe des guerriers (Japonais)"
+  },
+  {
+    "term": "Bushi Damashî",
+    "def": "Esprit du guerrier indomptable"
+  },
+  {
+    "term": "Bushido",
+    "def": "Voie du guerrier - Code d'honneur du guerrier japonais"
+  },
+  {
+    "term": "Butsukari",
+    "def": "Exercices d'entrée ou répétions"
+  },
+  {
+    "term": "Cha No Yu",
+    "def": "Cérémonie du thé"
+  },
+  {
+    "term": "Chadai",
+    "def": "Frais de natte (payé discrètement lors de la visite d' un dojo à l'élève le plus ancien)"
+  },
+  {
+    "term": "Chado",
+    "def": "La voie du thé"
+  },
+  {
+    "term": "Chakuseki",
+    "def": "S'asseoir"
+  },
+  {
+    "term": "Chakushi Ashi",
+    "def": "Pied de remplacement (le pied qui se déplace remplace celui qui vient de partir)"
+  },
+  {
+    "term": "Chi",
+    "def": "Sang - Terre"
+  },
+  {
+    "term": "Chi Mei",
+    "def": "Coup mortel"
+  },
+  {
+    "term": "Chidori Ashi",
+    "def": "Pas croisé"
+  },
+  {
+    "term": "Chikai",
+    "def": "Près"
+  },
+  {
+    "term": "Chikama",
+    "def": "Distance de combat qui permet d'attaquer sans déplacement"
+  },
+  {
+    "term": "Chikama Geri",
+    "def": "Coup de pied court"
+  },
+  {
+    "term": "Chikara",
+    "def": "Puissance, force"
+  },
+  {
+    "term": "Chikara Ishi",
+    "def": "Lever de poids (pierres)"
+  },
+  {
+    "term": "Cho Wa",
+    "def": "Harmonie, paix intérieure et extérieure"
+  },
+  {
+    "term": "Chokko",
+    "def": "Droit devant, de face"
+  },
+  {
+    "term": "Choku",
+    "def": "Direct"
+  },
+  {
+    "term": "Choku Tsuki",
+    "def": "Coup de poing direct"
+  },
+  {
+    "term": "Choku Zuki",
+    "def": "Coup de poing direct"
+  },
+  {
+    "term": "Chokuritsu",
+    "def": "Vertical"
+  },
+  {
+    "term": "Chokuritsu Fudo Dachi",
+    "def": "Position de garde verticale"
+  },
+  {
+    "term": "Chokusen",
+    "def": "La ligne droite"
+  },
+  {
+    "term": "Chonmage",
+    "def": "Chignon"
+  },
+  {
+    "term": "Chosoku",
+    "def": "Contrôle de la respiration"
+  },
+  {
+    "term": "Chu",
+    "def": "Moyen"
+  },
+  {
+    "term": "Chudan",
+    "def": "Niveau moyen (zone du cou à la ceinture)"
+  },
+  {
+    "term": "Chudan Tsuki",
+    "def": "Coup de poing au niveau moyen"
+  },
+  {
+    "term": "Chudan Uke",
+    "def": "Blocage au niveau moyen"
+  },
+  {
+    "term": "Chudan Zuki",
+    "def": "Coup de poing au niveau moyen"
+  },
+  {
+    "term": "Chuden",
+    "def": "Enseignement de niveau moyen"
+  },
+  {
+    "term": "Chuho",
+    "def": "Milieu"
+  },
+  {
+    "term": "Chui",
+    "def": "En arbitrage: pénalité moyenne (faute) - \"Attention\""
+  },
+  {
+    "term": "Chuo",
+    "def": "Centre, milieu"
+  },
+  {
+    "term": "Chusen",
+    "def": "La ligne centrale"
+  },
+  {
+    "term": "Chushin",
+    "def": "Centre, cœur, noyau"
+  },
+  {
+    "term": "Dachi",
+    "def": "Posture, position"
+  },
+  {
+    "term": "Dachi No Kata",
+    "def": "Etude des posture de base"
+  },
+  {
+    "term": "Dachi Waza",
+    "def": "Techniques de posture"
+  },
+  {
+    "term": "Dai",
+    "def": "Grand, majeur - Prefix pour les nombres (dai-ichi signifie seulement premier, et non pas très grand)"
+  },
+  {
+    "term": "Dai Nippon Butokukai",
+    "def": "Originalement organisation fasciste gouvernementale responsable pour la militarisation des arts martiaux japonais au service de la conquête impériale. Dissoute pendant l'occupation américaine et remplacée par une organisation du même nom mais plus pacifiq"
+  },
+  {
+    "term": "Daitai",
+    "def": "cuisse"
+  },
+  {
+    "term": "Dan",
+    "def": "niveau, grade supérieur (à partir de la ceinture noire)"
+  },
+  {
+    "term": "De",
+    "def": "Avancé"
+  },
+  {
+    "term": "De Ashi Barai",
+    "def": "Balayage du pied avancé"
+  },
+  {
+    "term": "Den",
+    "def": "cours, cursus d'un style"
+  },
+  {
+    "term": "Denbu",
+    "def": "postérieur (fesses) fondement, forme polie (!)"
+  },
+  {
+    "term": "Deshi",
+    "def": "étudiant"
+  },
+  {
+    "term": "Do",
+    "def": "Voie spirituelle (le caractère japonais pour \"Do\" est le même que le caractère chinois pour \"Tao\"), chemin de la connaissance - Tronc, torse"
+  },
+  {
+    "term": "Do Jime",
+    "def": "Ciseau au corps"
+  },
+  {
+    "term": "Dogi",
+    "def": "Uniforme utilisé pour l'entraînement"
+  },
+  {
+    "term": "Dojo",
+    "def": "Littéralement Do = la Voie et Jo = le lieu, le Dojo est le lieu de la Voie, où l'on pratique la Voie - Salle d'entraînement pour les arts martiaux"
+  },
+  {
+    "term": "Dojo Arashi",
+    "def": "Provoquer le meilleur d'un dojo au combat"
+  },
+  {
+    "term": "Dojo Kun",
+    "def": "Les maximes d'un dojo"
+  },
+  {
+    "term": "Dokudo",
+    "def": "Traité sur l'étique du guerrier par Miyamoto Musashi"
+  },
+  {
+    "term": "Dokushû",
+    "def": "Etude personnelle"
+  },
+  {
+    "term": "Dokuso Geiko",
+    "def": "Pratiquer seul"
+  },
+  {
+    "term": "Domo Arigato Gosai Imashita",
+    "def": "Je vous remercie beaucoup"
+  },
+  {
+    "term": "Dori",
+    "def": "Saisie, prendre"
+  },
+  {
+    "term": "Doryo",
+    "def": "Magnanimité"
+  },
+  {
+    "term": "Doshu",
+    "def": "Fondateur"
+  },
+  {
+    "term": "Doshu Ni Rei",
+    "def": "Salut au Fondateur"
+  },
+  {
+    "term": "Dotai",
+    "def": "Corps, torse"
+  },
+  {
+    "term": "Dozo",
+    "def": "Je vous en prie"
+  },
+  {
+    "term": "Ebi",
+    "def": "Serpent"
+  },
+  {
+    "term": "Ebi Garami Jime",
+    "def": "Etranglement par enroulement du cou"
+  },
+  {
+    "term": "Ekku",
+    "def": "Rame de bois faisant partie de l'arsenal des armes du Kobudo"
+  },
+  {
+    "term": "Embusen",
+    "def": "Représentation au sol du tracé d'un Kata"
+  },
+  {
+    "term": "Emon",
+    "def": "Vêtement"
+  },
+  {
+    "term": "Empi",
+    "def": "Coude"
+  },
+  {
+    "term": "Empi Uchi",
+    "def": "Frappe du coude"
+  },
+  {
+    "term": "Encho sen",
+    "def": "En kumité \" prolongation \""
+  },
+  {
+    "term": "Eri",
+    "def": "Col, encolure, nuque"
+  },
+  {
+    "term": "Eri Dori",
+    "def": "Techniques utilisant la saisie du col ou du cou"
+  },
+  {
+    "term": "Eri Seoi Nage",
+    "def": "Projection d'épaule à l'aide d'un revers"
+  },
+  {
+    "term": "Fudo",
+    "def": "Extérieurement - Rectitude mentale - Inébranlable"
+  },
+  {
+    "term": "Fudo Dachi",
+    "def": "Posture de combat : position équilibrée, pieds parallèles les talons relevés, prêt à bondir"
+  },
+  {
+    "term": "Fudo Shin",
+    "def": "C'est la relation de toutes les énergies, du corps et de l'esprit. \"Shin\" signifie Esprit et \"Fudo\" signifie extérieurement, stabilité, équilibre et force et intérieurement la concentration des énergies"
+  },
+  {
+    "term": "Fujubun",
+    "def": "\"Plus de force\""
+  },
+  {
+    "term": "Fukubu",
+    "def": "Abdomen"
+  },
+  {
+    "term": "Fukubu Geri",
+    "def": "Coup de pied dans l'abdomen"
+  },
+  {
+    "term": "Fukushin",
+    "def": "Nom des deux arbitres latéraux"
+  },
+  {
+    "term": "Fukushin Shugo",
+    "def": "Concertation de juges"
+  },
+  {
+    "term": "Fukyu",
+    "def": "Basique"
+  },
+  {
+    "term": "Fukyu Gata",
+    "def": "Katas basiques (ou fondamentaux)"
+  },
+  {
+    "term": "Fukyu Taden",
+    "def": "Exercices de base"
+  },
+  {
+    "term": "Fum Komi",
+    "def": "Attaque du pied en écrasement en général au genou, ou à la cheville"
+  },
+  {
+    "term": "Fumi",
+    "def": "Pas"
+  },
+  {
+    "term": "Fumi Kiri",
+    "def": "Coup de pied coupant"
+  },
+  {
+    "term": "Fumi Waza",
+    "def": "Techniques d'attaques en écrasement"
+  },
+  {
+    "term": "Fundoshi",
+    "def": "Pagne"
+  },
+  {
+    "term": "Fushen Gashi",
+    "def": "Victoire par forfait"
+  },
+  {
+    "term": "Futo",
+    "def": "Soudainement"
+  },
+  {
+    "term": "Fuyu",
+    "def": "Hiver"
+  },
+  {
+    "term": "Gaeshi",
+    "def": "Contre-attaque - Rendre - Renverser - Torsion"
+  },
+  {
+    "term": "Gaiwan",
+    "def": "Dessous de l'avant-bras"
+  },
+  {
+    "term": "Gake",
+    "def": "Accrochage"
+  },
+  {
+    "term": "Gakka",
+    "def": "Programme d'étude"
+  },
+  {
+    "term": "Gamae",
+    "def": "Garde"
+  },
+  {
+    "term": "Gankaku",
+    "def": "Kata supérieur, veut dire \" la grue sur un rocher \""
+  },
+  {
+    "term": "Gankaku Dachi",
+    "def": "Posture sur une jambe (flèchie), posture de la grue"
+  },
+  {
+    "term": "Ganmen Tsuki",
+    "def": "Coup de poing fouetté du bras avant"
+  },
+  {
+    "term": "Garami",
+    "def": "Enchevêtrement, enroulement"
+  },
+  {
+    "term": "Gari",
+    "def": "Fauchage"
+  },
+  {
+    "term": "Gasshuku",
+    "def": "Camp d'entraînement, stage"
+  },
+  {
+    "term": "Gatame",
+    "def": "Clef, contrôle"
+  },
+  {
+    "term": "Ge",
+    "def": "En bas , inférieur"
+  },
+  {
+    "term": "Gedan",
+    "def": "Niveau bas (zone de la ceinture aux pieds)"
+  },
+  {
+    "term": "Gedan Barai",
+    "def": "Dlocage descendant (balayage) effectué avec l'avant-bras"
+  },
+  {
+    "term": "Gedan Geri",
+    "def": "Coup de pied bas avec le tranchant interne du pied"
+  },
+  {
+    "term": "Gedan Tsuki",
+    "def": "Coup de poing au niveau bas"
+  },
+  {
+    "term": "Gedan Ude Uke",
+    "def": "Blocage bas de l'avant-bras"
+  },
+  {
+    "term": "Gedan Zuki",
+    "def": "Coup de poing au niveau bas"
+  },
+  {
+    "term": "Gei",
+    "def": "Art - Science"
+  },
+  {
+    "term": "Geiko",
+    "def": "Pratique, entraînement"
+  },
+  {
+    "term": "Genshin",
+    "def": "Pouvoir de pressentir une attaque, intuition, prémonition"
+  },
+  {
+    "term": "Geri",
+    "def": "Coup de pied"
+  },
+  {
+    "term": "Gesa",
+    "def": "Revers"
+  },
+  {
+    "term": "Getsu",
+    "def": "Lune - Mois"
+  },
+  {
+    "term": "Getsu Kage",
+    "def": "Ombre de la lune"
+  },
+  {
+    "term": "Gi",
+    "def": "Tenue d'entraînement - Techniques dans l'art pratiqué - Terre"
+  },
+  {
+    "term": "Girei",
+    "def": "Etiquette formelle"
+  },
+  {
+    "term": "Giri",
+    "def": "Obligation - Obéissance - Coupe"
+  },
+  {
+    "term": "Gisami",
+    "def": "Le coup de poing (ou de pied) est porté par le bras ou (la jambe) qui se trouve devant"
+  },
+  {
+    "term": "Go",
+    "def": "Cinq (5) - Force"
+  },
+  {
+    "term": "Go No Sen",
+    "def": "Parer et contrer (accepter l'attaque et contre-attaquer). prendre l'initiative quand l'attaque est déclenchée, Attaquer immédiatement après l'attaque de l'adversaire"
+  },
+  {
+    "term": "Godan",
+    "def": "Ceinture Noire 5° dan - Cinquième"
+  },
+  {
+    "term": "Gohon Kumite",
+    "def": "Combat conventionnel avec cinq attaques en ligne - Assaut sur 5 pas"
+  },
+  {
+    "term": "Gokiburi",
+    "def": "Blatte, cafard"
+  },
+  {
+    "term": "Gokiburi Bushi",
+    "def": "Guerrier cafard (semble dur mais est mou à l'intérieur !)"
+  },
+  {
+    "term": "Gokyo",
+    "def": "Progression d'enseignement"
+  },
+  {
+    "term": "Goshi",
+    "def": "Hanche"
+  },
+  {
+    "term": "Goshin",
+    "def": "Défense - Self-défense"
+  },
+  {
+    "term": "Gote",
+    "def": "Main utilisée pour se défendre"
+  },
+  {
+    "term": "Guruma",
+    "def": "Roue ou enroulement"
+  },
+  {
+    "term": "Gyaku",
+    "def": "Inverse, contraire, opposé"
+  },
+  {
+    "term": "Gyaku Hanmi",
+    "def": "Faire face à son adversaire en garde opposée"
+  },
+  {
+    "term": "Gyaku Juji Jime",
+    "def": "Etranglement croisé facial"
+  },
+  {
+    "term": "Gyaku Kesagiri",
+    "def": "Coupe vers le haut en diagonal de gauche à droite"
+  },
+  {
+    "term": "Gyaku Mawashi Geri",
+    "def": "Coup de pied retourné à 360°"
+  },
+  {
+    "term": "Gyaku Ni",
+    "def": "Dans la direction opposée"
+  },
+  {
+    "term": "Gyaku Tai",
+    "def": "Renversement instantanément de la direction de glissement du corps"
+  },
+  {
+    "term": "Gyaku Te",
+    "def": "Main inversée"
+  },
+  {
+    "term": "Gyaku Tsuki",
+    "def": "Coup de poing opposé à la jambe qui est en avant"
+  },
+  {
+    "term": "Gyaku Zuki",
+    "def": "Coup de poing opposé à la jambe qui est en avant"
+  },
+  {
+    "term": "Gyakun",
+    "def": "Technique paralysante"
+  },
+  {
+    "term": "Hachi",
+    "def": "Huit (8)"
+  },
+  {
+    "term": "Hachiban",
+    "def": "Huitième - Ceinture Rouge, 8e Dan"
+  },
+  {
+    "term": "Hachiji Dachi",
+    "def": "Posture d'attente, pieds écartés de la largeur des hanches et pointes légèrement vers l'extérieur"
+  },
+  {
+    "term": "Hadaka",
+    "def": "Corne - Coup de tête - Nu"
+  },
+  {
+    "term": "Hadaka Jime",
+    "def": "Etranglement à mains nues (arrière par l'avant bras)"
+  },
+  {
+    "term": "Hadashi",
+    "def": "Pieds nus"
+  },
+  {
+    "term": "Hadjime!",
+    "def": "Allez-y!"
+  },
+  {
+    "term": "Hagaeschi",
+    "def": "Réplique"
+  },
+  {
+    "term": "Hai",
+    "def": "Oui"
+  },
+  {
+    "term": "Haishu",
+    "def": "Dos de la main ouverte"
+  },
+  {
+    "term": "Haishu Uchi",
+    "def": "Frappe du revers de la main, main ouverte, doigts serrés"
+  },
+  {
+    "term": "Haishu Uke",
+    "def": "Blocage avec le revers de la main, main ouverte, doigts serrés"
+  },
+  {
+    "term": "Haisoku",
+    "def": "Le dessus du pied"
+  },
+  {
+    "term": "Haito",
+    "def": "Tranchant de la main (côté pouce), tranchant opposé à Shuto"
+  },
+  {
+    "term": "Haito Uchi",
+    "def": "Frappe du tranchant de la main (côté du pouce), doigts serrés, pouce rentré"
+  },
+  {
+    "term": "Haiwan",
+    "def": "Dessus de l'avant-bras"
+  },
+  {
+    "term": "Hajime",
+    "def": "Commencer, début du combat, allez-y !"
+  },
+  {
+    "term": "Hakama",
+    "def": "Jupe-pantalon de la tenue traditionnelle Japonais"
+  },
+  {
+    "term": "Hakko",
+    "def": "8e, lumière"
+  },
+  {
+    "term": "Hane",
+    "def": "Sauter, bondir"
+  },
+  {
+    "term": "Hane Goshi",
+    "def": "Hanche percutée, sautée"
+  },
+  {
+    "term": "Hane Maki Komi",
+    "def": "Hanche sautée en roulant"
+  },
+  {
+    "term": "Hangeki",
+    "def": "Riposte, contre-attaque"
+  },
+  {
+    "term": "Hangetsu",
+    "def": "Kata supérieur, veut dire << demi lune >>"
+  },
+  {
+    "term": "Hangetsu Dachi",
+    "def": "Posture de la demi-lune, les pieds sont tournés vers l'intérieur, position équilibrée plus longue que Sanchin Dachi"
+  },
+  {
+    "term": "Hanshi",
+    "def": "Titre de maître"
+  },
+  {
+    "term": "Hansoku Make",
+    "def": "Disqualification, -10 points (arbitrage)"
+  },
+  {
+    "term": "Hantai",
+    "def": "Opposé"
+  },
+  {
+    "term": "Hantei",
+    "def": "Jugement - Décision"
+  },
+  {
+    "term": "Hantei Kachi",
+    "def": "Victoire après jugement"
+  },
+  {
+    "term": "Happo",
+    "def": "Les 8 directions (dans toutes les directions)"
+  },
+  {
+    "term": "Hara",
+    "def": "Ventre, centre de gravité du corps qui conditionne sa stabilité, ses mouvements et déplacements - Centre d'énergie situé dans la région sub-ombilicale"
+  },
+  {
+    "term": "Hara Gatame",
+    "def": "Clé au coude avec le ventre"
+  },
+  {
+    "term": "Haragei",
+    "def": "Attitude de celui qui est porteur d'un Hara fort - Caractérise le maître accompli qui a intériorisé les formes de son art"
+  },
+  {
+    "term": "Harai",
+    "def": "Balayage - fauchage"
+  },
+  {
+    "term": "Harai Goshi",
+    "def": "Balayage avec la hanche (hanche fauchée)"
+  },
+  {
+    "term": "Harai Te",
+    "def": "Technique de balayage de la main"
+  },
+  {
+    "term": "Harai Tsuri Komi Ashi",
+    "def": "Balayage du pied en pêchant"
+  },
+  {
+    "term": "Harai Waza",
+    "def": "Techniques de balayage"
+  },
+  {
+    "term": "Haru",
+    "def": "Printemps"
+  },
+  {
+    "term": "Hasami",
+    "def": "Ciseaux"
+  },
+  {
+    "term": "Hasami Tsuki",
+    "def": "Coup de poing en ciseau"
+  },
+  {
+    "term": "Hasami Uke",
+    "def": "Interception en ciseau"
+  },
+  {
+    "term": "Hasami Zuki",
+    "def": "Coup de poing en ciseau"
+  },
+  {
+    "term": "Hasshaku Bo",
+    "def": "Bâton de 8 pieds"
+  },
+  {
+    "term": "Hata",
+    "def": "Drapeau"
+  },
+  {
+    "term": "Hazushi Uke",
+    "def": "Distance d'interception"
+  },
+  {
+    "term": "Hazusu",
+    "def": "Distance"
+  },
+  {
+    "term": "Hebi",
+    "def": "Serpent"
+  },
+  {
+    "term": "Heian",
+    "def": "Les 5 katas de base : \"L'esprit pacifique\""
+  },
+  {
+    "term": "Heiho",
+    "def": "Stratégie"
+  },
+  {
+    "term": "Heiken",
+    "def": "Dessous du poing"
+  },
+  {
+    "term": "Heiko",
+    "def": "Parallèle"
+  },
+  {
+    "term": "Heiko Dachi",
+    "def": "Posture d'attente, pieds parallèles écartés de la largeur des hanches"
+  },
+  {
+    "term": "Heiko Tsuki",
+    "def": "Coup de poing double, parallèles"
+  },
+  {
+    "term": "Heiko Zuki",
+    "def": "Coup de poing double, parallèles"
+  },
+  {
+    "term": "Hein Ken",
+    "def": "Articulation de l'index et du majeur légèrement sorties du poing fermé"
+  },
+  {
+    "term": "Heisoku",
+    "def": "Dessus du pied"
+  },
+  {
+    "term": "Heisoku Dachi",
+    "def": "Posture d'attente : pieds joints et parallèles"
+  },
+  {
+    "term": "Heito",
+    "def": "Coup avec la base du pouce"
+  },
+  {
+    "term": "Heiwa",
+    "def": "Temps de Paix (Hei=époque et Wa=paix)"
+  },
+  {
+    "term": "Henka",
+    "def": "Change, variation"
+  },
+  {
+    "term": "Henka Waza",
+    "def": "Variation d'une technique de base"
+  },
+  {
+    "term": "Hidari",
+    "def": "Gauche"
+  },
+  {
+    "term": "Hidari Do",
+    "def": "Côté gauche du corps"
+  },
+  {
+    "term": "Hidari Jigo Tai",
+    "def": "Position défensive à gauche"
+  },
+  {
+    "term": "Hidari Maki",
+    "def": "Tête à gauche"
+  },
+  {
+    "term": "Hidari Mawari",
+    "def": "Rotation directe (contraire aux aiguilles de la montre)"
+  },
+  {
+    "term": "Hiden",
+    "def": "Enseignement secret"
+  },
+  {
+    "term": "Hiji",
+    "def": "Coude"
+  },
+  {
+    "term": "Hiji Ate",
+    "def": "Frappe du coude"
+  },
+  {
+    "term": "Hiji Uke",
+    "def": "Blocage avec le coude"
+  },
+  {
+    "term": "Hijutsu",
+    "def": "Technique secrète"
+  },
+  {
+    "term": "hiki",
+    "def": "Traction, tirer - Recul - Entrer"
+  },
+  {
+    "term": "Hikimi",
+    "def": "Reculer le corps sans bouger les pied (recul sur place)"
+  },
+  {
+    "term": "Hikite",
+    "def": "Action de tirer un poing en arrière pour équilibrer l'action de l'autre poing"
+  },
+  {
+    "term": "Hikiwake",
+    "def": "Match nul"
+  },
+  {
+    "term": "Hikomi Gaeshi",
+    "def": "Renversement en tirant"
+  },
+  {
+    "term": "Hineri",
+    "def": "En tordant - Rotation"
+  },
+  {
+    "term": "Hira Basami",
+    "def": "Creux entre l'index et le pouce : \"Bouche du tigre\""
+  },
+  {
+    "term": "Hira Ken",
+    "def": "Articulations saillantes du poing lorsque seuls les phalanges sont repliés"
+  },
+  {
+    "term": "Hira Ken Tsuki",
+    "def": "Coup de poing donné du bout des phalanges pliées, les doigts serrés contre la paume"
+  },
+  {
+    "term": "Hira Ken Zuki",
+    "def": "Coup de poing donné du bout des phalanges pliées, les doigts serrés contre la paume"
+  },
+  {
+    "term": "Hiraki Gamae",
+    "def": "Garde inverse"
+  },
+  {
+    "term": "Hiraki Sagari",
+    "def": "Passer d'une garde à droite en garde à gauche (et inversement en reculant)"
+  },
+  {
+    "term": "Hirate",
+    "def": "Paume de la main"
+  },
+  {
+    "term": "Hirate Uchi",
+    "def": "Claque, baffe, gifle"
+  },
+  {
+    "term": "Hishigi",
+    "def": "Luxation"
+  },
+  {
+    "term": "Hishiryo",
+    "def": "Penser sans penser, au delà de la pensée"
+  },
+  {
+    "term": "Hito",
+    "def": "Tranchant de la main (côté pouce), tranchant opposé à Shuto"
+  },
+  {
+    "term": "Hitosashi Ippon Ken",
+    "def": "Articulation de l'index"
+  },
+  {
+    "term": "Hitsui",
+    "def": "Genou"
+  },
+  {
+    "term": "Hitsui Geri",
+    "def": "Coup de genou"
+  },
+  {
+    "term": "Hiza",
+    "def": "Genou"
+  },
+  {
+    "term": "Hiza Gamae",
+    "def": "Position sur un genou"
+  },
+  {
+    "term": "Hiza Gashira",
+    "def": "Rotule"
+  },
+  {
+    "term": "Hiza Gashira Ate",
+    "def": "Genou"
+  },
+  {
+    "term": "Hiza Gatame",
+    "def": "Clé au coude avec le genou"
+  },
+  {
+    "term": "Hiza Geri",
+    "def": "Coup de genou"
+  },
+  {
+    "term": "Hiza Guruma",
+    "def": "Enroulement autour du genou"
+  },
+  {
+    "term": "Hiza Uke",
+    "def": "Blocage du genou"
+  },
+  {
+    "term": "Hiza Waza",
+    "def": "Techniques de genou"
+  },
+  {
+    "term": "Hombu",
+    "def": "Dojo du grand maître"
+  },
+  {
+    "term": "Hombu Dojo",
+    "def": "Dojo central d'une organisation"
+  },
+  {
+    "term": "Hon",
+    "def": "Fondamental"
+  },
+  {
+    "term": "Hon Gesa Gatame",
+    "def": "Contrôle par le travers du corps (latéro-costal)"
+  },
+  {
+    "term": "Hontai",
+    "def": "Maîtrise du corps par l'esprit"
+  },
+  {
+    "term": "Hyoshi",
+    "def": "Rythme - Notion de préservation de l'environnement direct d'un combattant"
+  },
+  {
+    "term": "Iai",
+    "def": "Art de dégainer le sabre et de frapper l'advesaire avant même que celui-ci eut le temps de se mettre en garde"
+  },
+  {
+    "term": "Iai Do",
+    "def": "La Voie, l'art de dégainer le sabre, de pourfendre en dégainant"
+  },
+  {
+    "term": "Iai Goshi Dachi",
+    "def": "Position à genoux"
+  },
+  {
+    "term": "Iaïto",
+    "def": "Sabre de métal, non coupant utilisé pour la pratique du Iaïto,"
+  },
+  {
+    "term": "Ibuki",
+    "def": "La respiration"
+  },
+  {
+    "term": "Ichi",
+    "def": "Un (1)"
+  },
+  {
+    "term": "Ichiban",
+    "def": "Premier"
+  },
+  {
+    "term": "Ichido",
+    "def": "Une fois"
+  },
+  {
+    "term": "Idori",
+    "def": "Technique assis"
+  },
+  {
+    "term": "Igi",
+    "def": "Réclamation"
+  },
+  {
+    "term": "Iie",
+    "def": "Non"
+  },
+  {
+    "term": "Ikken Kissatsu",
+    "def": "Un coup mortel"
+  },
+  {
+    "term": "Ikomi",
+    "def": "Technique d'amener au sol"
+  },
+  {
+    "term": "Ineri",
+    "def": "Poignet"
+  },
+  {
+    "term": "Ippon",
+    "def": "Un, une - Un point, en compétition (=10 points) - En kumite : \"Coup mortel\""
+  },
+  {
+    "term": "Ippon Ashi Dachi",
+    "def": "Position sur une jambe"
+  },
+  {
+    "term": "Ippon Ken",
+    "def": "Articulation de l'index"
+  },
+  {
+    "term": "Ippon Ken Tsuki",
+    "def": "Coup de poing dont une phalange est sortie"
+  },
+  {
+    "term": "Ippon Ken Zuki",
+    "def": "Coup de poing dont une phalange est sortie"
+  },
+  {
+    "term": "Ippon Kumite",
+    "def": "Combat conventionnel avec une seule attaque, assaut sur 1 pas"
+  },
+  {
+    "term": "Ippon Nukite",
+    "def": "Frappe de l'index (tendu)"
+  },
+  {
+    "term": "Ippon Seoi Nage",
+    "def": "Projection par une épaule"
+  },
+  {
+    "term": "Iri",
+    "def": "Entrer"
+  },
+  {
+    "term": "Irimi",
+    "def": "Action d'entrer dans l'attaque"
+  },
+  {
+    "term": "Irimi Nage",
+    "def": "Projection en entrant"
+  },
+  {
+    "term": "Ittsui",
+    "def": "Genou"
+  },
+  {
+    "term": "Ittsui Geri",
+    "def": "Coup de genou"
+  },
+  {
+    "term": "Iwa",
+    "def": "Rocher"
+  },
+  {
+    "term": "Jaribako",
+    "def": "Boîte remplie de sable, de cailloux, ou de fèves pour endurcir les doigts et les mains"
+  },
+  {
+    "term": "Jigo Tai",
+    "def": "Position défensive : genoux fléchis pieds placés à l'aplomb des épaules ouverts à 45 degrés"
+  },
+  {
+    "term": "Jigoro kano",
+    "def": "Fondateur du Judo"
+  },
+  {
+    "term": "Jigotai Dachi",
+    "def": "Position défensive : genoux fléchis pieds placés à l'aplomb des épaules ouverts à 45 degrés"
+  },
+  {
+    "term": "Jikideshi",
+    "def": "Etudiant suivant les cours directs (et non pas de ses assistants) du maître d'un ryû"
+  },
+  {
+    "term": "Jime",
+    "def": "Etranglement, strangulation"
+  },
+  {
+    "term": "Jintai",
+    "def": "Corps humain"
+  },
+  {
+    "term": "Jintai Kyusho",
+    "def": "Points vitaux du corps humain"
+  },
+  {
+    "term": "Jinzo",
+    "def": "Région des reins (comme cible)"
+  },
+  {
+    "term": "Jion",
+    "def": "Kata supérieur qui a conservé le nom du temple où il avait été enseigné ( jion-ji = ancien temple bouddhiste )"
+  },
+  {
+    "term": "Jissen",
+    "def": "Bataille, combats réels"
+  },
+  {
+    "term": "Jitsu",
+    "def": "Technique (au sens large) - Vérité"
+  },
+  {
+    "term": "Jitte",
+    "def": "Kata supérieur, veut dire \" 10 paires de mains \" - Arme de police de l'époque féodale, sorte de dague en métal non tranchante ne comportant qu'une garde (parallèle à la lame), servant à bloquer les lames de sabre"
+  },
+  {
+    "term": "Jiu Jutsu",
+    "def": "Art de la Souplesse - Méthode de combat à main nue qui repose sur le principe"
+  },
+  {
+    "term": "Jiutsu",
+    "def": "Technique (au sens large) - Vérité"
+  },
+  {
+    "term": "Jo",
+    "def": "Bâton court d'environ 1,20 m qui servait à l'origine de bâton de marche, arme du Kobudo - Haut, en haut"
+  },
+  {
+    "term": "Jo Sokutei",
+    "def": "Bol du pied (plante)"
+  },
+  {
+    "term": "Jodan",
+    "def": "Niveau haut (zone tête et cou)"
+  },
+  {
+    "term": "Jodan Age Uke",
+    "def": "Blocage haut en remontant"
+  },
+  {
+    "term": "Jogai",
+    "def": "En kumite : sortie de l'aire de combat"
+  },
+  {
+    "term": "jogai chui",
+    "def": "En kumite : avertissement pour l'un, ippon pour l'autre sur sortie"
+  },
+  {
+    "term": "Joge",
+    "def": "Haut et bas"
+  },
+  {
+    "term": "Jojutsu",
+    "def": "Art du jô"
+  },
+  {
+    "term": "Jorei",
+    "def": "Règles du dôjô"
+  },
+  {
+    "term": "Joseki",
+    "def": "Place d'honneur du Dojo Traditionnellement au sud"
+  },
+  {
+    "term": "Jotai",
+    "def": "Partie supérieure du torse"
+  },
+  {
+    "term": "Jowan",
+    "def": "Bras"
+  },
+  {
+    "term": "Ju",
+    "def": "Dix (10) - Souplesse"
+  },
+  {
+    "term": "Ju Ippon Kumite",
+    "def": "Assaut souple réel"
+  },
+  {
+    "term": "Ju Jitsu",
+    "def": "Art de la souplesse..."
+  },
+  {
+    "term": "Ju Kumite",
+    "def": "Combat libre, souple"
+  },
+  {
+    "term": "Ju No Keiko",
+    "def": "Entraînement souple"
+  },
+  {
+    "term": "Ju Randori",
+    "def": "Combat libre, souple"
+  },
+  {
+    "term": "Juban",
+    "def": "Dixième - Ceinture Blanche et large, 10e Dan"
+  },
+  {
+    "term": "Judo",
+    "def": "Art martial traditionnel japonais fondé et codifié par maître Jigoro Kano - Voie de la souplesse"
+  },
+  {
+    "term": "Juji",
+    "def": "En croix"
+  },
+  {
+    "term": "Juji Ashi",
+    "def": "Pas croisé de coté"
+  },
+  {
+    "term": "Juji Dachi",
+    "def": "Posture de base, avec croisement des jambes"
+  },
+  {
+    "term": "Juji Gatame",
+    "def": "Contrôle en croix"
+  },
+  {
+    "term": "Juji Uke",
+    "def": "Technique de blocage, défense avec croisement des mains"
+  },
+  {
+    "term": "Juku",
+    "def": "Académie privée"
+  },
+  {
+    "term": "Jun",
+    "def": "Approché"
+  },
+  {
+    "term": "Jun Tsuki",
+    "def": "Coup rapproché"
+  },
+  {
+    "term": "Junbi Undo",
+    "def": "Exercices d'assouplissement, d'échauffement"
+  },
+  {
+    "term": "Jung Geri",
+    "def": "Coup de pied de la jambe avant - Coup de pied précédé d'une feinte"
+  },
+  {
+    "term": "Jutsu",
+    "def": "Technique (au sens large) - Vérité"
+  },
+  {
+    "term": "Jyu Kumite",
+    "def": "Combat souple"
+  },
+  {
+    "term": "Ka Sokutei",
+    "def": "Dessous du talon"
+  },
+  {
+    "term": "Kachi",
+    "def": "Vainqueur"
+  },
+  {
+    "term": "Kaden",
+    "def": "Secrets familiaux héréditaires"
+  },
+  {
+    "term": "kaeshi",
+    "def": "Torsion, renverser,envoi - Contre-attaque"
+  },
+  {
+    "term": "Kaeshi Waza",
+    "def": "Technique de renversement"
+  },
+  {
+    "term": "Kagami",
+    "def": "Miroir"
+  },
+  {
+    "term": "Kage",
+    "def": "Ombre"
+  },
+  {
+    "term": "Kagi",
+    "def": "Crochet"
+  },
+  {
+    "term": "Kagi Tsuki",
+    "def": "Coup de poing circulaire sur le côté (courte distance)"
+  },
+  {
+    "term": "Kagi Zuki",
+    "def": "Coup de poing circulaire sur le côté (courte distance)"
+  },
+  {
+    "term": "Kagite",
+    "def": "Verrouiller"
+  },
+  {
+    "term": "Kaï",
+    "def": "Ecole"
+  },
+  {
+    "term": "Kaiden",
+    "def": "Enseignements terminaux"
+  },
+  {
+    "term": "Kaisen Tsuki",
+    "def": "Coup de poing en éventail"
+  },
+  {
+    "term": "Kaisen Zuki",
+    "def": "Coup de poing en éventail"
+  },
+  {
+    "term": "Kaisho",
+    "def": "Main ouverte"
+  },
+  {
+    "term": "Kaishu",
+    "def": "Main ouverte"
+  },
+  {
+    "term": "Kaishu Juji Uke",
+    "def": "Blocage avec croisement des bras, mains ouvertes"
+  },
+  {
+    "term": "Kaiten",
+    "def": "Tourner"
+  },
+  {
+    "term": "Kaiten Nage",
+    "def": "Projection en tournant"
+  },
+  {
+    "term": "Kakae Jime",
+    "def": "Etranglement par écrasement"
+  },
+  {
+    "term": "Kakari Geiko",
+    "def": "Forme de travail en continu où le partenaire attaque sans arrêt"
+  },
+  {
+    "term": "Kakato",
+    "def": "Talon"
+  },
+  {
+    "term": "Kakato Ate",
+    "def": "Talon"
+  },
+  {
+    "term": "Kakato Geri",
+    "def": "Coup de pied avec le talon"
+  },
+  {
+    "term": "Kake",
+    "def": "Exécution - Crocheter"
+  },
+  {
+    "term": "Kake Uke",
+    "def": "Blocage avec dégagement"
+  },
+  {
+    "term": "Kakete",
+    "def": "Saisie"
+  },
+  {
+    "term": "Kakete Uke",
+    "def": "Saisie en parade"
+  },
+  {
+    "term": "Kakkoii",
+    "def": "Cool"
+  },
+  {
+    "term": "Kakushi",
+    "def": "Arme cachée (incluant un poing caché)"
+  },
+  {
+    "term": "Kakushi Waza",
+    "def": "Techniques cachées"
+  },
+  {
+    "term": "Kakusu",
+    "def": "Cacher"
+  },
+  {
+    "term": "Kakuto",
+    "def": "Dessus du poignet : \"Col de cygne\""
+  },
+  {
+    "term": "Kakuto Uchi",
+    "def": "Frappe du dessus du poignet"
+  },
+  {
+    "term": "Kakuto Uke",
+    "def": "Blocage du dessus du poignet"
+  },
+  {
+    "term": "Kama",
+    "def": "Faucille (arme de kobudo)"
+  },
+  {
+    "term": "Kamae",
+    "def": "Position de garde - En attente d'une action - Etre sur le qui-vive"
+  },
+  {
+    "term": "Kame",
+    "def": "Pot de terre rempli de sable de poids ajustable"
+  },
+  {
+    "term": "Kami",
+    "def": "Tête - Au-dessus - Divinités"
+  },
+  {
+    "term": "Kami Shiho Gatame",
+    "def": "Contrôle arrière sternal (par les 4 points) - Par-dessus"
+  },
+  {
+    "term": "Kamikaze",
+    "def": "\"Vent divin\""
+  },
+  {
+    "term": "Kamiza",
+    "def": "Mur d'honneur du Dojo où est placé en général l'effigie d'un maître ancien ou du fondateur du style ou de la discipline - Côté du Dojo réservé enseignants et invités de haut niveau"
+  },
+  {
+    "term": "Kamoku",
+    "def": "Matière, discipline"
+  },
+  {
+    "term": "Kan",
+    "def": "Bâtiment, maison, palais, lieu de réunion"
+  },
+  {
+    "term": "Kani",
+    "def": "Langouste, crabe"
+  },
+  {
+    "term": "Kani Basani",
+    "def": "Projection par ciseaux de jambe sauté (pince de langouste)"
+  },
+  {
+    "term": "Kanku",
+    "def": "Regarder le ciel"
+  },
+  {
+    "term": "Kanku Dai",
+    "def": "Kata supérieur, veut dire << kan >> regarder << ku >> le ciel ( dai = grand )"
+  },
+  {
+    "term": "Kano Jigoro",
+    "def": "Fondateur du Judo"
+  },
+  {
+    "term": "Kansetsu",
+    "def": "Articulation (coude, genou)"
+  },
+  {
+    "term": "Kansetsu Geri",
+    "def": "Coup de pied dans une articulation (genoux, cheville etc..)"
+  },
+  {
+    "term": "Kansetsu Waza",
+    "def": "Techniques de luxation"
+  },
+  {
+    "term": "Kanzashi",
+    "def": "Epingle à cheveux"
+  },
+  {
+    "term": "Kappo",
+    "def": "Ramener à soi une personne victime d'un choc au système nerveux"
+  },
+  {
+    "term": "Kara",
+    "def": "Vide"
+  },
+  {
+    "term": "Karami",
+    "def": "Saisie"
+  },
+  {
+    "term": "Karate",
+    "def": "Mains vides (originellement \"main de chine \"!), technique de combat à mains nues"
+  },
+  {
+    "term": "Karate Do",
+    "def": "Voie de la main vide"
+  },
+  {
+    "term": "Karategi",
+    "def": "Tenue d'entraînement du karatéka"
+  },
+  {
+    "term": "Karateka",
+    "def": "Pratiquant de Karaté"
+  },
+  {
+    "term": "Kashi",
+    "def": "Jambes"
+  },
+  {
+    "term": "Kata",
+    "def": "Forme, moule, séquence composée de gestes formalisés et codifiés où le pratiquant se bat contre un ou plusieurs attaquants représentant ultimement ses propres ennemis intérieurs - Epaule"
+  },
+  {
+    "term": "Kata Gatame",
+    "def": "Contrôle par l'épaule et la tête"
+  },
+  {
+    "term": "Kata Guruma",
+    "def": "Enroulement autour des épaules"
+  },
+  {
+    "term": "Kata Ha Jime",
+    "def": "Etranglement arrière (une main au revers, une à la nuque)"
+  },
+  {
+    "term": "Kata Hiza",
+    "def": "Genou"
+  },
+  {
+    "term": "Katahiza Dachi",
+    "def": "Position un genou au sol"
+  },
+  {
+    "term": "Kata Juji Jime",
+    "def": "Etranglement facial croisé"
+  },
+  {
+    "term": "Kata Kumi Waza",
+    "def": "Application des katas avec partenaires"
+  },
+  {
+    "term": "Kata Oshi",
+    "def": "Pousser à l'épaule"
+  },
+  {
+    "term": "Kata Shitei",
+    "def": "En compétition : katas imposés"
+  },
+  {
+    "term": "Kata Te",
+    "def": "Une main"
+  },
+  {
+    "term": "Kata Te Age",
+    "def": "Lever la main pour frapper"
+  },
+  {
+    "term": "Kata Te Dori",
+    "def": "Prise d'une main"
+  },
+  {
+    "term": "Kata Te Jime",
+    "def": "Etranglement d'une seule main"
+  },
+  {
+    "term": "Kata Tokui",
+    "def": "En compétition : katas libres"
+  },
+  {
+    "term": "Katai",
+    "def": "Partie inférieure du corps"
+  },
+  {
+    "term": "Kataki",
+    "def": "Opposant"
+  },
+  {
+    "term": "Katame",
+    "def": "Contrôle"
+  },
+  {
+    "term": "Katame Waza",
+    "def": "Techniques de contrôle"
+  },
+  {
+    "term": "Katana",
+    "def": "Sabre Japonais que le Samouraï portait à la ceinture"
+  },
+  {
+    "term": "Katsuri",
+    "def": "Vitesse"
+  },
+  {
+    "term": "Kawashi",
+    "def": "Evasion"
+  },
+  {
+    "term": "Kawasu Gake",
+    "def": "Accrochage sur l'avant de la jambe"
+  },
+  {
+    "term": "Kaze",
+    "def": "\"Vent divin\""
+  },
+  {
+    "term": "Keage",
+    "def": "Forme remontante, fouettée"
+  },
+  {
+    "term": "Keage Geri",
+    "def": "Coup de pied fouetté"
+  },
+  {
+    "term": "Keiko",
+    "def": "Pratique, entraînement"
+  },
+  {
+    "term": "Keikogi",
+    "def": "Tenue d'entraînement"
+  },
+  {
+    "term": "Keikoku",
+    "def": "Faute grave - En kumité : avertissement pour faute avec waza-ari pour l'autre compétiteur"
+  },
+  {
+    "term": "Keirei",
+    "def": "Salut formel (en s'inclinant ...)"
+  },
+  {
+    "term": "Keito",
+    "def": "Articulation saillante du pouce"
+  },
+  {
+    "term": "Keito Uke Ippon Nukite",
+    "def": "Blocage de la main, pouce replié et index tendu"
+  },
+  {
+    "term": "Kekomi",
+    "def": "Forme pénétrante"
+  },
+  {
+    "term": "Kempo",
+    "def": "Loi du poing"
+  },
+  {
+    "term": "Ken",
+    "def": "Poing - Nom générique désignant le sabre(ou l'épée)"
+  },
+  {
+    "term": "Ken Jutsu",
+    "def": "Entraînement au maniement du sabre"
+  },
+  {
+    "term": "Ken No Sen",
+    "def": "Initier une attaque"
+  },
+  {
+    "term": "Kendo",
+    "def": "La voie du sabre - Escrime japonaise"
+  },
+  {
+    "term": "Kendoka",
+    "def": "Personne experte en Kendo"
+  },
+  {
+    "term": "Kensei",
+    "def": "Technique utilisant le kiai silencieux, état de tension interne"
+  },
+  {
+    "term": "Kensen",
+    "def": "La pointe du sabre (synonyme de Kissaki)"
+  },
+  {
+    "term": "Kenshi",
+    "def": "Pratiquant du shorinji kempo (escrimeur)"
+  },
+  {
+    "term": "Kento",
+    "def": "Articulations saillantes du poing (ou l'une d'elles)"
+  },
+  {
+    "term": "Kentsui",
+    "def": "Marteau du poing"
+  },
+  {
+    "term": "Kentsui Uchi",
+    "def": "Frappe du marteau du poing"
+  },
+  {
+    "term": "Keri",
+    "def": "Pied"
+  },
+  {
+    "term": "Keri Dachi No Kata",
+    "def": "Etude des postures de bases avec techniques de pied"
+  },
+  {
+    "term": "Keri Waza",
+    "def": "Techniques de pied"
+  },
+  {
+    "term": "Kesa",
+    "def": "Revers, travers"
+  },
+  {
+    "term": "kesa Giri",
+    "def": "Coupe diagonale vers le bas de l' épaule à la hanche"
+  },
+  {
+    "term": "Kesa Uchi",
+    "def": "Coup diagonal vers le bas"
+  },
+  {
+    "term": "Kesa Gatame",
+    "def": "Contrôle par le travers"
+  },
+  {
+    "term": "Keshu Gamae",
+    "def": "Position d'attente"
+  },
+  {
+    "term": "Ki O Tsuke",
+    "def": "Attention"
+  },
+  {
+    "term": "Kiai",
+    "def": "Extériorisation, explosion de l'énergie interne (Ki) dans une union parfaite du corps et de l'esprit et exprimée ou supportée par un son venant du hara"
+  },
+  {
+    "term": "Kiba Dachi",
+    "def": "Posture du cavalier, reconnue dans certains styles de Karaté comme étant la plus stable"
+  },
+  {
+    "term": "Kihon",
+    "def": "Entraînement fondamental, dans le vide - Base"
+  },
+  {
+    "term": "Kihon Kumite",
+    "def": "Assaut fondamental"
+  },
+  {
+    "term": "Kihon Waza",
+    "def": "Techniques fondamentales"
+  },
+  {
+    "term": "Kikan",
+    "def": "Gorge"
+  },
+  {
+    "term": "Kikan Uchi",
+    "def": "Coup à la gorge"
+  },
+  {
+    "term": "Kiken",
+    "def": "Renonciation"
+  },
+  {
+    "term": "Kiken Gachi",
+    "def": "Victoire par abandon"
+  },
+  {
+    "term": "Kime",
+    "def": "Focalisation, décision ultime Pénétration finale de l'énergie, intensité maximale délivrée à l'impact d'un coup"
+  },
+  {
+    "term": "Kime Waza",
+    "def": "Techniques de finition"
+  },
+  {
+    "term": "Kin",
+    "def": "Bas-ventre"
+  },
+  {
+    "term": "Kin Geri",
+    "def": "Coup de pied donné à l'entrejambe, généralement effectué avec le dessus du pied"
+  },
+  {
+    "term": "Kiri",
+    "def": "Couper, fendre"
+  },
+  {
+    "term": "Kiri Komi",
+    "def": "Coup de tranchant à la tête"
+  },
+  {
+    "term": "Kiri Oroshi",
+    "def": "Pourfendre avec le sabre"
+  },
+  {
+    "term": "Kiri Te",
+    "def": "L'action des mains"
+  },
+  {
+    "term": "Kiritsu",
+    "def": "Se lever"
+  },
+  {
+    "term": "Kito Ryu",
+    "def": "Ancienne école de ju-jutsu"
+  },
+  {
+    "term": "Kizami",
+    "def": "Avant, droit"
+  },
+  {
+    "term": "Kizami Tsuki",
+    "def": "Coup de poing direct"
+  },
+  {
+    "term": "Ko",
+    "def": "Dessus du poignet : \"Col de cygne\" - Petit"
+  },
+  {
+    "term": "Ko Bo Ichi",
+    "def": "Concept de rapport d'attaque-défense"
+  },
+  {
+    "term": "Ko Kutsu Dachi",
+    "def": "Position de combat : poids du corps sur la jambe arrière (n'a pas la même signification en shotokan et wadokan)"
+  },
+  {
+    "term": "Ko Soto Gake",
+    "def": "Petit accrochage extérieur"
+  },
+  {
+    "term": "Ko Soto Gari",
+    "def": "Petit fauchage extérieur"
+  },
+  {
+    "term": "Ko Uchi",
+    "def": "Frappe du dessus du poignet"
+  },
+  {
+    "term": "Ko Uchi Barai",
+    "def": "Petit fauchage intérieur"
+  },
+  {
+    "term": "Ko Uke",
+    "def": "Blocage du dessus du poignet"
+  },
+  {
+    "term": "Ko Yubi",
+    "def": "Petit doigt"
+  },
+  {
+    "term": "Kobudo",
+    "def": "Art du maniement des armes anciennes d'Okinawa - Art du comportement spirituel vis-à-vis du combat - Anciens Budo japonais"
+  },
+  {
+    "term": "Kobujutsu",
+    "def": "Art martiaux anciens"
+  },
+  {
+    "term": "Kobushi",
+    "def": "Le poing"
+  },
+  {
+    "term": "Kochi",
+    "def": "Hanche"
+  },
+  {
+    "term": "Kochiki Daoshi",
+    "def": "Variante de Ko Uchi Gari"
+  },
+  {
+    "term": "Kodachi",
+    "def": "Sabre court"
+  },
+  {
+    "term": "Koden",
+    "def": "Enseignements anciens (traditionnels)"
+  },
+  {
+    "term": "Kodokan",
+    "def": "Endroit où l'on étudie la voie, créé par Jigoro kano"
+  },
+  {
+    "term": "Kogan Geri",
+    "def": "Coup de pied à l'aine"
+  },
+  {
+    "term": "Kogeki",
+    "def": "Attaquant"
+  },
+  {
+    "term": "Kohai",
+    "def": "Débutant - Pratiquant moins expérimenté que soi"
+  },
+  {
+    "term": "Koka",
+    "def": "Petit avantage"
+  },
+  {
+    "term": "Koken",
+    "def": "Dos du poignet"
+  },
+  {
+    "term": "Kokoro",
+    "def": "Coeur, au sens spirituel du terme. Esprit, âme"
+  },
+  {
+    "term": "Kokoro Gamae",
+    "def": "La garde du cœur, attitude mentale"
+  },
+  {
+    "term": "Kokyu",
+    "def": "Respiration, mouvement du Ki, mouvement du corps suivant le Ki"
+  },
+  {
+    "term": "Kokyu Chikara",
+    "def": "Puissance interne"
+  },
+  {
+    "term": "Kokyu Ho",
+    "def": "Exercice de kokyu - Méthode de respiration accompagnant les mouvements de coups d'une expiration et les réarmés d'une inspiration"
+  },
+  {
+    "term": "Kokyu Nage",
+    "def": "Projection dos à dos - Projection respiratoire (sans saisie)"
+  },
+  {
+    "term": "Komi",
+    "def": "Tomber, tirer, dedans, contre"
+  },
+  {
+    "term": "Konban Wa",
+    "def": "Bonsoir"
+  },
+  {
+    "term": "Konichiwa",
+    "def": "Bonjour (l'après-midi)"
+  },
+  {
+    "term": "Koroshi Waza",
+    "def": "Techniques de touche létales retardées (...)"
+  },
+  {
+    "term": "Korosu",
+    "def": "Littéralement : \"Tuer\""
+  },
+  {
+    "term": "Koryu",
+    "def": "Vieux style, vielle école"
+  },
+  {
+    "term": "Kosa Dachi",
+    "def": "Posture : jambes croisées et fléchies"
+  },
+  {
+    "term": "Koshi",
+    "def": "Coussin de pied : \"Dent de tigre\" - Hanche"
+  },
+  {
+    "term": "Koshi Guruma",
+    "def": "Enroulement sur la hanche"
+  },
+  {
+    "term": "Koshi Kantsetsu",
+    "def": "Clé de hanche"
+  },
+  {
+    "term": "Koshi Nage",
+    "def": "Projection par les hanches"
+  },
+  {
+    "term": "Koshin",
+    "def": "Vers l'arrière"
+  },
+  {
+    "term": "Kote",
+    "def": "Poing - Poignet (et avant bras parfois)"
+  },
+  {
+    "term": "Kote Gaeshi",
+    "def": "Clé de poignet en flexion"
+  },
+  {
+    "term": "Kote Hineri",
+    "def": "Clé de poignet en tordant"
+  },
+  {
+    "term": "Kote Kitae",
+    "def": "Renforcement des avant-bras"
+  },
+  {
+    "term": "Kote Mawashi",
+    "def": "Clé de poignet en tournant"
+  },
+  {
+    "term": "Ku",
+    "def": "Vacuité, vide, air - Neuf (9)"
+  },
+  {
+    "term": "Kuatsu",
+    "def": "Technique ramenant à la vie une personne évanouie à cause d'une strangulation ou d'un choc"
+  },
+  {
+    "term": "Kubi",
+    "def": "Cou"
+  },
+  {
+    "term": "Kubi Kantsetsu",
+    "def": "Clé de cou"
+  },
+  {
+    "term": "Kubi Nage",
+    "def": "Projection par le cou"
+  },
+  {
+    "term": "Kubotan",
+    "def": "Dispositif d'autodéfense créé par Takayuki Kubota, servant habituellement de porte-clefs"
+  },
+  {
+    "term": "Kuchi",
+    "def": "Bouche"
+  },
+  {
+    "term": "Kuchiki Daoshi",
+    "def": "Renversement arrière avec les mains : \"Abattre l'arbre mort\""
+  },
+  {
+    "term": "Kudan",
+    "def": "Ceinture Rouge, 9e Dan"
+  },
+  {
+    "term": "Kuden",
+    "def": "Enseignements oraux"
+  },
+  {
+    "term": "Kue",
+    "def": "Houe de jardinier, arme du Kobudo"
+  },
+  {
+    "term": "Kumade",
+    "def": "Paume de la main avec les doigts repliés : \"patte d'ours\""
+  },
+  {
+    "term": "Kumi",
+    "def": "Saisie - Rencontre"
+  },
+  {
+    "term": "Kumi Kata",
+    "def": "Prise du judogi ou du Ju-Jitsugi"
+  },
+  {
+    "term": "Kumite",
+    "def": "Etude des combats, assauts conventionnels"
+  },
+  {
+    "term": "Kumo",
+    "def": "Araignée"
+  },
+  {
+    "term": "Kung Fu",
+    "def": "Art de combat Chinois"
+  },
+  {
+    "term": "Kusari Gama",
+    "def": "Faucille rattachée par une grande chaîne à un lest (une boule de plomb), arme du Kobudo"
+  },
+  {
+    "term": "Kutsu",
+    "def": "Posture"
+  },
+  {
+    "term": "Kuzure",
+    "def": "Variante"
+  },
+  {
+    "term": "Kuzure Gesa Gatame",
+    "def": "Contrôle latéro-costal"
+  },
+  {
+    "term": "Kuzure Kami Shiho Gatame",
+    "def": "Variante du Contrôle arrière sternal"
+  },
+  {
+    "term": "Kuzure Makura Gesa Gatame",
+    "def": "Variante du contrôle en oreiller par le travers"
+  },
+  {
+    "term": "Kuzure Tate Shiho Gatame",
+    "def": "Variante du contrôle par les 4 coins longitudinalement"
+  },
+  {
+    "term": "Kuzure Yoko Shiho Gatame",
+    "def": "Variante du contrôle des 4 points par le côté"
+  },
+  {
+    "term": "Kuzushi",
+    "def": "Rupture physique de l'équilibre de l'opposant"
+  },
+  {
+    "term": "Kwansetsu",
+    "def": "Luxation"
+  },
+  {
+    "term": "Kyo",
+    "def": "Groupe, principe"
+  },
+  {
+    "term": "Kyokotsu",
+    "def": "Sternum"
+  },
+  {
+    "term": "Kyoshi",
+    "def": "Maître-instructeur"
+  },
+  {
+    "term": "Kyu",
+    "def": "Grades jusqu'à la ceinture noire - Neuf (9) - Recherche"
+  },
+  {
+    "term": "Kyuban",
+    "def": "Neuvième"
+  },
+  {
+    "term": "Kyudo",
+    "def": "Voie du tir à l'arc"
+  },
+  {
+    "term": "Kyusho",
+    "def": "Point vitaux"
+  },
+  {
+    "term": "Kyusho Waza",
+    "def": "Techniques de points de pression (Points vitaux)"
+  },
+  {
+    "term": "Ma",
+    "def": "Notion d'espace temps, c'est souvent la distance entre le pratiquant et son objectif de frappe"
+  },
+  {
+    "term": "Maai Ga Toh",
+    "def": "\"Pas à la bonne distance\""
+  },
+  {
+    "term": "Mae",
+    "def": "Devant, avant, en face"
+  },
+  {
+    "term": "Mae Ashi Geri",
+    "def": "Coup de pied donné de la jambe qui est en avant"
+  },
+  {
+    "term": "Mae Atama",
+    "def": "Coup avec la tête de face"
+  },
+  {
+    "term": "Mae Chidori Ashi",
+    "def": "Pas croisé vers l'avant"
+  },
+  {
+    "term": "Mae Geri",
+    "def": "Coup de pied devant, direct en face de soi"
+  },
+  {
+    "term": "Mae Geri Keage",
+    "def": "Coup de pied fouetté et remontant, direct en face de soi"
+  },
+  {
+    "term": "Mae Geri Kekomi",
+    "def": "Coup de pied poussant, pénétrant, direct en face de soi"
+  },
+  {
+    "term": "Mae Hiza Geri",
+    "def": "Coup de genou vers l'avant"
+  },
+  {
+    "term": "Mae No Sen",
+    "def": "Attaque juste au moment où votre adversaire pense à attaquer, en prévision - attention aux interprétation"
+  },
+  {
+    "term": "Mae Te Tsuki",
+    "def": "Coup de poing direct vers l'avant, sans armer"
+  },
+  {
+    "term": "Mae Te Zuki",
+    "def": "Coup de poing direct vers l'avant, sans armer"
+  },
+  {
+    "term": "Mae Tobi Geri",
+    "def": "Coup de pied de face en sautant"
+  },
+  {
+    "term": "Mae Ukemi",
+    "def": "Chute avant"
+  },
+  {
+    "term": "Mae Ukomi",
+    "def": "Chute avant"
+  },
+  {
+    "term": "Maite Tsuki",
+    "def": "Coup de poing rebondissant"
+  },
+  {
+    "term": "Maite Zuki",
+    "def": "Coup de poing rebondissant"
+  },
+  {
+    "term": "Maitta",
+    "def": "\"J'abandonne!\""
+  },
+  {
+    "term": "Make",
+    "def": "Défaite"
+  },
+  {
+    "term": "Maki",
+    "def": "Rouler, enrouler"
+  },
+  {
+    "term": "Makikomi",
+    "def": "Enroulement à l'intérieur"
+  },
+  {
+    "term": "Makimono",
+    "def": "Rouleau (diplôme)"
+  },
+  {
+    "term": "Makiwara",
+    "def": "Poteau de frappe de bois planté dans le sol dans lequel le pratiquant frappe en Tsuki . Souvent le haut du poteau est recouvert de paille serrée. Ceci permet de durcir les Kentos et de développer le Kime"
+  },
+  {
+    "term": "Makoto",
+    "def": "Etat d'absolue sincérité et de franchise totale, que l'on atteint qu'avec un esprit pur, libre et disponible"
+  },
+  {
+    "term": "Makura Gesa Gatame",
+    "def": "Contrôle par le travers en oreiller"
+  },
+  {
+    "term": "Manabu",
+    "def": "\"Apprendre en copiant\", méthode d'apprentissage des mouvements en imitant l'instructeur"
+  },
+  {
+    "term": "Manji Sai",
+    "def": "Pointe double en fer et possédant une garde en \" S \", arme du Kobudo utilisée autrefois au bout d'un bâton long pour former une lance (Nunti) ou bien comme arme de lancer"
+  },
+  {
+    "term": "Mannaka",
+    "def": "Centre exact"
+  },
+  {
+    "term": "Mata",
+    "def": "Intérieur de la cuisse - Encore, de nouveau"
+  },
+  {
+    "term": "Matsu",
+    "def": "Pin (arbre)"
+  },
+  {
+    "term": "Matsuba",
+    "def": "Aiguilles de pin"
+  },
+  {
+    "term": "Matte",
+    "def": "Arrêt momentané du combat, \"attendez!\""
+  },
+  {
+    "term": "Mawari",
+    "def": "Rotation"
+  },
+  {
+    "term": "Mawaru",
+    "def": "Tourner"
+  },
+  {
+    "term": "Mawashi",
+    "def": "Mouvement circulaire"
+  },
+  {
+    "term": "Mawashi Empi Ate",
+    "def": "Coup de coude circulaire"
+  },
+  {
+    "term": "Mawashi Geri",
+    "def": "Coup de pied circulaire"
+  },
+  {
+    "term": "Mawashi Hiji Ate",
+    "def": "Coup de coude circulaire"
+  },
+  {
+    "term": "Mawashi Hiza Geri",
+    "def": "Coup de genou circulaire"
+  },
+  {
+    "term": "Mawashi Tsuki",
+    "def": "Coup de poing circulaire"
+  },
+  {
+    "term": "Mawashi Zuki",
+    "def": "Coup de poing circulaire"
+  },
+  {
+    "term": "Mawate",
+    "def": "Demi-tour"
+  },
+  {
+    "term": "Mayou",
+    "def": "Etat de perplexité, nuit à la juste appréciation de la situation"
+  },
+  {
+    "term": "Me",
+    "def": "Oeil"
+  },
+  {
+    "term": "Meikyo",
+    "def": "Kata supérieur \" miroir clair \", dans lequel l'esprit est censé reféter la conscience de l'adversaire"
+  },
+  {
+    "term": "Men",
+    "def": "Tête, la face"
+  },
+  {
+    "term": "Metsuke",
+    "def": "Cible d'un coup - L'endroit où se fixe le regard"
+  },
+  {
+    "term": "Mi",
+    "def": "Corps"
+  },
+  {
+    "term": "Michi",
+    "def": "Chemin à suivre"
+  },
+  {
+    "term": "Mienai",
+    "def": "\"Je n'ai rien vu\", dit par un juge"
+  },
+  {
+    "term": "Migi",
+    "def": "Droit(e)"
+  },
+  {
+    "term": "Migi Jigo Tai",
+    "def": "Position défensive à droite"
+  },
+  {
+    "term": "Migi Mawari",
+    "def": "Sens des aiguilles d'une montre"
+  },
+  {
+    "term": "Migi Shizen Tai",
+    "def": "A droite"
+  },
+  {
+    "term": "Mikazuki",
+    "def": "Croisant"
+  },
+  {
+    "term": "Mikazuki Geri",
+    "def": "Coup de pied en croissant de lune"
+  },
+  {
+    "term": "Mikazuki Uke",
+    "def": "Blocage avec le bol du pied"
+  },
+  {
+    "term": "Mimi",
+    "def": "Oreille"
+  },
+  {
+    "term": "Minarai",
+    "def": "Débutant"
+  },
+  {
+    "term": "Mine",
+    "def": "Dos de la lame"
+  },
+  {
+    "term": "Misekake",
+    "def": "Feinte"
+  },
+  {
+    "term": "Miyagi",
+    "def": "Cadeau"
+  },
+  {
+    "term": "Mizu",
+    "def": "Eau"
+  },
+  {
+    "term": "Mo Iichido",
+    "def": "Encore une fois"
+  },
+  {
+    "term": "Mochi",
+    "def": "Prendre avec les deux mains"
+  },
+  {
+    "term": "Modotte",
+    "def": "Retour à la position originale (commandement)"
+  },
+  {
+    "term": "Mokuso",
+    "def": "Méditation, relaxation en position Seiza"
+  },
+  {
+    "term": "Momo",
+    "def": "Cuisse"
+  },
+  {
+    "term": "Mondo",
+    "def": "Discussion"
+  },
+  {
+    "term": "Morote",
+    "def": "A deux mains - Renforcement de l'action d'une technique de bras par le second, poing fermé"
+  },
+  {
+    "term": "Morote Dori",
+    "def": "Tenir un opposant à deux mains"
+  },
+  {
+    "term": "Morote Gari",
+    "def": "Fauchage deux jambes à deux mains"
+  },
+  {
+    "term": "Morote Jime",
+    "def": "Etranglement à deux mains"
+  },
+  {
+    "term": "Morote Seoi Nage",
+    "def": "Projection d'épaule à deux mains"
+  },
+  {
+    "term": "Morote Teisho",
+    "def": "Blocage avec les deux mains"
+  },
+  {
+    "term": "Morote Tsuki",
+    "def": "Coup de poing double"
+  },
+  {
+    "term": "Morote Uke",
+    "def": "Technique de blocage avec les deux bras"
+  },
+  {
+    "term": "Morote Zuki",
+    "def": "Coup de poing double"
+  },
+  {
+    "term": "Moto Dachi",
+    "def": "Posture naturelle, un pied devant, pratiquement debout"
+  },
+  {
+    "term": "Moto No Ichi",
+    "def": "En kumité : retour à la position initiale"
+  },
+  {
+    "term": "Mu",
+    "def": "Négation totale, vide"
+  },
+  {
+    "term": "Mudansha",
+    "def": "Nom donné aux élèves avant la ceinture noire"
+  },
+  {
+    "term": "Mumobi",
+    "def": "Avertissement pour geste dangereux"
+  },
+  {
+    "term": "Mune",
+    "def": "Poitrine"
+  },
+  {
+    "term": "Mune Gatame",
+    "def": "Clé au coude avec le buste"
+  },
+  {
+    "term": "Mune Oshi",
+    "def": "Pousser à la poitrine"
+  },
+  {
+    "term": "Mushin",
+    "def": "Esprit vide, état ou l'on peut agir purement par intuition"
+  },
+  {
+    "term": "Mushotoku",
+    "def": "Sans but ni esprit de profit"
+  },
+  {
+    "term": "Musubi Dachi",
+    "def": "Posture d'attente : talons joints, pointes des pieds écartés"
+  },
+  {
+    "term": "Muzenin",
+    "def": "Attitude cosmique"
+  },
+  {
+    "term": "Nagashi",
+    "def": "Balayé, circulaire"
+  },
+  {
+    "term": "Nagashi Uke",
+    "def": "Blocage balayé entraînant vers soi l'action de l'adversaire"
+  },
+  {
+    "term": "Nage",
+    "def": "Projeter"
+  },
+  {
+    "term": "Nage Waza",
+    "def": "Techniques de projection"
+  },
+  {
+    "term": "Naginata",
+    "def": "Hallebarde, fauchard, dont le manche mesure de 2 à 3 m"
+  },
+  {
+    "term": "Naihanchi Dachi",
+    "def": "Posture du \"cavalier\", reconnue dans certains style de karaté comme étant la plus stable (similaire à kibadachi, plus haute, pieds rentrés légèrement)"
+  },
+  {
+    "term": "Naiwan",
+    "def": "Dessus de l'avant bras"
+  },
+  {
+    "term": "Naka Yubi",
+    "def": "Majeur"
+  },
+  {
+    "term": "Nakadaka Ippon Ken",
+    "def": "Articulation du majeur sortie du poing fermé"
+  },
+  {
+    "term": "Nami",
+    "def": "Vague (de l'océan)"
+  },
+  {
+    "term": "Nami Ashi",
+    "def": "Pas glissé, pied en contact avec le sol"
+  },
+  {
+    "term": "Nami Gaeshi",
+    "def": "Coup de pied de l'extérieur vers l'intérieur, devant soi - Esquive et retour en un seul temps"
+  },
+  {
+    "term": "Nami Juji Jime",
+    "def": "Etranglement facial croisé (main en pronation)"
+  },
+  {
+    "term": "Nana",
+    "def": "Sept (7)"
+  },
+  {
+    "term": "Nanaban",
+    "def": "Septiéme"
+  },
+  {
+    "term": "Naname",
+    "def": "Circulaire - En biais,en oblique"
+  },
+  {
+    "term": "Naname Tsuki",
+    "def": "Coup de poing circulaire"
+  },
+  {
+    "term": "Naore",
+    "def": "Revenir"
+  },
+  {
+    "term": "Natsu",
+    "def": "Eté (saison)"
+  },
+  {
+    "term": "Ne",
+    "def": "Couché - Sol, racine, base"
+  },
+  {
+    "term": "Ne Waza",
+    "def": "Technique au sol"
+  },
+  {
+    "term": "Neji",
+    "def": "Vis"
+  },
+  {
+    "term": "Neko",
+    "def": "Chat"
+  },
+  {
+    "term": "Neko Ashi Dachi",
+    "def": "Posture du chat : poids du corps sur la jambe arrière fléchie, la jambe avant ne reposant que sur les orteils, talon levé"
+  },
+  {
+    "term": "Ni",
+    "def": "Deux (2)"
+  },
+  {
+    "term": "Niban",
+    "def": "Deuxième - A deux niveaux - Ceinture noire 2ème Dan"
+  },
+  {
+    "term": "Nichi",
+    "def": "Soleil"
+  },
+  {
+    "term": "Nidan Geri",
+    "def": "Coup de pied sur deux niveaux"
+  },
+  {
+    "term": "Nihon",
+    "def": "Deux (2)"
+  },
+  {
+    "term": "Nihon Ken",
+    "def": "Deux articulations du poing"
+  },
+  {
+    "term": "Nihon Nukite",
+    "def": "Pique de deux doigts (index et majeur)"
+  },
+  {
+    "term": "Nihonzuki",
+    "def": "Pique de deux doigts (index et majeur)"
+  },
+  {
+    "term": "Niju Shiho",
+    "def": "Kata supérieur \" kata des 24 pas \""
+  },
+  {
+    "term": "Nin Jutsu",
+    "def": "Ensemble des techniques de résistance et de guérilla"
+  },
+  {
+    "term": "Niningake",
+    "def": "Pratique à un contre deux"
+  },
+  {
+    "term": "Ninja",
+    "def": "Résistant, guerrier des montagnes"
+  },
+  {
+    "term": "Ninyo",
+    "def": "Humanité"
+  },
+  {
+    "term": "Nodo",
+    "def": "Gorge"
+  },
+  {
+    "term": "Nuki",
+    "def": "Poussr - Tirer"
+  },
+  {
+    "term": "Nuki Kake",
+    "def": "Blocage du sabre"
+  },
+  {
+    "term": "Nuki Waza",
+    "def": "Esquive de l'attaque adverse dans même temps d'une riposte"
+  },
+  {
+    "term": "Nukite",
+    "def": "Pique des doigts"
+  },
+  {
+    "term": "Nunchaku",
+    "def": "Arme des îles Ryu Ku (Okinawa) dérivée d'un fléau"
+  },
+  {
+    "term": "Nunte",
+    "def": "Sorte de sai : trident avec une des branches inversées"
+  },
+  {
+    "term": "Nunti",
+    "def": "Lance en bois formée d'un bâton long et d'un Manji-Sai"
+  },
+  {
+    "term": "O",
+    "def": "Grand - Meilleur - Premier - Unique - Loi"
+  },
+  {
+    "term": "O Goshi",
+    "def": "Grande bascule de hanche"
+  },
+  {
+    "term": "O Guruma",
+    "def": "Grand enroulement"
+  },
+  {
+    "term": "O Mawashi Barai",
+    "def": "Grand balayage circulaire sur la jambe avancé"
+  },
+  {
+    "term": "O Sensei",
+    "def": "Grand Maître, fondateur d'une école"
+  },
+  {
+    "term": "O Soto Gari",
+    "def": "Grand fauchage extérieur"
+  },
+  {
+    "term": "O Soto Otoshi",
+    "def": "Grand renversement extérieur"
+  },
+  {
+    "term": "O Uchi Gari",
+    "def": "Grand fauchage intérieur"
+  },
+  {
+    "term": "O Yubi",
+    "def": "Pouce"
+  },
+  {
+    "term": "Obi",
+    "def": "Ceinture"
+  },
+  {
+    "term": "Obi Musubi",
+    "def": "Nœud de ceinture"
+  },
+  {
+    "term": "Obi Tori",
+    "def": "Prise de la ceinture"
+  },
+  {
+    "term": "Odoroku",
+    "def": "Surprise, comportement jetant le trouble dans l'esprit de l'adversaire"
+  },
+  {
+    "term": "Ohayo",
+    "def": "Bonjour"
+  },
+  {
+    "term": "Ohayo Gosai Masu",
+    "def": "Bonjour"
+  },
+  {
+    "term": "Oi Tsuki",
+    "def": "Coup de poing donné en avançant, de la main correspondant à la jambe qui est en avant"
+  },
+  {
+    "term": "Oi Zuki",
+    "def": "Coup de poing donné en avançant, de la main correspondant à la jambe qui est en avant"
+  },
+  {
+    "term": "Oichi",
+    "def": "Inébranlable"
+  },
+  {
+    "term": "Okinawa",
+    "def": "Ile, au sud du Japon, qui est le berceau du Karaté et du Kobudo"
+  },
+  {
+    "term": "Oku",
+    "def": "Secret"
+  },
+  {
+    "term": "Okuden",
+    "def": "Enseignement en secret"
+  },
+  {
+    "term": "Okumi",
+    "def": "Ensemble"
+  },
+  {
+    "term": "Okuri",
+    "def": "Jeter, balancer"
+  },
+  {
+    "term": "Okuri Ashi",
+    "def": "Déplacement pieds (ramener pied arrière sans dépasser l'autre)"
+  },
+  {
+    "term": "Okuri Ashi Barai",
+    "def": "Balayage des deux jambes"
+  },
+  {
+    "term": "Okuri Eri Jime",
+    "def": "Etranglement arrière par les 2 revers"
+  },
+  {
+    "term": "Omote",
+    "def": "Face, surface - Version des techniques révélées au public ou aux pratiquants débutants"
+  },
+  {
+    "term": "Onegai Shimasu",
+    "def": "\"Je vous en pris\""
+  },
+  {
+    "term": "Orei",
+    "def": "Etiquette"
+  },
+  {
+    "term": "Oroshi",
+    "def": "En marteau, vers le bas"
+  },
+  {
+    "term": "Osae",
+    "def": "Immobilisation, contrôle, maintien, prise,"
+  },
+  {
+    "term": "Osae Komi",
+    "def": "Immobiliser contre soi, immobilisation"
+  },
+  {
+    "term": "Osae Komi Waza",
+    "def": "Technique d'immobilisation"
+  },
+  {
+    "term": "Osae Uke",
+    "def": "Blocage appuyé"
+  },
+  {
+    "term": "Osae Waza",
+    "def": "Techniques de saisies et de pression"
+  },
+  {
+    "term": "Oshi",
+    "def": "Pousser"
+  },
+  {
+    "term": "Osoreru",
+    "def": "Crainte de l'adversaire (Mayou, Odoroku, Osoreru, Utagau)"
+  },
+  {
+    "term": "Oss!",
+    "def": "Salut martial, marque de respect, merci, d'accord, entendu. Contraction de Ohayô Gosai masu (bonjour) ou de Onegai Shimasu (Je vous en prie) (version wado) - Il régne une certaine confusion au sujet du ce terme et de son utilisation. \"osu\" serait aussi un mot en soi signifiant \"pousser\" dans le sens de persévérer - (version donahue) contraction de osu-shinobu : très impoli en dehors d'un dojo, jamais employé par les femmes!"
+  },
+  {
+    "term": "Otagai",
+    "def": "Ensemble"
+  },
+  {
+    "term": "Otagai Ni Rei",
+    "def": "Salutation mutuelle (entre élèves)"
+  },
+  {
+    "term": "Otoshi",
+    "def": "Mouvement de haut en bas - Faire tomber, tomber - Barrage"
+  },
+  {
+    "term": "Otoshi Empi Uchi",
+    "def": "Frappe du coude vers le bas"
+  },
+  {
+    "term": "Otoshi Hiji Ate",
+    "def": "Frappe du coude vers le bas"
+  },
+  {
+    "term": "Otoshi Uke",
+    "def": "Blocage vertical de haut en bas, poing fermé ( Tetsui )"
+  },
+  {
+    "term": "Oyasumi",
+    "def": "Bonne nuit"
+  },
+  {
+    "term": "Oyayubi",
+    "def": "Pique du pouce"
+  },
+  {
+    "term": "Oyayubi Ippon Ken",
+    "def": "Jointure du pouce"
+  },
+  {
+    "term": "Oyo",
+    "def": "Application de technique apprise à travers l' étude des kata et bunkai"
+  },
+  {
+    "term": "Ozu",
+    "def": "Pousser"
+  },
+  {
+    "term": "Randori",
+    "def": "Combats libres lors des entraînements"
+  },
+  {
+    "term": "Randori No Kata",
+    "def": "Ensemble codifié de techniques enchaînées, généralement au nombre de sept, entre deux partenaires, l'un jouant du début à la fin l'attaquant, l'autre le défenseur"
+  },
+  {
+    "term": "Rei",
+    "def": "Le salut, le respect"
+  },
+  {
+    "term": "Reigi",
+    "def": "Etiquette, principe du respect du protocole"
+  },
+  {
+    "term": "Reishigi",
+    "def": "Etiquette, principe du respect du protocole"
+  },
+  {
+    "term": "Ren",
+    "def": "Plusieurs"
+  },
+  {
+    "term": "Ren Han Ko",
+    "def": "Enchaînement"
+  },
+  {
+    "term": "Ren Tsuki",
+    "def": "Attaque continue"
+  },
+  {
+    "term": "Ren Uke",
+    "def": "Enchaînement de blocage"
+  },
+  {
+    "term": "Renmei",
+    "def": "Fédération, association"
+  },
+  {
+    "term": "Renoji Dachi",
+    "def": "Posture de base : les pieds formant un L"
+  },
+  {
+    "term": "Renshi",
+    "def": "\"personne dont la maturité est totale\", expert-instructeur - Instructeur de 6° Dan"
+  },
+  {
+    "term": "Renshu",
+    "def": "Pratique - Entrainement"
+  },
+  {
+    "term": "Rensoku Waza",
+    "def": "Techniques enchaînées"
+  },
+  {
+    "term": "Renzoku Waza",
+    "def": "Techniques combinées"
+  },
+  {
+    "term": "Riken",
+    "def": "Revers de poing"
+  },
+  {
+    "term": "Ritsu Rei",
+    "def": "Salut debout, \"saluez dans la position où vous vous trouvez\""
+  },
+  {
+    "term": "Ritsu Zen",
+    "def": "Méditation debout"
+  },
+  {
+    "term": "Rokku",
+    "def": "Six (6)"
+  },
+  {
+    "term": "Rokkuban",
+    "def": "Sixième"
+  },
+  {
+    "term": "Rokudan",
+    "def": "Ceinture Blanche et rouge 6ème Dan"
+  },
+  {
+    "term": "Rokushaku Bo",
+    "def": "Bâton de six pieds (183 cm)"
+  },
+  {
+    "term": "Ronin",
+    "def": "Samouraï sans emploi, par disgrâce ou mort de son maître"
+  },
+  {
+    "term": "Ryo",
+    "def": "Les deux"
+  },
+  {
+    "term": "Ryo Eri Dori",
+    "def": "Saisie des deux revers"
+  },
+  {
+    "term": "Ryo Ho",
+    "def": "dans deux directions"
+  },
+  {
+    "term": "Ryo Igi Dori",
+    "def": "Saisie des deux coudes"
+  },
+  {
+    "term": "Ryo Kata Dori",
+    "def": "Saisie des deux épaules"
+  },
+  {
+    "term": "Ryo Kata Oshi",
+    "def": "Poussée des deux épaules"
+  },
+  {
+    "term": "Ryo Sode Dori",
+    "def": "Saisie des deux manches"
+  },
+  {
+    "term": "Ryo Te",
+    "def": "Deux mains"
+  },
+  {
+    "term": "Ryogan Tsuki",
+    "def": "Pique aux deux yeux"
+  },
+  {
+    "term": "Ryote Dori",
+    "def": "Saisie des deux poignets"
+  },
+  {
+    "term": "Ryu",
+    "def": "Style, école, méthode - Dragon"
+  },
+  {
+    "term": "Sa",
+    "def": "Côté gauche"
+  },
+  {
+    "term": "Sabaki",
+    "def": "Déplacement, mouvement du corps, esquiver"
+  },
+  {
+    "term": "Sagaru",
+    "def": "Pendre"
+  },
+  {
+    "term": "Sage Makiwara",
+    "def": "Sac de frappe (pendants)"
+  },
+  {
+    "term": "Sagi Ashi Dachi",
+    "def": "Posture sur une jambe (flèchie), posture de la grue"
+  },
+  {
+    "term": "Sagurite",
+    "def": "La main qui cherche"
+  },
+  {
+    "term": "Sagurite No Kamae",
+    "def": "Position de la main qui cherche"
+  },
+  {
+    "term": "Sagurite Uke",
+    "def": "Parade de la main qui cherche"
+  },
+  {
+    "term": "Saguru",
+    "def": "Tâtonner, sonder"
+  },
+  {
+    "term": "Sai",
+    "def": "Arme d'Okinawa ressemblant à une dague mais dont la lame n'est pas tranchante, arme du Kobudo - Trident en acier, arme blanche du kobudo"
+  },
+  {
+    "term": "Sambon Kumite",
+    "def": "Combat conventionnel sur trois pas"
+  },
+  {
+    "term": "Samouraï",
+    "def": "Elite des guerriers japonais, attachés à un seigneur de la cour impériale et ayant le droit de porter deux sabres"
+  },
+  {
+    "term": "Sampai",
+    "def": "Ancien pratiquant"
+  },
+  {
+    "term": "San",
+    "def": "Trois (3) - Suffixe indiquant aussi bien m. mme, melle"
+  },
+  {
+    "term": "Sanban",
+    "def": "Troisième"
+  },
+  {
+    "term": "Sanbon Ju Kumite",
+    "def": "Combat souple formé de trois attaques"
+  },
+  {
+    "term": "Sanchin",
+    "def": "Kata respiratoire et musculaire"
+  },
+  {
+    "term": "Sanchin Dachi",
+    "def": "Posture du sablier : les pieds sont tournés vers l'intérieur, les genoux et les cuisses en protection des parties, position plus courte que Hangetsu Dachi"
+  },
+  {
+    "term": "Sandan",
+    "def": "Ceinture Noire 3ème Dan"
+  },
+  {
+    "term": "Sankaku",
+    "def": "Triangle"
+  },
+  {
+    "term": "Sankaku Jime",
+    "def": "Etranglement,(cou et un bras), par les 2 jambes"
+  },
+  {
+    "term": "Sanpai",
+    "def": "Ancien ou pratiquant ayant plus d'ancienneté que soi. Responsable du Dojo et du respect du code d'éthique"
+  },
+  {
+    "term": "Sansetsukon",
+    "def": "Arme d'origine chinoise, composée de 3 bâtons reliés par de courtes chaînes, arme du Kobudo"
+  },
+  {
+    "term": "Sasae",
+    "def": "Bloquer, maintenir"
+  },
+  {
+    "term": "Sasae Hiji Ate",
+    "def": "Coup écrasant du coude d'appui"
+  },
+  {
+    "term": "Sasae Tsuri Komi Ashi",
+    "def": "Blocage du pied en soulevant et en tirant, en pêchant"
+  },
+  {
+    "term": "Sashi Kae Ashi",
+    "def": "Pas croisé en avant"
+  },
+  {
+    "term": "Sashi Komi Ashi",
+    "def": "Pas glissé en avant"
+  },
+  {
+    "term": "Sashite",
+    "def": "Elévation de la main, pour frapper, saisir ou bloquer"
+  },
+  {
+    "term": "Sayônara",
+    "def": "\"Au revoir !\""
+  },
+  {
+    "term": "Sayu Uke",
+    "def": "Parade simultanée avec les deux membres"
+  },
+  {
+    "term": "Schodo",
+    "def": "Voie,art de la calligraphie"
+  },
+  {
+    "term": "Sei Retsu",
+    "def": "\"Alignez-vous\""
+  },
+  {
+    "term": "Seiken",
+    "def": "poing fondamental ou poing parfait (on utilise deux Kento)"
+  },
+  {
+    "term": "Seiki Jitsu",
+    "def": "Techniques d'autodéfense du Seikido"
+  },
+  {
+    "term": "Seiki Taiso",
+    "def": "Gymnastique énergétique du Seikido"
+  },
+  {
+    "term": "Seikido",
+    "def": "Voie de l'energie circulaire"
+  },
+  {
+    "term": "Seikido Kaiso",
+    "def": "Ouvrir la voie de l'energie circulaire"
+  },
+  {
+    "term": "Seimyo",
+    "def": "Esprit, énergie du coeur"
+  },
+  {
+    "term": "Seiryu",
+    "def": "La source, le fondement"
+  },
+  {
+    "term": "Seiryuto",
+    "def": "Tranchant de la main au niveau du poignet - Machette utilisée avec le Timbe, arme du Kobudo"
+  },
+  {
+    "term": "Seishin",
+    "def": "Esprit"
+  },
+  {
+    "term": "Seisuy",
+    "def": "Coeur Universel"
+  },
+  {
+    "term": "Seito",
+    "def": "Eleve, étudiant"
+  },
+  {
+    "term": "Seiza",
+    "def": "Position de méditation (agenouillé, assis sur les talons)"
+  },
+  {
+    "term": "Sekichu",
+    "def": "Epine"
+  },
+  {
+    "term": "Sekito Ate",
+    "def": "La plante du pied"
+  },
+  {
+    "term": "Seme",
+    "def": "Attaque"
+  },
+  {
+    "term": "Semete",
+    "def": "Le partenaire qui porte l'attaque dans un kata"
+  },
+  {
+    "term": "Sempai",
+    "def": "Ancien, supérieur en ancienneté parmi les élèves d'un Dojo.un étudiant senior"
+  },
+  {
+    "term": "Sen",
+    "def": "Initiative"
+  },
+  {
+    "term": "Sen No Sen",
+    "def": "Anticiper, agir sur la perception de l'intention de l'adversaire"
+  },
+  {
+    "term": "Senaka",
+    "def": "Le dos"
+  },
+  {
+    "term": "Sensei",
+    "def": "Maître, professeur, instructeur"
+  },
+  {
+    "term": "Sensei Ni Rei",
+    "def": "Salut au maître, au Professeur"
+  },
+  {
+    "term": "Senshi",
+    "def": "Guerrière"
+  },
+  {
+    "term": "Seoi",
+    "def": "Epaule"
+  },
+  {
+    "term": "Seoi Kantsetsu",
+    "def": "Clé d'épaule"
+  },
+  {
+    "term": "Seretsu",
+    "def": "Alignement, se mettre en ligne"
+  },
+  {
+    "term": "Shaku",
+    "def": "Unité de mesure légèrement inférieure au pied"
+  },
+  {
+    "term": "Sharin",
+    "def": "Roue"
+  },
+  {
+    "term": "Shi",
+    "def": "Quatre (4)"
+  },
+  {
+    "term": "Shi Tsuki",
+    "def": "Coup de bec"
+  },
+  {
+    "term": "Shiai",
+    "def": "Compétition, un match, une lutte"
+  },
+  {
+    "term": "Shiai Geiko",
+    "def": "Compétition, combat arbitré"
+  },
+  {
+    "term": "Shiai Jo",
+    "def": "Aire de combat, lieu de compétition"
+  },
+  {
+    "term": "Shiburi",
+    "def": "Succession de frappes dans le vide (Kendo)"
+  },
+  {
+    "term": "Shichi",
+    "def": "Sept (7)"
+  },
+  {
+    "term": "Shichidan",
+    "def": "Ceinture blanche et rouge 7ème Dan"
+  },
+  {
+    "term": "Shido",
+    "def": "Faute légére"
+  },
+  {
+    "term": "Shidoin",
+    "def": "Instructeur qui n'est pas encore sensei, assistant-instructeur"
+  },
+  {
+    "term": "Shidori Ashi",
+    "def": "Pas glissé à 45 degrés"
+  },
+  {
+    "term": "Shihan",
+    "def": "Maître (dans le Seikido, entre 5e et 7e dan) Titre formel pouvant se traduire par \"maître-instructeur\", celui qui forme les instructeurs"
+  },
+  {
+    "term": "Shihan Ni Rei",
+    "def": "Salut au maître"
+  },
+  {
+    "term": "Shiho",
+    "def": "Pratique aux quatre coins cardinaux"
+  },
+  {
+    "term": "Shikakeru",
+    "def": "Commencer, provoquer"
+  },
+  {
+    "term": "Shiki",
+    "def": "Phénomènes de la nature, les quatre saisons - Détermination"
+  },
+  {
+    "term": "Shikkaku",
+    "def": "En kumité : disqualification"
+  },
+  {
+    "term": "Shikko",
+    "def": "Marche à genou"
+  },
+  {
+    "term": "Shiko Dachi",
+    "def": "Posture du Sumo : jambes fléchies, le poids du corps au centre et les pieds ouverts"
+  },
+  {
+    "term": "Shime",
+    "def": "Etranglement, Strangulation"
+  },
+  {
+    "term": "Shime Waza",
+    "def": "Techniques d'étranglements"
+  },
+  {
+    "term": "Shimoza",
+    "def": "Côté du Dojo réservé aux élèves"
+  },
+  {
+    "term": "Shimozeki",
+    "def": "Mur inférieur du Dojo, traditionnellement au nord"
+  },
+  {
+    "term": "Shin",
+    "def": "Esprit, ciel"
+  },
+  {
+    "term": "Shin Tai",
+    "def": "Déplacement"
+  },
+  {
+    "term": "Shinai",
+    "def": "Sabre d'entraînement en bambou fendu (Kendo)"
+  },
+  {
+    "term": "Shinkokyu",
+    "def": "Exercice de respiration"
+  },
+  {
+    "term": "Shinto",
+    "def": "Religion traditionnelle du Japon"
+  },
+  {
+    "term": "Shio",
+    "def": "Quatre directions"
+  },
+  {
+    "term": "Shio Nage",
+    "def": "Projection dans les quatre coins"
+  },
+  {
+    "term": "Shiro",
+    "def": "Blanc"
+  },
+  {
+    "term": "Shisei",
+    "def": "Attitude, posture correcte"
+  },
+  {
+    "term": "Shita",
+    "def": "En bas, en dessous"
+  },
+  {
+    "term": "Shitachi",
+    "def": "Défenseur (tori) dans un kumité préarrangé"
+  },
+  {
+    "term": "Shito",
+    "def": "Pointe des doigts"
+  },
+  {
+    "term": "Shiwari",
+    "def": "Epreuve de casse"
+  },
+  {
+    "term": "Shizen",
+    "def": "Naturel"
+  },
+  {
+    "term": "Shizen Tai",
+    "def": "Position naturelle : le corps est détendu mais alerte"
+  },
+  {
+    "term": "Sho",
+    "def": "Premier - Petit"
+  },
+  {
+    "term": "Shodan",
+    "def": "Débutant ceinture noire 1er Dan"
+  },
+  {
+    "term": "Shodo",
+    "def": "Voie, art de la calligraphie"
+  },
+  {
+    "term": "Shomen",
+    "def": "Front ou dessus de la tête - Devant du Dojo (Kamiza)"
+  },
+  {
+    "term": "Shomen Ni Rei",
+    "def": "Les élèves saluent le maître (photo)"
+  },
+  {
+    "term": "Shomen Uchi",
+    "def": "Attaque de face de haut en bas (en coupant)"
+  },
+  {
+    "term": "Shotei",
+    "def": "Base de la paume de la main"
+  },
+  {
+    "term": "Shotokan",
+    "def": "Style de karaté"
+  },
+  {
+    "term": "Shu",
+    "def": "Les mains"
+  },
+  {
+    "term": "Shugo",
+    "def": "En kumité : appel du juge, rassemblement"
+  },
+  {
+    "term": "Shumatsu Undo",
+    "def": "Exercice de retour au calme"
+  },
+  {
+    "term": "Shuto",
+    "def": "Sabre de la main (tranchant opposé au pouce)"
+  },
+  {
+    "term": "Shuto Uchi",
+    "def": "Frappe du tranchant de la main, doigts serrés"
+  },
+  {
+    "term": "Shuto Uke",
+    "def": "Blocage avec le tranchant de la main, doigts serrés"
+  },
+  {
+    "term": "Shuwan",
+    "def": "Intérieur de l'avant-bras"
+  },
+  {
+    "term": "Sochin Dachi",
+    "def": "Posture inébranlable : position proche de Zen Kutsu Dachi mais la jambe arrière est fléchie"
+  },
+  {
+    "term": "Sode",
+    "def": "Manche"
+  },
+  {
+    "term": "Sode Guruma Jime",
+    "def": "Etranglement arrière par enroulement du revers"
+  },
+  {
+    "term": "Sode Tori",
+    "def": "Prise de manche - Tenue du revers"
+  },
+  {
+    "term": "Soete",
+    "def": "Main ouverte venant renforcer l'action de l'autre bras"
+  },
+  {
+    "term": "Sogo Gachi",
+    "def": "Victoire par combinaison"
+  },
+  {
+    "term": "Soke",
+    "def": "Maître fondateur"
+  },
+  {
+    "term": "Sokei",
+    "def": "Aine"
+  },
+  {
+    "term": "Sokubo Uke",
+    "def": "Blocage avec l'intérieur de la jambe"
+  },
+  {
+    "term": "Sokudo",
+    "def": "Vitesse"
+  },
+  {
+    "term": "Sokumen",
+    "def": "De biais"
+  },
+  {
+    "term": "Sokusen Geri",
+    "def": "Coup de pied donné avec la pointe du pied"
+  },
+  {
+    "term": "Sokutei",
+    "def": "Plante du pied"
+  },
+  {
+    "term": "Sokutei Mawashi Uke",
+    "def": "Coup de pied circulaire en parade utilisant la plante du pied (type Mikazuki Geri )"
+  },
+  {
+    "term": "Sokutei Osae Uke",
+    "def": "Blocage vers le bas avec la plante du pied"
+  },
+  {
+    "term": "Sokutei Uke",
+    "def": "Blocage avec la plante du pied"
+  },
+  {
+    "term": "Sokuto",
+    "def": "Tranchant externe du pied (sabre externe du pied)"
+  },
+  {
+    "term": "Sono Mama",
+    "def": "Ne bougez plus! (en Ne Waza)"
+  },
+  {
+    "term": "Sore Made",
+    "def": "Fin de l'exercice en cours, fin du combat"
+  },
+  {
+    "term": "Sosetsukon",
+    "def": "Arme des îles Ryu Ku (Okinawa) dérivée d'un fléau"
+  },
+  {
+    "term": "Sotai",
+    "def": "Ensemble, total"
+  },
+  {
+    "term": "Sotai Renshyu",
+    "def": "Etude technique: d'apprendre ou de perfectionner une technique"
+  },
+  {
+    "term": "Soto",
+    "def": "Extérieur"
+  },
+  {
+    "term": "Soto Maki Komi",
+    "def": "Enroulement extérieur"
+  },
+  {
+    "term": "Soto Ude Uke",
+    "def": "Blocage effectué avec l'avant-bras, de l'extérieur vers l'intérieur"
+  },
+  {
+    "term": "Soto Uke",
+    "def": "Blocage effectué avec l'avant-bras, de l'extérieur vers l'intérieur"
+  },
+  {
+    "term": "Suigetsu",
+    "def": "Plexus solaire"
+  },
+  {
+    "term": "Suki",
+    "def": "Vide cérébral, moment d'inattention"
+  },
+  {
+    "term": "Sukui",
+    "def": "En cuillère"
+  },
+  {
+    "term": "Sukui Nage",
+    "def": "Projection en \"cuillère\""
+  },
+  {
+    "term": "Sukui Te",
+    "def": "Blocage ramassant (en cuillère)"
+  },
+  {
+    "term": "Sukui Uke",
+    "def": "Blocage ramassant (en cuillère)"
+  },
+  {
+    "term": "Sumi",
+    "def": "Coin, angle"
+  },
+  {
+    "term": "Sumi Gaeshi",
+    "def": "Renversement dans l'angle"
+  },
+  {
+    "term": "Sumi Otoshi",
+    "def": "Chute dans l'angle"
+  },
+  {
+    "term": "Sumo",
+    "def": "Lutte traditionnelle Japonaise"
+  },
+  {
+    "term": "Sun Dome",
+    "def": "Contrôle"
+  },
+  {
+    "term": "Sune",
+    "def": "Tibia, devant de la jambe"
+  },
+  {
+    "term": "Suri Age",
+    "def": "Coup au visage"
+  },
+  {
+    "term": "Suri Ashi",
+    "def": "marcher avec le koshi, le pied glissant légèrement"
+  },
+  {
+    "term": "Suriage Waza",
+    "def": "Technique de contrôle de la technique du partenaire"
+  },
+  {
+    "term": "Suruchin",
+    "def": "Longue corde avec un lest à chaque extrémité, arme du Kobudo"
+  },
+  {
+    "term": "Sutemi",
+    "def": "Action faite \"en Sacrifice\" (n'a pas le sens \"d'attaque suicide\")"
+  },
+  {
+    "term": "Sutemi Waza",
+    "def": "Technique de mouvement en sacrifice"
+  },
+  {
+    "term": "Suwari",
+    "def": "Assis, à genoux, au sol"
+  },
+  {
+    "term": "Suwari Waza",
+    "def": "Techniques en position assise ou à genoux"
+  },
+  {
+    "term": "Suzuki",
+    "def": "Lisière front-cheveux"
+  },
+  {
+    "term": "Tachi",
+    "def": "Debout, position - Victoire"
+  },
+  {
+    "term": "Tachi Waza",
+    "def": "Technique debout"
+  },
+  {
+    "term": "Tagai",
+    "def": "Mutuel, réciproque"
+  },
+  {
+    "term": "Tagatane",
+    "def": "Tranchant de la main"
+  },
+  {
+    "term": "Tai",
+    "def": "Corps"
+  },
+  {
+    "term": "Taï Chi Chuan",
+    "def": "Gymnastique Chinoise, ralenti des séquences imaginaires de combat"
+  },
+  {
+    "term": "Tai Chikara",
+    "def": "Puissance extérieure"
+  },
+  {
+    "term": "Tai Gamae",
+    "def": "Même garde"
+  },
+  {
+    "term": "Tai Jutsu",
+    "def": "Exercices à mains nues"
+  },
+  {
+    "term": "Tai Otoshi",
+    "def": "Renversement du corps (barrage)"
+  },
+  {
+    "term": "Tai Sabaki",
+    "def": "Esquive, technique de déplacement du corps en utilisant la force de l'adversaire au passage"
+  },
+  {
+    "term": "Taichi",
+    "def": "Position debout"
+  },
+  {
+    "term": "Taichi Ai",
+    "def": "Techniques debout"
+  },
+  {
+    "term": "Taikai",
+    "def": "Grande réunion"
+  },
+  {
+    "term": "Taiko",
+    "def": "Combattants face à face - Tambour"
+  },
+  {
+    "term": "Taisho",
+    "def": "Coup avec le coussinet de la main"
+  },
+  {
+    "term": "Taiso",
+    "def": "Educatifs - Echauffement"
+  },
+  {
+    "term": "Take",
+    "def": "Bambou"
+  },
+  {
+    "term": "Taki",
+    "def": "Cascade, chute d'eau"
+  },
+  {
+    "term": "Tamashi",
+    "def": "Lumière de l'âme, profondeur du coeur"
+  },
+  {
+    "term": "Tambo",
+    "def": "Bâton court"
+  },
+  {
+    "term": "Tameshiwari",
+    "def": "Epreuve de casse"
+  },
+  {
+    "term": "Tan En",
+    "def": "Travail seul"
+  },
+  {
+    "term": "Tan Ren",
+    "def": "Dépasser ses limites, se surpasser"
+  },
+  {
+    "term": "Tanden",
+    "def": "Océan des énergies : abdomen, ventre, centre vital, d'énergie au-dessous, à trois doigts du nombril..."
+  },
+  {
+    "term": "Tandoku Renshyu",
+    "def": "Entraînement seul, obtenir la coordination des MVT"
+  },
+  {
+    "term": "Tani",
+    "def": "Vallée"
+  },
+  {
+    "term": "Tani Otoshi",
+    "def": "\"Chute dans la vallée\", renversement arrière (barrage)"
+  },
+  {
+    "term": "Tanto",
+    "def": "Couteau, poignard, sabre très court"
+  },
+  {
+    "term": "Tanto Dori",
+    "def": "Technique de contre-attaque au couteau"
+  },
+  {
+    "term": "Tatami",
+    "def": "Tapis d'entraînement en paille compressée - Nattes sur lesquelles les japonais dorment - Unité de mesure de surface des maisons japonaises"
+  },
+  {
+    "term": "Tate",
+    "def": "Vertical, perpendiculaire"
+  },
+  {
+    "term": "Tate Empi Uchi",
+    "def": "Frappe remontante du coude"
+  },
+  {
+    "term": "Tate Ken",
+    "def": "Comme Seiken mais la main perpendiculaire au sol"
+  },
+  {
+    "term": "Tate Shiho Gatame",
+    "def": "Contrôle à cheval par les 4 points"
+  },
+  {
+    "term": "Tate Shuto Uke",
+    "def": "Bras tendu, main ouverte perpendiculaire"
+  },
+  {
+    "term": "Tate Tsuki",
+    "def": "Coup de poing à mi-distance avec la main perpendiculaire au sol (poing vertical)"
+  },
+  {
+    "term": "Tate Zuki",
+    "def": "Coup de poing à mi-distance avec la main perpendiculaire au sol"
+  },
+  {
+    "term": "Tateru",
+    "def": "Lever"
+  },
+  {
+    "term": "Tawara Gaeshi",
+    "def": "Techniques de contre utilisée face à Morote Gari"
+  },
+  {
+    "term": "Te",
+    "def": "Main"
+  },
+  {
+    "term": "Te Gaeshi",
+    "def": "Renversement avec la main"
+  },
+  {
+    "term": "Te Guruma",
+    "def": "Enroulement par les mains"
+  },
+  {
+    "term": "Te Kubi",
+    "def": "Poignet"
+  },
+  {
+    "term": "Te Kubi Osae",
+    "def": "Clé par hyperflexion du poignet"
+  },
+  {
+    "term": "Te Otoshi",
+    "def": "Chute par la main en barrant"
+  },
+  {
+    "term": "Tegatana Ate",
+    "def": "Tranchant de la main"
+  },
+  {
+    "term": "Teiji Dachi",
+    "def": "Posture où les pieds forment un T"
+  },
+  {
+    "term": "Teisho",
+    "def": "Paume de la main"
+  },
+  {
+    "term": "Teisho Tsuki",
+    "def": "Attaque directe de la paume de la main"
+  },
+  {
+    "term": "Teisho Uchi",
+    "def": "Frappe de la base de la paume de la main"
+  },
+  {
+    "term": "Teisho Uke",
+    "def": "Blocage de la base de la paume de la main"
+  },
+  {
+    "term": "Teisoku",
+    "def": "Plante du pied, voûte plantaire"
+  },
+  {
+    "term": "Tekatana",
+    "def": "Tranchant de la main"
+  },
+  {
+    "term": "Tekki",
+    "def": "Katas avancés \" monter un cheval fougueux \""
+  },
+  {
+    "term": "Tekubi Kaeshi",
+    "def": "Blocage avec le dessus de la main tourné vers le bas"
+  },
+  {
+    "term": "Tembin",
+    "def": "Faire levier"
+  },
+  {
+    "term": "Ten",
+    "def": "Ciel"
+  },
+  {
+    "term": "Tenkan",
+    "def": "Rotation pour détourner la force, pivot, direction contraire"
+  },
+  {
+    "term": "Tenshi Nage",
+    "def": "Projection ciel terre"
+  },
+  {
+    "term": "Tenshin",
+    "def": "Technique d'esquive, esprit du ciel"
+  },
+  {
+    "term": "Tensho",
+    "def": "Kata respiratoire d'origine chinoise \"appartenant\" aujourd'hui au style Goju-Ryu"
+  },
+  {
+    "term": "Tesaki",
+    "def": "Bouts des doigts"
+  },
+  {
+    "term": "Tetsui",
+    "def": "Marteau du poing (partie inférieure lorsque celui-ci est vertical et fermé)"
+  },
+  {
+    "term": "Tetsui Uchi",
+    "def": "Frappe du marteau du poing"
+  },
+  {
+    "term": "Timbe",
+    "def": "Bouclier fait à l'origine d'une carapace de tortue, arme de Kobudo"
+  },
+  {
+    "term": "Tô",
+    "def": "Chine"
+  },
+  {
+    "term": "To De",
+    "def": "Ancêtre du Karaté, originaire d'Okinawa"
+  },
+  {
+    "term": "Tobi",
+    "def": "Sauter"
+  },
+  {
+    "term": "Tobi Geri",
+    "def": "Coup de pied donné en sautant"
+  },
+  {
+    "term": "Toketa",
+    "def": "Sortie d'immobilisation"
+  },
+  {
+    "term": "Tokui",
+    "def": "Mouvement favori"
+  },
+  {
+    "term": "Tokui Waza",
+    "def": "Technique favorite - Kata favori"
+  },
+  {
+    "term": "Tomoe",
+    "def": "circulaire"
+  },
+  {
+    "term": "Tomoe Nage",
+    "def": "Projection en cercle"
+  },
+  {
+    "term": "Tomoe Tsuki",
+    "def": "Parade circulaire et frappe"
+  },
+  {
+    "term": "Tonfa",
+    "def": "Outil agricole (morceau de bois muni d'une poignée) que les habitants d' Okinawa ont transformé en arme et dont une version moderne est aujourd'hui utilisée par un grand nombre de corps policier occidentaux"
+  },
+  {
+    "term": "Tori",
+    "def": "Partenaire attaquant, \"celui qui domine, celui qui fait\" Dans certains style de Karaté (Wado Ryu, Uechi Ryu ?), \"celui qui domine\" devient \"celui qui attaque\""
+  },
+  {
+    "term": "Torimasen",
+    "def": "En kumité, techniques non comptées"
+  },
+  {
+    "term": "Tote",
+    "def": "Main de chine , ancien nom pour karaté"
+  },
+  {
+    "term": "Tsubame",
+    "def": "Hirondelle"
+  },
+  {
+    "term": "Tsugi",
+    "def": "Succession, l'un après l'autre"
+  },
+  {
+    "term": "Tsugi Ashi",
+    "def": "Pied qui suit , le pied arrière ne passe pas devant le pied avant"
+  },
+  {
+    "term": "Tsui",
+    "def": "Marteau"
+  },
+  {
+    "term": "Tsuitate Shuho",
+    "def": "Verrouiller verticalement"
+  },
+  {
+    "term": "Tsukake",
+    "def": "Coup de poing direct"
+  },
+  {
+    "term": "Tsukami Waza",
+    "def": "Techniques de blocage ou l'on saisie l'arme, le bras ou la jambe de l'adversaire"
+  },
+  {
+    "term": "Tsukamite",
+    "def": "Saisie"
+  },
+  {
+    "term": "Tsuki",
+    "def": "Coup de poing"
+  },
+  {
+    "term": "Tsuki Age",
+    "def": "Coup de poing en remontant (de bas en haut)"
+  },
+  {
+    "term": "Tsuki Dashi",
+    "def": "Transpercer avec la main"
+  },
+  {
+    "term": "Tsuki Kake",
+    "def": "Coup de poing à l'estomac"
+  },
+  {
+    "term": "Tsuki Komi",
+    "def": "Coup de pointe à l'estomac"
+  },
+  {
+    "term": "Tsuki Waza",
+    "def": "Techniques de poing"
+  },
+  {
+    "term": "Tsukomi",
+    "def": "Pousser"
+  },
+  {
+    "term": "Tsukuri",
+    "def": "Préparation"
+  },
+  {
+    "term": "Tsuma",
+    "def": "Orteils"
+  },
+  {
+    "term": "Tsumasaki",
+    "def": "Le bout des orteils"
+  },
+  {
+    "term": "Tsumasaki Geri",
+    "def": "Coup de pied donné avec les orteils"
+  },
+  {
+    "term": "Tsuri",
+    "def": "Soulever, pêcher"
+  },
+  {
+    "term": "Tsuri Komi Goshi",
+    "def": "Projection de hanche en tirant et en soulevant, pêchée"
+  },
+  {
+    "term": "Tsuru Ashi Dachi",
+    "def": "Posture sur une jambe (flèchie), posture de la grue"
+  },
+  {
+    "term": "Tsuzukete Hajime",
+    "def": "En kumité, recommencez à combattre"
+  },
+  {
+    "term": "Tuite",
+    "def": "Etude des prises ou mouvements"
+  },
+  {
+    "term": "Tunkuwa",
+    "def": "Outil agricole (morceau de bois muni d'une poignée) que les habitants d' Okinawa ont transformé en arme et dont une version moderne est aujourd'hui utilisée par un grand nombre de corps policier occidentaux"
+  },
+  {
+    "term": "Tzuki",
+    "def": "Lune"
+  },
+  {
+    "term": "Uchi",
+    "def": "Intérieur - Frapper"
+  },
+  {
+    "term": "Uchi Deishi",
+    "def": "Elève direct d'un maître, disciple. Un élève vivant au Dojo et se vouant à l'entraînement et à l'entretient du Dojo (et qui traditionnellement se place au service du Sensei du Dojo)"
+  },
+  {
+    "term": "Uchi Empi",
+    "def": "Mouvement du coude vers l'intérieur du corps"
+  },
+  {
+    "term": "Uchi Komi",
+    "def": "Attaques répétées, éducation du style, de l'automatisme et de la vitesse"
+  },
+  {
+    "term": "Uchi Maki Komi",
+    "def": "Ko-Uchi ou O-Uchi-Gari en forme Maki-Komi"
+  },
+  {
+    "term": "Uchi Mata",
+    "def": "Fauchage par l'intérieur de la cuisse"
+  },
+  {
+    "term": "Uchi Oroshi",
+    "def": "Coup de poing en marteau du haut vers le bas"
+  },
+  {
+    "term": "Uchi Sokuto",
+    "def": "Tranchant interne du pied"
+  },
+  {
+    "term": "Uchi Ude Uke",
+    "def": "Blocage effectué avec l'avant-bras,de l'intérieur vers l'extérieur"
+  },
+  {
+    "term": "Uchima",
+    "def": "Distance de frappe avec un seul pas"
+  },
+  {
+    "term": "Ude",
+    "def": "Avant-bras"
+  },
+  {
+    "term": "Ude Garami",
+    "def": "Clé du coude avec le bras - Luxation en hyperextension"
+  },
+  {
+    "term": "Ude Gatame",
+    "def": "Clé du coude avec le bras - Luxation en hyperextension"
+  },
+  {
+    "term": "Ude Ishigi Ashi Garami",
+    "def": "Clé de coude avec contrôle jambe fléchie"
+  },
+  {
+    "term": "Ude Ishigi Hara Gatame",
+    "def": "Clé de coude avec contrôle du ventre"
+  },
+  {
+    "term": "Ude Ishigi Hiza Gatame",
+    "def": "Clé de coude contrôle genou (luxation du bras par le genou)"
+  },
+  {
+    "term": "Ude Ishigi Juji Gatame",
+    "def": "Clé de coude avec contrôle en croix (luxation en croix)"
+  },
+  {
+    "term": "Ude Ishigi Momo Gatame",
+    "def": "Clé de coude avec contrôle de la cuisse"
+  },
+  {
+    "term": "Ude Ishigi Ude Garami",
+    "def": "Clé de coude en flexion"
+  },
+  {
+    "term": "Ude Ishigi Ude Gatame",
+    "def": "Clé de coude en extension"
+  },
+  {
+    "term": "Ude Ishigi Waki Gatame",
+    "def": "Clé de coude avec contrôle de l'aisselle"
+  },
+  {
+    "term": "Ude Kime Nage",
+    "def": "Projection par hyperextension du coude"
+  },
+  {
+    "term": "Ude Nobashi",
+    "def": "Etirement du bras"
+  },
+  {
+    "term": "Ude Osae",
+    "def": "Immobilisation du bras"
+  },
+  {
+    "term": "Uke",
+    "def": "Partenaire défenseur, \"celui qui subit, celui qui reçoit\" - Défense, blocage"
+  },
+  {
+    "term": "Ukemi",
+    "def": "Chutz, brise chute"
+  },
+  {
+    "term": "Ukemi Waza",
+    "def": "Technique des chutes"
+  },
+  {
+    "term": "Uki",
+    "def": "Projection flottante, faire flotter"
+  },
+  {
+    "term": "Uki Goshi",
+    "def": "Hanche flottée. Projection flottante de la hanche"
+  },
+  {
+    "term": "Uki Otoshi",
+    "def": "Renversement flottant"
+  },
+  {
+    "term": "Uki Waza",
+    "def": "Technique flottante"
+  },
+  {
+    "term": "Ura",
+    "def": "En revers, retourné, dos, dessus"
+  },
+  {
+    "term": "Ura Chidori Ashi",
+    "def": "Pas croisé vers l'arrière"
+  },
+  {
+    "term": "Ura Kasumi Geri",
+    "def": "Coup de pied en crochet donné en pivotant"
+  },
+  {
+    "term": "Ura Ken",
+    "def": "Dos du poing"
+  },
+  {
+    "term": "Ura Mawashi Barai",
+    "def": "Balayage circulaire à revers"
+  },
+  {
+    "term": "Ura Mawashi Geri",
+    "def": "Coup de pied retourné à 360°"
+  },
+  {
+    "term": "Ura Nage",
+    "def": "Projection en arrière"
+  },
+  {
+    "term": "Ura Tetsui",
+    "def": "Revers du marteau du poing"
+  },
+  {
+    "term": "Ura Zuki",
+    "def": "Coup de poing rapproché avec un léger mouvement de bas en haut, proche du crochet vertical (uppercut), paume de poing vers le haut"
+  },
+  {
+    "term": "Uraken",
+    "def": "Dessus du poing"
+  },
+  {
+    "term": "Uraken Uchi",
+    "def": "Frappe du dessus du poing"
+  },
+  {
+    "term": "Ushiro",
+    "def": "Arrière, par l'arrière"
+  },
+  {
+    "term": "Ushiro Atama",
+    "def": "Coup de tête vers l'arrière"
+  },
+  {
+    "term": "Ushiro Dori",
+    "def": "Prise aux épaules par derrière"
+  },
+  {
+    "term": "Ushiro Empi Uchi",
+    "def": "Coup de coude vers l'arrière"
+  },
+  {
+    "term": "Ushiro Geri",
+    "def": "Coup de pied arrière"
+  },
+  {
+    "term": "Ushiro Geri Keage",
+    "def": "Coup de pied arrière en fouettant"
+  },
+  {
+    "term": "Ushiro Geri Keikomi",
+    "def": "Coup de pied arrière en pénétrant"
+  },
+  {
+    "term": "Ushiro Kasumi Geri",
+    "def": "Coup de pied crocheté donné vers l'arrière"
+  },
+  {
+    "term": "Ushiro Suzuki",
+    "def": "Arrière du crâne"
+  },
+  {
+    "term": "Ushiro Ukemi",
+    "def": "Chute arrière"
+  },
+  {
+    "term": "Ushiro Ura Mawashi Barai",
+    "def": "Balayage arrière circulaire sur la jambe avancée"
+  },
+  {
+    "term": "Ushiro Ura Mawashi Geri",
+    "def": "Coup de pied arrière circulaire en revers"
+  },
+  {
+    "term": "Utagau",
+    "def": "Le doute, perturbe la lucidité du jugement...."
+  },
+  {
+    "term": "Utsuri",
+    "def": "En déplaçant"
+  },
+  {
+    "term": "Utsuri Goshi",
+    "def": "Contre de hanche avant"
+  },
+  {
+    "term": "Uwa",
+    "def": "En haut"
+  },
+  {
+    "term": "Uwagi",
+    "def": "Veste du keikogi"
+  },
+  {
+    "term": "Wa",
+    "def": "Paix"
+  },
+  {
+    "term": "Wado Ryu",
+    "def": "Ecole de karaté fondée par maître Hinonori Othsuka"
+  },
+  {
+    "term": "Waki",
+    "def": "Aisselle"
+  },
+  {
+    "term": "Waki Gatame",
+    "def": "Contrôle par l'aisselle, Clé de coude avec aisselle"
+  },
+  {
+    "term": "Waki Otoshi",
+    "def": "Renversement arrière par l'aisselle"
+  },
+  {
+    "term": "Wakizashi",
+    "def": "Sabre court"
+  },
+  {
+    "term": "Wan",
+    "def": "Bras"
+  },
+  {
+    "term": "Wari",
+    "def": "Fente"
+  },
+  {
+    "term": "Wari Uke",
+    "def": "Blocage en fente"
+  },
+  {
+    "term": "Washi",
+    "def": "Aigle"
+  },
+  {
+    "term": "Washide",
+    "def": "Bec d'aigle"
+  },
+  {
+    "term": "Waza",
+    "def": "Technique(s)"
+  },
+  {
+    "term": "Waza Ari",
+    "def": "Demi-point - Presque la victoire - En kumité, 1/2 point (1 ippon = 2 waza-ari )"
+  },
+  {
+    "term": "Waza Ari Awasete Ippon",
+    "def": "2 waza-ari font 1 Ippon"
+  },
+  {
+    "term": "Yaku Soku Geiko",
+    "def": "Etude en déplacement: pour l'application des techniques"
+  },
+  {
+    "term": "Yaku Soku Ju Kumite",
+    "def": "Combat souple action-réaction"
+  },
+  {
+    "term": "Yama",
+    "def": "Montagne"
+  },
+  {
+    "term": "Yama Bushi",
+    "def": "Moines-guerriers de la montagne"
+  },
+  {
+    "term": "Yama To",
+    "def": "Grande paix, nom originel du Japon"
+  },
+  {
+    "term": "Yama Zuki",
+    "def": "Double coup de poings, simultanés"
+  },
+  {
+    "term": "Yamane",
+    "def": "A la base de la montagne"
+  },
+  {
+    "term": "Yame",
+    "def": "Ordre d'arrêter"
+  },
+  {
+    "term": "Yang",
+    "def": "Masculin, soleil, forces actives"
+  },
+  {
+    "term": "Yasme",
+    "def": "Se détendre"
+  },
+  {
+    "term": "Yasumi",
+    "def": "Se détendre"
+  },
+  {
+    "term": "Yin",
+    "def": "Féminin, lune, forces passives"
+  },
+  {
+    "term": "Yodan",
+    "def": "Quatrième - Ceinture Noire 4ème Dan"
+  },
+  {
+    "term": "Yoi",
+    "def": "Tonification du Hara \"être prêt !\" , se mettre en position, attitude d'attente"
+  },
+  {
+    "term": "Yoko",
+    "def": "De côté, latéral"
+  },
+  {
+    "term": "Yoko Aruki",
+    "def": "Marche de côté"
+  },
+  {
+    "term": "Yoko Gake",
+    "def": "Accrochage de côté"
+  },
+  {
+    "term": "Yoko Geri",
+    "def": "Coup de pied de côté"
+  },
+  {
+    "term": "Yoko Geri Keage",
+    "def": "Coup de pied de côté fouetté et remontant"
+  },
+  {
+    "term": "Yoko Geri Kekomi",
+    "def": "Coup de pied de côté poussant, pénétrant"
+  },
+  {
+    "term": "Yoko Guruma",
+    "def": "Enroulement de côté par l'extérieur"
+  },
+  {
+    "term": "Yoko Otoshi",
+    "def": "Renversement latéral"
+  },
+  {
+    "term": "Yoko Shiho Gatame",
+    "def": "Contrôle latéro-sternal"
+  },
+  {
+    "term": "Yoko Sutemi",
+    "def": "Le côté au sol"
+  },
+  {
+    "term": "Yoko Sutemi Waza",
+    "def": "Sutémis sur le côte"
+  },
+  {
+    "term": "Yoko Tobi Geri",
+    "def": "Coup de pied latéral sauté"
+  },
+  {
+    "term": "Yoko Tomoe Nage",
+    "def": "Projection en cercle latéral"
+  },
+  {
+    "term": "Yoko Tsuki",
+    "def": "Coup de pointe de côté"
+  },
+  {
+    "term": "Yoko Uchi",
+    "def": "Coup de poing de côté"
+  },
+  {
+    "term": "Yoko Ukemi",
+    "def": "Chute latérale"
+  },
+  {
+    "term": "Yoko Wakare",
+    "def": "Projection vers l'avant"
+  },
+  {
+    "term": "Yoko Zuki",
+    "def": "Coup de poing latéral"
+  },
+  {
+    "term": "Yomi",
+    "def": "Sensation intuitive"
+  },
+  {
+    "term": "Yon (Shi)",
+    "def": "Quatre (4)"
+  },
+  {
+    "term": "Yonban",
+    "def": "Quatrième"
+  },
+  {
+    "term": "Yonhon Ju Kumite",
+    "def": "Combat souple formé de quatre attaques"
+  },
+  {
+    "term": "Yonhon Nukite",
+    "def": "Pique des doigts réunis"
+  },
+  {
+    "term": "Yori",
+    "def": "A partir de"
+  },
+  {
+    "term": "Yose Ashi",
+    "def": "Rapprocher le pied arrière du pied avant"
+  },
+  {
+    "term": "Yoshi",
+    "def": "\"Reprenez le combat!\" (après sono-mama)"
+  },
+  {
+    "term": "Yoshin Ryu",
+    "def": "Ancienne école de ju-jutsu"
+  },
+  {
+    "term": "Yubi",
+    "def": "Doigt"
+  },
+  {
+    "term": "Yubi Basami",
+    "def": "Les ciseaux"
+  },
+  {
+    "term": "Yubi Hasami",
+    "def": "Pince"
+  },
+  {
+    "term": "Yubi Kansetsu",
+    "def": "Clé de doigts"
+  },
+  {
+    "term": "Yubi Waza",
+    "def": "Techniques de doigts"
+  },
+  {
+    "term": "Yubi Saki Ate",
+    "def": "L'extrémité des doigts"
+  },
+  {
+    "term": "Yudansha",
+    "def": "Pratiquant portant la ceinture noire"
+  },
+  {
+    "term": "Yugen",
+    "def": "Repos dynamique"
+  },
+  {
+    "term": "Yuki Chigae",
+    "def": "Clé en manivelle ou en Z"
+  },
+  {
+    "term": "Yuko",
+    "def": "Avantage moyen"
+  },
+  {
+    "term": "Yuri",
+    "def": "Glissé"
+  },
+  {
+    "term": "Yusei Gashi",
+    "def": "Victoire par supériorité"
+  },
+  {
+    "term": "Za",
+    "def": "Position agenouillée"
+  },
+  {
+    "term": "Zanshin",
+    "def": "Attitude mentale de dépassement de soi dans (et par) l'action. Prolongation d'un état alerte même après la fin d'une technique - Esprit d'éveil, de vigilance doit exister avant, pendant, après la frappe - Finition, perfection"
+  },
+  {
+    "term": "Zarei",
+    "def": "Salut à genou, à partir de la position Seiza. Salut pratiqué généralement au début et à la fin d'un entraînement, face au Kamiza et/ou au Sensei"
+  },
+  {
+    "term": "Zazen",
+    "def": "Méditation en position assise"
+  },
+  {
+    "term": "Zeme",
+    "def": "Attaque"
+  },
+  {
+    "term": "Zen",
+    "def": "Méditation d'origine chinoise, du boudhisme. Vrai et profond silence - Vers l'avant"
+  },
+  {
+    "term": "Zendo",
+    "def": "Endroit où se pratique le zazen"
+  },
+  {
+    "term": "Zen Kutsu Dachi",
+    "def": "Posture longue vers l'avant (fente, poids du corps sur jambe avant fléchie, genoux à l'aplomb des orteils, jambe arrière tendue)"
+  },
+  {
+    "term": "Zenshin",
+    "def": "Vers l'avant"
+  },
+  {
+    "term": "Zentai",
+    "def": "Total"
+  },
+  {
+    "term": "Zori",
+    "def": "Pantoufles japonaises"
+  },
+  {
+    "term": "Zuki",
+    "def": "Coup de poing"
+  }
+];
