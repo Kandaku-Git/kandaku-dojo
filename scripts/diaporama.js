@@ -698,3 +698,16 @@ class Diaporama {
         } catch(e) {}
     }
 }
+
+// Hook global appelé par le menu
+window.afficherTechnique = function (nomTechnique) {
+  // Détruit une instance précédente si tu veux éviter les fuites
+  if (window._diaporamaInstance && typeof window._diaporamaInstance.destroy === "function") {
+    window._diaporamaInstance.destroy();
+  }
+
+  window._diaporamaInstance = new Diaporama("mon-conteneur", {
+    technique: nomTechnique,
+    title: nomTechnique,
+  });
+};
