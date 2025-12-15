@@ -485,8 +485,7 @@ body {
     position: relative; 
     flex-grow: 1; 
     width: 100%; 
-    height: auto; 
-    min-height: 40vh; 
+    min-height: 40vh;   /* réserve de place pour l'image */
     overflow: hidden; 
     background: transparent; 
     cursor: pointer;
@@ -1081,7 +1080,7 @@ a:hover {
 
   /* Diaporama : ajustements mobile */
   .diaporama-slider-container {
-    min-height: 45vh; /* réserve de place pour l'image sur mobile */ /* tu peux ajuster 40–50vh selon le résultat */
+    min-height: 50vh; /* réserve de place pour l'image sur mobile */ /* tu peux ajuster 40–50vh selon le résultat */
   }
 
   .diaporama-title-zone {
