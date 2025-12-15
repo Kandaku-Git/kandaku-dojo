@@ -43,7 +43,7 @@ Heian_Yondan_6_L1 <Koshi Gamae>
 Heian_Yondan_6_L2
 
 Heian_Yondan_7_L1 Hidari Jodan Yoko Mawashi <Uraken Uchi>
-Heian_Yondan_7_L2
+Heian_Yondan_7_L2 .
 
 Heian_Yondan_8_L1 Gyaku <Mae Empi Uchi> Chudan
 Heian_Yondan_8_L2 Hidari <Zenkutsu Dachi>
@@ -52,13 +52,13 @@ Heian_Yondan_9_L1 <Koshi Gamae>
 Heian_Yondan_9_L2 Migi <Tsuru Ashi Dachi>
 
 Heian_Yondan_10_L1 Hidari Jodan Yoko Mawashi <Uraken Uchi>
-Heian_Yondan_10_L2 
+Heian_Yondan_10_L2 .
                    
 Heian_Yondan_11_L1 Hidari Jodan Yoko Mawashi <Uraken Uchi>
-Heian_Yondan_11_L2 
+Heian_Yondan_11_L2 .
                    
 Heian_Yondan_12_L1 Hidari Jodan Yoko Mawashi <Uraken Uchi>
-Heian_Yondan_12_L2 
+Heian_Yondan_12_L2 .
                    
 Heian_Yondan_13_L1 Gyaku <Mae Empi Uchi> Chudan
 Heian_Yondan_13_L2 Hidari <Zenkutsu Dachi>
@@ -67,10 +67,10 @@ Heian_Yondan_14_L1 Gyaku <Mae Empi Uchi> Chudan
 Heian_Yondan_14_L2 Hidari <Zenkutsu Dachi>
                    
 Heian_Yondan_15_L1 <Koshi Gamae>
-Heian_Yondan_15_L2 
+Heian_Yondan_15_L2 .
                    
 Heian_Yondan_16_L1 Hidari Jodan Yoko Mawashi <Uraken> Uchi // Hidari <Yoko Geri> Keage
-Heian_Yondan_16_L2 
+Heian_Yondan_16_L2 .
                    
 Heian_Yondan_17_L1 Gyaku <Mae Empi Uchi> Chudan
 Heian_Yondan_17_L2 Migi <Zenkutsu Dachi>
@@ -82,7 +82,7 @@ Heian_Yondan_19_L1 Jodan <Shuto Uke> // Gyaku Jodan <Shuto> Uchi
 Heian_Yondan_19_L2 Hidari <Zenkutsu Dachi>
                    
 Heian_Yondan_20_L1 Migi <Mae Geri>
-Heian_Yondan_20_L2 
+Heian_Yondan_20_L2 .
                    
 Heian_Yondan_21_L1 Chudan Tate <Uraken> Uchi
 Heian_Yondan_21_L2 Migi <Kake Dachi>
@@ -91,20 +91,19 @@ Heian_Yondan_22_L1 Chudan <Kakiwake Uke>
 Heian_Yondan_22_L2 Hidari <Kokutsu Dachi>
                    
 Heian_Yondan_23_L1 Migi Chudan <Mae Geri>
-Heian_Yondan_23_L2 
+Heian_Yondan_23_L2 .
                    
 Heian_Yondan_24_L1 Chudan <<Oi Zuki>><Zuki>
 Heian_Yondan_24_L2 Migi <Zenkutsu Dachi>
                    
-Heian_Yondan_25_L1 
-Heian_Yondan_25_L2 Gyaku <Zuki>
-                   Migi <Zenkutsu Dachi>
+Heian_Yondan_25_L1 Gyaku <Zuki>
+Heian_Yondan_25_L2 Migi <Zenkutsu Dachi>                   
                    
 Heian_Yondan_26_L1 Chudan <Kakiwake Uke>
 Heian_Yondan_26_L2 Migi <Kokutsu Dachi>
                    
 Heian_Yondan_27_L1 Hidari Chudan <Mae Geri>
-Heian_Yondan_27_L2 
+Heian_Yondan_27_L2 .
                    
 Heian_Yondan_28_L1 Chudan <<Oi Zuki>><Zuki>
 Heian_Yondan_28_L2 Hidari <Zenkutsu Dachi>
@@ -125,7 +124,7 @@ Heian_Yondan_33_L1 "Saisie de la tête de l'adversaire"
 Heian_Yondan_33_L2 Hidari <Zenkutsu Dachi>
                    
 Heian_Yondan_34_L1 Migi <Hiza Geri>
-Heian_Yondan_34_L2 
+Heian_Yondan_34_L2 .
                    
 Heian_Yondan_35_L1 Chudan <Shuto Uke>
 Heian_Yondan_35_L2 Hidari <Kokutsu Dachi>
