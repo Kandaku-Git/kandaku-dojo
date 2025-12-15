@@ -36,8 +36,8 @@ Heian_Nidan_3_L2 Hidari <Kokutsu Dachi>
 Heian_Nidan_4_L1 Chudan Yoko <Zuki>
 Heian_Nidan_4_L2 Hidari <Kokutsu Dachi>
 
-Heian_Nidan_5_L1 
-Heian_Nidan_5_L2 
+Heian_Nidan_5_L1 .
+Heian_Nidan_5_L2 .
 
 Heian_Nidan_6_L1 <Haiwan Sokumen Uke>
 Heian_Nidan_6_L2 Migi <Kokutsu Dachi>
@@ -48,11 +48,11 @@ Heian_Nidan_7_L2 Migi <Kokutsu Dachi>
 Heian_Nidan_8_L1 Chudan Yoko <Zuki>
 Heian_Nidan_8_L2 Migi <Kokutsu Dachi>
 
-Heian_Nidan_9_L1 
-Heian_Nidan_9_L2 
+Heian_Nidan_9_L1 .
+Heian_Nidan_9_L2 .
 
 Heian_Nidan_10_L1 Migi Jodan <Uraken> Uchi / Migi <Yoko Geri> Keage
-Heian_Nidan_10_L2 
+Heian_Nidan_10_L2 .
 
 Heian_Nidan_11_L1 <Shuto Uke>
 Heian_Nidan_11_L2 Hidari <Kokutsu Dachi>
@@ -82,7 +82,7 @@ Heian_Nidan_19_L1 Gyaku <Uchi Uke>
 Heian_Nidan_19_L2 Hidari <Zenkutsu Dachi>
 
 Heian_Nidan_20_L1 Migi <Mae Geri> Keage
-Heian_Nidan_20_L2 
+Heian_Nidan_20_L2 .
 
 Heian_Nidan_21_L1 Chudan Gyaku <Zuki>
 Heian_Nidan_21_L2 Migi <Zenkutsu Dachi>
@@ -91,7 +91,7 @@ Heian_Nidan_22_L1 Gyaku <Uchi Uke>
 Heian_Nidan_22_L2 Migi <Zenkutsu Dachi>
 
 Heian_Nidan_23_L1 Hidari <Mae Geri> Keage
-Heian_Nidan_23_L2 
+Heian_Nidan_23_L2 .
 
 Heian_Nidan_24_L1 Gyaku <Zuki>
 Heian_Nidan_24_L2 Hidari <Zenkutsu Dachi>
@@ -102,8 +102,8 @@ Heian_Nidan_25_L2 Migi <Zenkutsu Dachi>
 Heian_Nidan_26_L1 <Gedan Barai>
 Heian_Nidan_26_L2 Hidari <Zenkutsu Dachi>
 
-Heian_Nidan_27_L1 
-Heian_Nidan_27_L2 
+Heian_Nidan_27_L1 .
+Heian_Nidan_27_L2 .
 
 Heian_Nidan_28_L1 <Jodan Age Uke>
 Heian_Nidan_28_L2 Migi <Zenkutsu Dachi>
@@ -111,8 +111,8 @@ Heian_Nidan_28_L2 Migi <Zenkutsu Dachi>
 Heian_Nidan_29_L1 <Gedan Barai>
 Heian_Nidan_29_L2 Migi <Zenkutsu Dachi>
 
-Heian_Nidan_30_L1 
-Heian_Nidan_30_L2 
+Heian_Nidan_30_L1 .
+Heian_Nidan_30_L2 .
 
 Heian_Nidan_31_L1 <Jodan Age Uke>
 Heian_Nidan_31_L2 Hidari <Zenkutsu Dachi>
