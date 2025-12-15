@@ -76,7 +76,7 @@ Bassai_Dai_11_L2 Migi <Zenkutsu Dachi>
 Bassai_Dai_12_L1 Gyaku <Uchi Uke>
 Bassai_Dai_12_L2 Migi <Zenkutsu Dachi>
 
-Bassai_Dai_13_L1 <Morote Tate Kamae>
+Bassai_Dai_13_L1 <<SOETE KOSHI KAMAE>><Koshi Gamae>
 Bassai_Dai_13_L2 <Hachiji Dachi>
 
 Bassai_Dai_14_L1 <Tate Shuto Uke>
