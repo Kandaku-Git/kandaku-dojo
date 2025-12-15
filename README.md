@@ -15,8 +15,8 @@ ATTENTION : RECHARGER LES SCRIPTS DANS L'IA POUR CONTINUER (Retour arrière le 1
 ## A faire
 - [x] Créer le dépôt kandaku-dojo
 - [x] Connecter le projet à Vercel
-- [ ] Mise à jour des techniques et katas
-- [ ] Déploiement de la structure de base du site et d'un partie du contenu
+- [x] Mise à jour des techniques et katas
+- [x]] Déploiement de la structure de base du site et d'un partie du contenu
 - [ ] Diaporama lexique et vidéo
 - [ ] Techniques hors ligne
 - [ ] Humaniser les schemas
