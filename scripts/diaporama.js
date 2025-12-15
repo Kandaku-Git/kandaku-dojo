@@ -80,6 +80,16 @@ class Diaporama {
         this.cacheDOM();
         this.bindEvents();
 
+        if (!document.fullscreenElement) {
+            try {
+                if (this.container.requestFullscreen) {
+                    this.container.requestFullscreen().catch(() => {});
+                } else if (this.container.webkitRequestFullscreen) {
+                    this.container.webkitRequestFullscreen();
+                }
+            } catch (e) {}
+        }
+
         this.showSlide(0);
         if (this.state.isPlaying) this.startAutoSlide();
     }
@@ -394,7 +404,21 @@ class Diaporama {
                                 <span class="diaporama-icon-text">D</span>
                             </button>
                             <button class="diaporama-btn" id="diaporama-eye" title="Masquer/Afficher les titres"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></button>
-                            <button class="diaporama-btn" id="diaporama-fs" title="Plein Écran"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3"/><path d="M21 8V5a2 2 0 0 0-2-2h-3"/><path d="M3 16v3a2 2 0 0 0 2 2h3"/><path d="M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+                            <a href="index.html" class="diaporama-btn" id="diaporama-home" title="Accueil"
+                                style="text-decoration:none;display:flex;align-items:center;justify-content:center;">
+                                <svg class="diaporama-icon" viewBox="0 0 24 24">
+                                <!-- Corps de la maison : contour rouge clair, rempli blanc -->
+                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                                fill="#FFFFFF"
+                                stroke="#ff6666"
+                                stroke-width="1.5"
+                                stroke-linejoin="round"></path>
+                                <!-- Porte : petit rectangle rouge plein -->
+                                <rect x="10.5" y="15" width="3" height="5"
+                                fill="#d7263d"
+                                stroke="none"></rect>
+                                </svg>
+                            </a>
                         </div>
                     </div>
 
@@ -424,7 +448,7 @@ class Diaporama {
             icons: { play: $('icon-play'), pause: $('icon-pause') },
             btns: {
                 prev: $('diaporama-prev'), next: $('diaporama-next'), play: $('diaporama-play'),
-                back: $('diaporama-back'), info: $('diaporama-info'), eye: $('diaporama-eye'), fs: $('diaporama-fs')
+                back: $('diaporama-back'), info: $('diaporama-info'), eye: $('diaporama-eye')
             }
         };
     }
@@ -436,7 +460,6 @@ class Diaporama {
         b.play.onclick = () => { if (!this.state.isSecondary) this.togglePlay(); };
         b.info.onclick = () => this.toggleDetails();
         b.eye.onclick = () => this.toggleTitle();
-        b.fs.onclick = () => this.toggleFullscreen();
         b.back.onclick = () => this.restoreParentDiaporama();
 
         this.dom.titleZone.addEventListener('click', (e) => {
@@ -684,18 +707,6 @@ class Diaporama {
         this.dom.titleZone.classList.toggle('hidden', !this.state.isTitleVisible);
         this.dom.mainTitle.classList.toggle('hidden', !this.state.isTitleVisible); 
         this.dom.btns.eye.classList.toggle('active', !this.state.isTitleVisible);
-    }
-
-    async toggleFullscreen() {
-        try {
-            if (!document.fullscreenElement) {
-                if (this.dom.root.requestFullscreen) await this.dom.root.requestFullscreen();
-                else if (this.dom.root.webkitRequestFullscreen) await this.dom.root.webkitRequestFullscreen();
-            } else {
-                if (document.exitFullscreen) await document.exitFullscreen();
-                else if (document.webkitExitFullscreen) await document.webkitExitFullscreen();
-            }
-        } catch(e) {}
     }
 }
 
