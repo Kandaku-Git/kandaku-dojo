@@ -11,7 +11,7 @@ window.COUNT = `1`;
 
 // --- 3. Description ---
 window.DESCRIPTION = `
-<center><b><Age Empi Uchi <br> Tate Empi Uchi/b></center>
+<center><b><Age Empi Uchi <br> Age Empi Uchi<br>Tate Empi Uchi</b></center>
 <br>
 <br>
 <b> Armer :</b>    
@@ -32,6 +32,6 @@ window.DESCRIPTION = `
 
 // --- 4. Données Techniques ---
 window.DONNEES = `
-Awase_Zuki_1_L1 Zuki Waza
-Awase_Zuki_1_L2 Technique de poing
+Age_Empi_Uchi_1_L1 Empi Waza
+Age_Empi_Uchi_1_L2 Technique de coude
 `;

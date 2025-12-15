@@ -11,22 +11,23 @@ window.COUNT = `1`;
 
 // --- 3. Description ---
 window.DESCRIPTION = `
-<a> Armer :</a>    
+<b> Armer :</b>
+<br>    
 . Poings fermés, phalanges vers le haut, au niveau des hanches et tirés en arrière (en hikite) 
 <br>
 <br>
-<a> Développer : </a>    
+<b> Développer : </b>    
 . Un poing va vers le visage, en vrillant sur lui même 
 <br>
 . Simultanément l'autre poing va vers le plexus (ou toute autre partie du niveau moyen) 
 <br>
 <br>
-<a> Résultat : </a>
+<b> Résultat : </b>
 Une double frappe a été effectuée : 
 <br>
-. l'une au niveau <b> <a class=kata_technique href=# onClick="definition('jodan')"> Jodan </a> </b>, les phalanges sont tournées vers le bas
+. l'une au niveau <b>Jodan</b>, les phalanges sont tournées vers le bas
   <br>
-. l'autre au niveau <b> <a class=kata_technique href=# onClick="definition('chudan')"> Chudan </a> </b>, les phalanges sont tournées vers le haut
+. l'autre au niveau <b>Chudan</b>, les phalanges sont tournées vers le haut
 `;
 
 // --- 4. Données Techniques ---
