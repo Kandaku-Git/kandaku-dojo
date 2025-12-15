@@ -46,7 +46,8 @@ Bassai_Dai_1_L2 <Hachiji Dachi>
 Bassai_Dai_2_L1 .
 Bassai_Dai_2_L2 <Heisoku Dachi>
 
-
+Bassai_Dai_3_L1 .
+Bassai_Dai_3_L2 .
 
 Bassai_Dai_4_L1 <Morote Uke>
 Bassai_Dai_4_L2 Migi <Kake Dachi>
@@ -63,9 +64,11 @@ Bassai_Dai_7_L2 Migi <Zenkutsu Dachi>
 Bassai_Dai_8_L1 <Uchi Uke>
 Bassai_Dai_8_L2 Migi <Zenkutsu Dachi>
 
+Bassai_Dai_9_L1 .
+Bassai_Dai_9_L2 .
 
-
-
+Bassai_Dai_10_L1 .
+Bassai_Dai_10_L2 .
 
 Bassai_Dai_11_L1 <Soto Uke>
 Bassai_Dai_11_L2 Migi <Zenkutsu Dachi>
@@ -91,7 +94,8 @@ Bassai_Dai_17_L2 <Hachiji Dachi>
 Bassai_Dai_18_L1 <Uchi Uke>
 Bassai_Dai_18_L2 <Hachiji Dachi> 'plus large'
 
-
+Bassai_Dai_19_L1 .
+Bassai_Dai_19_L2 .
 
 Bassai_Dai_20_L1 <Shuto Uke>
 Bassai_Dai_20_L2 Migi <Kokutsu Dachi>
@@ -108,7 +112,8 @@ Bassai_Dai_23_L2 Hidari <Kokutsu Dachi>
 Bassai_Dai_24_L1 <Kakete Uke>
 Bassai_Dai_24_L2 Hidari <Zenkutsu Dachi>
 
-
+Bassai_Dai_25_L1 .
+Bassai_Dai_25_L2 .
 
 Bassai_Dai_26_L1 Yoko <Fumikomi>
 Bassai_Dai_26_L2 .
@@ -134,7 +139,8 @@ Bassai_Dai_32_L2 Hidari <Zenkutsu Dachi>
 Bassai_Dai_33_L1 Hidari Yoko <Gedan barai> / Migi Yoko <Uchi Uke>
 Bassai_Dai_33_L2 <Heisoku Dachi>
 
-
+Bassai_Dai_34_L1 .
+Bassai_Dai_34_L2 .
 
 Bassai_Dai_35_L1 Yoko <Fumikomi> / Migi <Gedan Barai>
 Bassai_Dai_35_L2 <Kiba Dachi>
@@ -166,7 +172,8 @@ Bassai_Dai_43_L2 Migi <Zenkutsu Dachi>
 Bassai_Dai_44_L1 Migi Koshi Kamae
 Bassai_Dai_44_L2 <Heisoku Dachi>
 
-
+Bassai_Dai_45_L1 .
+Bassai_Dai_45_L2 .
 
 Bassai_Dai_46_L1 <Yama Zuki>
 Bassai_Dai_46_L2 Hidari <Zenkutsu Dachi>
@@ -174,22 +181,26 @@ Bassai_Dai_46_L2 Hidari <Zenkutsu Dachi>
 Bassai_Dai_47_L1 Hidari Koshi Kamae
 Bassai_Dai_47_L2 <Heisoku Dachi>
 
-
+Bassai_Dai_48_L1 .
+Bassai_Dai_48_L2 .
 
 Bassai_Dai_49_L1 <Yama Zuki>
 Bassai_Dai_49_L2 Migi <Zenkutsu Dachi>
 
-
+Bassai_Dai_50_L1 .
+Bassai_Dai_50_L2 .
 
 Bassai_Dai_51_L1 Gyaku <Sukui Uke>
 Bassai_Dai_51_L2 Hidari <Zenkutsu Dachi>
 
-
+Bassai_Dai_52_L1 .
+Bassai_Dai_52_L2 .
 
 Bassai_Dai_53_L1 Gyaku <Sukui Uke>
 Bassai_Dai_53_L2 Migi <Zenkutsu Dachi>
 
-
+Bassai_Dai_54_L1 .
+Bassai_Dai_54_L2 .
 
 Bassai_Dai_55_L1 <Shuto Uke>
 Bassai_Dai_55_L2 Migi <Kokutsu Dachi>
