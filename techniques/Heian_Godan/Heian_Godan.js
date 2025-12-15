@@ -70,7 +70,7 @@ Heian_Godan_15_L1 Hidari Chudan <Haishu> Uke
 Heian_Godan_15_L2 <Kiba Dachi>
 
 Heian_Godan_16_L1 Migi Chudan <Mikazuki Geri>
-Heian_Godan_16_L2
+Heian_Godan_16_L2 .
 
 Heian_Godan_17_L1 Migi Chudan <Mae Empi Uchi>
 Heian_Godan_17_L2 <Kiba Dachi>
@@ -87,20 +87,20 @@ Heian_Godan_20_L2 Migi <Kake Dachi>
 Heian_Godan_21_L1 Gyaku Ushiro Jodan Ura <Zuki>
 Heian_Godan_21_L2 Hidari <Renoji Dachi>
 
-Heian_Godan_22_L1 
-Heian_Godan_22_L2
+Heian_Godan_22_L1 .
+Heian_Godan_22_L2 .
 
-Heian_Godan_23_L1 
-Heian_Godan_23_L2 
+Heian_Godan_23_L1 .
+Heian_Godan_23_L2 .
 
-Heian_Godan_24_L1 
-Heian_Godan_24_L2 
+Heian_Godan_24_L1 .
+Heian_Godan_24_L2 .
 
-Heian_Godan_25_L1 
-Heian_Godan_25_L2 
+Heian_Godan_25_L1 .
+Heian_Godan_25_L2 .
 
-Heian_Godan_26_L1 
-Heian_Godan_26_L2
+Heian_Godan_26_L1 .
+Heian_Godan_26_L2.
 
 Heian_Godan_27_L1 Chudan <Morote Uke>
 Heian_Godan_27_L2 Migi <Zenkutsu Dachi>
