@@ -69,41 +69,6 @@
           <div id="mon-conteneur" class="diaporama-container">
             <!-- Contenu géré par diaporama.js -->
 
-
-
-<script>
-    let diaporama = null;
-
-    function chargerDiaporama(technique) {
-        // Détruit une éventuelle instance existante
-        if (diaporama && typeof diaporama.destroy === 'function') {
-            diaporama.destroy();
-        }
-
-        // Crée une nouvelle instance avec la technique demandée
-        diaporama = new Diaporama('mon-conteneur', {
-            technique: technique
-        });
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        // Diaporama par défaut
-        chargerDiaporama('Heian_Shodan');
-
-        // Gestion des clics sur la liste
-        document.querySelectorAll('.kata-list a').forEach(lien => {
-            lien.addEventListener('click', (event) => {
-                event.preventDefault();
-                const technique = lien.getAttribute('data-technique');
-                chargerDiaporama(technique);
-            });
-        });
-    });
-</script>
-
-
-
-
           </div>
         </div>
       </section>
