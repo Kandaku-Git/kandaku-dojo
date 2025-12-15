@@ -26,9 +26,9 @@ window.DESCRIPTION = `
 <br>
 <br>
 <br>
-<b> Variante : </b>SOETE KOSHI GAMAE</b>
+<b> Variante : </b>SOETE KOSHI KAMAE
 <br>
-Le poing, restant en hikite précédemment, est ouvert et vient ici contre les phalanges de l'autre poing
+Le poing du dessus est à la verticale
 `;
 
 // --- 4. Données Techniques ---
