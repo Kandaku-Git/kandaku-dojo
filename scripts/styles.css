@@ -1388,76 +1388,60 @@ a:hover {
 
 @media (max-width: 768px) {
     :root {
-        --header-height: 55px; /* Hauteur réduite pour le mobile */
+        --header-height: 55px; /* Maintien de la hauteur compacte */
     }
 
     .site-header {
-        padding: 5px 12px;     /* Réduit l'espace interne (haut/bas) */
+        padding: 5px 8px;      /* Réduction drastique du padding latéral pour décaler vers la gauche */
         height: var(--header-height);
-        min-height: auto;      /* Supprime la contrainte de hauteur minimale */
+        min-height: auto;
         display: flex;
-        align-items: center;   /* Centre verticalement tout le bloc */
+        align-items: center;
+        justify-content: flex-start; /* Force l'alignement à gauche du contenu */
     }
 
     .logo-title {
-        gap: 8px;              /* Espace entre le logo et le texte */
+        gap: 6px;              /* Rapprochement maximal entre le logo et le bloc de texte */
+        display: flex;
+        align-items: center;
+    }
+
+    .title-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0;
+        padding: 0;
     }
 
     .title-block h1 {
-        font-size: 1.25rem;    /* Taille ajustée */
-        line-height: 0.9;      /* Réduit l'espace au-dessus/en-dessous des lettres */
+        font-size: 1.25rem;    /* Taille préservée pour la lisibilité */
+        line-height: 0.9;
         margin: 0;
-        padding: 0;
-        white-space: nowrap;
+        white-space: nowrap;   /* Empêche le titre de se couper */
     }
 
     .title-block .subtitle {
-        font-size: 0.7rem;
-        margin-top: -1px;      /* Colle le sous-titre au titre */
-        padding: 0;
+        font-size: 0.7rem;     /* Taille optimale pour mobile */
+        margin-top: 0px;       /* Ajustement précis sous le titre */
+        white-space: nowrap;   /* FORCE le sous-titre sur une seule ligne */
+        overflow: hidden;      /* Sécurité pour éviter tout débordement */
+        text-overflow: ellipsis; 
         line-height: 1;
     }
     
     .logo-shotokan {
-        width: 32px;           /* Logo un peu plus petit pour gagner de la place */
+        width: 32px;           /* Taille compacte pour le logo */
         height: 32px;
         flex-shrink: 0;
+        margin-left: 0;        /* Suppression de toute marge à gauche */
     }
 
-    /* --- Ajustements du reste du site pour coller au nouveau header --- */
-    .app-layout {
-        padding-top: var(--header-height);
-    }
-
-    .side-menu {
-        top: 0;
-        padding-top: var(--header-height);
-    }
-
-    /* Optionnel : Réduire l'espace en haut de la page d'accueil */
-    .main-content {
-        padding: 0.8rem !important;
-    }
-
-    .content-section h2 {
-        margin-top: 0.5rem;
-    }
-
-    /* --- Conservation de vos autres réglages mobiles --- */
-    #mon-conteneur-wrapper {
-        width: 100% !important;
-        height: 100% !important;
-    }
-
-    .techniques-grid {
-        grid-template-columns: 1fr !important;
-        gap: 0.8rem !important;
-    }
-
-    .technique-card {
-        flex-direction: row !important;
-        padding: 0.8rem !important;
-        min-height: 70px;
+    /* Ajustement du bouton MENU pour qu'il reste à droite sans pousser le reste */
+    .header-menu-button {
+        margin-left: auto;     /* Le bouton reste collé à droite du header */
+        padding: 4px 10px;
+        font-size: 0.75rem;
     }
 }
 
