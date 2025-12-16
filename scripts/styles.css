@@ -108,11 +108,12 @@ body {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   margin: 0;
-  font-size: 1.35rem;
+  font-size: 1.8rem; /* Augmenté de 1.35rem à 1.8rem */
+  line-height: 1;    /* Réduit la hauteur de ligne pour gagner de l'espace */
 }
 
 .title-block .subtitle {
-  margin: 0;
+  margin: -2px 0 0 0; /* Marge négative en haut pour "remonter" le texte */
   color: var(--color-muted);
   font-size: 0.85rem;
 }
@@ -1377,5 +1378,116 @@ a:hover {
 
     .techniques-grid .card-description {
         display: none; /* Masquer la description pour gagner de la place */
+    }
+}
+/* ============================================= */
+/* RÉGLAGES SPÉCIFIQUES POUR SMARTPHONES (MOBILE) */
+/* ============================================= */
+
+@media (max-width: 768px) {
+    /* 1. Ajustement du Header pour gagner de la place */
+    :root {
+        --header-height: 60px; /* Header plus fin sur mobile */
+    }
+
+    .title-block h1 {
+        font-size: 1.4rem;
+        line-height: 1;
+    }
+
+    .logo-shotokan {
+        width: 36px;
+        height: 36px;
+    }
+
+    /* 2. Optimisation du Diaporama sur mobile */
+    #section-techniques {
+        background: #000; /* Fond noir total pour l'immersion */
+    }
+
+    #mon-conteneur-wrapper {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none !important;
+        max-height: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        transform: none !important;
+    }
+
+    /* Ajuster la taille des titres internes du diaporama */
+    .diaporama-main-title {
+        font-size: 1.8rem !important;
+        padding: 0.3rem 0 !important;
+    }
+
+    .diaporama-text-l1 { font-size: 1.2rem !important; }
+    .diaporama-text-l2 { font-size: 1.1rem !important; }
+
+    /* Rendre la zone de texte défilante si elle est trop grande */
+    .diaporama-title-zone {
+        min-height: 70px !important;
+        padding: 0.5rem !important;
+    }
+
+    /* 3. Ajustement de la grille de techniques sur mobile */
+    .techniques-grid {
+        grid-template-columns: 1fr !important; /* Une seule colonne */
+        gap: 0.8rem !important;
+    }
+
+    .technique-card {
+        flex-direction: row !important; /* Image à gauche, texte à droite */
+        text-align: left !important;
+        padding: 0.8rem !important;
+        align-items: center !important;
+        min-height: 80px;
+    }
+
+    .technique-card .card-icon {
+        width: 40px !important;
+        height: 40px !important;
+        margin-bottom: 0 !important;
+        margin-right: 1rem;
+        flex-shrink: 0;
+    }
+
+    .technique-card .card-title {
+        font-size: 1rem !important;
+    }
+
+    .technique-card .card-description {
+        display: none !important; /* On cache la description longue sur petit mobile */
+    }
+
+    /* 4. Amélioration des listes de techniques (Zuki Waza, etc.) */
+    .tech-list-item {
+        font-size: 1rem !important;
+        padding: 1rem 0.5rem !important; /* Zone de clic plus grande pour les doigts */
+    }
+
+    /* 5. Ajustement des vidéos sur mobile */
+    .videos-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .video-thumb {
+        height: 180px !important; /* Plus grand pour mieux voir sur smartphone */
+    }
+
+    /* 6. Formulaire de contact mobile */
+    .theme-form, .lexique-list {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .main-content {
+        padding: 1rem !important;
+    }
+}
+
+/* Fix pour les très petits écrans (iPhone SE, etc.) */
+@media (max-width: 380px) {
+    .logo-title .subtitle {
+        display: none; /* Cache le sous-titre pour éviter le chevauchement */
     }
 }
