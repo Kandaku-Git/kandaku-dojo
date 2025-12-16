@@ -1388,26 +1388,33 @@ a:hover {
 
 @media (max-width: 768px) {
     :root {
-        --header-height: 55px; /* Compact height for mobile */
+        --header-height: 55px; /* Hauteur fixe et compacte */
     }
 
     .site-header {
-        padding: 0 12px; /* Removed vertical padding to use flex alignment */
+        padding: 0 10px;       /* Padding horizontal uniquement */
         height: var(--header-height);
-        min-height: auto;
+        min-height: auto;      /* Empêche l'agrandissement intempestif */
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
 
     .logo-title {
-        gap: 8px;
         display: flex;
         align-items: center;
-        flex: 1;
+        gap: 8px;              /* Espace entre le logo et le texte */
+        flex: 1;               /* Prend toute la largeur disponible à gauche */
+        overflow: hidden;      /* Empêche le débordement */
     }
 
-    /* Tighten the vertical stack of Title and Subtitle */
+    .logo-shotokan {
+        width: 34px;
+        height: 34px;
+        flex-shrink: 0;
+    }
+
+    /* --- CORRECTION TITRES : Rapprochement maximal --- */
     .title-block {
         display: flex;
         flex-direction: column;
@@ -1417,40 +1424,54 @@ a:hover {
 
     .title-block h1 {
         font-size: 1.2rem;
-        line-height: 0.85; /* Compresses space above/below the main title */
-        margin: 0;
+        line-height: 1;        /* Interligne serré */
+        margin: 0 0 -2px 0;    /* Marge négative en bas pour tirer le sous-titre */
         white-space: nowrap;
+        padding: 0;
     }
 
     .title-block .subtitle {
         font-size: 0.65rem;
-        margin-top: 1px; /* Minimal gap between title and subtitle */
-        white-space: nowrap;
+        margin: 0;             /* Zéro marge */
+        padding: 0;
         line-height: 1;
         color: var(--color-muted);
-    }
-    
-    .logo-shotokan {
-        width: 32px;
-        height: 32px;
-        flex-shrink: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis; /* Ajoute "..." si l'écran est trop petit */
     }
 
-    /* Fix for centering the word MENU inside the button */
+    /* --- CORRECTION BOUTON MENU : Centrage parfait --- */
     .header-menu-button {
+        display: flex;           /* Active le mode Flexbox */
+        align-items: center;     /* Centre verticalement */
+        justify-content: center; /* Centre horizontalement */
+        
+        height: 30px;            /* Hauteur fixe imposée */
+        padding: 0 12px;         /* Padding horizontal seulement */
         margin-left: 10px;
-        padding: 0; /* Remove padding to prevent offset */
-        height: 30px;
-        width: 65px;
-        font-size: 0.75rem;
-        display: flex; /* Use flexbox for perfect centering */
-        align-items: center;
-        justify-content: center;
-        line-height: 1; /* Reset line-height to ensure flex centering works */
-        border: 1px solid rgba(255, 255, 255, 0.35);
+        
+        font-size: 0.7rem;
+        line-height: 1;          /* Réinitialise la ligne de texte */
+        border: 1px solid rgba(255, 255, 255, 0.4);
         background: transparent;
-        border-radius: 999px;
+        border-radius: 20px;
     }
+
+    /* Ajustement des autres éléments pour le mobile */
+    #mon-conteneur-wrapper {
+        width: 100% !important;
+        height: 100% !important;
+        border: none !important;
+        border-radius: 0 !important;
+    }
+    
+    .techniques-grid { grid-template-columns: 1fr !important; }
+    .technique-card { flex-direction: row !important; padding: 0.8rem !important; min-height: 70px; }
+    .technique-card .card-description { display: none !important; }
+    
+    .main-content { padding: 1rem !important; }
+    .side-menu { top: var(--header-height); padding-top: 0; }
 }
 
 /* Fix pour très petits écrans (iPhone SE, vieux Androids) */
