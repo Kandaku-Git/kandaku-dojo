@@ -4,6 +4,18 @@
  * où <DOSSIER> est passé en paramètre
  */
 
+// 🔍 DEBUG GLOBAL — À LAISSER EN DEV, À RETIRER EN PROD
+window.onerror = (msg, src, line, col, err) => {
+  console.error(
+    "❌ Erreur JS globale :",
+    "\nMessage :", msg,
+    "\nFichier :", src,
+    "\nLigne :", line,
+    "\nColonne :", col,
+    "\nErreur :", err
+  );
+};
+
 class Diaporama {
     constructor(containerId, config) {
         this.container = document.getElementById(containerId);
@@ -473,10 +485,6 @@ class Diaporama {
             }
         });
 
-        document.addEventListener('fullscreenchange', () => {
-            const isFs = document.fullscreenElement !== null;
-            this.dom.btns.fs.classList.toggle('active', isFs);
-        });
 
         this.dom.slides.forEach(slide => {
             const details = slide.querySelector('.diaporama-details');
@@ -659,7 +667,7 @@ class Diaporama {
         this.state.progressIntervalId = setInterval(() => {
             w += (100 / (duration / intervalStep));
             if(w>100) w=100;
-            this.dom.progress.style.width = w + '%';
+            this.dom.gaugeFill.style.width = w + '0%';
         }, intervalStep);
     }
 
@@ -669,7 +677,7 @@ class Diaporama {
     }
 
     resetProgress() {
-        this.dom.progress.style.width = '0%';
+        this.dom.gaugeFill.style.width = '0%';
     }
 
     toggleDetails() {

@@ -1,26 +1,14 @@
 // scripts/menu.js
 // Logique et données de navigation pour Kandaku Dojo.
 
-/* ========================================================== */
-/* A. DONNÉES DE NAVIGATION (Fusion de contenu-menu.js + menu.js) */
-/* ========================================================== */
-
 window.MENU_ITEMS = [
+  { type: "item", label: "Accueil", buttonClass: "menu-item", dataSection: "accueil" },
   {
-    type: "item",
-    label: "Accueil",
-    buttonClass: "menu-item",
-    dataSection: "accueil",
-  },
-
-  {
-    type: "item", // CHANGÉ: de "group" à "item" pour pointer directement vers la grille
+    type: "item", 
     label: "Techniques",
     buttonClass: "menu-item",
-    dataSection: "techniques-categories", // La grille des 6 cartes
-    // AJOUT DES DONNÉES TECHNIQUES COMPLÈTES ICI POUR sections.js
+    dataSection: "techniques-categories",
     children: [
-      /* ZUKI WAZA */
       {
         type: "tech-category",
         label: "Zuki Waza",
@@ -46,8 +34,6 @@ window.MENU_ITEMS = [
           { label: "Zuki", dataTechnique: "Zuki", dataSection: "techniques" },
         ],
       },
-
-      /* EMPI WAZA */
       {
         type: "tech-category",
         label: "Empi Waza",
@@ -58,8 +44,6 @@ window.MENU_ITEMS = [
           { label: "Ushiro Empi Uchi", dataTechnique: "Ushiro_Empi_Uchi", dataSection: "techniques" },
         ],
       },
-
-      /* GERI WAZA */
       {
         type: "tech-category",
         label: "Geri Waza",
@@ -73,8 +57,6 @@ window.MENU_ITEMS = [
           { label: "Yoko Geri", dataTechnique: "Yoko_Geri", dataSection: "techniques" },
         ],
       },
-
-      /* UKE WAZA */
       {
         type: "tech-category",
         label: "Uke Waza",
@@ -106,8 +88,6 @@ window.MENU_ITEMS = [
           { label: "Uraken Uke", dataTechnique: "Uraken", dataSection: "techniques" },
         ],
       },
-
-      /* KATA */
       {
         type: "tech-category",
         label: "Kata",
@@ -116,12 +96,10 @@ window.MENU_ITEMS = [
           { label: "Heian Shodan", dataTechnique: "Heian_Shodan", dataSection: "techniques" },
           { label: "Heian Nidan", dataTechnique: "Heian_Nidan", dataSection: "techniques" },
           { label: "Heian Sandan", dataTechnique: "Heian_Sandan", dataSection: "techniques" },
-          { label: "Heian Yondan", dataTechnique: "Heian_Yondan", dataSection: "techniques" },
+          { label: "Heian Yodan", dataTechnique: "Heian_Yodan", dataSection: "techniques" },
           { label: "Heian Godan", dataTechnique: "Heian_Godan", dataSection: "techniques" },
         ],
       },
-
-      /* DACHI */
       {
         type: "tech-category",
         label: "Dachi",
@@ -157,7 +135,6 @@ window.MENU_ITEMS = [
       },
     ],
   },
-
   {
     type: "group",
     label: "Vidéos",
@@ -165,51 +142,14 @@ window.MENU_ITEMS = [
     submenuId: "submenu-videos",
     submenuClass: "submenu",
     children: [
-      {
-        type: "submenu-button",
-        label: "Toutes les vidéos",
-        buttonClass: "submenu-link",
-        dataSection: "videos",
-        dataVideoFilter: "Tous",
-      },
-      {
-        type: "submenu-button",
-        label: "Kata",
-        buttonClass: "submenu-link",
-        dataSection: "videos",
-        dataVideoFilter: "Kata",
-      },
-      {
-        type: "submenu-button",
-        label: "Kihon",
-        buttonClass: "submenu-link",
-        dataSection: "videos",
-        dataVideoFilter: "Kihon",
-      },
-      {
-        type: "submenu-button",
-        label: "Kumite",
-        buttonClass: "submenu-link",
-        dataSection: "videos",
-        dataVideoFilter: "Kumite",
-      },
-      {
-        type: "submenu-button",
-        label: "Autres",
-        buttonClass: "submenu-link",
-        dataSection: "videos",
-        dataVideoFilter: "Autre",
-      },
+      { type: "submenu-button", label: "Toutes les vidéos", buttonClass: "submenu-link", dataSection: "videos", dataVideoFilter: "Tous" },
+      { type: "submenu-button", label: "Kata", buttonClass: "submenu-link", dataSection: "videos", dataVideoFilter: "Kata" },
+      { type: "submenu-button", label: "Kihon", buttonClass: "submenu-link", dataSection: "videos", dataVideoFilter: "Kihon" },
+      { type: "submenu-button", label: "Kumite", buttonClass: "submenu-link", dataSection: "videos", dataVideoFilter: "Kumite" },
+      { type: "submenu-button", label: "Autres", buttonClass: "submenu-link", dataSection: "videos", dataVideoFilter: "Autre" },
     ],
   },
-
-  {
-    type: "item",
-    label: "Lexique",
-    buttonClass: "menu-item",
-    dataSection: "lexique",
-  },
-
+  { type: "item", label: "Lexique", buttonClass: "menu-item", dataSection: "lexique" },
   {
     type: "group",
     label: "Histoire",
@@ -217,28 +157,11 @@ window.MENU_ITEMS = [
     submenuId: "submenu-histoire",
     submenuClass: "submenu",
     children: [
-      {
-        type: "submenu-button",
-        label: "Origines du karaté",
-        buttonClass: "submenu-link",
-        dataSection: "histoire-origines",
-      },
-      {
-        type: "submenu-button",
-        label: "Histoire du dojo",
-        buttonClass: "submenu-link",
-        dataSection: "histoire-dojo",
-      },
+      { type: "submenu-button", label: "Origines du karaté", buttonClass: "submenu-link", dataSection: "histoire-origines" },
+      { type: "submenu-button", label: "Histoire du dojo", buttonClass: "submenu-link", dataSection: "histoire-dojo" },
     ],
   },
-  
-  {
-    type: "item",
-    label: "Liens",
-    buttonClass: "menu-item",
-    dataSection: "liens",
-  },
-
+  { type: "item", label: "Liens", buttonClass: "menu-item", dataSection: "liens" },
   {
     type: "group",
     label: "Interface",
@@ -246,78 +169,40 @@ window.MENU_ITEMS = [
     submenuId: "submenu-interface",
     submenuClass: "submenu",
     children: [
-      {
-        type: "submenu-button",
-        label: "Tutoriel",
-        buttonClass: "submenu-link",
-        dataSection: "interface-tutoriel",
-      },
-      {
-        type: "submenu-button",
-        label: "Personnalisation",
-        buttonClass: "submenu-link",
-        dataSection: "interface-personnalisation",
-      },
+      { type: "submenu-button", label: "Tutoriel", buttonClass: "submenu-link", dataSection: "interface-tutoriel" },
+      { type: "submenu-button", label: "Personnalisation", buttonClass: "submenu-link", dataSection: "interface-personnalisation" },
     ],
   },
-
-  {
-    type: "item",
-    label: "Me contacter",
-    buttonClass: "menu-item",
-    dataSection: "contact",
-  },
+  { type: "item", label: "Me contacter", buttonClass: "menu-item", dataSection: "contact" },
 ];
 
+/* UTILITAIRES */
+function $(selector, scope) { return (scope || document).querySelector(selector); }
+function $all(selector, scope) { return Array.from((scope || document).querySelectorAll(selector)); }
 
-/* ========================================================== */
-/* B. OUTILS UTILITAIRES                                      */
-/* ========================================================== */
-
-function $(selector, scope) {
-  return (scope || document).querySelector(selector);
-}
-
-function $all(selector, scope) {
-  return Array.from((scope || document).querySelectorAll(selector));
-}
-
-/* ========================================================== */
-/* C. LOGIQUE DE CONSTRUCTION ET NAVIGATION (Ancien menu.js)  */
-/* ========================================================== */
-
+/* CONSTRUCTION DU MENU */
 function construireMenu() {
   const root = document.getElementById("menuRoot");
   if (!root || !Array.isArray(window.MENU_ITEMS)) return;
-
   root.innerHTML = "";
 
   window.MENU_ITEMS.forEach((item) => {
     const li = document.createElement("li");
-
-    // Élément simple (Accueil, Lexique, Me contacter, Techniques, Liens)
     if (item.type === "item") {
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = item.buttonClass || "menu-item";
-      if (item.dataSection) {
-        btn.setAttribute("data-section", item.dataSection);
-      }
+      if (item.dataSection) btn.setAttribute("data-section", item.dataSection);
       btn.textContent = item.label;
       li.appendChild(btn);
     }
-
-    // Groupe avec sous-menu (Vidéos, Histoire, Interface)
     if (item.type === "group") {
-      li.classList.add("has-submenu"); // Ajout de la classe utilitaire
-
+      li.classList.add("has-submenu");
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = item.buttonClass || "menu-item menu-parent";
       btn.setAttribute("aria-expanded", "false");
-      if (item.submenuId) {
-        btn.setAttribute("aria-controls", item.submenuId);
-      }
+      if (item.submenuId) btn.setAttribute("aria-controls", item.submenuId);
       btn.textContent = item.label;
       li.appendChild(btn);
 
@@ -327,27 +212,19 @@ function construireMenu() {
 
       (item.children || []).forEach((child) => {
         const liChild = document.createElement("li");
-
         if (child.type === "submenu-button") {
           const b = document.createElement("button");
           b.type = "button";
           b.className = child.buttonClass || "submenu-link";
-          if (child.dataSection) {
-            b.setAttribute("data-section", child.dataSection);
-          }
-          if (child.dataVideoFilter) {
-            b.setAttribute("data-video-filter", child.dataVideoFilter);
-          }
+          if (child.dataSection) b.setAttribute("data-section", child.dataSection);
+          if (child.dataVideoFilter) b.setAttribute("data-video-filter", child.dataVideoFilter);
           b.textContent = child.label;
           liChild.appendChild(b);
         }
-
         ul.appendChild(liChild);
       });
-
       li.appendChild(ul);
     }
-
     root.appendChild(li);
   });
 }
@@ -355,19 +232,13 @@ function construireMenu() {
 function activerSection(sectionName) {
   const targetId = "section-" + sectionName;
   const sections = $all(".content-section");
-  
-  // Fermer le diaporama si l'on quitte la section "techniques"
   if (sectionName !== "techniques") {
       const wrapper = $("#mon-conteneur-wrapper");
       if (wrapper) wrapper.classList.remove("is-visible");
   }
-
   sections.forEach((sec) => {
-    if (sec.id === targetId) {
-      sec.classList.add("is-active");
-    } else {
-      sec.classList.remove("is-active");
-    }
+    if (sec.id === targetId) sec.classList.add("is-active");
+    else sec.classList.remove("is-active");
   });
 }
 
@@ -375,7 +246,6 @@ function initMenu() {
   const sideMenu = $("#sideMenu");
   const headerMenuButton = $("#headerMenuButton");
 
-  // Bouton MENU dans le header : ouvrir / fermer le panneau
   if (headerMenuButton && sideMenu) {
     headerMenuButton.addEventListener("click", () => {
       const isVisible = sideMenu.classList.toggle("is-visible");
@@ -383,57 +253,36 @@ function initMenu() {
     });
   }
 
-  // Fonction utilitaire pour gérer l'activation d'un bouton principal
   function setMainButtonActive(targetSection) {
     let targetButton = $all(".menu-item").find((b) =>
       b.getAttribute("data-section") === targetSection ||
       b.closest("li")?.querySelector(`[data-section="${targetSection}"]`)
     );
-    
-    // Si la section est une sous-page de Techniques (zuki-waza, etc.), on active le bouton "Techniques"
     if (targetSection.includes('-waza') || targetSection.includes('dachi') || targetSection.includes('kata') || targetSection === "techniques-categories") {
-        targetButton = $all(".menu-item").find((b) =>
-          b.textContent?.trim().startsWith("Techniques")
-        );
+        targetButton = $all(".menu-item").find((b) => b.textContent?.trim().startsWith("Techniques"));
     }
-
     $all(".menu-item").forEach((b) => b.classList.remove("is-active"));
-    if (targetButton) {
-        targetButton.classList.add("is-active");
-    }
+    if (targetButton) targetButton.classList.add("is-active");
   }
 
-
-  // Clic sur les éléments principaux (maintenant inclus "Techniques")
   const mainButtons = $all(".menu-item[data-section]");
   mainButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const section = btn.getAttribute("data-section");
       activerSection(section);
       setMainButtonActive(section); 
-
-      // Replier le menu après sélection
-      if (sideMenu) {
-        sideMenu.classList.remove("is-visible");
-      }
-      if (headerMenuButton) {
-        headerMenuButton.setAttribute("aria-expanded", "false");
-      }
+      if (sideMenu) sideMenu.classList.remove("is-visible");
+      if (headerMenuButton) headerMenuButton.setAttribute("aria-expanded", "false");
     });
   });
 
-  // Gestion des parents avec sous-menu (accordéon)
   const parents = $all(".menu-parent");
   parents.forEach((parentBtn) => {
     const controlsId = parentBtn.getAttribute("aria-controls");
     const submenu = controlsId ? document.getElementById(controlsId) : null;
-
     parentBtn.addEventListener("click", () => {
       if (!submenu) return;
-
       const isCurrentlyOpen = submenu.classList.contains("is-open");
-
-      // Fermer tous les sous-menus de catégories
       parents.forEach((otherBtn) => {
         const otherId = otherBtn.getAttribute("aria-controls");
         const otherSub = otherId ? document.getElementById(otherId) : null;
@@ -442,8 +291,6 @@ function initMenu() {
           otherBtn.setAttribute("aria-expanded", "false");
         }
       });
-
-      // Si celui-ci n’était pas ouvert, on l’ouvre
       if (!isCurrentlyOpen) {
         submenu.classList.add("is-open");
         parentBtn.setAttribute("aria-expanded", "true");
@@ -451,20 +298,13 @@ function initMenu() {
     });
   });
 
-  // Sous-items de type bouton avec data-section (histoire, interface, vidéos)
   const submenuLinks = $all(".submenu-link[data-section]");
   submenuLinks.forEach((btn) => {
     btn.addEventListener("click", () => {
       const section = btn.getAttribute("data-section");
       const videoFilter = btn.getAttribute("data-video-filter");
-
-      if (section) {
-        activerSection(section);
-      }
-
+      if (section) activerSection(section);
       setMainButtonActive(section); 
-
-      // Filtrage vidéos si demandé
       if (section === "videos" && videoFilter) {
         const select = $("#videoCategorie");
         if (select) {
@@ -472,131 +312,78 @@ function initMenu() {
           filtrerVideos(select.value);
         }
       }
-
-      // Replier le menu après sélection
-      if (sideMenu) {
-        sideMenu.classList.remove("is-visible");
-      }
-      if (headerMenuButton) {
-        headerMenuButton.setAttribute("aria-expanded", "false");
-      }
+      if (sideMenu) sideMenu.classList.remove("is-visible");
+      if (headerMenuButton) headerMenuButton.setAttribute("aria-expanded", "false");
     });
   });
-
-  // Gère les clics sur les boutons des nouvelles sections Techniques :
-  // 1. Bouton "Explorer les techniques" (section=techniques-categories)
-  // 2. Cartes de catégories (section=zuki-waza, etc.)
-  // 3. Boutons de retour des pages de listes (section=techniques-categories)
-  // 4. Boutons de la liste des techniques (data-technique)
 
   const genericSectionTriggers = $all("[data-section]:not(.menu-item):not(.submenu-link)");
   genericSectionTriggers.forEach((el) => {
     el.addEventListener("click", () => {
       const section = el.getAttribute("data-section");
       if (!section) return;
-      
-      // Fermer le diaporama si on passe à une autre section (ex: de diaporama à catégorie)
       if (section !== "techniques") {
           const wrapper = $("#mon-conteneur-wrapper");
           if (wrapper) wrapper.classList.remove("is-visible");
       }
-      
       activerSection(section);
       setMainButtonActive(section);
     });
   });
 }
 
-/* DIAPORAMA : GESTION DES LIENS DE TECHNIQUES */
-
 function initTechniques() {
   const wrapper = $("#mon-conteneur-wrapper");
-
-  // TOUS les boutons/liens avec data-technique
   const techniqueLinks = $all("[data-technique]");
   techniqueLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
       event.preventDefault();
-
       const techniqueName = link.getAttribute("data-technique");
       if (!techniqueName) return;
-
-      // Afficher la section où le diaporama doit apparaître
       activerSection("techniques");
-
-      // Replier le menu après sélection
       const sideMenu = $("#sideMenu");
       const headerMenuButton = $("#headerMenuButton");
-      if (sideMenu) {
-        sideMenu.classList.remove("is-visible");
-      }
-      if (headerMenuButton) {
-        headerMenuButton.setAttribute("aria-expanded", "false");
-      }
-
-      // Afficher le wrapper du diaporama
-      if (wrapper) {
-        wrapper.classList.add("is-visible");
-      }
-
-      // Appeler le hook du diaporama
+      if (sideMenu) sideMenu.classList.remove("is-visible");
+      if (headerMenuButton) headerMenuButton.setAttribute("aria-expanded", "false");
+      if (wrapper) wrapper.classList.add("is-visible");
       if (typeof window.afficherTechnique === "function") {
         window.afficherTechnique(techniqueName);
-      } else if (window.Diaporama && typeof window.Diaporama.afficherTechnique === "function") {
-        window.Diaporama.afficherTechnique(techniqueName);
-      } else {
-        console.warn("Hook de diaporama non trouvé pour la technique :", techniqueName);
       }
     });
   });
 }
 
-/* ACCORDEON POUR LES CATEGORIES DE TECHNIQUES (Obsolète) */
-function initTechniquesAccordion() {
-  // Vide
-}
-
-/* VIDEOS : CONSTRUCTION + FILTRAGE (liens externes) */
+function initTechniquesAccordion() {} // Vide
 
 function construireVideos() {
   const grid = $("#videosGrid");
   if (!grid || !Array.isArray(window.VIDEOS)) return;
-
   grid.innerHTML = "";
-
   window.VIDEOS.forEach((video, index) => {
     const card = document.createElement("article");
     card.className = "video-card";
     card.dataset.category = video.categorie || "Autre";
-
     const link = document.createElement("a");
     link.className = "video-link";
     link.href = video.url;
     link.target = "_blank";
     link.rel = "noopener noreferrer";
     link.setAttribute("data-video", String(index));
-
     const thumb = document.createElement("div");
     thumb.className = "video-thumb";
-
     const meta = document.createElement("div");
     meta.className = "video-meta";
-
     const title = document.createElement("div");
     title.className = "video-title";
     title.textContent = video.titre || "Vidéo de karaté";
-
     const cat = document.createElement("div");
     cat.className = "video-category";
     cat.textContent = video.categorie || "Autre";
-
     meta.appendChild(title);
     meta.appendChild(cat);
-
     link.appendChild(thumb);
     link.appendChild(meta);
     card.appendChild(link);
-
     grid.appendChild(card);
   });
 }
@@ -615,7 +402,6 @@ function filtrerVideos(categorie) {
 
 function initVideos() {
   construireVideos();
-
   const select = $("#videoCategorie");
   if (select) {
     select.addEventListener("change", () => {
@@ -625,34 +411,26 @@ function initVideos() {
   }
 }
 
-/* LEXIQUE */
-
 function construireLexique(liste) {
   const container = $("#lexiqueListe");
   if (!container) return;
   container.innerHTML = "";
-
   if (!liste || liste.length === 0) {
     const empty = document.createElement("p");
     empty.textContent = "Aucun terme ne correspond à votre recherche.";
     container.appendChild(empty);
     return;
   }
-
   const sorted = [...liste].sort((a, b) => a.term.localeCompare(b.term, "fr"));
-
   sorted.forEach((entry) => {
     const item = document.createElement("article");
     item.className = "lexique-item";
-
     const term = document.createElement("div");
     term.className = "lexique-item-term";
     term.textContent = entry.term;
-
     const def = document.createElement("div");
     def.className = "lexique-item-def";
     def.textContent = entry.def;
-
     item.appendChild(term);
     item.appendChild(def);
     container.appendChild(item);
@@ -661,164 +439,90 @@ function construireLexique(liste) {
 
 function initLexique() {
   const searchInput = $("#lexiqueSearch");
-
-  if (Array.isArray(window.LEXIQUE)) {
-    construireLexique(window.LEXIQUE);
-  }
-
+  if (Array.isArray(window.LEXIQUE)) construireLexique(window.LEXIQUE);
   if (searchInput) {
     searchInput.addEventListener("input", () => {
       const query = searchInput.value.trim().toLowerCase();
       if (!Array.isArray(window.LEXIQUE)) return;
-
       const filtered = window.LEXIQUE.filter((entry) => {
         const term = (entry.term || "").toLowerCase();
         const def = (entry.def || "").toLowerCase();
         return term.includes(query) || def.includes(query);
       });
-
       construireLexique(filtered);
     });
   }
 }
-
-/* PERSONNALISATION (CSS custom properties) */
 
 function initPersonnalisation() {
   const colorInputs = $all("[data-css-var]");
   colorInputs.forEach((input) => {
     const cssVar = input.getAttribute("data-css-var");
     if (!cssVar) return;
-
     input.addEventListener("input", () => {
       document.documentElement.style.setProperty(cssVar, input.value);
     });
   });
 }
 
-/* FORMULAIRE DE CONTACT + CAPTCHA */
-
-const Captcha = {
-  a: 0,
-  b: 0,
-  solution: 0,
-};
-
+const Captcha = { a: 0, b: 0, solution: 0 };
 function genererCaptcha() {
-  Captcha.a = Math.floor(Math.random() * 5) + 2; // 2 à 6
-  Captcha.b = Math.floor(Math.random() * 5) + 3; // 3 à 7
+  Captcha.a = Math.floor(Math.random() * 5) + 2;
+  Captcha.b = Math.floor(Math.random() * 5) + 3;
   Captcha.solution = Captcha.a + Captcha.b;
-
   const label = $("#captchaQuestion");
-  if (label) {
-    label.textContent = `Question de vérification * (combien font ${Captcha.a} + ${Captcha.b} ?)`;
-  }
-
+  if (label) label.textContent = `Question de vérification * (combien font ${Captcha.a} + ${Captcha.b} ?)`;
   const input = $("#contactCaptcha");
-  if (input) {
-    input.value = "";
-  }
+  if (input) input.value = "";
 }
 
 function afficherErreur(champId, message) {
   const span = document.querySelector(`.form-error[data-for="${champId}"]`);
-  if (span) {
-    span.textContent = message || "";
-  }
+  if (span) span.textContent = message || "";
 }
 
 function initContactForm() {
   const form = $("#contactForm");
   if (!form) return;
-
   genererCaptcha();
-
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-
     const email = $("#contactEmail");
     const message = $("#contactMessage");
     const captchaInput = $("#contactCaptcha");
     const feedback = $("#contactFeedback");
-
     let ok = true;
-
-    // Réinitialiser les messages
     afficherErreur("contactEmail", "");
     afficherErreur("contactMessage", "");
     afficherErreur("contactCaptcha", "");
-    if (feedback) {
-      feedback.textContent = "";
-      feedback.style.color = "";
-    }
-
-    // Validation email
-    if (!email || !email.value.trim()) {
-      ok = false;
-      afficherErreur("contactEmail", "Veuillez renseigner une adresse e-mail.");
-    } else if (!email.checkValidity()) {
-      ok = false;
-      afficherErreur("contactEmail", "Le format de l’adresse e-mail semble incorrect.");
-    }
-
-    // Validation message
-    if (!message || !message.value.trim()) {
-      ok = false;
-      afficherErreur("contactMessage", "Veuillez saisir un message.");
-    }
-
-    // Validation captcha
-    if (!captchaInput || !captchaInput.value.trim()) {
-      ok = false;
-      afficherErreur("contactCaptcha", "Veuillez répondre à la question de vérification.");
-    } else {
+    if (feedback) { feedback.textContent = ""; feedback.style.color = ""; }
+    if (!email || !email.value.trim()) { ok = false; afficherErreur("contactEmail", "Veuillez renseigner une adresse e-mail."); } 
+    else if (!email.checkValidity()) { ok = false; afficherErreur("contactEmail", "Le format de l’adresse e-mail semble incorrect."); }
+    if (!message || !message.value.trim()) { ok = false; afficherErreur("contactMessage", "Veuillez saisir un message."); }
+    if (!captchaInput || !captchaInput.value.trim()) { ok = false; afficherErreur("contactCaptcha", "Veuillez répondre à la question de vérification."); } 
+    else {
       const val = parseInt(captchaInput.value, 10);
-      if (val !== Captcha.solution) {
-        ok = false;
-        afficherErreur("contactCaptcha", "La réponse est incorrecte. Essayez encore.");
-        genererCaptcha();
-      }
+      if (val !== Captcha.solution) { ok = false; afficherErreur("contactCaptcha", "La réponse est incorrecte. Essayez encore."); genererCaptcha(); }
     }
-
     if (!ok) {
-      if (feedback) {
-        feedback.textContent =
-          "Le formulaire contient des erreurs. Merci de corriger les champs indiqués.";
-        feedback.style.color = "#ff8080";
-      }
+      if (feedback) { feedback.textContent = "Le formulaire contient des erreurs. Merci de corriger les champs indiqués."; feedback.style.color = "#ff8080"; }
       return;
     }
-
-    // À partir d'ici, tout est valide : on envoie réellement le formulaire à Web3Forms
-    if (feedback) {
-      feedback.textContent = "Envoi du message en cours…";
-      feedback.style.color = "#cccccc";
-    }
-
-    form.submit(); // laisse le navigateur POSTer vers https://api.web3forms.com/submit
+    if (feedback) { feedback.textContent = "Envoi du message en cours…"; feedback.style.color = "#cccccc"; }
+    form.submit();
   });
 }
 
-
-/* FOOTER */
-
 function initFooterYear() {
   const spanYear = $("#footerYear");
-  if (spanYear) {
-    spanYear.textContent = String(new Date().getFullYear());
-  }
+  if (spanYear) spanYear.textContent = String(new Date().getFullYear());
 }
-
-/* ========================================================== */
-/* D. INITIALISATION GLOBALE                                  */
-/* ========================================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
   const contentRoot = $("main.main-content");
   if (window.renderTechniquesSections && contentRoot) {
       window.renderTechniquesSections(contentRoot);
   }
-  
   construireMenu();
   initMenu();
   initTechniques();

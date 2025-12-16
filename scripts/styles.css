@@ -38,7 +38,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* --- HEADER (Version PC par défaut) --- */
+/* --- HEADER (Version PC : Espaces normaux) --- */
 .site-header {
   position: fixed; top: 0; left: 0; right: 0; 
   height: var(--header-height);
@@ -66,17 +66,16 @@ body {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin: 0 0 -6px 0; /* Marge négative en bas plus forte pour remonter le sous-titre */
+  margin: 0; 
   font-size: 1.8rem;
-  line-height: 0.9;   /* Réduit l'espace vertical interne du titre */
+  line-height: 1.2;
 }
 
 .title-block .subtitle {
   margin: 0;
-  padding: 0;
   color: var(--color-muted);
   font-size: 0.85rem;
-  line-height: 1;
+  line-height: 1.4;
 }
 
 .header-menu-button {
@@ -158,47 +157,160 @@ body {
 /* --- DIAPORAMA (PC & GLOBAL) --- */
 #section-techniques {
   display: flex; justify-content: center; align-items: center;
-  position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000;
+  position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000;
   opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
 }
 #section-techniques.is-active { opacity: 1; pointer-events: auto; }
 
+/* 1. Cadre Principal */
 #mon-conteneur-wrapper {
-  position: relative; width: min(70vw, 70vh); height: min(90vh, 760px);
-  background: #000; transition: all 0.3s ease;
-  border-left: 4px solid #101010; border-right: 4px solid #101010;
-  box-shadow: inset 4px 0 8px rgba(255,255,255,0.06), inset -4px 0 8px rgba(255,255,255,0.06), 0 0 30px rgba(0,0,0,0.5);
-  display: flex; flex-direction: column;
+  position: relative;
+  width: 80vw;
+  height: 85vh;
+  max-width: 1200px; max-height: 900px;
+  background: #ffffff; /* FOND BLANC */
+  box-shadow: 0 0 50px rgba(0,0,0,0.9);
+  border-left: 4px solid #1a1a1a; 
+  border-right: 4px solid #1a1a1a;
+  transition: all 0.3s ease;
 }
 #mon-conteneur-wrapper.is-visible { opacity: 1; transform: scale(1); }
 
-/* Éléments internes du diaporama */
-.diaporama-main-title { font-family: 'Lobster', cursive; font-size: 3rem; color: #fff; text-align: center; background: linear-gradient(180deg, #4b4b4b, #101010); padding: 0.5rem 0; margin: 0; flex-shrink: 0; width: 100%; border-bottom: 1px solid rgba(255,255,255,0.25); }
-.diaporama-main-title.hidden { height: 0; padding: 0; overflow: hidden; border: none; opacity: 0; }
+/* 2. Conteneur JS */
+#mon-conteneur.diaporama-container {
+    width: 100%; height: 100%;
+    background-color: transparent !important;
+    display: block !important;
+    margin: 0; padding: 0;
+}
 
-.diaporama-slider-container { position: relative; flex-grow: 1; width: 100%; min-height: 40vh; overflow: hidden; background: transparent; }
+/* 3. Racine générée par JS */
+#diaporama-root {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; overflow: hidden;
+}
+
+/* Éléments internes : TITRE MÉTAL SOMBRE */
+.diaporama-main-title {
+    font-family: 'Lobster', cursive; 
+    font-size: 2.5rem; 
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+    text-align: center; 
+    background: linear-gradient(180deg, #666666 0%, #2a2a2a 50%, #000000 51%, #444444 100%);
+    border-bottom: 1px solid #000;
+    padding: 0.5rem 0; margin: 0;
+    flex-shrink: 0;
+}
+.diaporama-main-title.hidden { display: none; }
+
+/* Slider : Fond BLANC */
+.diaporama-slider-container {
+    position: relative; flex-grow: 1; width: 100%;
+    min-height: 0; 
+    background: #ffffff; 
+    overflow: hidden;
+}
+
 .diaporama-slide { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
 .diaporama-slide.active { opacity: 1; pointer-events: auto; z-index: 10; }
-.diaporama-slide-bg { position: absolute; inset: 0; background-size: contain; background-position: center; background-repeat: no-repeat; }
+.diaporama-slide-bg {
+    position: absolute; inset: 0;
+    background-size: contain; background-position: center; background-repeat: no-repeat;
+}
 
-.diaporama-details { position: absolute; inset: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.4s; z-index: 50; color: white; pointer-events: auto; transform: translateY(20px); }
-.diaporama-details-active .diaporama-details { opacity: 1; transform: translateY(0); }
+.diaporama-details { position: absolute; inset: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.4s; z-index: 50; color: white; pointer-events: none; }
+.diaporama-details-active .diaporama-details { opacity: 1; pointer-events: auto; }
 .diaporama-description-content { padding: 0 10%; font-size: 1.3rem; line-height: 1.6; max-height: 80vh; overflow-y: auto; }
 
-.diaporama-title-zone { background: rgba(255,255,255,0.95); border-top: 1px solid #ddd; padding: 0.8rem; text-align: center; min-height: 100px; display: flex; flex-direction: column; justify-content: center; flex-shrink: 0; transition: 0.3s; }
-.diaporama-title-zone.hidden { height: 0; min-height: 0; padding: 0; overflow: hidden; opacity: 0; }
-.diaporama-text-l1 { font-size: 1.5rem; font-weight: bold; color: #0000FF; margin: 0; line-height: 1.2; }
-.diaporama-text-l2 { font-size: 1.45rem; font-weight: bold; color: #008000; margin: 0; line-height: 1.2; }
-.diaporama-vocab { border-bottom: 2px dotted currentColor; cursor: help; }
+/* ZONE TITRES L1 / L2 */
+.diaporama-title-zone {
+    background: #fff; 
+    border-top: 1px solid #ddd; 
+    padding: 0.5rem; text-align: center;
+    min-height: 80px; 
+    display: flex; flex-direction: column; justify-content: center;
+    flex-shrink: 0; 
+    position: relative;
+    z-index: 60; /* Au-dessus de l'overlay détail */
+}
+.diaporama-title-zone.hidden { display: none; }
 
-.diaporama-controls { background: linear-gradient(180deg, #4b4b4b, #101010); border-top: 1px solid rgba(255,255,255,0.25); padding: 10px 0; z-index: 30; flex-shrink: 0; display: flex; flex-direction: column; gap: 5px; }
-.diaporama-controls-top { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 1rem; width: 100%; }
-.diaporama-btn-group { display: flex; align-items: center; gap: 1.2rem; }
-.diaporama-btn { background: none; border: none; color: rgba(255,255,255,0.7); cursor: pointer; padding: 8px; display: flex; align-items: center; justify-content: center; }
-.diaporama-btn svg { width: 36px; height: 36px; }
+/* L1 et L2 */
+.diaporama-text-l1 { 
+    font-size: 1.4rem; font-weight: bold; 
+    color: blue !important; 
+    margin: 0; line-height: 1.2; 
+    cursor: pointer; /* MAIN */
+}
+.diaporama-text-l2 { 
+    font-size: 1.3rem; font-weight: bold; 
+    color: green !important; 
+    margin: 0; line-height: 1.2; 
+    cursor: pointer; /* MAIN */
+}
+/* VOCABULAIRE : MAIN */
+.diaporama-vocab { 
+    border-bottom: 2px dotted currentColor; 
+    cursor: pointer; /* Change 'help' en 'pointer' */
+}
+
+/* Contrôles : MÉTAL SOMBRE */
+.diaporama-controls {
+    background: linear-gradient(180deg, #666666 0%, #2a2a2a 50%, #000000 51%, #444444 100%);
+    border-top: 1px solid #000; 
+    padding: 5px 0;
+    z-index: 30; flex-shrink: 0;
+}
+.diaporama-controls-top { display: flex; justify-content: space-between; padding: 0 1rem; width: 100%; }
+.diaporama-btn-group { display: flex; gap: 1rem; align-items: center; }
+
+/* --- STYLES DES BOUTONS (ICÔNES) --- */
+
+/* 1. Style par défaut pour TOUS les boutons (Blanc + Main) */
+.diaporama-btn { 
+    background: none; border: none; 
+    color: #fff; 
+    cursor: pointer; /* MAIN */
+    padding: 8px; 
+    font-size: 1.4rem; 
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+}
+/* Par défaut, SVG blanc (incluant flèches, etc.) sans ombre */
+.diaporama-btn svg { width: 32px; height: 32px; fill: #ffffff; }
+
+/* 2. BOUTON MAISON (ID UNIQUE) : Transparent avec contour blanc */
+/* MODIFICATION : Harmonisation avec l'Oeil et la Flèche */
+#diaporama-home svg {
+    fill: none !important;      /* Intérieur transparent */
+    stroke: #ffffff !important; /* Contour blanc */
+    stroke-width: 2px;
+    filter: none !important;    /* Suppression des ombres relief */
+}
+
+/* 3. BOUTON OEIL (ID UNIQUE) : Transparent avec contour blanc */
+#diaporama-eye svg {
+    fill: none !important;   
+    stroke: #ffffff !important;
+    stroke-width: 2px;
+}
+
+/* 4. BOUTON RETOUR/BACK (ID UNIQUE) : Transparent avec contour blanc */
+#diaporama-back svg {
+    fill: none !important;
+    stroke: #ffffff !important;
+    stroke-width: 2px;
+}
+
+/* 5. BOUTON INFO ("D") */
+#diaporama-info {
+    font-size: 1.8rem; /* Agrandit le "D" */
+}
+
 .diaporama-hidden { display: none !important; }
 
-/* --- AUTRES SECTIONS (Vidéos, Lexique...) --- */
+/* --- AUTRES SECTIONS --- */
 .videos-grid, .lexique-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
 .video-card, .lexique-item { background: var(--color-surface); padding: 0.7rem; border-radius: var(--radius-md); box-shadow: var(--shadow-soft); }
 .video-thumb { height: 130px; background: #333; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 0.5rem; }
@@ -213,7 +325,6 @@ body {
         --header-height: 55px;
     }
 
-    /* 1. HEADER & LOGO */
     .site-header {
         padding: 0 10px;
         height: var(--header-height);
@@ -231,13 +342,8 @@ body {
         overflow: hidden;
     }
 
-    .logo-shotokan {
-        width: 34px;
-        height: 34px;
-        flex-shrink: 0;
-    }
+    .logo-shotokan { width: 34px; height: 34px; flex-shrink: 0; }
 
-    /* 2. TITRES (Rapprochement maximal) */
     .title-block {
         display: flex;
         flex-direction: column;
@@ -263,7 +369,6 @@ body {
         text-overflow: ellipsis;
     }
 
-    /* 3. BOUTON MENU (Centrage parfait) */
     .header-menu-button {
         display: flex;
         align-items: center;
@@ -278,27 +383,24 @@ body {
         border-radius: 20px;
     }
 
-    /* 4. DIAPORAMA (Les lignes manquantes sont ici !) */
     #mon-conteneur-wrapper {
         width: 100% !important;
         height: 100% !important;
         border: none !important;
         border-radius: 0 !important;
+        background: #ffffff;
     }
 
-    /* Ajustement de la taille du titre du diaporama */
     .diaporama-main-title { 
         font-size: 1.8rem !important; 
         padding: 0.3rem 0 !important; 
     }
 
-    /* Ajustement de la zone de texte en bas du diaporama */
     .diaporama-title-zone { 
         min-height: 80px !important; 
         padding: 0.5rem !important; 
     }
 
-    /* 5. GRILLES & CONTENU */
     .techniques-grid { grid-template-columns: 1fr !important; }
     
     .technique-card { 
