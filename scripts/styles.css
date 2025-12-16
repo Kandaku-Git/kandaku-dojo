@@ -1383,71 +1383,118 @@ a:hover {
     }
 }
 /* ============================================= */
-/* RÉGLAGES SPÉCIFIQUES POUR SMARTPHONES (MOBILE) */
+/* RÉGLAGES OPTIMISÉS SMARTPHONES (MOBILE)       */
 /* ============================================= */
 
 @media (max-width: 768px) {
     :root {
-        --header-height: 55px; /* Maintien de la hauteur compacte */
+        --header-height: 55px; /* Hauteur compacte */
     }
 
+    /* 1. Header : Flexbox pour aligner gauche/droite */
     .site-header {
-        padding: 5px 8px;      /* Réduction drastique du padding latéral pour décaler vers la gauche */
+        padding: 0 10px;       /* Marge interne latérale réduite */
         height: var(--header-height);
-        min-height: auto;
+        min-height: auto;      /* On annule la hauteur mini PC */
         display: flex;
-        align-items: center;
-        justify-content: flex-start; /* Force l'alignement à gauche du contenu */
+        align-items: center;   /* Centre tout verticalement */
+        justify-content: space-between; /* Ecarte le contenu (Logo à gauche, Menu à droite) */
     }
 
+    /* 2. Logo et Textes groupés */
     .logo-title {
-        gap: 6px;              /* Rapprochement maximal entre le logo et le bloc de texte */
         display: flex;
         align-items: center;
+        gap: 8px;              /* Espace entre la bulle rouge et le texte */
+        flex: 1;               /* Prend toute la place disponible pour pousser le bouton Menu */
+        overflow: hidden;      /* Sécurité */
     }
 
+    .logo-shotokan {
+        width: 34px;           /* Taille fixe pour le mobile */
+        height: 34px;
+        flex-shrink: 0;        /* Interdit au logo de s'écraser */
+    }
+
+    /* 3. Bloc Titre : Supprimer les espaces */
     .title-block {
         display: flex;
-        flex-direction: column;
+        flex-direction: column; /* Empile titre et sous-titre */
         justify-content: center;
-        margin: 0;
-        padding: 0;
+        line-height: 1;         /* Réduit l'interligne global */
     }
 
     .title-block h1 {
-        font-size: 1.25rem;    /* Taille préservée pour la lisibilité */
-        line-height: 0.9;
-        margin: 0;
-        white-space: nowrap;   /* Empêche le titre de se couper */
+        font-size: 1.15rem;     /* Taille lisible sans être énorme */
+        line-height: 1;         /* Colle le haut et le bas du texte */
+        margin: 0;              /* 0 marge */
+        padding: 0;
+        white-space: nowrap;    /* Interdit le passage à la ligne */
     }
 
     .title-block .subtitle {
-        font-size: 0.7rem;     /* Taille optimale pour mobile */
-        margin-top: 0px;       /* Ajustement précis sous le titre */
-        white-space: nowrap;   /* FORCE le sous-titre sur une seule ligne */
-        overflow: hidden;      /* Sécurité pour éviter tout débordement */
-        text-overflow: ellipsis; 
+        font-size: 0.65rem;
         line-height: 1;
+        margin: 0;              /* 0 marge */
+        padding: 0;
+        white-space: nowrap;    /* Interdit le passage à la ligne */
+        color: rgba(255, 255, 255, 0.7); /* Légèrement grisé */
+    }
+
+    /* 4. Bouton MENU : Centrage parfait */
+    .header-menu-button {
+        margin-left: 10px;     /* Petit espace avec le titre */
+        padding: 0 12px;       /* Largeur interne du bouton */
+        height: 30px;          /* Hauteur fixe */
+        font-size: 0.75rem;
+        
+        /* La méthode infaillible pour centrer le texte : */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        /* Annulation des styles par défaut qui gênent */
+        line-height: normal; 
+        border-radius: 999px;
+    }
+
+    /* 5. Ajustement du contenu sous le header */
+    .app-layout, .side-menu {
+        padding-top: var(--header-height);
+        top: 0;
+    }
+
+    .main-content {
+        padding: 1rem !important;
+    }
+
+    /* --- Conserver vos réglages Diaporama Mobile --- */
+    #mon-conteneur-wrapper {
+        width: 100% !important;
+        height: 100% !important;
+        max-width: none !important;
+        max-height: none !important;
+        border: none !important;
+        border-radius: 0 !important;
     }
     
-    .logo-shotokan {
-        width: 32px;           /* Taille compacte pour le logo */
-        height: 32px;
-        flex-shrink: 0;
-        margin-left: 0;        /* Suppression de toute marge à gauche */
-    }
+    .diaporama-main-title { font-size: 1.8rem !important; padding: 0.3rem 0 !important; }
+    .diaporama-title-zone { min-height: 70px !important; padding: 0.5rem !important; }
 
-    /* Ajustement du bouton MENU pour qu'il reste à droite sans pousser le reste */
-    .header-menu-button {
-        margin-left: auto;     /* Le bouton reste collé à droite du header */
-        padding: 4px 10px;
-        font-size: 0.75rem;
-    }
+    /* --- Conserver vos réglages Grille Technique Mobile --- */
+    .techniques-grid { grid-template-columns: 1fr !important; gap: 0.8rem !important; }
+    .technique-card { flex-direction: row !important; text-align: left !important; padding: 0.8rem !important; min-height: 70px; }
+    .technique-card .card-icon { width: 40px !important; height: 40px !important; margin: 0 1rem 0 0 !important; }
+    .technique-card .card-description { display: none !important; }
+    .tech-list-item { padding: 1.1rem 0.5rem !important; }
+    
+    /* --- Vidéos et Formulaires --- */
+    .videos-grid, .theme-form, .lexique-list { grid-template-columns: 1fr !important; }
+    .video-thumb { height: 180px !important; }
 }
 
-/* Fix pour les très petits écrans (iPhone SE, etc.) */
-@media (max-width: 380px) {
-    .logo-title .subtitle {
-        display: none; /* Cache le sous-titre pour éviter le chevauchement */
-    }
+/* Fix pour très petits écrans (iPhone SE, vieux Androids) */
+@media (max-width: 360px) {
+    .title-block .subtitle { display: none; } /* Cache le sous-titre si vraiment pas de place */
+    .title-block h1 { font-size: 1rem; }
 }
