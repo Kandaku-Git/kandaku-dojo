@@ -62,11 +62,21 @@ body {
 .logo-kanji { fill: rgba(255, 255, 255, 0.9); opacity: 0.9; }
 
 .title-block h1 {
-  font-family: "Oswald", sans-serif; font-weight: 600; text-transform: uppercase;
-  margin: 0; font-size: 1.8rem; line-height: 1.1; letter-spacing: 0.08em;
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0 0 -6px 0; /* Marge négative en bas plus forte pour remonter le sous-titre */
+  font-size: 1.8rem;
+  line-height: 0.9;   /* Réduit l'espace vertical interne du titre */
 }
+
 .title-block .subtitle {
-  margin: 0; color: var(--color-muted); font-size: 0.85rem; padding-top: 2px;
+  margin: 0;
+  padding: 0;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  line-height: 1;
 }
 
 .header-menu-button {
@@ -200,98 +210,106 @@ body {
 
 @media (max-width: 768px) {
     :root {
-        --header-height: 50px; /* Header très compact sur mobile */
+        --header-height: 55px;
     }
 
-    /* 1. Header Flexbox : Logo à gauche, Bouton à droite */
+    /* 1. HEADER & LOGO */
     .site-header {
+        padding: 0 10px;
         height: var(--header-height);
         min-height: auto;
-        padding: 0 10px; /* Marges latérales réduites */
         display: flex;
-        align-items: center; /* Centre verticalement le contenu */
-        justify-content: space-between; /* Ecarte les groupes */
+        align-items: center;
+        justify-content: space-between;
     }
 
-    /* 2. Groupe Logo + Titre */
     .logo-title {
         display: flex;
         align-items: center;
-        gap: 8px;       /* Colle le titre au logo */
-        flex: 1;        /* Prend toute la place disponible à gauche */
-        min-width: 0;   /* Permet au texte de se réduire si besoin */
+        gap: 8px;
+        flex: 1;
+        overflow: hidden;
     }
 
     .logo-shotokan {
         width: 34px;
         height: 34px;
-        flex-shrink: 0; /* Empêche le logo de s'écraser */
+        flex-shrink: 0;
     }
 
-    /* 3. Bloc Titre vertical serré */
+    /* 2. TITRES (Rapprochement maximal) */
     .title-block {
         display: flex;
         flex-direction: column;
         justify-content: center;
-        line-height: 1; /* Reset global du bloc */
     }
 
     .title-block h1 {
-        font-size: 1.15rem;   /* Taille raisonnable pour mobile */
-        line-height: 1;       /* Supprime l'espace vide autour du texte */
-        margin: 0;            /* Aucune marge */
-        white-space: nowrap;  /* Force sur une ligne */
+        font-size: 1.2rem;
+        line-height: 0.85;
+        margin: 0 0 -3px 0;
+        white-space: nowrap;
+        padding: 0;
     }
 
     .title-block .subtitle {
         font-size: 0.65rem;
         margin: 0;
-        line-height: 1;       /* Colle au titre */
+        padding: 0;
+        line-height: 1;
         color: var(--color-muted);
-        white-space: nowrap;  /* IMPORTANT: Force sur une ligne */
-        overflow: hidden;     /* Coupe proprement si ça dépasse */
-        text-overflow: ellipsis; /* Ajoute "..." si l'écran est minuscule */
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
-    /* 4. Bouton MENU : Centrage Parfait */
+    /* 3. BOUTON MENU (Centrage parfait) */
     .header-menu-button {
-        display: flex;           /* Active Flexbox */
-        align-items: center;     /* Centre verticalement */
-        justify-content: center; /* Centre horizontalement */
-        
-        height: 28px;            /* Hauteur fixe pour le centrage */
-        padding: 0 12px;         /* Padding horizontal uniquement */
-        margin-left: 8px;        /* Espace avec le titre */
-        
-        font-size: 0.7rem;       /* Texte lisible */
-        line-height: 1;          /* Reset pour ne pas perturber Flexbox */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        padding: 0 12px;
+        margin-left: 10px;
+        font-size: 0.7rem;
+        line-height: 1;
         border: 1px solid rgba(255, 255, 255, 0.4);
+        background: transparent;
+        border-radius: 20px;
     }
 
-    /* 5. Ajustement du contenu */
-    .app-layout, .side-menu {
-        padding-top: var(--header-height); /* Suit la nouvelle hauteur */
-    }
-    .side-menu { top: 0; }
-
-    /* 6. Diaporama Fullscreen Mobile */
+    /* 4. DIAPORAMA (Les lignes manquantes sont ici !) */
     #mon-conteneur-wrapper {
         width: 100% !important;
         height: 100% !important;
         border: none !important;
         border-radius: 0 !important;
     }
-    .diaporama-main-title { font-size: 1.8rem !important; padding: 0.3rem 0 !important; }
-    .diaporama-title-zone { min-height: 80px !important; padding: 0.5rem !important; }
 
-    /* 7. Grille Techniques en Lignes */
-    .techniques-grid { grid-template-columns: 1fr !important; gap: 0.8rem !important; }
-    .technique-card {
-        flex-direction: row !important; text-align: left !important;
-        padding: 0.8rem !important; min-height: 60px;
+    /* Ajustement de la taille du titre du diaporama */
+    .diaporama-main-title { 
+        font-size: 1.8rem !important; 
+        padding: 0.3rem 0 !important; 
     }
-    .technique-card .card-icon { width: 36px !important; height: 36px !important; margin: 0 1rem 0 0 !important; }
+
+    /* Ajustement de la zone de texte en bas du diaporama */
+    .diaporama-title-zone { 
+        min-height: 80px !important; 
+        padding: 0.5rem !important; 
+    }
+
+    /* 5. GRILLES & CONTENU */
+    .techniques-grid { grid-template-columns: 1fr !important; }
+    
+    .technique-card { 
+        flex-direction: row !important; 
+        padding: 0.8rem !important; 
+        min-height: 70px; 
+    }
+    
     .technique-card .card-description { display: none !important; }
     
-    .tech-list-item { padding: 1rem 0.5rem !important; }
+    .main-content { padding: 1rem !important; }
+    
+    .side-menu { top: var(--header-height); padding-top: 0; }
 }
