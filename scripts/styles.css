@@ -1388,109 +1388,69 @@ a:hover {
 
 @media (max-width: 768px) {
     :root {
-        --header-height: 55px; /* Hauteur compacte */
+        --header-height: 55px; /* Compact height for mobile */
     }
 
-    /* 1. Header : Flexbox pour aligner gauche/droite */
     .site-header {
-        padding: 0 10px;       /* Marge interne latérale réduite */
+        padding: 0 12px; /* Removed vertical padding to use flex alignment */
         height: var(--header-height);
-        min-height: auto;      /* On annule la hauteur mini PC */
-        display: flex;
-        align-items: center;   /* Centre tout verticalement */
-        justify-content: space-between; /* Ecarte le contenu (Logo à gauche, Menu à droite) */
-    }
-
-    /* 2. Logo et Textes groupés */
-    .logo-title {
+        min-height: auto;
         display: flex;
         align-items: center;
-        gap: 8px;              /* Espace entre la bulle rouge et le texte */
-        flex: 1;               /* Prend toute la place disponible pour pousser le bouton Menu */
-        overflow: hidden;      /* Sécurité */
+        justify-content: space-between;
     }
 
-    .logo-shotokan {
-        width: 34px;           /* Taille fixe pour le mobile */
-        height: 34px;
-        flex-shrink: 0;        /* Interdit au logo de s'écraser */
+    .logo-title {
+        gap: 8px;
+        display: flex;
+        align-items: center;
+        flex: 1;
     }
 
-    /* 3. Bloc Titre : Supprimer les espaces */
+    /* Tighten the vertical stack of Title and Subtitle */
     .title-block {
         display: flex;
-        flex-direction: column; /* Empile titre et sous-titre */
+        flex-direction: column;
         justify-content: center;
-        line-height: 1;         /* Réduit l'interligne global */
+        line-height: 1; 
     }
 
     .title-block h1 {
-        font-size: 1.15rem;     /* Taille lisible sans être énorme */
-        line-height: 1;         /* Colle le haut et le bas du texte */
-        margin: 0;              /* 0 marge */
-        padding: 0;
-        white-space: nowrap;    /* Interdit le passage à la ligne */
+        font-size: 1.2rem;
+        line-height: 0.85; /* Compresses space above/below the main title */
+        margin: 0;
+        white-space: nowrap;
     }
 
     .title-block .subtitle {
         font-size: 0.65rem;
+        margin-top: 1px; /* Minimal gap between title and subtitle */
+        white-space: nowrap;
         line-height: 1;
-        margin: 0;              /* 0 marge */
-        padding: 0;
-        white-space: nowrap;    /* Interdit le passage à la ligne */
-        color: rgba(255, 255, 255, 0.7); /* Légèrement grisé */
+        color: var(--color-muted);
+    }
+    
+    .logo-shotokan {
+        width: 32px;
+        height: 32px;
+        flex-shrink: 0;
     }
 
-    /* 4. Bouton MENU : Centrage parfait */
+    /* Fix for centering the word MENU inside the button */
     .header-menu-button {
-        margin-left: 10px;     /* Petit espace avec le titre */
-        padding: 0 12px;       /* Largeur interne du bouton */
-        height: 30px;          /* Hauteur fixe */
+        margin-left: 10px;
+        padding: 0; /* Remove padding to prevent offset */
+        height: 30px;
+        width: 65px;
         font-size: 0.75rem;
-        
-        /* La méthode infaillible pour centrer le texte : */
-        display: flex;
+        display: flex; /* Use flexbox for perfect centering */
         align-items: center;
         justify-content: center;
-        
-        /* Annulation des styles par défaut qui gênent */
-        line-height: normal; 
+        line-height: 1; /* Reset line-height to ensure flex centering works */
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        background: transparent;
         border-radius: 999px;
     }
-
-    /* 5. Ajustement du contenu sous le header */
-    .app-layout, .side-menu {
-        padding-top: var(--header-height);
-        top: 0;
-    }
-
-    .main-content {
-        padding: 1rem !important;
-    }
-
-    /* --- Conserver vos réglages Diaporama Mobile --- */
-    #mon-conteneur-wrapper {
-        width: 100% !important;
-        height: 100% !important;
-        max-width: none !important;
-        max-height: none !important;
-        border: none !important;
-        border-radius: 0 !important;
-    }
-    
-    .diaporama-main-title { font-size: 1.8rem !important; padding: 0.3rem 0 !important; }
-    .diaporama-title-zone { min-height: 70px !important; padding: 0.5rem !important; }
-
-    /* --- Conserver vos réglages Grille Technique Mobile --- */
-    .techniques-grid { grid-template-columns: 1fr !important; gap: 0.8rem !important; }
-    .technique-card { flex-direction: row !important; text-align: left !important; padding: 0.8rem !important; min-height: 70px; }
-    .technique-card .card-icon { width: 40px !important; height: 40px !important; margin: 0 1rem 0 0 !important; }
-    .technique-card .card-description { display: none !important; }
-    .tech-list-item { padding: 1.1rem 0.5rem !important; }
-    
-    /* --- Vidéos et Formulaires --- */
-    .videos-grid, .theme-form, .lexique-list { grid-template-columns: 1fr !important; }
-    .video-thumb { height: 180px !important; }
 }
 
 /* Fix pour très petits écrans (iPhone SE, vieux Androids) */
