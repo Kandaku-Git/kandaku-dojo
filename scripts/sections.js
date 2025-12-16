@@ -46,7 +46,7 @@ function buildCategoryPage(categoryData) {
 
     let html = `
         <header class="section-header">
-            <button type="button" class="back-button btn-link" data-section="techniques">&lt; Retour aux catégories</button>
+            <button type="button" class="back-button btn-link" data-section="techniques-categories">&lt; Retour aux catégories</button>
             <h2 class="section-title">${title}</h2>
             <p class="section-subtitle">${subtitleMap[title] || "Liste des techniques de cette catégorie."}</p>
         </header>
