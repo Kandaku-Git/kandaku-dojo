@@ -1388,57 +1388,67 @@ a:hover {
 
 @media (max-width: 768px) {
     :root {
-        --header-height: 70px; /* Augmentation de la base pour laisser respirer le titre */
+        --header-height: 55px; /* Hauteur réduite pour le mobile */
     }
 
     .site-header {
-        padding: 0.4rem 1rem;
-        height: auto;          /* Permet au header de s'agrandir selon le texte */
-        min-height: var(--header-height);
+        padding: 5px 12px;     /* Réduit l'espace interne (haut/bas) */
+        height: var(--header-height);
+        min-height: auto;      /* Supprime la contrainte de hauteur minimale */
+        display: flex;
+        align-items: center;   /* Centre verticalement tout le bloc */
+    }
+
+    .logo-title {
+        gap: 8px;              /* Espace entre le logo et le texte */
     }
 
     .title-block h1 {
-        font-size: 1.4rem;    /* Taille ajustée pour smartphone */
-        line-height: 1.1;     /* Évite de couper le bas des lettres comme le 'j' */
-        white-space: nowrap;  /* Empêche le titre de passer sur deux lignes */
+        font-size: 1.25rem;    /* Taille ajustée */
+        line-height: 0.9;      /* Réduit l'espace au-dessus/en-dessous des lettres */
         margin: 0;
+        padding: 0;
+        white-space: nowrap;
     }
 
     .title-block .subtitle {
-        font-size: 0.75rem;
-        padding-top: 0;
-        margin-top: -2px;     /* Rapprochement léger du titre */
-        line-height: 1.2;
+        font-size: 0.7rem;
+        margin-top: -1px;      /* Colle le sous-titre au titre */
+        padding: 0;
+        line-height: 1;
     }
     
     .logo-shotokan {
-        width: 38px;
-        height: 38px;
-        flex-shrink: 0;       /* Garantit que le logo reste rond */
+        width: 32px;           /* Logo un peu plus petit pour gagner de la place */
+        height: 32px;
+        flex-shrink: 0;
     }
 
-    /* --- Optimisation du Diaporama Fullscreen Mobile --- */
+    /* --- Ajustements du reste du site pour coller au nouveau header --- */
+    .app-layout {
+        padding-top: var(--header-height);
+    }
+
+    .side-menu {
+        top: 0;
+        padding-top: var(--header-height);
+    }
+
+    /* Optionnel : Réduire l'espace en haut de la page d'accueil */
+    .main-content {
+        padding: 0.8rem !important;
+    }
+
+    .content-section h2 {
+        margin-top: 0.5rem;
+    }
+
+    /* --- Conservation de vos autres réglages mobiles --- */
     #mon-conteneur-wrapper {
         width: 100% !important;
         height: 100% !important;
-        max-width: none !important;
-        max-height: none !important;
-        border: none !important;
-        border-radius: 0 !important;
-        transform: none !important;
     }
 
-    .diaporama-main-title {
-        font-size: 1.8rem !important;
-        padding: 0.3rem 0 !important;
-    }
-
-    .diaporama-title-zone {
-        min-height: 80px !important;
-        padding: 0.5rem !important;
-    }
-
-    /* --- Grille de techniques en lignes pour l'ergonomie tactile --- */
     .techniques-grid {
         grid-template-columns: 1fr !important;
         gap: 0.8rem !important;
@@ -1446,37 +1456,8 @@ a:hover {
 
     .technique-card {
         flex-direction: row !important;
-        text-align: left !important;
         padding: 0.8rem !important;
-        align-items: center !important;
-        min-height: 80px;
-    }
-
-    .technique-card .card-icon {
-        width: 40px !important;
-        height: 40px !important;
-        margin-bottom: 0 !important;
-        margin-right: 1rem;
-        flex-shrink: 0;
-    }
-
-    .technique-card .card-description {
-        display: none !important; /* Cache la description longue pour épurer l'affichage */
-    }
-
-    .tech-list-item {
-        font-size: 1rem !important;
-        padding: 1.1rem 0.5rem !important; /* Zone de clic agrandie pour les doigts */
-    }
-
-    .main-content {
-        padding: 1rem !important;
-    }
-
-    /* Ajustement du menu pour qu'il ne couvre pas le header mobile */
-    .side-menu {
-        top: 0;
-        padding-top: 80px; 
+        min-height: 70px;
     }
 }
 
