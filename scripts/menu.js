@@ -96,7 +96,7 @@ window.MENU_ITEMS = [
           { label: "Heian Shodan", dataTechnique: "Heian_Shodan", dataSection: "techniques" },
           { label: "Heian Nidan", dataTechnique: "Heian_Nidan", dataSection: "techniques" },
           { label: "Heian Sandan", dataTechnique: "Heian_Sandan", dataSection: "techniques" },
-          { label: "Heian Yodan", dataTechnique: "Heian_Yodan", dataSection: "techniques" },
+          { label: "Heian Yondan", dataTechnique: "Heian_Yondan", dataSection: "techniques" },
           { label: "Heian Godan", dataTechnique: "Heian_Godan", dataSection: "techniques" },
         ],
       },
