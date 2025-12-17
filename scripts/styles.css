@@ -1,0 +1,456 @@
+/* Import de la police spécifique au diaporama */
+@import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
+
+:root {
+  --color-bg: #101014;
+  --color-surface: #181820;
+  --color-text: #f5f5f5;
+  --color-muted: #b3b3c0;
+  --color-accent: #d7263d;
+  --color-accent-soft: rgba(215, 38, 61, 0.25);
+  --color-header-bg: #14141c;
+  --color-header-border: #2b2b38;
+  --color-menu-bg: #111118;
+  --color-menu-border: #20202a;
+  --color-link-hover: #ff3b4d;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --shadow-soft: 0 8px 24px rgba(0, 0, 0, 0.45);
+
+  --transition-fast: 0.15s ease-out;
+  --transition-med: 0.25s ease-out;
+
+  /* Hauteur standard sur PC */
+  --header-height: 72px;
+  --menu-width: 260px;
+}
+
+/* RESET SIMPLE */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  font-family: "Montserrat", system-ui, -apple-system, sans-serif;
+  background: radial-gradient(circle at top left, #161623 0, var(--color-bg) 45%, #050509 100%);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* --- HEADER (Version PC : Espaces normaux) --- */
+.site-header {
+  position: fixed; top: 0; left: 0; right: 0; 
+  height: var(--header-height);
+  background: linear-gradient(120deg, var(--color-header-bg), #181822 60%, #121217 100%);
+  border-bottom: 1px solid var(--color-header-border);
+  display: flex; align-items: center; padding: 0 1.5rem; z-index: 1000;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
+}
+
+.logo-title { display: flex; align-items: center; gap: 1rem; }
+
+.logo-shotokan {
+  width: 48px; height: 48px; border-radius: 999px;
+  background: radial-gradient(circle at 30% 20%, #ff5b6c, var(--color-accent) 55%, #5a050f 100%);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.07);
+}
+.logo-shotokan svg { width: 36px; height: 36px; }
+.logo-circle { fill: none; stroke: rgba(0, 0, 0, 0.7); stroke-width: 4; }
+.logo-tiger { fill: rgba(0, 0, 0, 0.75); }
+.logo-kanji { fill: rgba(255, 255, 255, 0.9); opacity: 0.9; }
+
+.title-block h1 {
+  font-family: "Oswald", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0; 
+  font-size: 1.8rem;
+  line-height: 1.2;
+}
+
+.title-block .subtitle {
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.header-menu-button {
+  margin-left: auto; padding: 0.35rem 0.9rem; border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.35); background: transparent; color: #ffffff;
+  font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
+  transition: all 0.2s ease;
+}
+.header-menu-button:hover { background: var(--color-accent); border-color: rgba(0,0,0,0.6); }
+
+/* --- LAYOUT & MENU LATÉRAL --- */
+.app-layout { display: block; height: 100vh; padding-top: var(--header-height); }
+
+.side-menu {
+  background: radial-gradient(circle at top, #1b1b28, var(--color-menu-bg));
+  border-left: 1px solid var(--color-menu-border);
+  position: fixed; top: var(--header-height); right: 0; width: min(280px, 90vw);
+  max-height: calc(100vh - var(--header-height)); overflow-y: auto;
+  opacity: 0; transform: translateY(-10px); transition: all 0.25s ease-out; z-index: 900;
+  box-shadow: -10px 10px 30px rgba(0,0,0,0.6);
+  pointer-events: none; 
+}
+.side-menu.is-visible { opacity: 1; transform: translateY(0); padding: 1rem 0.5rem; pointer-events: auto; }
+
+.menu-root { list-style: none; margin: 0; padding: 0.4rem 0; }
+.menu-root > li { margin-bottom: 0.35rem; }
+
+.menu-item, .submenu-link {
+  width: 100%; text-align: left; background: transparent; border: none; color: var(--color-text);
+  padding: 0.55rem 0.85rem; border-radius: var(--radius-md); cursor: pointer;
+  font-size: 0.9rem; display: flex; align-items: center; justify-content: space-between;
+}
+.menu-item:hover, .submenu-link:hover { background: var(--color-accent-soft); color: #fff; }
+.menu-item.is-active { background: linear-gradient(120deg, var(--color-accent), #ff5466); color: #fff; }
+
+.submenu { list-style: none; padding: 0.25rem 0.25rem 0.35rem 1.5rem; border-left: 1px solid rgba(255,255,255,0.05); max-height: 0; overflow: hidden; transition: 0.25s; opacity: 0; }
+.submenu.is-open { max-height: 800px; opacity: 1; transform: translateY(0); }
+
+/* --- CONTENU --- */
+.main-content { padding: 1.25rem 1.75rem; position: relative; overflow-y: auto; max-height: calc(100vh - var(--header-height)); }
+.content-section { display: none; opacity: 0; transform: translateY(10px); transition: 0.25s; }
+.content-section.is-active { display: block; opacity: 1; transform: translateY(0); }
+.content-section h2 { font-family: "Oswald"; font-size: 1.4rem; text-transform: uppercase; margin: 0 0 0.75rem 0; }
+.content-section p { color: var(--color-muted); line-height: 1.6; }
+
+/* BOUTONS D'ACTION */
+.btn-accent, .btn-link {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0.55rem 1.1rem; border-radius: 999px; border: none;
+  background: linear-gradient(120deg, var(--color-accent), #ff5466); color: #fff;
+  font-weight: 600; text-decoration: none; cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+.btn-accent:hover { transform: translateY(-1px); background: var(--color-link-hover); }
+
+/* --- GRILLE TECHNIQUES & CARTES --- */
+.section-header { padding-bottom: 1.5rem; padding-top: 0.5rem; }
+.section-title { font-size: 2.2rem; margin-bottom: 0.5rem; }
+.section-subtitle { font-size: 1rem; color: var(--color-muted); }
+
+.techniques-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
+.technique-card {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  background: var(--color-surface); border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg); padding: 1.5rem 1rem; cursor: pointer; transition: 0.15s;
+}
+.technique-card:hover { transform: translateY(-3px); background: #252535; }
+.technique-card .card-icon { width: 56px; height: 56px; color: var(--color-accent); margin-bottom: 0.75rem; }
+.technique-card .card-title { font-size: 1rem; font-weight: 700; color: #fff; margin: 0; }
+.technique-card .card-description { font-size: 0.85rem; color: var(--color-muted); margin-top: 0.25rem; }
+
+.techniques-list { list-style: none; padding: 0; margin: 0; }
+.tech-list-item {
+  width: 100%; text-align: left; background: none; border: none; color: var(--color-text);
+  font-size: 1.1rem; padding: 0.8rem 0; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.tech-list-item:hover { color: var(--color-accent); transform: translateX(3px); }
+.back-button { color: var(--color-accent); border: none; background: none; cursor: pointer; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+
+/* --- DIAPORAMA (PC & GLOBAL) --- */
+#section-techniques {
+  display: flex; justify-content: center; align-items: center;
+  position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000;
+  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+#section-techniques.is-active { opacity: 1; pointer-events: auto; }
+
+/* 1. Cadre Principal */
+#mon-conteneur-wrapper {
+  position: relative;
+  width: 80vw;
+  height: 85vh;
+  max-width: 1200px; max-height: 900px;
+  background: #ffffff; /* FOND BLANC */
+  box-shadow: 0 0 50px rgba(0,0,0,0.9);
+  border-left: 4px solid #1a1a1a; 
+  border-right: 4px solid #1a1a1a;
+  transition: all 0.3s ease;
+}
+#mon-conteneur-wrapper.is-visible { opacity: 1; transform: scale(1); }
+
+/* 2. Conteneur JS */
+#mon-conteneur.diaporama-container {
+    width: 100%; height: 100%;
+    background-color: transparent !important;
+    display: block !important;
+    margin: 0; padding: 0;
+}
+
+/* 3. Racine générée par JS */
+#diaporama-root {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; overflow: hidden;
+}
+
+/* Éléments internes : TITRE MÉTAL SOMBRE */
+.diaporama-main-title {
+    font-family: 'Lobster', cursive; 
+    font-size: 2.5rem; 
+    color: #fff;
+    text-shadow: 1px 1px 2px #000;
+    text-align: center; 
+    background: linear-gradient(180deg, #666666 0%, #2a2a2a 50%, #000000 51%, #444444 100%);
+    border-bottom: 1px solid #000;
+    padding: 0.5rem 0; margin: 0;
+    flex-shrink: 0;
+}
+.diaporama-main-title.hidden { display: none; }
+
+/* Slider : Fond BLANC */
+.diaporama-slider-container {
+    position: relative; flex-grow: 1; width: 100%;
+    min-height: 0; 
+    background: #ffffff; 
+    overflow: hidden;
+}
+
+.diaporama-slide { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
+.diaporama-slide.active { opacity: 1; pointer-events: auto; z-index: 10; }
+.diaporama-slide-bg {
+    position: absolute; inset: 0;
+    background-size: contain; background-position: center; background-repeat: no-repeat;
+}
+
+.diaporama-details { position: absolute; inset: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.4s; z-index: 50; color: white; pointer-events: none; }
+.diaporama-details-active .diaporama-details { opacity: 1; pointer-events: auto; }
+.diaporama-description-content { padding: 0 10%; font-size: 1.3rem; line-height: 1.6; max-height: 80vh; overflow-y: auto; }
+
+/* ZONE TITRES L1 / L2 */
+.diaporama-title-zone {
+    background: #fff; 
+    border-top: 1px solid #ddd; 
+    padding: 0.5rem; text-align: center;
+    min-height: 80px; 
+    display: flex; flex-direction: column; justify-content: center;
+    flex-shrink: 0; 
+    position: relative;
+    z-index: 60; /* Au-dessus de l'overlay détail */
+}
+.diaporama-title-zone.hidden { display: none; }
+
+/* L1 et L2 */
+.diaporama-text-l1 { 
+    text-transform: none !important;
+    font-size: 1.4rem; font-weight: bold; 
+    color: blue !important; 
+    margin: 0; line-height: 1.2; 
+    cursor: pointer; /* MAIN */
+}
+.diaporama-text-l2 { 
+    font-size: 1.3rem; font-weight: bold; 
+    color: green !important; 
+    margin: 0; line-height: 1.2; 
+    cursor: pointer; /* MAIN */
+}
+/* VOCABULAIRE : MAIN */
+.diaporama-vocab { 
+    border-bottom: 2px dotted currentColor; 
+    cursor: pointer; /* Change 'help' en 'pointer' */
+}
+
+/* Contrôles : MÉTAL SOMBRE */
+.diaporama-controls {
+    background: linear-gradient(180deg, #666666 0%, #2a2a2a 50%, #000000 51%, #444444 100%);
+    border-top: 1px solid #000; 
+    padding: 5px 0;
+    z-index: 30; flex-shrink: 0;
+}
+.diaporama-controls-top { display: flex; justify-content: space-between; padding: 0 1rem; width: 100%; }
+.diaporama-btn-group { display: flex; gap: 1rem; align-items: center; }
+
+/* --- STYLES DES BOUTONS (ICÔNES) --- */
+
+/* 1. Style par défaut pour TOUS les boutons (Blanc + Main) */
+.diaporama-btn { 
+    background: none; border: none; 
+    color: #fff; 
+    cursor: pointer; /* MAIN */
+    padding: 8px; 
+    font-size: 1.4rem; 
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+}
+/* Par défaut, SVG blanc (incluant flèches, etc.) sans ombre */
+.diaporama-btn svg { width: 32px; height: 32px; fill: #ffffff; }
+
+/* 2. BOUTON MAISON (ID UNIQUE) : Transparent avec contour blanc */
+/* MODIFICATION : Harmonisation avec l'Oeil et la Flèche */
+#diaporama-home svg {
+    fill: none !important;      /* Intérieur transparent */
+    stroke: #ffffff !important; /* Contour blanc */
+    stroke-width: 2px;
+    filter: none !important;    /* Suppression des ombres relief */
+}
+
+/* 3. BOUTON OEIL (ID UNIQUE) : Transparent avec contour blanc */
+#diaporama-eye svg {
+    fill: none !important;   
+    stroke: #ffffff !important;
+    stroke-width: 2px;
+}
+
+/* 4. BOUTON RETOUR/BACK (ID UNIQUE) : Transparent avec contour blanc */
+#diaporama-back svg {
+    fill: none !important;
+    stroke: #ffffff !important;
+    stroke-width: 2px;
+}
+
+/* 5. BOUTON INFO ("D") */
+#diaporama-info {
+    font-size: 1.8rem; /* Agrandit le "D" */
+}
+
+.diaporama-hidden { display: none !important; }
+
+/* Infobulle vocabulaire diaporama */
+.diaporama-vocab {
+  position: relative;
+  cursor: pointer;
+}
+
+.diaporama-tooltip {
+  position: absolute;
+  z-index: 2000;
+  max-width: 260px;
+  background: rgba(15, 15, 24, 0.95);
+  color: #fff;
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  transform: translate(-50%, -100%);
+  /* on la place au-dessus par défaut */
+  left: 50%;
+  bottom: 100%;
+  margin-bottom: 0.35rem;
+  pointer-events: none;
+}
+
+.diaporama-tooltip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  border-width: 6px 6px 0 6px;
+  border-style: solid;
+  border-color: rgba(15, 15, 24, 0.95) transparent transparent transparent;
+}
+
+
+/* --- AUTRES SECTIONS --- */
+.videos-grid, .lexique-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.video-card, .lexique-item { background: var(--color-surface); padding: 0.7rem; border-radius: var(--radius-md); box-shadow: var(--shadow-soft); }
+.video-thumb { height: 130px; background: #333; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 0.5rem; }
+.form-group input, .form-group textarea { width: 100%; padding: 0.4rem; background: var(--color-surface); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 4px; }
+
+/* ============================================= */
+/* 📱 RÉGLAGES SPÉCIFIQUES SMARTPHONES (Mobile) */
+/* ============================================= */
+
+@media (max-width: 768px) {
+    :root {
+        --header-height: 55px;
+    }
+
+    .site-header {
+        padding: 0 10px;
+        height: var(--header-height);
+        min-height: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-title {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+        overflow: hidden;
+    }
+
+    .logo-shotokan { width: 34px; height: 34px; flex-shrink: 0; }
+
+    .title-block {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .title-block h1 {
+        font-size: 1.2rem;
+        line-height: 0.85;
+        margin: 0 0 -3px 0;
+        white-space: nowrap;
+        padding: 0;
+    }
+
+    .title-block .subtitle {
+        font-size: 0.65rem;
+        margin: 10px 0 0 0;
+        padding: 0;
+        line-height: 1;
+        color: var(--color-muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .header-menu-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 30px;
+        padding: 0 12px;
+        margin-left: 10px;
+        font-size: 0.7rem;
+        line-height: 1;
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        background: transparent;
+        border-radius: 20px;
+    }
+
+    #mon-conteneur-wrapper {
+        width: 100% !important;
+        height: 100% !important;
+        border: none !important;
+        border-radius: 0 !important;
+        background: #ffffff;
+    }
+
+    .diaporama-main-title { 
+        font-size: 1.8rem !important; 
+        padding: 0.3rem 0 !important; 
+    }
+
+    .diaporama-title-zone { 
+        min-height: 80px !important; 
+        padding: 0.5rem !important; 
+    }
+
+    .techniques-grid { grid-template-columns: 1fr !important; }
+    
+    .technique-card { 
+        flex-direction: row !important; 
+        padding: 0.8rem !important; 
+        min-height: 70px; 
+    }
+    
+    .technique-card .card-description { display: none !important; }
+    
+    .main-content { padding: 1rem !important; }
+    
+    .side-menu { top: var(--header-height); padding-top: 0; }
+}
