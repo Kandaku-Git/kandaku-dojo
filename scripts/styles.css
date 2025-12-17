@@ -238,6 +238,7 @@ body {
 
 /* L1 et L2 */
 .diaporama-text-l1 { 
+    text-transform: none !important;
     font-size: 1.4rem; font-weight: bold; 
     color: blue !important; 
     margin: 0; line-height: 1.2; 
@@ -309,6 +310,43 @@ body {
 }
 
 .diaporama-hidden { display: none !important; }
+
+/* Infobulle vocabulaire diaporama */
+.diaporama-vocab {
+  position: relative;
+  cursor: pointer;
+}
+
+.diaporama-tooltip {
+  position: absolute;
+  z-index: 2000;
+  max-width: 260px;
+  background: rgba(15, 15, 24, 0.95);
+  color: #fff;
+  border-radius: 6px;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+  transform: translate(-50%, -100%);
+  /* on la place au-dessus par défaut */
+  left: 50%;
+  bottom: 100%;
+  margin-bottom: 0.35rem;
+  pointer-events: none;
+}
+
+.diaporama-tooltip::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -6px;
+  transform: translateX(-50%);
+  border-width: 6px 6px 0 6px;
+  border-style: solid;
+  border-color: rgba(15, 15, 24, 0.95) transparent transparent transparent;
+}
+
 
 /* --- AUTRES SECTIONS --- */
 .videos-grid, .lexique-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
@@ -414,6 +452,4 @@ body {
     .main-content { padding: 1rem !important; }
     
     .side-menu { top: var(--header-height); padding-top: 0; }
-
 }
-

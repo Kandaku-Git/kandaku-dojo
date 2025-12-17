@@ -57,14 +57,17 @@ class Diaporama {
             timerId: null,
             progressIntervalId: null,
             progressValue: 0,
-            slideData: {}, 
-            fixedData: { l1: "", l2: "" }, 
+            slideData: {},
+            fixedData: { l1: "", l2: "" },
             vocabulary: {},
             history: [],
             isScrubbing: false,
             wasPlayingBeforeDetails: false,
-            isSecondary: false 
-        };
+            isSecondary: false,
+            tooltipElement: null,
+            tooltipTarget: null
+            };
+
 
         this.init();
     }
@@ -349,6 +352,39 @@ class Diaporama {
         if (this.toastTimeout) clearTimeout(this.toastTimeout);
     }
 
+    showVocabularyTooltip(targetEl, text) {
+        // Fermer une éventuelle infobulle précédente
+        this.hideVocabularyTooltip();
+
+        const tooltip = document.createElement("div");
+        tooltip.className = "diaporama-tooltip";
+        tooltip.textContent = text;
+
+        // On attache dans le titre (zone L1/L2) pour rester dans le contexte
+        this.dom.titleZone.appendChild(tooltip);
+
+        // Calcul de position par rapport au mot cliqué
+        const rectTarget = targetEl.getBoundingClientRect();
+        const rectZone = this.dom.titleZone.getBoundingClientRect();
+
+        const centerX = rectTarget.left + rectTarget.width / 2;
+        const relX = centerX - rectZone.left;
+
+        tooltip.style.left = `${relX}px`;
+        tooltip.style.bottom = `${rectZone.height - (rectTarget.top - rectZone.top) + 8}px`;
+
+        this.state.tooltipElement = tooltip;
+        this.state.tooltipTarget = targetEl;
+    }
+
+    hideVocabularyTooltip() {
+    if (this.state.tooltipElement && this.state.tooltipElement.parentNode) {
+        this.state.tooltipElement.parentNode.removeChild(this.state.tooltipElement);
+    }
+    this.state.tooltipElement = null;
+    this.state.tooltipTarget = null;
+    }
+
     updatePlayPauseIcon() {
         this.dom.icons.play.classList.toggle('diaporama-hidden', this.state.isPlaying);
         this.dom.icons.pause.classList.toggle('diaporama-hidden', !this.state.isPlaying);
@@ -475,15 +511,28 @@ class Diaporama {
         b.back.onclick = () => this.restoreParentDiaporama();
 
         this.dom.titleZone.addEventListener('click', (e) => {
+            // Ferme l’infobulle si on clique ailleurs dans la zone titre
+            if (!e.target.classList.contains("diaporama-vocab") && this.state.tooltipElement) {
+                this.hideVocabularyTooltip();
+            }
             if (e.target.classList.contains('diaporama-link')) {
                 const target = e.target.getAttribute('data-target');
                 if (target) this.loadSubDiaporama(target);
             }
-            if (e.target.classList.contains('diaporama-vocab')) {
-                const def = e.target.getAttribute('data-def');
-                if (def) this.showToast(`${e.target.innerText} : ${def}`);
+            if (e.target.classList.contains("diaporama-vocab")) {
+                const def = e.target.getAttribute("data-def");
+                if (!def) return;
+
+                // Si on clique à nouveau sur le même mot, on ferme
+                if (this.state.tooltipTarget === e.target) {
+                    this.hideVocabularyTooltip();
+                    return;
+                }
+                this.showVocabularyTooltip(e.target, def);
+                }
+
             }
-        });
+        );
 
 
         this.dom.slides.forEach(slide => {
@@ -584,6 +633,7 @@ class Diaporama {
     showSlide(index) {
         if(this.state.isDetailsOpen) this.toggleDetails();
         this.hideToast();
+        this.hideVocabularyTooltip();
         const max = this.config.images.length;
         if (max === 0) return;
         this.state.currentIndex = (index + max) % max;
