@@ -398,7 +398,7 @@ body {
 
     .title-block .subtitle {
         font-size: 0.65rem;
-        margin: -2px 0 0 0;
+        margin: 0;
         padding: 0;
         line-height: 1;
         color: var(--color-muted);
@@ -454,5 +454,6 @@ body {
     .side-menu { top: var(--header-height); padding-top: 0; }
 
 }
+
 
 
