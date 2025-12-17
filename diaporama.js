@@ -408,7 +408,7 @@ class Diaporama {
         const slidesHTML = this.config.images.map((url, index) => `
             <div class="diaporama-slide" data-index="${index}">
                 <div class="diaporama-slide-bg" style="background-image: url('${url}');">
-                    <img src="${url}" style="display:none;" onerror="this.parentElement.style.backgroundImage = 'url(images/travaux.gif)'; this.closest('.diaporama-slide').classList.add('is-error');">
+                    <img src="${url}" style="display:none;" onerror="this.parentElement.style.backgroundImage = 'url(images/travaux.png)'; this.closest('.diaporama-slide').classList.add('is-error');">
                 </div>
                 <div class="diaporama-details">
                     <div class="diaporama-description-content">
