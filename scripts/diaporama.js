@@ -457,13 +457,12 @@ class Diaporama {
                                 <svg class="diaporama-icon" viewBox="0 0 24 24">
                                 <!-- Corps de la maison : contour rouge clair, rempli blanc -->
                                 <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-                                fill="#FFFFFF"
-                                stroke="#ff6666"
+                                stroke="#ff0000ff"
                                 stroke-width="1.5"
                                 stroke-linejoin="round"></path>
                                 <!-- Porte : petit rectangle rouge plein -->
-                                <rect x="10.5" y="15" width="3" height="5"
-                                fill="#d7263d"
+                                <rect x="10.5" y="16" width="3" height="5"
+                                fill="#f50626ff"
                                 stroke="none"></rect>
                                 </svg>
                             </a>
