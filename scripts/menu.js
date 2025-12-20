@@ -3,152 +3,8 @@
 
 window.MENU_ITEMS = [
   { type: "item", label: "Accueil", buttonClass: "menu-item", dataSection: "accueil" },
-  {
-    type: "item", 
-    label: "Techniques",
-    buttonClass: "menu-item",
-    dataSection: "techniques-categories",
-    children: [
-      {
-        type: "tech-category",
-        label: "Zuki Waza",
-        techniques: [
-          { label: "Age Zuki", dataTechnique: "Zuki", dataSection: "techniques" },
-          { label: "Awase Zuki", dataTechnique: "Awase_Zuki", dataSection: "techniques" },
-          { label: "Haishu Uchi", dataTechnique: "Haishu", dataSection: "techniques" },
-          { label: "Haito Uchi", dataTechnique: "Haito", dataSection: "techniques" },
-          { label: "Kagi Zuki", dataTechnique: "Kagi_Zuki", dataSection: "techniques" },
-          { label: "Maite Zuki", dataTechnique: "Maite_Zuki", dataSection: "techniques" },
-          { label: "Mawashi Tetsui Uchi", dataTechnique: "Mawashi_Tetsui_Uchi", dataSection: "techniques" },
-          { label: "Oi Zuki", dataTechnique: "Zuki", dataSection: "techniques" },
-          { label: "Shuto Uchi", dataTechnique: "Shuto", dataSection: "techniques" },
-          { label: "Sokumen Gyaku Zuki", dataTechnique: "Kagi_Zuki", dataSection: "techniques" },
-          { label: "Tate Nukite", dataTechnique: "Nukite", dataSection: "techniques" },
-          { label: "Tate Uraken Uchi", dataTechnique: "Uraken", dataSection: "techniques" },
-          { label: "Tate Zuki", dataTechnique: "Zuki", dataSection: "techniques" },
-          { label: "Tetsui Uchi", dataTechnique: "Tetsui", dataSection: "techniques" },
-          { label: "Ura Nukite", dataTechnique: "Nukite", dataSection: "techniques" },
-          { label: "Ura Zuki", dataTechnique: "Zuki", dataSection: "techniques" },
-          { label: "Uraken Uchi", dataTechnique: "Uraken", dataSection: "techniques" },
-          { label: "Yama Zuki", dataTechnique: "Yama_Zuki", dataSection: "techniques" },
-          { label: "Zuki", dataTechnique: "Zuki", dataSection: "techniques" },
-        ],
-      },
-      {
-        type: "tech-category",
-        label: "Empi Waza",
-        techniques: [
-          { label: "Age Empi Uchi", dataTechnique: "Age_Empi_Uchi", dataSection: "techniques" },
-          { label: "Mae Empi Uchi", dataTechnique: "Mae_Empi_Uchi", dataSection: "techniques" },
-          { label: "Tate Empi Uchi", dataTechnique: "Age_Empi_Uchi", dataSection: "techniques" },
-          { label: "Ushiro Empi Uchi", dataTechnique: "Ushiro_Empi_Uchi", dataSection: "techniques" },
-        ],
-      },
-      {
-        type: "tech-category",
-        label: "Geri Waza",
-        techniques: [
-          { label: "Fumikomi", dataTechnique: "Fumikomi", dataSection: "techniques" },
-          { label: "Mae Geri", dataTechnique: "Mae_Geri", dataSection: "techniques" },
-          { label: "Mae Hiza Geri", dataTechnique: "Mae_Hiza_Geri", dataSection: "techniques" },
-          { label: "Mae Tobi Geri", dataTechnique: "Mae_Geri", dataSection: "techniques" },
-          { label: "Mikazuki Geri", dataTechnique: "Mikazuki_Geri", dataSection: "techniques" },
-          { label: "Ushiro Geri", dataTechnique: "Ushiro_Geri", dataSection: "techniques" },
-          { label: "Yoko Geri", dataTechnique: "Yoko_Geri", dataSection: "techniques" },
-        ],
-      },
-      {
-        type: "tech-category",
-        label: "Uke Waza",
-        techniques: [
-          { label: "Empi Uke", dataTechnique: "Empi_Uke", dataSection: "techniques" },
-          { label: "Gedan Barai", dataTechnique: "Gedan_Barai", dataSection: "techniques" },
-          { label: "Haishu Uke", dataTechnique: "Haishu", dataSection: "techniques" },
-          { label: "Haito Uke", dataTechnique: "Haito", dataSection: "techniques" },
-          { label: "Haiwan Sokumen Uke", dataTechnique: "Haiwan_Sokumen_Uke", dataSection: "techniques" },
-          { label: "Hasami Uke", dataTechnique: "Soto_Uke", dataSection: "techniques" },
-          { label: "Jodan Age Uke", dataTechnique: "Jodan_Age_Uke", dataSection: "techniques" },
-          { label: "Juji Uke", dataTechnique: "Juji_Uke", dataSection: "techniques" },
-          { label: "Kake Uke", dataTechnique: "Kake_Uke", dataSection: "techniques" },
-          { label: "Kakiwake Uke", dataTechnique: "Kakiwake_Uke", dataSection: "techniques" },
-          { label: "Kosa Uke", dataTechnique: "Kosa_Uke", dataSection: "techniques" },
-          { label: "Manji Uke", dataTechnique: "Manji_Uke", dataSection: "techniques" },
-          { label: "Morote Uke", dataTechnique: "Morote_Uke", dataSection: "techniques" },
-          { label: "Otoshi Uke", dataTechnique: "Otoshi_Uke", dataSection: "techniques" },
-          { label: "Shuto Uke", dataTechnique: "Shuto_Uke", dataSection: "techniques" },
-          { label: "Sokumen Awase Uke", dataTechnique: "Sokumen_Awase_Uke", dataSection: "techniques" },
-          { label: "Soto Uke", dataTechnique: "Soto_Uke", dataSection: "techniques" },
-          { label: "Sukui Uke", dataTechnique: "Sukui_Uke", dataSection: "techniques" },
-          { label: "Tate Shuto Uke", dataTechnique: "Tate_Shuto_Uke", dataSection: "techniques" },
-          { label: "Te Osae Uke", dataTechnique: "Te_Osae_Uke", dataSection: "techniques" },
-          { label: "Teisho Kosa Uke", dataTechnique: "Teisho_Kosa_Uke", dataSection: "techniques" },
-          { label: "Teisho Uke", dataTechnique: "Teisho", dataSection: "techniques" },
-          { label: "Uchi Komi", dataTechnique: "Soto_Uke", dataSection: "techniques" },
-          { label: "Uchi Uke", dataTechnique: "Uchi_Uke", dataSection: "techniques" },
-          { label: "Uraken Uke", dataTechnique: "Uraken", dataSection: "techniques" },
-        ],
-      },
-      {
-        type: "tech-category",
-        label: "Kata",
-        techniques: [
-          { label: "Bassai Dai", dataTechnique: "Bassai_Dai", dataSection: "techniques" },
-          { label: "Heian Shodan", dataTechnique: "Heian_Shodan", dataSection: "techniques" },
-          { label: "Heian Nidan", dataTechnique: "Heian_Nidan", dataSection: "techniques" },
-          { label: "Heian Sandan", dataTechnique: "Heian_Sandan", dataSection: "techniques" },
-          { label: "Heian Yondan", dataTechnique: "Heian_Yondan", dataSection: "techniques" },
-          { label: "Heian Godan", dataTechnique: "Heian_Godan", dataSection: "techniques" },
-        ],
-      },
-      {
-        type: "tech-category",
-        label: "Dachi",
-        techniques: [
-          { label: "Fudo Dachi", dataTechnique: "Fudo_Dachi", dataSection: "techniques" },
-          { label: "Hachiji Dachi", dataTechnique: "Hachiji_Dachi", dataSection: "techniques" },
-          { label: "Hangetsu Dachi", dataTechnique: "Hangetsu_Dachi", dataSection: "techniques" },
-          { label: "Heisoku Dachi", dataTechnique: "Heisoku_Dachi", dataSection: "techniques" },
-          { label: "Hiza Gamae", dataTechnique: "Hiza_Gamae", dataSection: "techniques" },
-          { label: "Jiai No Gamae", dataTechnique: "Jiai_No_Gamae", dataSection: "techniques" },
-          { label: "Kake Dachi", dataTechnique: "Kake_Dachi", dataSection: "techniques" },
-          { label: "Kase Kokutsu Dachi", dataTechnique: "Kokutsu_Dachi", dataSection: "techniques" },
-          { label: "Kata Hiza Dachi", dataTechnique: "Kata_Hiza_Dachi", dataSection: "techniques" },
-          { label: "Kiba Dachi", dataTechnique: "Kiba_Dachi", dataSection: "techniques" },
-          { label: "Kokutsu Dachi", dataTechnique: "Kokutsu_Dachi", dataSection: "techniques" },
-          { label: "Kosa Dachi", dataTechnique: "Kake_Dachi", dataSection: "techniques" },
-          { label: "Koshi Gamae", dataTechnique: "Koshi_Gamae", dataSection: "techniques" },
-          { label: "Morote Koko Gamae", dataTechnique: "Morote_Koko_Gamae", dataSection: "techniques" },
-          { label: "Moto Dachi", dataTechnique: "Zenkutsu_Dachi", dataSection: "techniques" },
-          { label: "Musubi Dachi", dataTechnique: "Musubi_Dachi", dataSection: "techniques" },
-          { label: "Neko Ashi Dachi", dataTechnique: "Neko_Ashi_Dachi", dataSection: "techniques" },
-          { label: "Renoji Dachi", dataTechnique: "Renoji_Dachi", dataSection: "techniques" },
-          { label: "Ryo Goshi Gamae", dataTechnique: "Ryo_Goshi_Gamae", dataSection: "techniques" },
-          { label: "Ryoken Koshi Gamae", dataTechnique: "Ryoken_Koshi_Gamae", dataSection: "techniques" },
-          { label: "Sanchin Dachi", dataTechnique: "Sanchin_Dachi", dataSection: "techniques" },
-          { label: "Sochin Dachi", dataTechnique: "Fudo_Dachi", dataSection: "techniques" },
-          { label: "Soete Koshi Gamae", dataTechnique: "Koshi_Gamae", dataSection: "techniques" },
-          { label: "Teiji Dachi", dataTechnique: "Teiji_Dachi", dataSection: "techniques" },
-          { label: "Tsuru Ashi Dachi", dataTechnique: "Tsuru_Ashi_Dachi", dataSection: "techniques" },
-          { label: "Yumi Zuki", dataTechnique: "Yumi_Zuki", dataSection: "techniques" },
-          { label: "Zenkutsu Dachi", dataTechnique: "Zenkutsu_Dachi", dataSection: "techniques" },
-        ],
-      },
-    ],
-  },
-  {
-    type: "group",
-    label: "Vidéos",
-    buttonClass: "menu-item menu-parent",
-    submenuId: "submenu-videos",
-    submenuClass: "submenu",
-    children: [
-      { type: "submenu-button", label: "Toutes les vidéos", buttonClass: "submenu-link", dataSection: "videos", dataVideoFilter: "Tous" },
-      { type: "submenu-button", label: "Kata", buttonClass: "submenu-link", dataSection: "videos", dataVideoFilter: "Kata" },
-      { type: "submenu-button", label: "Kihon", buttonClass: "submenu-link", dataSection: "videos", dataVideoFilter: "Kihon" },
-      { type: "submenu-button", label: "Kumite", buttonClass: "submenu-link", dataSection: "videos", dataVideoFilter: "Kumite" },
-      { type: "submenu-button", label: "Autres", buttonClass: "submenu-link", dataSection: "videos", dataVideoFilter: "Autre" },
-    ],
-  },
+  { type: "item", label: "Techniques", buttonClass: "menu-item", dataSection: "techniques-categories"},
+  { type: "item", label: "Vidéos", buttonClass: "menu-item", dataSection: "videos" },
   { type: "item", label: "Lexique", buttonClass: "menu-item", dataSection: "lexique" },
   {
     type: "group",
@@ -217,7 +73,6 @@ function construireMenu() {
           b.type = "button";
           b.className = child.buttonClass || "submenu-link";
           if (child.dataSection) b.setAttribute("data-section", child.dataSection);
-          if (child.dataVideoFilter) b.setAttribute("data-video-filter", child.dataVideoFilter);
           b.textContent = child.label;
           liChild.appendChild(b);
         }
@@ -236,6 +91,12 @@ function activerSection(sectionName) {
       const wrapper = $("#mon-conteneur-wrapper");
       if (wrapper) wrapper.classList.remove("is-visible");
   }
+  else {
+    // Quand on va sur la section techniques, on s'assure que le wrapper est visible
+    const wrapper = $("#mon-conteneur-wrapper");
+    if (wrapper) wrapper.classList.add("is-visible");
+  }
+
   sections.forEach((sec) => {
     if (sec.id === targetId) sec.classList.add("is-active");
     else sec.classList.remove("is-active");
@@ -305,13 +166,6 @@ function initMenu() {
       const videoFilter = btn.getAttribute("data-video-filter");
       if (section) activerSection(section);
       setMainButtonActive(section); 
-      if (section === "videos" && videoFilter) {
-        const select = $("#videoCategorie");
-        if (select) {
-          select.value = videoFilter;
-          filtrerVideos(select.value);
-        }
-      }
       if (sideMenu) sideMenu.classList.remove("is-visible");
       if (headerMenuButton) headerMenuButton.setAttribute("aria-expanded", "false");
     });
@@ -334,18 +188,33 @@ function initMenu() {
 
 function initTechniques() {
   const wrapper = $("#mon-conteneur-wrapper");
+
+  // 1) On détache tous les anciens listeners avant de les recréer
+  const oldLinks = $all("[data-technique]");
+  oldLinks.forEach((link) => {
+    const clone = link.cloneNode(true);
+    link.parentNode.replaceChild(clone, link);
+  });
+
+  // 2) On récupère de nouveau TOUS les éléments [data-technique] (y compris les tuiles générées dynamiquement)
   const techniqueLinks = $all("[data-technique]");
+
   techniqueLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
       event.preventDefault();
       const techniqueName = link.getAttribute("data-technique");
       if (!techniqueName) return;
+
       activerSection("techniques");
+
       const sideMenu = $("#sideMenu");
       const headerMenuButton = $("#headerMenuButton");
+
       if (sideMenu) sideMenu.classList.remove("is-visible");
       if (headerMenuButton) headerMenuButton.setAttribute("aria-expanded", "false");
+
       if (wrapper) wrapper.classList.add("is-visible");
+
       if (typeof window.afficherTechnique === "function") {
         window.afficherTechnique(techniqueName);
       }
@@ -355,104 +224,102 @@ function initTechniques() {
 
 function initTechniquesAccordion() {} // Vide
 
-function construireVideos() {
-  const grid = $("#videosGrid");
-  if (!grid || !Array.isArray(window.VIDEOS)) return;
-  grid.innerHTML = "";
-  window.VIDEOS.forEach((video, index) => {
-    const card = document.createElement("article");
-    card.className = "video-card";
-    card.dataset.category = video.categorie || "Autre";
-    const link = document.createElement("a");
-    link.className = "video-link";
-    link.href = video.url;
-    link.target = "_blank";
-    link.rel = "noopener noreferrer";
-    link.setAttribute("data-video", String(index));
-    const thumb = document.createElement("div");
-    thumb.className = "video-thumb";
-    const meta = document.createElement("div");
-    meta.className = "video-meta";
-    const title = document.createElement("div");
-    title.className = "video-title";
-    title.textContent = video.titre || "Vidéo de karaté";
-    const cat = document.createElement("div");
-    cat.className = "video-category";
-    cat.textContent = video.categorie || "Autre";
-    meta.appendChild(title);
-    meta.appendChild(cat);
-    link.appendChild(thumb);
-    link.appendChild(meta);
-    card.appendChild(link);
-    grid.appendChild(card);
-  });
-}
-
-function filtrerVideos(categorie) {
-  const cards = $all(".video-card");
-  cards.forEach((card) => {
-    const cardCat = card.dataset.category || "Autre";
-    if (!categorie || categorie === "Tous" || categorie === "Toutes") {
-      card.style.display = "";
-    } else {
-      card.style.display = cardCat === categorie ? "" : "none";
-    }
-  });
-}
-
 function initVideos() {
-  construireVideos();
-  const select = $("#videoCategorie");
-  if (select) {
-    select.addEventListener("change", () => {
-      filtrerVideos(select.value);
-    });
-    filtrerVideos(select.value);
+  if (window.renderVideosCategories) {
+    window.renderVideosCategories();
   }
+
+  const grid = $("#videosGrid");
+  if (grid) grid.innerHTML = "";
+
+  const tiles = $all("#section-videos .video-card-tile");
+
+  tiles.forEach((tile) => {
+    tile.addEventListener("click", () => {
+      const filter = tile.getAttribute("data-video-filter") || "";
+
+      // 1. Met à jour l'état visuel des tuiles
+      tiles.forEach((t) => t.classList.remove("is-active"));
+      tile.classList.add("is-active");
+
+      // 2. Construit la grille la première fois
+      if (grid && grid.children.length === 0 && typeof window.construireVideos === "function") {
+        window.construireVideos();
+      }
+
+      // 3. Filtre les vidéos
+      if (typeof window.filtrerVideos === "function") {
+        window.filtrerVideos(filter);
+      }
+    });
+  });
 }
+
+
+
+
 
 function construireLexique(liste) {
-  const container = $("#lexiqueListe");
+  const container = document.getElementById("lexiqueListe");
   if (!container) return;
+
   container.innerHTML = "";
+
   if (!liste || liste.length === 0) {
     const empty = document.createElement("p");
     empty.textContent = "Aucun terme ne correspond à votre recherche.";
     container.appendChild(empty);
     return;
   }
-  const sorted = [...liste].sort((a, b) => a.term.localeCompare(b.term, "fr"));
-  sorted.forEach((entry) => {
+
+  liste.forEach((entry) => {
+    // Cas spécial : retour à la ligne
+    if (entry.term === "RetourLigne") {
+      const br = document.createElement("div");
+      br.className = "lexique-line-break";
+      container.appendChild(br);
+      return;
+    }
+
     const item = document.createElement("article");
     item.className = "lexique-item";
-    const term = document.createElement("div");
-    term.className = "lexique-item-term";
-    term.textContent = entry.term;
-    const def = document.createElement("div");
-    def.className = "lexique-item-def";
-    def.textContent = entry.def;
-    item.appendChild(term);
-    item.appendChild(def);
+
+    const h3 = document.createElement("h3");
+    h3.className = "lexique-term";
+    h3.textContent = entry.term;
+
+    const p = document.createElement("p");
+    p.className = "lexique-def";
+    p.textContent = entry.def;
+
+    item.appendChild(h3);
+    item.appendChild(p);
     container.appendChild(item);
   });
 }
 
+
 function initLexique() {
   const searchInput = $("#lexiqueSearch");
+
   if (Array.isArray(window.LEXIQUE)) construireLexique(window.LEXIQUE);
+
   if (searchInput) {
     searchInput.addEventListener("input", () => {
       const query = searchInput.value.trim().toLowerCase();
       if (!Array.isArray(window.LEXIQUE)) return;
+
       const filtered = window.LEXIQUE.filter((entry) => {
         const term = (entry.term || "").toLowerCase();
         const def = (entry.def || "").toLowerCase();
         return term.includes(query) || def.includes(query);
       });
+
       construireLexique(filtered);
     });
   }
 }
+
 
 function initPersonnalisation() {
   const colorInputs = $all("[data-css-var]");

@@ -33,10 +33,12 @@
 html, body { margin: 0; padding: 0; height: 100%; }
 body {
   font-family: "Montserrat", system-ui, -apple-system, sans-serif;
-  background: radial-gradient(circle at top left, #161623 0, var(--color-bg) 45%, #050509 100%);
+  background: radial-gradient(circle at top left, #050509 0, #050509 45%, #050509 100%);
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
 }
+
+
 
 /* --- HEADER (Version PC : Espaces normaux) --- */
 .site-header {
@@ -152,9 +154,110 @@ body {
   border-radius: var(--radius-lg); padding: 1.5rem 1rem; cursor: pointer; transition: 0.15s;
 }
 .technique-card:hover { transform: translateY(-3px); background: #252535; }
-.technique-card .card-icon { width: 56px; height: 56px; color: var(--color-accent); margin-bottom: 0.75rem; }
+.technique-card .card-icon { width: 80px; height: 80px; color: var(--color-accent); margin-bottom: 0.75rem; }
 .technique-card .card-title { font-size: 1rem; font-weight: 700; color: #fff; margin: 0; }
 .technique-card .card-description { font-size: 0.85rem; color: var(--color-muted); margin-top: 0.25rem; }
+.card-icon-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* Grille des catégories de techniques (même logique que .video-tiles) */
+.techniques-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 1.5rem;
+}
+
+
+/* Tuiles catégories techniques actives / inactives */
+.technique-card.tech-category-tile.is-active {
+  background: #252535;
+}
+
+.technique-card.tech-category-tile:not(.is-active) {
+  background: #181820;
+}
+
+
+/* --- Tuiles catégories vidéos --- */
+
+.video-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 1.5rem;
+}
+
+.video-tile {
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 1rem 1.2rem;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.video-tile:hover {
+  transform: translateY(-3px);
+  background: #252535;
+}
+
+.video-tile h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.video-card iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  border: none;
+  border-radius: var(--radius-md);
+}
+
+.video-frame {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+}
+
+.video-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+
+.video-card-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1rem;
+  cursor: pointer;
+  transition: 0.15s;
+}
+.video-card-tile.is-active {
+  background: #252535; /* fond un peu plus clair/rouge si tu veux */
+}
+
+.video-card-tile:not(.is-active) {
+  background: #181820; /* gris foncé pour les non sélectionnées */
+}
 
 .techniques-list { list-style: none; padding: 0; margin: 0; }
 .tech-list-item {
@@ -164,11 +267,21 @@ body {
 .tech-list-item:hover { color: var(--color-accent); transform: translateX(3px); }
 .back-button { color: var(--color-accent); border: none; background: none; cursor: pointer; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
 
+/* Forcer un retour à la ligne dans la grille des techniques */
+.tech-line-break {
+  grid-column: 1 / -1; /* occupe toute la ligne */
+  height: 0;
+  padding: 0;
+  margin: 0;
+}
+
+
+
 /* --- DIAPORAMA (PC & GLOBAL) --- */
 #section-techniques {
   display: flex; justify-content: center; align-items: center;
   position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000;
-  opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+  opacity: 0; pointer-events: none; transition: opacity 0.05s ease;
 }
 #section-techniques.is-active { opacity: 1; pointer-events: auto; }
 
@@ -235,8 +348,8 @@ body {
 
 /* ZONE TITRES L1 / L2 */
 .diaporama-title-zone {
-    background: #fff; 
-    border-top: 1px solid #ddd; 
+    background: #ffffff; 
+    border-top: 1px solid #dddddd; 
     padding: 0.5rem; text-align: center;
     min-height: 80px; 
     display: flex; flex-direction: column; justify-content: center;
@@ -357,9 +470,24 @@ body {
   border-color: rgba(15, 15, 24, 0.95) transparent transparent transparent;
 }
 
+/* Conteneur du lexique en grille */
+.lexique-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1rem;
+}
+
+/* Élément pleine largeur pour forcer un retour à la ligne */
+.lexique-line-break {
+  grid-column: 1 / -1; /* occupe toute la rangée */
+  height: 0;
+  padding: 0;
+  margin: 0;
+}
+
 
 /* --- AUTRES SECTIONS --- */
-.videos-grid, .lexique-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+.videos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
 .video-card, .lexique-item { background: var(--color-surface); padding: 0.7rem; border-radius: var(--radius-md); box-shadow: var(--shadow-soft); }
 .video-thumb { height: 130px; background: #333; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 0.5rem; }
 .form-group input, .form-group textarea { width: 100%; padding: 0.4rem; background: var(--color-surface); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 4px; }
@@ -431,13 +559,24 @@ body {
         border-radius: 20px;
     }
 
+    /* Desktop / par défaut : pas de fond forcé, taille gérée par layout */
     #mon-conteneur-wrapper {
+      width: 100%;
+      height: auto;
+      border: none;
+      border-radius: 0;
+      background: transparent; /* plus de blanc ici */
+    }
+
+    /* Optionnel : si tu veux le plein écran blanc UNIQUEMENT sur mobile */
+    @media (max-width: 768px) {
+      #mon-conteneur-wrapper {
         width: 100% !important;
         height: 100% !important;
-        border: none !important;
-        border-radius: 0 !important;
         background: #ffffff;
+      }
     }
+
 
     .diaporama-main-title { 
         font-size: 1.8rem !important; 
@@ -449,7 +588,11 @@ body {
         padding: 0.5rem !important; 
     }
 
-    .techniques-grid { grid-template-columns: 1fr !important; }
+    .techniques-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
     
     .technique-card { 
         flex-direction: row !important; 

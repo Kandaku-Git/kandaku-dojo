@@ -21,17 +21,13 @@ class Diaporama {
         this.container = document.getElementById(containerId);
         if (!this.container) return;
 
+        // On laisse le CSS gérer l’apparence, on ne force pas un fond blanc plein écran
         Object.assign(this.container.style, {
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: "#fff",
-            overflow: "hidden",
-            margin: "0",
-            padding: "0",
-            width: "100%",
-            height: "100%" 
+            display: "block",
+            overflow: "hidden"
+            // pas de width/height 100%, pas de backgroundColor ici
         });
+
 
         this.defaults = {
             images: [],
@@ -68,46 +64,62 @@ class Diaporama {
             tooltipTarget: null
             };
 
-
+        this.isClosing = false; // Drapeau de fermeture
         this.init();
     }
 
     async init() {
         this.state.isSecondary = false;
 
-        if (this.config.technique) {
-            await this.loadFolderData(this.config.technique);
+        if (!this.config.technique) {
+            return;
         }
 
+        // 1. Charger les données du dossier
+        await this.loadFolderData(this.config.technique);
+
+        // 2. Charger le vocabulaire et parser les données texte si présentes
         if (this.config.donneesTexte) {
             await this.loadVocabulary();
             this.parseDataText(this.config.donneesTexte);
         }
 
+        // 3. Générer la liste d’images
         this.generateImagesFromTechnique();
-
-        if (!Array.isArray(this.config.images)) this.config.images = [this.config.images];
+        if (!Array.isArray(this.config.images)) {
+            this.config.images = [this.config.images];
+        }
         if (this.config.images.length > 1) {
-            this.config.images.sort((a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' }));
-        }
-
-        this.renderDOM();
-        this.cacheDOM();
-        this.bindEvents();
-
-        if (!document.fullscreenElement) {
-            try {
-                if (this.container.requestFullscreen) {
-                    this.container.requestFullscreen().catch(() => {});
-                } else if (this.container.webkitRequestFullscreen) {
-                    this.container.webkitRequestFullscreen();
-                }
-            } catch (e) {}
-        }
-
-        this.showSlide(0);
-        if (this.state.isPlaying) this.startAutoSlide();
+            this.config.images.sort((a, b) =>
+            a.localeCompare(b, undefined, { numeric: true, sensitivity: "base" })
+        );
     }
+
+  // 4. Construire le DOM, mettre en cache et binder
+  this.renderDOM();
+  this.cacheDOM();
+  this.bindEvents();
+
+  // 5. Passer en plein écran si possible
+  if (!document.fullscreenElement) {
+    try {
+      if (this.container.requestFullscreen) {
+        await this.container.requestFullscreen();
+      } else if (this.container.webkitRequestFullscreen) {
+        this.container.webkitRequestFullscreen();
+      }
+    } catch (e) {
+      // On ignore les erreurs de fullscreen (refus utilisateur, etc.)
+    }
+  }
+
+  // 6. Afficher la première slide et démarrer l’auto‑play
+  this.showSlide(0);
+  if (this.state.isPlaying) {
+    this.startAutoSlide();
+  }
+}
+
 
     // --- DONNÉES ---
 
@@ -144,67 +156,79 @@ class Diaporama {
     }
 
     loadVocabulary() {
-        return new Promise((resolve) => {
-            if (window.VOCABULAIRE_TECHNIQUE) {
-                this.parseVocabulary(window.VOCABULAIRE_TECHNIQUE);
-                resolve(); return;
-            }
-            const script = document.createElement('script');
-            script.src = "scripts/vocabulaire.js";
-            script.onload = () => {
-                if (window.VOCABULAIRE_TECHNIQUE) this.parseVocabulary(window.VOCABULAIRE_TECHNIQUE);
-                resolve();
-            };
-            script.onerror = () => resolve();
-            document.body.appendChild(script);
-        });
-    }
+		return new Promise((resolve) => {
+		if (window.VOCABULAIRE_TECHNIQUE) {
+			this.parseVocabulary(window.VOCABULAIRE_TECHNIQUE);
+			resolve();
+			return;
+		}
+		
+		const script = document.createElement("script");
+		script.src = "scripts/vocabulaire.js";
+		script.onload = () => {
+			if (window.VOCABULAIRE_TECHNIQUE) {
+			this.parseVocabulary(window.VOCABULAIRE_TECHNIQUE);
+			}
+			resolve();
+		};
+		script.onerror = () => resolve();
+		document.body.appendChild(script);
+		});
+	}
 
-    parseVocabulary(text) {
-        const lines = text.split('\n');
-        lines.forEach(line => {
-            const parts = line.split(':');
-            if (parts.length >= 2) {
-                const term = parts[0].trim();
-                const def = parts.slice(1).join(':').trim();
-                if (term && def) this.state.vocabulary[term] = def;
-            }
-        });
-    }
+	parseVocabulary(text) {
+	    const lines = text.split("\n");
+	    lines.forEach((line) => {
+	    	const parts = line.split(":");
+		    if (parts.length >= 2) {
+		        const term = parts[0].trim();
+    		    const def = parts.slice(1).join(":").trim();
+	    	    if (term && def) {
+		    	    this.state.vocabulary[term] = def;
+		        }
+		    }
+	    });
+	}
+	
+	parseDataText(textContent) {
+	    this.state.slideData = {};
+	    this.state.fixedData = { l1: "", l2: "" };
+	
+	    const lines = textContent.split("\n");
+	    lines.forEach((line) => {
+		    line = line.trim();
+		    if (!line) return;
+		    const match = line.match(/^([a-zA-Z0-9_\-]+)(.*)$/);
+		    if (!match) return;
+	
+		    const key = match[1];
+		    let content = match[2] ? match[2].trim() : "";
+	
+		    if (key === "FIXE_L1") {
+		        this.state.fixedData.l1 = content;
+		        return;
+		    }
+		    if (key === "FIXE_L2") {
+		        this.state.fixedData.l2 = content;
+		        return;
+		    }
+	
+		    const lastUnderscore = key.lastIndexOf("_");
+		    if (lastUnderscore === -1) return;
+	
+		    const type = key.substring(lastUnderscore + 1);
+		    const imageName = key.substring(0, lastUnderscore);
+	
+		    if (!this.state.slideData[imageName]) {
+		        this.state.slideData[imageName] = { l1: null, l2: null, time: null };
+		    }
+	
+		    if (type === "L1") this.state.slideData[imageName].l1 = content;
+		    if (type === "L2") this.state.slideData[imageName].l2 = content;
+		    if (type === "TIME") this.state.slideData[imageName].time = parseInt(content, 10);
+	    });
+	}
 
-    parseDataText(textContent) {
-        this.state.slideData = {}; 
-        this.state.fixedData = { l1: "", l2: "" }; 
-        const lines = textContent.split('\n');
-        
-        lines.forEach(line => {
-            line = line.trim();
-            if (!line) return;
-            
-            const match = line.match(/^([a-zA-Z0-9_\-]+)(.*)$/);
-            if (!match) return;
-
-            const key = match[1];
-            let content = match[2] ? match[2].trim() : "";
-
-            if (key === "FIXE_L1") { this.state.fixedData.l1 = content; return; }
-            if (key === "FIXE_L2") { this.state.fixedData.l2 = content; return; }
-
-            const lastUnderscore = key.lastIndexOf('_');
-            if (lastUnderscore === -1) return;
-
-            const type = key.substring(lastUnderscore + 1); 
-            const imageName = key.substring(0, lastUnderscore); 
-
-            if (!this.state.slideData[imageName]) {
-                this.state.slideData[imageName] = { l1: null, l2: null, time: null };
-            }
-
-            if (type === "L1") this.state.slideData[imageName].l1 = content;
-            if (type === "L2") this.state.slideData[imageName].l2 = content;
-            if (type === "TIME") this.state.slideData[imageName].time = parseInt(content); 
-        });
-    }
 
     // --- TRAITEMENT DU TEXTE (Ordre Inversé) ---
 
@@ -393,6 +417,9 @@ class Diaporama {
     // --- RENDU ---
 
     renderDOM() {
+        // Si on est en train de fermer le diaporama, ne redessine rien
+        if (this.isClosing) return;
+        
         let bgStyle = "";
         const bg = this.config.background;
         if (bg === 1) bgStyle = "background-color: #FFF;";
@@ -408,7 +435,7 @@ class Diaporama {
         const slidesHTML = this.config.images.map((url, index) => `
             <div class="diaporama-slide" data-index="${index}">
                 <div class="diaporama-slide-bg" style="background-image: url('${url}');">
-                    <img src="${url}" style="display:none;" onerror="this.parentElement.style.backgroundImage = 'url(images/travaux.gif)'; this.closest('.diaporama-slide').classList.add('is-error');">
+                    <img src="${url}" style="display:none;" onerror="this.parentElement.style.backgroundImage = 'url(images/travaux.png)'; this.closest('.diaporama-slide').classList.add('is-error');">
                 </div>
                 <div class="diaporama-details">
                     <div class="diaporama-description-content">
@@ -480,154 +507,200 @@ class Diaporama {
     }
 
     cacheDOM() {
-        const $ = (id) => document.getElementById(id);
-        const $$ = (sel) => document.querySelectorAll(sel);
+        const id  = (id)  => document.getElementById(id);
+        const sel = (sel) => document.querySelectorAll(sel);
+
         this.dom = {
-            root: $('diaporama-root'),
-            slider: $('diaporama-slider'),
-            slides: $$('.diaporama-slide'),
-            gaugeContainer: $('diaporama-gauge-container'),
-            gaugeFill: $('diaporama-gauge-fill'),
-            titleZone: $('diaporama-title-zone'),
-            mainTitle: document.querySelector('.diaporama-main-title'),
-            txtL1: $('diaporama-text-l1'),
-            txtL2: $('diaporama-text-l2'),
-            icons: { play: $('icon-play'), pause: $('icon-pause') },
+            root: id("diaporama-root"),
+            slider: id("diaporama-slider"),
+            slides: sel(".diaporama-slide"),
+            gaugeContainer: id("diaporama-gauge-container"),
+            gaugeFill: id("diaporama-gauge-fill"),
+            titleZone: id("diaporama-title-zone"),
+            mainTitle: document.querySelector(".diaporama-main-title"),
+            txtL1: id("diaporama-text-l1"),
+            txtL2: id("diaporama-text-l2"),
+            icons: {
+                play: id("icon-play"),
+                pause: id("icon-pause")
+            },
             btns: {
-                prev: $('diaporama-prev'), next: $('diaporama-next'), play: $('diaporama-play'),
-                back: $('diaporama-back'), info: $('diaporama-info'), eye: $('diaporama-eye')
+                prev: id("diaporama-prev"),
+                next: id("diaporama-next"),
+                play: id("diaporama-play"),
+                back: id("diaporama-back"),
+                info: id("diaporama-info"),
+                eye:  id("diaporama-eye"),
+                home: id("diaporama-home")   // <-- ajout
             }
         };
     }
 
-    bindEvents() {
-        const b = this.dom.btns;
-        b.next.onclick = () => this.manualNav(1);
-        b.prev.onclick = () => this.manualNav(-1);
-        b.play.onclick = () => { if (!this.state.isSecondary) this.togglePlay(); };
-        b.info.onclick = () => this.toggleDetails();
-        b.eye.onclick = () => this.toggleTitle();
-        b.back.onclick = () => this.restoreParentDiaporama();
+bindEvents() {
+  const b = this.dom.btns;
 
-        this.dom.titleZone.addEventListener('click', (e) => {
-            // Ferme l’infobulle si on clique ailleurs dans la zone titre
-            if (!e.target.classList.contains("diaporama-vocab") && this.state.tooltipElement) {
-                this.hideVocabularyTooltip();
-            }
-            if (e.target.classList.contains('diaporama-link')) {
-                const target = e.target.getAttribute('data-target');
-                if (target) this.loadSubDiaporama(target);
-            }
-            if (e.target.classList.contains("diaporama-vocab")) {
-                const def = e.target.getAttribute("data-def");
-                if (!def) return;
+  // Boutons principaux
+  b.next.onclick = () => this.manualNav(1);
+  b.prev.onclick = () => this.manualNav(-1);
+  b.play.onclick = () => { if (!this.state.isSecondary) this.togglePlay(); };
+  b.info.onclick = () => this.toggleDetails();
+  b.eye.onclick = () => this.toggleTitle();
+  b.back.onclick = () => this.restoreParentDiaporama();
 
-                // Si on clique à nouveau sur le même mot, on ferme
-                if (this.state.tooltipTarget === e.target) {
-                    this.hideVocabularyTooltip();
-                    return;
-                }
-                this.showVocabularyTooltip(e.target, def);
-                }
+// 🏠 Bouton maison : fermer le diaporama SANS flash et aller sur les catégories
+if (b.home) {
+  b.home.onclick = (event) => {
+    event.preventDefault();
+    event.stopPropagation();
 
-            }
-        );
+    this.isClosing = true;
 
-
-        this.dom.slides.forEach(slide => {
-            const details = slide.querySelector('.diaporama-details');
-            if (details) {
-                details.addEventListener('pointerdown', (e) => {
-                    e.stopPropagation();
-                });
-                
-                details.addEventListener('pointerup', (e) => {
-                    if (e.target.tagName === 'A' || e.target.classList.contains('diaporama-link')) return;
-                    e.stopPropagation();
-                    
-                    if (this.state.isDetailsOpen) {
-                        this.toggleDetails();
-                    }
-                });
-            }
-        });
-
-        let startX = 0;
-        let isDrag = false;
-        
-        const handleScrubbing = (clientX, targetElement) => {
-            const rect = targetElement.getBoundingClientRect();
-            let x = clientX - rect.left;
-            if (x < 0) x = 0;
-            if (x > rect.width) x = rect.width;
-            
-            const percent = x / rect.width;
-            const total = this.config.images.length;
-            let targetIndex = Math.floor(percent * total);
-            if (targetIndex >= total) targetIndex = total - 1;
-
-            if (targetIndex !== this.state.currentIndex) {
-                this.showSlide(targetIndex);
-            }
-        };
-
-        this.dom.gaugeContainer.addEventListener('pointerdown', (e) => {
-            if (this.state.isSecondary) return;
-            this.state.isScrubbing = true;
-            this.stopAutoSlide();
-            this.dom.gaugeContainer.setPointerCapture(e.pointerId);
-            handleScrubbing(e.clientX, this.dom.gaugeContainer);
-        });
-
-        this.dom.gaugeContainer.addEventListener('pointermove', (e) => {
-            if (!this.state.isScrubbing) return;
-            handleScrubbing(e.clientX, this.dom.gaugeContainer);
-        });
-
-        this.dom.gaugeContainer.addEventListener('pointerup', (e) => {
-            if (this.state.isScrubbing) {
-                this.state.isScrubbing = false;
-                this.dom.gaugeContainer.releasePointerCapture(e.pointerId);
-                if (this.state.isPlaying) this.startAutoSlide();
-            }
-        });
-
-        this.dom.slider.addEventListener('pointerdown', (e) => {
-            if (e.target.closest('.diaporama-toast')) return;
-            if (e.target.closest('.diaporama-details') && this.state.isDetailsOpen) return;
-            if (this.state.isSecondary) return;
-
-            e.preventDefault(); 
-            this.state.isScrubbing = true; 
-            startX = e.clientX;
-            isDrag = false;
-            this.stopAutoSlide(); 
-            this.dom.slider.setPointerCapture(e.pointerId);
-        });
-
-        this.dom.slider.addEventListener('pointermove', (e) => {
-            if (!this.state.isScrubbing) return;
-            if (Math.abs(e.clientX - startX) > 10) {
-                isDrag = true;
-                handleScrubbing(e.clientX, this.dom.slider);
-            }
-        });
-
-        this.dom.slider.addEventListener('pointerup', (e) => {
-            if (!this.state.isScrubbing) return;
-
-            this.state.isScrubbing = false;
-            this.dom.slider.releasePointerCapture(e.pointerId);
-
-            if (!isDrag) {
-                if (!this.state.isDetailsOpen) {
-                    this.togglePlay();
-                }
-            } else {
-                if (this.state.isPlaying) this.startAutoSlide();
-            }
-        });
+    const wrapper = document.getElementById("mon-conteneur-wrapper");
+    if (wrapper) {
+      wrapper.classList.remove("is-visible");
     }
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    }
+
+    const container = this.container || document.getElementById("mon-conteneur");
+    if (container) {
+      container.innerHTML = "";
+    }
+
+    this.stopAutoSlide();
+
+    if (window._diaporamaInstance && typeof window._diaporamaInstance.destroy === "function") {
+      try { window._diaporamaInstance.destroy(); } catch (e) {}
+      window._diaporamaInstance = null;
+    }
+
+    if (typeof window.activerSection === "function") {
+      window.activerSection("techniques-categories");
+    }
+
+    return false;
+  };
+}
+
+
+  // Clics dans la zone de titre (liens & vocabulaire)
+  this.dom.titleZone.addEventListener("click", (e) => {
+    if (e.target.classList.contains("diaporama-link")) {
+      const target = e.target.getAttribute("data-target");
+      if (target) this.loadSubDiaporama(target);
+      return;
+    }
+
+    if (e.target.classList.contains("diaporama-vocab")) {
+      const def = e.target.getAttribute("data-def");
+      if (def) this.showToast(`${e.target.innerText} : ${def}`);
+    }
+  });
+
+  // Empêcher les clics dans la zone détails de fermer / déclencher autre chose
+  this.dom.slides.forEach((slide) => {
+    const details = slide.querySelector(".diaporama-details");
+    if (details) {
+      details.addEventListener("pointerdown", (e) => {
+        e.stopPropagation();
+      });
+      details.addEventListener("pointerup", (e) => {
+        if (
+          e.target.tagName === "A" ||
+          e.target.classList.contains("diaporama-link")
+        ) {
+          return;
+        }
+        e.stopPropagation();
+        if (this.state.isDetailsOpen) {
+          this.toggleDetails();
+        }
+      });
+    }
+  });
+
+  // Scrubbing sur la jauge
+  let startX = 0;
+  let isDrag = false;
+
+  const handleScrubbing = (clientX, targetElement) => {
+    const rect = targetElement.getBoundingClientRect();
+    let x = clientX - rect.left;
+    if (x < 0) x = 0;
+    if (x > rect.width) x = rect.width;
+    const percent = x / rect.width;
+    const total = this.config.images.length;
+    let targetIndex = Math.floor(percent * total);
+    if (targetIndex >= total) targetIndex = total - 1;
+    if (targetIndex !== this.state.currentIndex) {
+      this.showSlide(targetIndex);
+    }
+  };
+
+  this.dom.gaugeContainer.addEventListener("pointerdown", (e) => {
+    if (this.state.isSecondary) return;
+    this.state.isScrubbing = true;
+    this.stopAutoSlide();
+    this.dom.gaugeContainer.setPointerCapture(e.pointerId);
+    handleScrubbing(e.clientX, this.dom.gaugeContainer);
+  });
+
+  this.dom.gaugeContainer.addEventListener("pointermove", (e) => {
+    if (!this.state.isScrubbing) return;
+    handleScrubbing(e.clientX, this.dom.gaugeContainer);
+  });
+
+  this.dom.gaugeContainer.addEventListener("pointerup", (e) => {
+    if (this.state.isScrubbing) {
+      this.state.isScrubbing = false;
+      this.dom.gaugeContainer.releasePointerCapture(e.pointerId);
+      if (this.state.isPlaying) this.startAutoSlide();
+    }
+  });
+
+  // Scrubbing / clic sur toute la zone slider
+  this.dom.slider.addEventListener("pointerdown", (e) => {
+    if (e.target.closest(".diaporama-toast")) return;
+    if (e.target.closest(".diaporama-details") && this.state.isDetailsOpen) return;
+    if (this.state.isSecondary) return;
+
+    e.preventDefault();
+    this.state.isScrubbing = true;
+    startX = e.clientX;
+    isDrag = false;
+    this.stopAutoSlide();
+    this.dom.slider.setPointerCapture(e.pointerId);
+  });
+
+  this.dom.slider.addEventListener("pointermove", (e) => {
+    if (!this.state.isScrubbing) return;
+    if (Math.abs(e.clientX - startX) > 10) {
+      isDrag = true;
+      handleScrubbing(e.clientX, this.dom.slider);
+    }
+  });
+
+  this.dom.slider.addEventListener("pointerup", (e) => {
+    if (!this.state.isScrubbing) return;
+    this.state.isScrubbing = false;
+    this.dom.slider.releasePointerCapture(e.pointerId);
+
+    if (!isDrag) {
+      if (!this.state.isDetailsOpen) {
+        this.togglePlay();
+      } else if (this.state.isPlaying) {
+        this.startAutoSlide();
+      }
+    } else {
+      if (this.state.isPlaying) this.startAutoSlide();
+    }
+  });
+}
+
+
+
 
     showSlide(index) {
         if(this.state.isDetailsOpen) this.toggleDetails();
@@ -767,7 +840,6 @@ class Diaporama {
     }
 }
 
-// Hook global appelé par le menu
 window.afficherTechnique = function (nomTechnique) {
   // Détruit une instance précédente si tu veux éviter les fuites
   if (window._diaporamaInstance && typeof window._diaporamaInstance.destroy === "function") {
