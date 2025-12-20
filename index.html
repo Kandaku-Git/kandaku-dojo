@@ -60,18 +60,16 @@
       </section>
       
       <section id="section-videos" class="content-section" aria-label="Vidéos">
-        <h2>Vidéos pédagogiques</h2>
+        <h2>Vidéos</h2>
         <div class="videos-controls">
-          <label for="videoCategorie">Filtrer par catégorie :</label>
-          <select id="videoCategorie">
-            <option value="Tous">Toutes</option>
-            <option value="Kata">Kata</option>
-            <option value="Kihon">Kihon</option>
-            <option value="Kumite">Kumite</option>
-            <option value="Autre">Autres</option>
-          </select>
+          <p>Cliquez sur une catégorie pour afficher les vidéos correspondantes</p>
         </div>
+
+        <!-- Nouveau conteneur pour les tuiles -->
+        <div class="video-tiles"></div>
+
         <div id="videosGrid" class="videos-grid" aria-live="polite"></div>
+        
       </section>
 
       <section id="section-lexique" class="content-section" aria-label="Lexique japonais">
@@ -175,8 +173,8 @@
   <script src="scripts/diaporama.js"></script>
   <script src="scripts/lexique.js"></script>
   <script src="scripts/vocabulaire.js"></script>
-  <script src="scripts/videos.js"></script>
-  <script src="scripts/sections.js"></script>
+  <script src="scripts/page-techniques.js"></script>
+  <script src="scripts/page-videos.js"></script>
   <script src="scripts/menu.js"></script>
 </body>
 </html>
