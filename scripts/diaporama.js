@@ -399,7 +399,7 @@ class Diaporama {
         const relX = centerX - rectZone.left;
 
         tooltip.style.left = `${relX}px`;
-        tooltip.style.bottom = `${rectZone.height - (rectTarget.top - rectZone.top) + 8}px`;
+        tooltip.style.bottom = `${rectZone.height - (rectTarget.top - rectZone.top) - 2}px`;
 
         this.state.tooltipElement = tooltip;
         this.state.tooltipTarget = targetEl;
