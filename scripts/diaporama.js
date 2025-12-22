@@ -472,28 +472,37 @@ class Diaporama {
                         </div>
 
                         <div class="diaporama-btn-group">
-                            <button class="diaporama-btn ${backBtnClass}" id="diaporama-back" title="Retour au menu précédent">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/></svg>
-                            </button>
-                            <button class="diaporama-btn" id="diaporama-info" title="Afficher la description">
-                                <span class="diaporama-icon-text">D</span>
-                            </button>
-                            <button class="diaporama-btn" id="diaporama-eye" title="Masquer/Afficher les titres"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg></button>
-                            <a href="index.html" class="diaporama-btn" id="diaporama-home" title="Accueil"
-                                style="text-decoration:none;display:flex;align-items:center;justify-content:center;">
-                                <svg class="diaporama-icon" viewBox="0 0 24 24">
-                                <!-- Corps de la maison : contour rouge clair, rempli blanc -->
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-                                stroke="#ff0000ff"
-                                stroke-width="1.5"
-                                stroke-linejoin="round"></path>
-                                <!-- Porte : petit rectangle rouge plein -->
-                                <rect x="10.5" y="16" width="3" height="5"
-                                fill="#f50626ff"
-                                stroke="none"></rect>
-                                </svg>
-                            </a>
-                        </div>
+    <button class="diaporama-btn ${backBtnClass}" id="diaporama-back" title="Retour au menu précédent">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 14 4 9l5-5"/>
+            <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/>
+        </svg>                            
+    </button>
+    
+    <!-- 👁 = titres -->
+    <button class="diaporama-btn" id="diaporama-eye" title="Afficher/Masquer les titres">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+            <circle cx="12" cy="12" r="3"></circle>
+        </svg>
+    </button>
+
+
+
+    <a href="index.html" class="diaporama-btn" id="diaporama-home" title="Accueil"
+       style="text-decoration:none;display:flex;align-items:center;justify-content:center;">
+        <svg class="diaporama-icon" viewBox="0 0 24 24">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                  stroke="#ff0000ff"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"></path>
+            <rect x="10.5" y="16" width="3" height="5"
+                  fill="#f50626ff"
+                  stroke="none"></rect>
+        </svg>
+    </a>
+</div>
+
                     </div>
 
                     <div class="diaporama-controls-bottom">
@@ -529,60 +538,60 @@ class Diaporama {
                 next: id("diaporama-next"),
                 play: id("diaporama-play"),
                 back: id("diaporama-back"),
-                info: id("diaporama-info"),
                 eye:  id("diaporama-eye"),
-                home: id("diaporama-home")   // <-- ajout
+                home: id("diaporama-home") 
             }
         };
     }
 
-bindEvents() {
-  const b = this.dom.btns;
+   bindEvents() {
+    const b = this.dom.btns;
 
   // Boutons principaux
-  b.next.onclick = () => this.manualNav(1);
-  b.prev.onclick = () => this.manualNav(-1);
-  b.play.onclick = () => { if (!this.state.isSecondary) this.togglePlay(); };
-  b.info.onclick = () => this.toggleDetails();
-  b.eye.onclick = () => this.toggleTitle();
-  b.back.onclick = () => this.restoreParentDiaporama();
+    b.next.onclick = () => this.manualNav(1);
+    b.prev.onclick = () => this.manualNav(-1);
+    b.play.onclick = () => { if (!this.state.isSecondary) this.togglePlay(); };
+    b.eye.onclick = () => this.handleEyeClick();   
+    b.back.onclick = () => this.restoreParentDiaporama();
 
-// 🏠 Bouton maison : fermer le diaporama SANS flash et aller sur les catégories
-if (b.home) {
-  b.home.onclick = (event) => {
-    event.preventDefault();
-    event.stopPropagation();
 
-    this.isClosing = true;
 
-    const wrapper = document.getElementById("mon-conteneur-wrapper");
-    if (wrapper) {
-      wrapper.classList.remove("is-visible");
+    // 🏠 Bouton maison : fermer le diaporama SANS flash et aller sur les catégories
+    if (b.home) {
+        b.home.onclick = (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+
+            this.isClosing = true;
+
+            const wrapper = document.getElementById("mon-conteneur-wrapper");
+            if (wrapper) {
+                wrapper.classList.remove("is-visible");
+            }
+
+            if (document.fullscreenElement) {
+                document.exitFullscreen().catch(() => {});
+            }
+
+            const container = this.container || document.getElementById("mon-conteneur");
+            if (container) {
+                container.innerHTML = "";
+            }
+
+            this.stopAutoSlide();
+
+            if (window._diaporamaInstance && typeof window._diaporamaInstance.destroy === "function") {
+                try { window._diaporamaInstance.destroy(); } catch (e) {}
+                window._diaporamaInstance = null;
+            }
+
+            if (typeof window.activerSection === "function") {
+                window.activerSection("techniques-categories");
+            }
+
+            return false;
+        };
     }
-
-    if (document.fullscreenElement) {
-      document.exitFullscreen().catch(() => {});
-    }
-
-    const container = this.container || document.getElementById("mon-conteneur");
-    if (container) {
-      container.innerHTML = "";
-    }
-
-    this.stopAutoSlide();
-
-    if (window._diaporamaInstance && typeof window._diaporamaInstance.destroy === "function") {
-      try { window._diaporamaInstance.destroy(); } catch (e) {}
-      window._diaporamaInstance = null;
-    }
-
-    if (typeof window.activerSection === "function") {
-      window.activerSection("techniques-categories");
-    }
-
-    return false;
-  };
-}
 
 
   // Clics dans la zone de titre (liens & vocabulaire)
@@ -703,28 +712,35 @@ if (b.home) {
 
 
     showSlide(index) {
-        if(this.state.isDetailsOpen) this.toggleDetails();
+        if (this.state.isDetailsOpen) this.toggleDetails();
         this.hideToast();
         this.hideVocabularyTooltip();
+
         const max = this.config.images.length;
         if (max === 0) return;
         this.state.currentIndex = (index + max) % max;
-        
+
         this.dom.slides.forEach((s, i) => s.classList.toggle('active', i === this.state.currentIndex));
-        
+
         if (this.dom.gaugeFill) {
             const percent = ((this.state.currentIndex + 1) / max) * 100;
             this.dom.gaugeFill.style.width = `${percent}%`;
         }
-        
+
+        // ✅ Diaporama : forcer L1/L2 visibles si elles étaient cachées
+        if (!this.state.isTitleVisible) {
+            this.toggleTitle();
+         }
+
         this.updateDataText();
-        
+
         if (this.state.isPlaying && !this.state.isScrubbing) {
             this.startAutoSlide();
         } else {
             this.resetProgress();
         }
     }
+
 
     // --- MODIFICATION ICI : Ordre Vocabulaire / Liens inversé ---
     updateDataText() {
@@ -802,35 +818,66 @@ if (b.home) {
         this.dom.gaugeFill.style.width = '0%';
     }
 
-    toggleDetails() {
-        this.state.isDetailsOpen = !this.state.isDetailsOpen;
-        const slide = this.dom.slides[this.state.currentIndex];
-        
-        if (this.state.isDetailsOpen) {
-            const contentDiv = slide.querySelector('.diaporama-description-content');
-            if (slide.classList.contains('is-error')) {
-                contentDiv.innerHTML = '<div style="text-align:center; margin-top:20px; font-weight:bold; color:#fbbf24; font-size:1.2rem;">Désolé, ce contenu sera bientôt disponible.</div>';
-            } else {
-                contentDiv.innerHTML = this.config.description || "Pas de description détaillée.";
-            }
+    handleEyeClick() {
+  const slide = this.dom.slides[this.state.currentIndex];
 
-            slide.classList.add('diaporama-details-active');
-            this.dom.btns.info.classList.add('active');
-            
-            this.state.wasPlayingBeforeDetails = this.state.isPlaying;
-            this.state.isPlaying = false;
-            this.updatePlayPauseIcon();
-            this.stopAutoSlide();
+  if (!this.state.isDetailsOpen) {
+    // 🔁 On est en mode DIAPORAMA → passer en DESCRIPTION
 
-        } else {
-            slide.classList.remove('diaporama-details-active');
-            this.dom.btns.info.classList.remove('active');
-            
-            if(!this.state.isSecondary && this.state.wasPlayingBeforeDetails) {
-                this.togglePlay(); 
-            }
-        }
+    // 1) Cacher L1/L2 si visibles
+    if (this.state.isTitleVisible) {
+      this.toggleTitle();            // cache la zone des titres
     }
+
+    // 2) Ouvrir la description
+    this.toggleDetails();            // met isDetailsOpen à true et affiche la description
+
+  } else {
+    // 🔁 On est en mode DESCRIPTION → revenir au DIAPORAMA
+
+    // 1) Fermer la description
+    this.toggleDetails();            // met isDetailsOpen à false et enlève la classe détails
+
+    // 2) Ré‑afficher L1/L2 si elles sont cachées
+    if (!this.state.isTitleVisible) {
+      this.toggleTitle();
+    }
+
+    // 3) S'assurer que la slide active est bien affichée (au cas où)
+    this.showSlide(this.state.currentIndex);
+  }
+}
+
+    toggleDetails() {
+  this.state.isDetailsOpen = !this.state.isDetailsOpen;
+  const slide = this.dom.slides[this.state.currentIndex];
+
+  if (this.state.isDetailsOpen) {
+    const contentDiv = slide.querySelector('.diaporama-description-content');
+    if (slide.classList.contains('is-error')) {
+      contentDiv.innerHTML = '<div style="text-align:center; margin-top:20px; font-weight:bold; color:#fbbf24; font-size:1.2rem;">Désolé, ce contenu sera bientôt disponible.</div>';
+    } else {
+      contentDiv.innerHTML = this.config.description || "Pas de description détaillée.";
+    }
+
+    slide.classList.add('diaporama-details-active');
+    this.dom.btns.eye.classList.add('active');
+
+    this.state.wasPlayingBeforeDetails = this.state.isPlaying;
+    this.state.isPlaying = false;
+    this.updatePlayPauseIcon();
+    this.stopAutoSlide();
+
+  } else {
+    slide.classList.remove('diaporama-details-active');
+    this.dom.btns.eye.classList.remove('active');
+
+    if (!this.state.isSecondary && this.state.wasPlayingBeforeDetails) {
+      this.togglePlay();
+    }
+  }
+}
+	
 
     toggleTitle() {
         this.state.isTitleVisible = !this.state.isTitleVisible;
