@@ -263,40 +263,20 @@ function construireLexique(liste) {
   const container = document.getElementById("lexiqueListe");
   if (!container) return;
 
-  container.innerHTML = "";
-
   if (!liste || liste.length === 0) {
+    container.innerHTML = "";
     const empty = document.createElement("p");
     empty.textContent = "Aucun terme ne correspond à votre recherche.";
     container.appendChild(empty);
     return;
   }
 
-  liste.forEach((entry) => {
-    // Cas spécial : retour à la ligne
-    if (entry.term === "RetourLigne") {
-      const br = document.createElement("div");
-      br.className = "lexique-line-break";
-      container.appendChild(br);
-      return;
-    }
-
-    const item = document.createElement("article");
-    item.className = "lexique-item";
-
-    const h3 = document.createElement("h3");
-    h3.className = "lexique-term";
-    h3.textContent = entry.term;
-
-    const p = document.createElement("p");
-    p.className = "lexique-def";
-    p.textContent = entry.def;
-
-    item.appendChild(h3);
-    item.appendChild(p);
-    container.appendChild(item);
-  });
+  // On délègue au nouveau rendu en lignes métalliques
+  if (typeof window.renderLexiqueList === "function") {
+    window.renderLexiqueList(container, liste);
+  }
 }
+
 
 
 function initLexique() {

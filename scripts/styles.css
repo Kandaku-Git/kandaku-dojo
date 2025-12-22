@@ -182,6 +182,40 @@ body {
   background: #181820;
 }
 
+/* Tuile de catégorie (déjà utilisée) : on affine un peu pour la grille */
+.technique-card.tech-category-tile {
+  width: 100%;
+}
+
+/* Mobile : grille 2–3 tuiles par ligne */
+.tech-categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+/* Tuile de catégorie : pleine largeur dans la grille */
+.technique-card.tech-category-tile {
+  width: 100%;
+}
+
+/* PC : les tuiles occupent toute la largeur de l'écran */
+@media (min-width: 1024px) {
+  .tech-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.9rem;
+    width: 100%;          /* prend toute la largeur disponible */
+  }
+
+  .technique-card.tech-category-tile {
+    width: 100%;          /* la tuile remplit sa colonne */
+  }
+}
+
+
+
 
 /* --- Tuiles catégories vidéos --- */
 
@@ -270,7 +304,7 @@ body {
 /* Forcer un retour à la ligne dans la grille des techniques */
 .tech-line-break {
   grid-column: 1 / -1; /* occupe toute la ligne */
-  height: 0;
+  height: 0.75rem;
   padding: 0;
   margin: 0;
 }
@@ -470,19 +504,147 @@ body {
   border-color: rgba(15, 15, 24, 0.95) transparent transparent transparent;
 }
 
-/* Conteneur du lexique en grille */
-.lexique-list {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1rem;
-}
-
 /* Élément pleine largeur pour forcer un retour à la ligne */
 .lexique-line-break {
   grid-column: 1 / -1; /* occupe toute la rangée */
   height: 0;
   padding: 0;
   margin: 0;
+}
+
+/* Contenu caché dans la ligne du lexique */
+.lexique-line {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.lexique-line-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Texte du terme */
+.lexique-term {
+  position: relative;
+  z-index: 1;
+}
+
+/* Petite flèche à droite (optionnel) */
+.lexique-toggle-icon {
+  position: relative;
+  z-index: 1;
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+
+/* Bloc définition replié/déplié */
+.lexique-def {
+  width: 100%;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.25s ease, opacity 0.25s ease;
+}
+
+/* État ouvert */
+.lexique-line.is-open .lexique-def {
+  max-height: 200px; /* adapté à la hauteur max de texte */
+  opacity: 1;
+}
+
+/* Conteneur du lexique : liste verticale, plus de grille */
+.lexique-list {
+  margin-top: 1rem;
+}
+
+/* Liste de lignes réutilisable */
+.line-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 1rem;
+}
+
+/* Ligne métallique de base */
+.line-metal {
+  width: 100%;
+  text-align: left;
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, #3b3b3f 0%, #15151a 40%, #2c2c30 100%);
+  color: var(--color-text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  text-transform: none;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast),
+    border-color var(--transition-fast),
+    background 0.25s ease-out;
+}
+
+/* Légère texture métallique avec un reflet interne */
+.line-metal::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(255, 255, 255, 0.08) 0%,
+    transparent 35%,
+    transparent 65%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  mix-blend-mode: screen;
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Effet métallique brillant au survol */
+.line-metal:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.45);
+  background: linear-gradient(135deg, #55565b 0%, #1d1e24 45%, #707076 100%);
+}
+
+/* Reflet qui balaye la ligne au survol (brillance) */
+.line-metal::after {
+  content: "";
+  position: absolute;
+  top: -120%;
+  left: -40%;
+  width: 60%;
+  height: 340%;
+  /* background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.7), transparent 60%); */
+  background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.212), transparent 60%);
+  opacity: 0;
+  /*transform: translateX(-120%);
+  transition: opacity 0.25s ease-out, transform 0.4s ease-out;*/
+  pointer-events: none;
+}
+
+.line-metal:hover::after {
+  opacity: 1;
+  transform: translateX(220%);
+}
+
+/* Texte dans la ligne */
+.line-metal-title {
+  position: relative;
+  z-index: 1;
 }
 
 

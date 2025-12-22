@@ -216,6 +216,11 @@ function renderTechniquesCategories(container) {
 
   container.innerHTML = "";
 
+  // CONTENEUR GRILLE POUR LES TUILES
+  const grid = document.createElement("div");
+  grid.className = "tech-categories-grid";
+  container.appendChild(grid);
+
   data.forEach((category) => {
     const label = category.label;
     const iconSrc = getCategoryIcon(label);
@@ -255,96 +260,76 @@ function renderTechniquesCategories(container) {
     button.appendChild(iconDiv);
     button.appendChild(textDiv);
 
-    container.appendChild(button);
+    // AJOUT DANS LA GRILLE (et non plus directement dans container)
+    grid.appendChild(button);
   });
 }
 
+
 /**
- * Construit les tuiles de techniques pour une catégorie donnée
+ * Construit les lignes de techniques pour une catégorie donnée
  */
 function renderTechniquesItems(container, categoryLabel) {
-      if (!container) return;
+  if (!container) return;
+  container.innerHTML = "";
 
-      container.innerHTML = "";
+  const allCategories = getTechniquesData();
+  const category = allCategories.find(c => c.label === categoryLabel);
+  if (!category || !Array.isArray(category.techniques)) return;
 
-      const allCategories = getTechniquesData();
-      const category = allCategories.find((c) => c.label === categoryLabel);
-      if (!category || !Array.isArray(category.techniques)) return;
+  const subtitle = subtitleMap[categoryLabel];
+  if (subtitle) {
+    const intro = document.createElement("p");
+    intro.className = "techniques-intro";
+    intro.textContent = subtitle;
+    container.appendChild(intro);
+  }
 
-      const subtitle = subtitleMap[categoryLabel] || "";
+  const items = category.techniques.map((tech) => {
+    if (tech.dataTechnique === "RetourLigne") {
+      return { isSeparator: true };
+    }
 
-      if (subtitle) {
-            const intro = document.createElement("p");
-            intro.className = "techniques-intro";
-            intro.textContent = subtitle;
-            container.appendChild(intro);
+    return {
+      label: tech.label,
+      data: {
+        technique: tech.dataTechnique || "",
+        section: tech.dataSection || "techniques"
+      },
+      onClick: () => {
+        const techniqueName = tech.dataTechnique;
+        const categoryName = categoryLabel;
+        if (!techniqueName) return;
+
+        window.lastTechniqueFromGrid = { technique: techniqueName, category: categoryName };
+
+        if (typeof window.activerSection === "function") {
+          window.activerSection("techniques");
+        }
+
+        const wrapper = document.getElementById("mon-conteneur-wrapper");
+        if (wrapper) {
+          wrapper.classList.add("is-visible");
+        }
+
+        if (typeof window.afficherTechnique === "function") {
+          window.afficherTechnique(techniqueName, categoryName);
+        }
       }
+    };
+  });
 
-      const grid = document.createElement("div");
-      grid.className = "techniques-grid";
+  window.renderMetalLinesList(container, items, {
+    listClass: "techniques-list-lines",
+    lineClass: "technique-line"
+  });
 
-      category.techniques.forEach((tech) => {
-            // Cas spécial : retour à la ligne
-            if (tech.dataTechnique === "RetourLigne") {
-                  const br = document.createElement("div");
-                  br.className = "tech-line-break";
-                  grid.appendChild(br);
-                  return;
-            }
-
-            const card = document.createElement("button");
-            card.type = "button";
-            card.className = "technique-card tech-item-card";
-            card.setAttribute("data-technique", tech.dataTechnique || "");
-            card.setAttribute("data-section", tech.dataSection || "techniques");
-
-            const textDiv = document.createElement("div");
-            const title = document.createElement("h3");
-            title.className = "card-title";
-            title.textContent = tech.label;
-
-            textDiv.appendChild(title);
-            card.appendChild(textDiv);
-            card.addEventListener("click", () => {
-                  const techniqueName = card.getAttribute("data-technique");
-                  const category = categoryLabel; // ex : "Zuki Waza"
-
-                  if (!techniqueName) return;
-
-                  // On mémorise catégorie + technique pour la maison
-                  window.lastTechniqueFromGrid = {
-                        technique: techniqueName,
-                        category: category
-                  };
-
-                  // On affiche la section "techniques" (diaporama plein écran)
-                  if (typeof window.activerSection === "function") {
-                        window.activerSection("techniques");
-                  }
-
-                  // On rend visible le wrapper du diaporama
-                  const wrapper = document.getElementById("mon-conteneur-wrapper");
-                  if (wrapper) {
-                        wrapper.classList.add("is-visible");
-                  }
-
-                  // On lance le diaporama via la fonction globale
-                  if (typeof window.afficherTechnique === "function") {
-                        window.afficherTechnique(techniqueName, category);
-                  }
-            });
-
-
-            grid.appendChild(card);
-      });
-
-      container.appendChild(grid);
-
-      // Ré-attacher les listeners pour ouvrir le diaporama
-      if (typeof window.initTechniques === "function") {
-            window.initTechniques();
-      }
+  if (typeof window.initTechniques === "function") {
+    window.initTechniques();
+  }
 }
+
+
 
 
 
