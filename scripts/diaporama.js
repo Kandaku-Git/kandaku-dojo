@@ -262,21 +262,25 @@ class Diaporama {
      * Appelé APRÈS l'enrichissement.
      */
     parseLinks(htmlText) {
-        if (!htmlText) return "";
-        let processed = htmlText.replace(/<<([^>]+)>><([^>]+)>/g, (match, label, target) => {
-            const labelClean = label.trim();
-            const targetClean = target.trim().replace(/\s+/g, '_');
-            return `<span class="diaporama-link" data-target="${targetClean}">${label.trim()}</span>`;
-        });
+  if (!htmlText) return "";
 
-        processed = processed.replace(/<([^>]+)>/g, (match, inner) => {
-            // Ignore les balises HTML déjà créées par l'enrichissement (span)
-            if (inner.startsWith('span') || inner.startsWith('/span')) return match;
-            const target = inner.trim().replace(/\s+/g, '_');
-            return `<span class="diaporama-link" data-target="${target}">${inner.trim()}</span>`;
-        });
-        return processed;
-    }
+  // Liens <<label>><target>>
+  let processed = htmlText.replace(/<<([^>]+)>><([^>]+)>/g, (match, label, target) => {
+    const targetClean = target.trim().replace(/\s+/g, '_');
+    return `<span class="diaporama-link" data-target="${targetClean}">${label.trim()}</span>`;
+  });
+
+  // Liens <...> mais en ignorant tout ce qui commence par span ou /span
+  processed = processed.replace(/<([^>]+)>/g, (match, inner) => {
+    const trimmed = inner.trim();
+    if (trimmed.startsWith('span') || trimmed.startsWith('/span')) return match;
+    const target = trimmed.replace(/\s+/g, '_');
+    return `<span class="diaporama-link" data-target="${target}">${trimmed}</span>`;
+  });
+
+  return processed;
+}
+
 
     generateImagesFromTechnique() {
         const { technique, nombrePhotos, extension } = this.config;
@@ -550,7 +554,7 @@ class Diaporama {
   // Boutons principaux
     b.next.onclick = () => this.manualNav(1);
     b.prev.onclick = () => this.manualNav(-1);
-    b.play.onclick = () => { if (!this.state.isSecondary) this.togglePlay(); };
+    b.play.onclick = () => this.togglePlay();
     b.eye.onclick = () => this.handleEyeClick();   
     b.back.onclick = () => this.restoreParentDiaporama();
 
@@ -595,18 +599,34 @@ class Diaporama {
 
 
   // Clics dans la zone de titre (liens & vocabulaire)
-  this.dom.titleZone.addEventListener("click", (e) => {
-    if (e.target.classList.contains("diaporama-link")) {
-      const target = e.target.getAttribute("data-target");
-      if (target) this.loadSubDiaporama(target);
-      return;
+ this.dom.titleZone.addEventListener("click", (e) => {
+  // 1. Vocabulaire en priorité
+  const vocabEl = e.target.closest(".diaporama-vocab");
+  if (vocabEl && this.dom.titleZone.contains(vocabEl)) {
+    const def = vocabEl.getAttribute("data-def");
+    if (def) {
+      // Si c'est le même élément qui a déjà une infobulle, on la ferme
+      if (this.state.tooltipTarget === vocabEl) {
+        this.hideVocabularyTooltip();
+      } else {
+        this.showVocabularyTooltip(vocabEl, def);
+      }
     }
+    return;
+  }
 
-    if (e.target.classList.contains("diaporama-vocab")) {
-      const def = e.target.getAttribute("data-def");
-      if (def) this.showToast(`${e.target.innerText} : ${def}`);
-    }
-  });
+  // 2. Liens
+  const linkEl = e.target.closest(".diaporama-link");
+  if (linkEl && this.dom.titleZone.contains(linkEl)) {
+    const target = linkEl.getAttribute("data-target");
+    if (target) this.loadSubDiaporama(target);
+    return;
+  }
+});
+
+
+
+
 
   // Empêcher les clics dans la zone détails de fermer / déclencher autre chose
   this.dom.slides.forEach((slide) => {
@@ -673,6 +693,9 @@ class Diaporama {
   this.dom.slider.addEventListener("pointerdown", (e) => {
     if (e.target.closest(".diaporama-toast")) return;
     if (e.target.closest(".diaporama-details") && this.state.isDetailsOpen) return;
+      // Ne pas intercepter les clics sur le titre (L1/L2)
+  if (e.target.closest("#diaporama-title-zone")) return;
+
     if (this.state.isSecondary) return;
 
     e.preventDefault();
@@ -776,11 +799,12 @@ class Diaporama {
     }
 
     togglePlay() {
-        if (this.state.isSecondary) return;
-        this.state.isPlaying = !this.state.isPlaying;
-        this.updatePlayPauseIcon();
-        this.state.isPlaying ? this.startAutoSlide() : this.stopAutoSlide();
-    }
+  // Lecture/pause valable pour principal ET secondaire
+  this.state.isPlaying = !this.state.isPlaying;
+  this.updatePlayPauseIcon();
+  this.state.isPlaying ? this.startAutoSlide() : this.stopAutoSlide();
+}
+
 
     startAutoSlide() {
         if (this.state.timerId) clearTimeout(this.state.timerId);
@@ -855,7 +879,8 @@ class Diaporama {
   if (this.state.isDetailsOpen) {
     const contentDiv = slide.querySelector('.diaporama-description-content');
     if (slide.classList.contains('is-error')) {
-      contentDiv.innerHTML = '<div style="text-align:center; margin-top:20px; font-weight:bold; color:#fbbf24; font-size:1.2rem;">Désolé, ce contenu sera bientôt disponible.</div>';
+      contentDiv.innerHTML =
+        '<div style="text-align:center; margin-top:20px; font-weight:bold; color:#fbbf24; font-size:1.2rem;">Désolé, ce contenu sera bientôt disponible.</div>';
     } else {
       contentDiv.innerHTML = this.config.description || "Pas de description détaillée.";
     }
@@ -863,7 +888,10 @@ class Diaporama {
     slide.classList.add('diaporama-details-active');
     this.dom.btns.eye.classList.add('active');
 
+    // On mémorise l'état de lecture AVANT d'ouvrir la description
     this.state.wasPlayingBeforeDetails = this.state.isPlaying;
+
+    // On met en pause pendant la description
     this.state.isPlaying = false;
     this.updatePlayPauseIcon();
     this.stopAutoSlide();
@@ -872,11 +900,33 @@ class Diaporama {
     slide.classList.remove('diaporama-details-active');
     this.dom.btns.eye.classList.remove('active');
 
-    if (!this.state.isSecondary && this.state.wasPlayingBeforeDetails) {
-      this.togglePlay();
+    // ➜ Sortie de description
+
+    if (this.state.isSecondary) {
+      // Diaporama secondaire :
+      // si ça jouait avant, on relance la lecture automatiquement
+      if (this.state.wasPlayingBeforeDetails) {
+        this.state.isPlaying = true;
+        this.updatePlayPauseIcon();
+        this.startAutoSlide();
+      } else {
+        this.state.isPlaying = false;
+        this.updatePlayPauseIcon();
+        this.stopAutoSlide();
+      }
+    } else {
+      // Diaporama principal :
+      // on reste en pause, l'utilisateur relance via le bouton Play.
+      this.state.isPlaying = false;
+      this.updatePlayPauseIcon();
+      this.stopAutoSlide();
     }
   }
 }
+
+
+
+
 	
 
     toggleTitle() {
