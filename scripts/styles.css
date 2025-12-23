@@ -191,18 +191,25 @@ body {
   width: 100%;
 }
 
-/* Mobile : grille 2–3 tuiles par ligne */
-.tech-categories-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 0.75rem;
-  margin-top: 1rem;
+/* Mobile : grille 2–3 tuiles par ligne pour les catégories techniques */
+@media (max-width: 768px) {
+  .techniques-categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* 1 à 3 tuiles selon la largeur */
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .technique-card.tech-category-tile {
+    width: 100%; /* occupe toute sa colonne, pas tout l'écran */
+  }
 }
 
-/* Tuile de catégorie : pleine largeur dans la grille */
+/* Tuile de catégorie : pleine largeur de sa colonne, pas de l'écran */
 .technique-card.tech-category-tile {
   width: 100%;
 }
+
 
 /* PC : les tuiles occupent toute la largeur de l'écran */
 @media (min-width: 1024px) {
@@ -223,12 +230,27 @@ body {
 
 /* --- Tuiles catégories vidéos --- */
 
+/* Grille des catégories vidéos : 2–3 colonnes sur mobile */
 .video-tiles {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* 2–3 tuiles selon la largeur */
+  gap: 0.75rem;
   margin: 1rem 0 1.5rem;
 }
+/* Mobile : 2–3 tuiles vidéo par ligne */
+@media (max-width: 768px) {
+  .video-tiles {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* 1 à 3 tuiles */
+    gap: 0.75rem;
+    margin: 1rem 0 1.5rem;
+  }
+
+  .video-card-tile {
+    width: 100%; /* la tuile remplit sa colonne, pas tout l'écran */
+  }
+}
+
 
 .video-tile {
   background: var(--color-surface);
@@ -641,13 +663,6 @@ body {
   transform: translateX(220%);
 }
 
-/* Le titre et la définition restent en ligne, sans forcer de retour */
-.line-metal-title,
-.line-metal-def {
-  display: inline-block;
-  white-space: nowrap;   /* empêche le retour à la ligne */
-}
-
 
 /* Ligne lexique : terme + définition sur une seule ligne */
 .line-metal.lexique-line {
@@ -658,16 +673,9 @@ body {
   gap: 1rem;
 }
 
-/* Terme */
-.line-metal-title {
-  display: inline-block;
-  white-space: nowrap;
-}
 
-/* Définition (tiret inclus) */
+/* Définition*/
 .line-metal-def {
-  display: inline-block;
-  white-space: nowrap;      /* tout reste sur la même ligne tant que ça tient */
   color: var(--color-muted);
   font-style: italic;
   font-size: 0.9rem;
