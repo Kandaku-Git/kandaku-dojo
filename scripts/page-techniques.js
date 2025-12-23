@@ -208,62 +208,44 @@ function getCategoryIcon(categoryLabel) {
 
 /**
  * Construit les tuiles de catégories dans la section "techniques-categories"
- * (grille comme pour les vidéos)
  */
 function renderTechniquesCategories(container) {
   const data = getTechniquesData();
-  if (!container || !Array.isArray(data)) return;
+  if (!container || !Array.isArray(data)) {
+    if (container) container.innerHTML = "";
+    return;
+  }
 
-  container.innerHTML = "";
-
-  // CONTENEUR GRILLE POUR LES TUILES
-  const grid = document.createElement("div");
-  grid.className = "tech-categories-grid";
-  container.appendChild(grid);
-
-  data.forEach((category) => {
+  const items = data.map((category) => {
     const label = category.label;
-    const iconSrc = getCategoryIcon(label);
-    const description = descriptionMap[label] || "";
+    return {
+      label,
+      iconSrc: getCategoryIcon(label),
+      description: descriptionMap[label],
+      dataAttrs: { "tech-category": label }
+    };
+  });
 
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "technique-card tech-category-tile";
-    button.setAttribute("data-tech-category", label);
+  window.renderCategoryTiles(container, items, {
+    baseClass: "technique-card",
+    tileClass: "tech-category-tile",
+    onClick: (item, button) => {
+      const label = item.label;
 
-    // Bloc icône
-    const iconDiv = document.createElement("div");
-    iconDiv.className = "card-icon";
+      // Visuel actif
+      const tiles = container.querySelectorAll(".tech-category-tile");
+      tiles.forEach((t) => t.classList.remove("is-active"));
+      button.classList.add("is-active");
 
-    const img = document.createElement("img");
-    img.src = iconSrc;
-    img.alt = label;
-    img.loading = "lazy";
-    img.className = "card-icon-image";
-
-    iconDiv.appendChild(img);
-
-    // Bloc texte
-    const textDiv = document.createElement("div");
-
-    const h3 = document.createElement("h3");
-    h3.className = "card-title";
-    h3.textContent = label;
-
-    const p = document.createElement("p");
-    p.className = "card-description";
-    p.textContent = description;
-
-    textDiv.appendChild(h3);
-    textDiv.appendChild(p);
-
-    button.appendChild(iconDiv);
-    button.appendChild(textDiv);
-
-    // AJOUT DANS LA GRILLE (et non plus directement dans container)
-    grid.appendChild(button);
+      // Reconstruction des items techniques
+      const itemsContainer = document.getElementById("techniquesItemsContainer");
+      if (itemsContainer) {
+        renderTechniquesItems(itemsContainer, label);
+      }
+    }
   });
 }
+
 
 
 /**

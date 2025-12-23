@@ -1296,71 +1296,28 @@ function renderLexiqueList(rootElement, data) {
   if (!rootElement) return;
 
   // 1) Préparer les items à partir des entrées du lexique
-  const items = data.map(entry => {
+  const items = data.map((entry) => {
     if (entry.term === "RetourLigne") {
-      // Pas de bouton, juste un séparateur
       return { isSeparator: true, _entry: entry };
     }
 
     return {
       label: entry.term,
+      description: entry.def || "",   // définition affichée sur la même ligne
       data: { term: entry.term },
       _entry: entry
+      // pas de onClick ici : plus de toggle
     };
   });
 
-  // 2) créer les boutons avec class="line-metal lexique-line"
+  // 2) Créer les lignes métalliques simples
   window.renderMetalLinesList(rootElement, items, {
     listClass: "lexique-list-lines",
     lineClass: "lexique-line"
   });
 
-  // 3) enrichir chaque ligne (structure interne) sans enlever les classes
-  const lineElements = rootElement.querySelectorAll(".lexique-line");
-  let logicalIndex = 0;
-
-  data.forEach((entry) => {
-    if (entry.term === "RetourLigne") {
-      // on saute : séparation déjà gérée par renderMetalLinesList
-      return;
-    }
-
-    const lineEl = lineElements[logicalIndex++];
-    if (!lineEl) return;
-
-    const term = entry.term;
-    const def = entry.def || "";
-
-    lineEl.innerHTML = "";
-
-    const header = document.createElement("div");
-    header.className = "lexique-line-header";
-
-    const titleSpan = document.createElement("span");
-    titleSpan.className = "lexique-term";
-    titleSpan.textContent = term;
-
-    const iconSpan = document.createElement("span");
-    iconSpan.className = "lexique-toggle-icon";
-    iconSpan.textContent = "▼";
-
-    header.appendChild(titleSpan);
-    header.appendChild(iconSpan);
-
-    const defDiv = document.createElement("div");
-    defDiv.className = "lexique-def";
-    defDiv.textContent = def;
-
-    lineEl.appendChild(header);
-    lineEl.appendChild(defDiv);
-
-    lineEl.addEventListener("click", () => {
-      lineEl.classList.toggle("is-open");
-    });
-  });
+  // 3) AUCUN enrichissement, aucun listener de clic
 }
-
-
 
 
 document.addEventListener("DOMContentLoaded", () => {

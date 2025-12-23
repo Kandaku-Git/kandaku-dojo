@@ -49,54 +49,33 @@ function construireVideos() {
   const grid = document.querySelector("#videosGrid");
   if (!grid || !Array.isArray(window.VIDEOS)) return;
 
-  grid.innerHTML = "";
-
-  window.VIDEOS.forEach((video) => {
-    const card = document.createElement("button");
-    card.type = "button";
-    card.className = "technique-card video-card-item";
-    card.dataset.category = video.categorie || "Autre";
-
-    // clic = ouverture YouTube
-    card.addEventListener("click", () => {
-      if (video.url) {
-        window.open(video.url, "_blank", "noopener,noreferrer");
+  const items = window.VIDEOS.map((video) => ({
+    label: video.titre || "Vidéo de karaté",
+    description: video.sousTitre || "",          // ← sous-titre sur la même ligne
+    data: {
+      category: video.categorie || "Autre",
+      url: video.url || ""
+    },
+    onClick: (line, item) => {
+      const url = item.data.url;
+      if (url) {
+        window.open(url, "_blank", "noopener,noreferrer");
       }
-    });
-
-    // Bloc texte (titre + sous-titre)
-    const textDiv = document.createElement("div");
-
-    const title = document.createElement("h3");
-    title.className = "card-title";
-    title.textContent = video.titre || "Vidéo de karaté";
-
-    textDiv.appendChild(title);
-
-    if (video.sousTitre) {
-      const sub = document.createElement("p");
-      sub.className = "card-description";
-      sub.textContent = video.sousTitre;
-      textDiv.appendChild(sub);
     }
+  }));
 
-    card.appendChild(textDiv);
-    grid.appendChild(card);
+  window.renderMetalLinesList(grid, items, {
+    listClass: "techniques-list-lines",
+    lineClass: "technique-line video-line"
   });
 }
 
-
-
 // Filtrage des cartes vidéo par catégorie
 function filtrerVideos(categorie) {
-  const cards = document.querySelectorAll(".video-card-item");
-  cards.forEach((card) => {
-    const cardCat = card.dataset.category || "Autre";
-    if (!categorie) {
-      card.style.display = "";
-    } else {
-      card.style.display = cardCat === categorie ? "" : "none";
-    }
+  const lines = document.querySelectorAll("#videosGrid .line-metal");
+  lines.forEach((line) => {
+    const cardCat = line.getAttribute("data-category") || "Autre";
+    line.style.display = !categorie || cardCat === categorie ? "" : "none";
   });
 }
 
@@ -107,52 +86,36 @@ window.renderVideosCategories = function () {
   const container = document.querySelector("#section-videos .video-tiles");
   if (!container || !window.VIDEOS_MENU || !Array.isArray(window.VIDEOS_MENU.children)) return;
 
-  container.innerHTML = "";
-
-  window.VIDEOS_MENU.children.forEach((child) => {
-    const label = child.label;                 // "Kata", "Kihon", ...
-    const filter = child.dataVideoFilter || ""; // "Kata", "Kihon", "Kumite", "Autre"
-
+  const items = window.VIDEOS_MENU.children.map((child) => {
+    const label = child.label;                // "Kata", "Kumite", ...
+    const filter = child.dataVideoFilter || ""; // "Kata", "Kumite", ...
     const iconSrc = VIDEO_ICONS[filter] || "images/video-default.png";
     const description = VIDEO_DESCRIPTIONS[filter] || "";
 
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "technique-card video-card-tile";
-    button.setAttribute("data-video-filter", filter);
+    return {
+      label: label.toUpperCase(),
+      iconSrc,
+      description,
+      dataAttrs: { "video-filter": filter }
+    };
+  });
 
-    // Bloc icône
-    const iconDiv = document.createElement("div");
-    iconDiv.className = "card-icon";
+  window.renderCategoryTiles(container, items, {
+    baseClass: "technique-card",
+    tileClass: "video-card-tile",
+    onClick: (item, button) => {
+      const filter = item.dataAttrs["video-filter"] || "";
 
-    const img = document.createElement("img");
-    img.src = iconSrc;
-    img.alt = label;
-    img.loading = "lazy";
-    img.className = "card-icon-image";
+      // état visuel actif si tu veux
+      const tiles = container.querySelectorAll(".video-card-tile");
+      tiles.forEach((t) => t.classList.remove("is-active"));
+      button.classList.add("is-active");
 
-    iconDiv.appendChild(img);
-
-    // Bloc texte
-    const textDiv = document.createElement("div");
-
-    const h3 = document.createElement("h3");
-    h3.className = "card-title";
-    h3.textContent = label.toUpperCase();
-
-    const p = document.createElement("p");
-    p.className = "card-description";
-    p.textContent = description;
-
-    textDiv.appendChild(h3);
-    textDiv.appendChild(p);
-
-    // Assemblage
-    button.appendChild(iconDiv);
-    button.appendChild(textDiv);
-    container.appendChild(button);
+      filtrerVideos(filter);
+    }
   });
 };
+
 
 
 // Initialisation locale des vidéos (appelée depuis menu.js)
@@ -161,19 +124,11 @@ window.initVideosModule = function () {
 
   if (window.renderVideosCategories) {
     window.renderVideosCategories();
+    // filtrage déjà géré dans onClick de renderCategoryTiles
+    filtrerVideos(""); // tout afficher par défaut
   }
-
-  const tiles = document.querySelectorAll("#section-videos .video-card-tile");
-  tiles.forEach((tile) => {
-    tile.addEventListener("click", () => {
-      const filter = tile.getAttribute("data-video-filter") || "";
-      filtrerVideos(filter);
-    });
-  });
-
-  // Optionnel : afficher tout par défaut
-  filtrerVideos(""); 
 };
+
 
 function afficherSeulementCategories() {
   const grid = $("#videosGrid");
