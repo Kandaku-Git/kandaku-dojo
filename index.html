@@ -15,12 +15,9 @@
   <header class="site-header">
     <div class="logo-title">
       <div class="logo-shotokan" aria-hidden="true">
-        <svg viewBox="0 0 100 100" role="img">
-          <circle cx="50" cy="50" r="45" class="logo-circle"></circle>
-          <path d="M20,60 C30,30 70,30 80,60 70,55 60,70 50,60 40,70 30,55 20,60 Z" class="logo-tiger"></path>
-          <path d="M35,30 L65,30 L50,50 Z" class="logo-kanji"></path>
-        </svg>
-      </div>
+  <img src="images/logo.png" alt="" class="logo-image" />
+</div>
+
       <div class="title-block">
         <h1>Kandaku Dojo</h1>
         <p class="subtitle">A virtual Shotokan Experience</p>
@@ -40,16 +37,7 @@
 
     <main class="main-content">
       <section id="section-accueil" class="content-section is-active" aria-labelledby="menu-accueil">
-        <h2>Bienvenue au dojo virtuel</h2>
-        <p>
-          Ce site propose une porte d’entrée simple pour découvrir et réviser les bases du karaté Shotokan : techniques, kata, vocabulaire et ressources utiles.
-        </p>
-        <p>
-          Utilise le bouton MENU pour afficher la navigation, ou commence directement par les techniques fondamentales.
-        </p>
-        <button class="btn-accent" data-section="techniques-categories">
-          Explorer les techniques
-        </button>
+        <!-- Contenu injecté par page-accueil.js -->
       </section>
 
       <section id="section-techniques" class="content-section" aria-label="Diaporama Technique">
@@ -81,40 +69,19 @@
         <div id="lexiqueListe" class="lexique-list"></div>
       </section>
 
-      <section id="section-histoire-origines" class="content-section" aria-label="Origines du karaté">
-        <h2>Origines du karaté Shotokan</h2>
-        <p>
-          Le karaté Shotokan trouve ses racines dans les arts martiaux d’Okinawa, influencés par différentes écoles de combat asiatiques.
-        </p>
-        <p>
-          L’objectif de cette discipline est de développer un corps fort, un esprit clair et un comportement respectueux.
-        </p>
-      </section>
-
-      <section id="section-histoire-dojo" class="content-section" aria-label="Histoire du dojo">
-        <h2>Histoire du dojo virtuel</h2>
-        <p>
-          Ce dojo virtuel a été conçu comme un support d’étude pour les pratiquants souhaitant réviser en autonomie.
-        </p>
+      <section id="section-histoires" class="content-section" aria-label="Histoires">
+        <h2>Histoires</h2>
+        <!-- Grille de tuiles d'histoires -->
+        <div class="history-tiles"></div>
+        <!-- Contenu d'histoire affiché sous les tuiles -->
+        <article id="historyContent" class="history-content-card" hidden></article></article>
       </section>
 
       <section id="section-liens" class="content-section" aria-label="Liens utiles">
-        <h2>Liens utiles</h2>
-        <div class="links-grid">
-          <article class="link-card">
-            <h3>Fédération internationale Shotokan</h3>
-            <a href="https://iskf.com" target="_blank" class="btn-link">Visiter</a>
-          </article>
-          <article class="link-card">
-            <h3>Shotokan Karate-Do International</h3>
-            <a href="https://www.skifworld.com" target="_blank" class="btn-link">Visiter</a>
-          </article>
-          <article class="link-card">
-            <h3>France Shotokan</h3>
-            <a href="https://franceshotokan.com" target="_blank" class="btn-link">Visiter</a>
-          </article>
-        </div>
-      </section>
+  <h2>Liens utiles</h2>
+  <div class="links-grid" id="linksGrid"></div>
+</section>
+
 
       <section id="section-interface-tutoriel" class="content-section" aria-label="Tutoriel">
         <h2>Tutoriel d’utilisation</h2>
@@ -141,33 +108,11 @@
 
       <section id="section-contact" class="content-section" aria-label="Contact">
         <h2>Me contacter</h2>
-        <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
-            <input type="hidden" name="access_key" value="30a86ac0-b1f9-49eb-8f7c-93392300afa9" />
-            <div class="form-group">
-                <label for="contactEmail">E-mail *</label>
-                <input type="email" id="contactEmail" name="email" required />
-                <span class="form-error" data-for="contactEmail"></span>
-            </div>
-            <div class="form-group">
-                <label for="contactMessage">Message *</label>
-                <textarea id="contactMessage" name="message" rows="4" required></textarea>
-                <span class="form-error" data-for="contactMessage"></span>
-            </div>
-            <div class="form-group captcha-group">
-                <label id="captchaQuestion" for="contactCaptcha">Vérification *</label>
-                <input type="number" id="contactCaptcha" name="captcha" required />
-                <span class="form-error" data-for="contactCaptcha"></span>
-            </div>
-            <button type="submit" class="btn-accent">Envoyer</button>
-            <p id="contactFeedback" class="form-feedback"></p>
-        </form>
+        <div id="contactRoot"></div>
       </section>
+
     </main>
   </div>
-
-  <footer class="site-footer">
-    <p>&copy; <span id="footerYear"></span> Dojo virtuel Shotokan</p>
-  </footer>
   
   <script src="scripts/debug.js"></script>
   <script src="scripts/diaporama.js"></script>
@@ -176,6 +121,10 @@
   <script src="scripts/vocabulaire.js"></script>
   <script src="scripts/page-techniques.js"></script>
   <script src="scripts/page-videos.js"></script>
+  <script src="scripts/page-histoires.js"></script>
+  <script src="scripts/page-liens.js"></script>
+  <script src="scripts/page-contact.js"></script>
+  <script src="scripts/page-accueil.js"></script>
   <script src="scripts/menu.js"></script>
 </body>
 </html>
