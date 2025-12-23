@@ -1,3 +1,4 @@
+// scripts/page-videos.js
 // --- DONNÉES VIDÉOS & CATÉGORIES ---
 // Logos par catégorie vidéo
 const VIDEO_ICONS = {

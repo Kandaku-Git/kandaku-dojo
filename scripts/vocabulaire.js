@@ -1,3 +1,4 @@
+// scripts/vocabulaire.js
 // On stocke le texte dans une variable globale accessible par le diaporama
 // Attention aux accents graves (backticks) au début et à la fin !
 window.VOCABULAIRE_TECHNIQUE = `

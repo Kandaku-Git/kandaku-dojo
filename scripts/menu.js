@@ -2,39 +2,22 @@
 // Logique et données de navigation pour Kandaku Dojo.
 
 window.MENU_ITEMS = [
-  { type: "item", label: "Accueil", buttonClass: "menu-item", dataSection: "accueil" },
-  { type: "item", label: "Techniques", buttonClass: "menu-item", dataSection: "techniques-categories"},
-  { type: "item", label: "Vidéos", buttonClass: "menu-item", dataSection: "videos" },
-  { type: "item", label: "Lexique", buttonClass: "menu-item", dataSection: "lexique" },
-  {
-    type: "group",
-    label: "Histoire",
-    buttonClass: "menu-item menu-parent",
-    submenuId: "submenu-histoire",
-    submenuClass: "submenu",
-    children: [
-      { type: "submenu-button", label: "Origines du karaté", buttonClass: "submenu-link", dataSection: "histoire-origines" },
-      { type: "submenu-button", label: "Histoire du dojo", buttonClass: "submenu-link", dataSection: "histoire-dojo" },
-    ],
-  },
-  { type: "item", label: "Liens", buttonClass: "menu-item", dataSection: "liens" },
-  {
-    type: "group",
-    label: "Interface",
-    buttonClass: "menu-item menu-parent",
-    submenuId: "submenu-interface",
-    submenuClass: "submenu",
-    children: [
-      { type: "submenu-button", label: "Tutoriel", buttonClass: "submenu-link", dataSection: "interface-tutoriel" },
-      { type: "submenu-button", label: "Personnalisation", buttonClass: "submenu-link", dataSection: "interface-personnalisation" },
-    ],
-  },
+  { type: "item", label: "Accueil",      buttonClass: "menu-item", dataSection: "accueil" },
+  { type: "item", label: "Techniques",   buttonClass: "menu-item", dataSection: "techniques-categories" },
+  { type: "item", label: "Vidéos",       buttonClass: "menu-item", dataSection: "videos" },
+  { type: "item", label: "Lexique",      buttonClass: "menu-item", dataSection: "lexique" },
+  { type: "item", label: "Histoires",    buttonClass: "menu-item", dataSection: "histoires" },
+  { type: "item", label: "Liens",        buttonClass: "menu-item", dataSection: "liens" },
   { type: "item", label: "Me contacter", buttonClass: "menu-item", dataSection: "contact" },
 ];
 
 /* UTILITAIRES */
-function $(selector, scope) { return (scope || document).querySelector(selector); }
-function $all(selector, scope) { return Array.from((scope || document).querySelectorAll(selector)); }
+function $(selector, scope) {
+  return (scope || document).querySelector(selector);
+}
+function $all(selector, scope) {
+  return Array.from((scope || document).querySelectorAll(selector));
+}
 
 /* CONSTRUCTION DU MENU */
 function construireMenu() {
@@ -44,6 +27,7 @@ function construireMenu() {
 
   window.MENU_ITEMS.forEach((item) => {
     const li = document.createElement("li");
+
     if (item.type === "item") {
       const btn = document.createElement("button");
       btn.type = "button";
@@ -52,8 +36,10 @@ function construireMenu() {
       btn.textContent = item.label;
       li.appendChild(btn);
     }
+
     if (item.type === "group") {
       li.classList.add("has-submenu");
+
       const btn = document.createElement("button");
       btn.type = "button";
       btn.className = item.buttonClass || "menu-item menu-parent";
@@ -78,21 +64,24 @@ function construireMenu() {
         }
         ul.appendChild(liChild);
       });
+
       li.appendChild(ul);
     }
+
     root.appendChild(li);
   });
 }
 
+/* Activation d'une section principale */
 function activerSection(sectionName) {
   const targetId = "section-" + sectionName;
   const sections = $all(".content-section");
+
+  // Gestion spécifique du wrapper diaporama techniques
   if (sectionName !== "techniques") {
-      const wrapper = $("#mon-conteneur-wrapper");
-      if (wrapper) wrapper.classList.remove("is-visible");
-  }
-  else {
-    // Quand on va sur la section techniques, on s'assure que le wrapper est visible
+    const wrapper = $("#mon-conteneur-wrapper");
+    if (wrapper) wrapper.classList.remove("is-visible");
+  } else {
     const wrapper = $("#mon-conteneur-wrapper");
     if (wrapper) wrapper.classList.add("is-visible");
   }
@@ -103,10 +92,52 @@ function activerSection(sectionName) {
   });
 }
 
+/* Reset des états internes (tuiles + contenus) pour une section */
+function resetSectionState(sectionName) {
+  // Techniques : catégories + liste
+  if (sectionName === "techniques-categories") {
+    const techTiles = document.querySelectorAll(".tech-category-tile.is-active");
+    techTiles.forEach((t) => t.classList.remove("is-active"));
+    const itemsContainer = document.getElementById("techniquesItemsContainer");
+    if (itemsContainer) itemsContainer.innerHTML = "";
+  }
+
+  // Vidéos : catégories + grille
+  if (sectionName === "videos") {
+    const videoTiles = document.querySelectorAll("#section-videos .video-card-tile.is-active");
+    videoTiles.forEach((t) => t.classList.remove("is-active"));
+    const grid = document.getElementById("videosGrid");
+    if (grid) grid.innerHTML = "";
+  }
+
+  // Histoires : tuiles + contenu
+  if (sectionName === "histoires") {
+    const historyTiles = document.querySelectorAll("#section-histoires .history-tile.is-active");
+    historyTiles.forEach((t) => t.classList.remove("is-active"));
+    const historyContent = document.getElementById("historyContent");
+    if (historyContent) {
+      historyContent.innerHTML = "";
+      historyContent.hidden = true;
+    }
+  }
+
+  // Contact : recréer un formulaire vierge
+  if (sectionName === "contact") {
+    const root = document.getElementById("contactRoot");
+    if (root) root.innerHTML = "";
+    if (typeof window.renderContactForm === "function") {
+      window.renderContactForm();
+    }
+  }
+}
+
+
+/* INITIALISATION DU MENU */
 function initMenu() {
   const sideMenu = $("#sideMenu");
   const headerMenuButton = $("#headerMenuButton");
 
+  // Bouton MENU (ouverture/fermeture)
   if (headerMenuButton && sideMenu) {
     headerMenuButton.addEventListener("click", () => {
       const isVisible = sideMenu.classList.toggle("is-visible");
@@ -114,36 +145,57 @@ function initMenu() {
     });
   }
 
+  // Gestion de l'état actif du bouton principal
   function setMainButtonActive(targetSection) {
     let targetButton = $all(".menu-item").find((b) =>
       b.getAttribute("data-section") === targetSection ||
       b.closest("li")?.querySelector(`[data-section="${targetSection}"]`)
     );
-    if (targetSection.includes('-waza') || targetSection.includes('dachi') || targetSection.includes('kata') || targetSection === "techniques-categories") {
-        targetButton = $all(".menu-item").find((b) => b.textContent?.trim().startsWith("Techniques"));
+
+    // Cas particuliers : sous-sections techniques
+    if (
+      targetSection.includes("-waza") ||
+      targetSection.includes("dachi") ||
+      targetSection.includes("kata") ||
+      targetSection === "techniques-categories"
+    ) {
+      targetButton = $all(".menu-item").find((b) =>
+        b.textContent?.trim().startsWith("Techniques")
+      );
     }
+
     $all(".menu-item").forEach((b) => b.classList.remove("is-active"));
     if (targetButton) targetButton.classList.add("is-active");
   }
 
+  // Clic sur un bouton principal du menu
   const mainButtons = $all(".menu-item[data-section]");
   mainButtons.forEach((btn) => {
     btn.addEventListener("click", () => {
       const section = btn.getAttribute("data-section");
+      if (!section) return;
+
+      // Reset uniquement quand la navigation vient du menu
+      resetSectionState(section);
+
       activerSection(section);
-      setMainButtonActive(section); 
+      setMainButtonActive(section);
+
       if (sideMenu) sideMenu.classList.remove("is-visible");
       if (headerMenuButton) headerMenuButton.setAttribute("aria-expanded", "false");
     });
   });
 
+  // Gestion des éventuels groupes (submenus) — conservé pour compatibilité
   const parents = $all(".menu-parent");
   parents.forEach((parentBtn) => {
     const controlsId = parentBtn.getAttribute("aria-controls");
     const submenu = controlsId ? document.getElementById(controlsId) : null;
+
     parentBtn.addEventListener("click", () => {
       if (!submenu) return;
       const isCurrentlyOpen = submenu.classList.contains("is-open");
+
       parents.forEach((otherBtn) => {
         const otherId = otherBtn.getAttribute("aria-controls");
         const otherSub = otherId ? document.getElementById(otherId) : null;
@@ -152,6 +204,7 @@ function initMenu() {
           otherBtn.setAttribute("aria-expanded", "false");
         }
       });
+
       if (!isCurrentlyOpen) {
         submenu.classList.add("is-open");
         parentBtn.setAttribute("aria-expanded", "true");
@@ -159,46 +212,55 @@ function initMenu() {
     });
   });
 
+  // Liens de sous-menu (si présents)
   const submenuLinks = $all(".submenu-link[data-section]");
   submenuLinks.forEach((btn) => {
     btn.addEventListener("click", () => {
       const section = btn.getAttribute("data-section");
-      const videoFilter = btn.getAttribute("data-video-filter");
-      if (section) activerSection(section);
-      setMainButtonActive(section); 
+      if (!section) return;
+
+      resetSectionState(section);
+
+      activerSection(section);
+      setMainButtonActive(section);
+
       if (sideMenu) sideMenu.classList.remove("is-visible");
       if (headerMenuButton) headerMenuButton.setAttribute("aria-expanded", "false");
     });
   });
 
+  // Déclencheurs génériques dans le contenu (boutons avec data-section)
   const genericSectionTriggers = $all("[data-section]:not(.menu-item):not(.submenu-link)");
   genericSectionTriggers.forEach((el) => {
     el.addEventListener("click", () => {
       const section = el.getAttribute("data-section");
       if (!section) return;
+
       if (section !== "techniques") {
-          const wrapper = $("#mon-conteneur-wrapper");
-          if (wrapper) wrapper.classList.remove("is-visible");
+        const wrapper = $("#mon-conteneur-wrapper");
+        if (wrapper) wrapper.classList.remove("is-visible");
       }
+
+      // Ici : pas de resetSectionState => on conserve l'état interne
       activerSection(section);
       setMainButtonActive(section);
     });
   });
 }
 
+/* TECHNIQUES : ouverture diaporama depuis une ligne/tuile */
 function initTechniques() {
   const wrapper = $("#mon-conteneur-wrapper");
 
-  // 1) On détache tous les anciens listeners avant de les recréer
+  // 1) On détache tous les anciens listeners
   const oldLinks = $all("[data-technique]");
   oldLinks.forEach((link) => {
     const clone = link.cloneNode(true);
     link.parentNode.replaceChild(clone, link);
   });
 
-  // 2) On récupère de nouveau TOUS les éléments [data-technique] (y compris les tuiles générées dynamiquement)
+  // 2) On récupère de nouveau TOUS les éléments [data-technique]
   const techniqueLinks = $all("[data-technique]");
-
   techniqueLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
       event.preventDefault();
@@ -222,8 +284,11 @@ function initTechniques() {
   });
 }
 
-function initTechniquesAccordion() {} // Vide
+function initTechniquesAccordion() {
+  // Pour évolution future si besoin
+}
 
+/* VIDÉOS : catégories + filtre */
 function initVideos() {
   if (window.renderVideosCategories) {
     window.renderVideosCategories();
@@ -233,21 +298,20 @@ function initVideos() {
   if (grid) grid.innerHTML = "";
 
   const tiles = $all("#section-videos .video-card-tile");
-
   tiles.forEach((tile) => {
     tile.addEventListener("click", () => {
       const filter = tile.getAttribute("data-video-filter") || "";
 
-      // 1. Met à jour l'état visuel des tuiles
+      // état visuel des tuiles
       tiles.forEach((t) => t.classList.remove("is-active"));
       tile.classList.add("is-active");
 
-      // 2. Construit la grille la première fois
+      // construction de la grille si besoin
       if (grid && grid.children.length === 0 && typeof window.construireVideos === "function") {
         window.construireVideos();
       }
 
-      // 3. Filtre les vidéos
+      // filtre
       if (typeof window.filtrerVideos === "function") {
         window.filtrerVideos(filter);
       }
@@ -255,10 +319,7 @@ function initVideos() {
   });
 }
 
-
-
-
-
+/* LEXIQUE */
 function construireLexique(liste) {
   const container = document.getElementById("lexiqueListe");
   if (!container) return;
@@ -271,18 +332,17 @@ function construireLexique(liste) {
     return;
   }
 
-  // On délègue au nouveau rendu en lignes métalliques
   if (typeof window.renderLexiqueList === "function") {
     window.renderLexiqueList(container, liste);
   }
 }
 
-
-
 function initLexique() {
   const searchInput = $("#lexiqueSearch");
 
-  if (Array.isArray(window.LEXIQUE)) construireLexique(window.LEXIQUE);
+  if (Array.isArray(window.LEXIQUE)) {
+    construireLexique(window.LEXIQUE);
+  }
 
   if (searchInput) {
     searchInput.addEventListener("input", () => {
@@ -300,7 +360,26 @@ function initLexique() {
   }
 }
 
+  // Clic sur le logo ou le titre => retour à l'accueil
+  const logoShotokan = document.querySelector(".logo-shotokan");
+  const titleBlock   = document.querySelector(".title-block");
 
+  [logoShotokan, titleBlock].forEach((el) => {
+    if (!el) return;
+    el.style.cursor = "pointer";
+    el.addEventListener("click", () => {
+      activerSection("accueil");
+      // mettre le bouton Accueil en actif dans le menu
+      const accueilBtn = Array.from(document.querySelectorAll(".menu-item"))
+        .find((b) => b.getAttribute("data-section") === "accueil");
+      document.querySelectorAll(".menu-item").forEach((b) =>
+        b.classList.remove("is-active")
+      );
+      if (accueilBtn) accueilBtn.classList.add("is-active");
+    });
+  });
+
+/* PERSONNALISATION (optionnel) */
 function initPersonnalisation() {
   const colorInputs = $all("[data-css-var]");
   colorInputs.forEach((input) => {
@@ -312,71 +391,37 @@ function initPersonnalisation() {
   });
 }
 
-const Captcha = { a: 0, b: 0, solution: 0 };
-function genererCaptcha() {
-  Captcha.a = Math.floor(Math.random() * 5) + 2;
-  Captcha.b = Math.floor(Math.random() * 5) + 3;
-  Captcha.solution = Captcha.a + Captcha.b;
-  const label = $("#captchaQuestion");
-  if (label) label.textContent = `Question de vérification * (combien font ${Captcha.a} + ${Captcha.b} ?)`;
-  const input = $("#contactCaptcha");
-  if (input) input.value = "";
-}
 
-function afficherErreur(champId, message) {
-  const span = document.querySelector(`.form-error[data-for="${champId}"]`);
-  if (span) span.textContent = message || "";
-}
-
-function initContactForm() {
-  const form = $("#contactForm");
-  if (!form) return;
-  genererCaptcha();
-  form.addEventListener("submit", (event) => {
-    event.preventDefault();
-    const email = $("#contactEmail");
-    const message = $("#contactMessage");
-    const captchaInput = $("#contactCaptcha");
-    const feedback = $("#contactFeedback");
-    let ok = true;
-    afficherErreur("contactEmail", "");
-    afficherErreur("contactMessage", "");
-    afficherErreur("contactCaptcha", "");
-    if (feedback) { feedback.textContent = ""; feedback.style.color = ""; }
-    if (!email || !email.value.trim()) { ok = false; afficherErreur("contactEmail", "Veuillez renseigner une adresse e-mail."); } 
-    else if (!email.checkValidity()) { ok = false; afficherErreur("contactEmail", "Le format de l’adresse e-mail semble incorrect."); }
-    if (!message || !message.value.trim()) { ok = false; afficherErreur("contactMessage", "Veuillez saisir un message."); }
-    if (!captchaInput || !captchaInput.value.trim()) { ok = false; afficherErreur("contactCaptcha", "Veuillez répondre à la question de vérification."); } 
-    else {
-      const val = parseInt(captchaInput.value, 10);
-      if (val !== Captcha.solution) { ok = false; afficherErreur("contactCaptcha", "La réponse est incorrecte. Essayez encore."); genererCaptcha(); }
-    }
-    if (!ok) {
-      if (feedback) { feedback.textContent = "Le formulaire contient des erreurs. Merci de corriger les champs indiqués."; feedback.style.color = "#ff8080"; }
-      return;
-    }
-    if (feedback) { feedback.textContent = "Envoi du message en cours…"; feedback.style.color = "#cccccc"; }
-    form.submit();
-  });
-}
-
-function initFooterYear() {
-  const spanYear = $("#footerYear");
-  if (spanYear) spanYear.textContent = String(new Date().getFullYear());
-}
-
+/* LANCEMENT GLOBAL */
 document.addEventListener("DOMContentLoaded", () => {
   const contentRoot = $("main.main-content");
   if (window.renderTechniquesSections && contentRoot) {
-      window.renderTechniquesSections(contentRoot);
+    window.renderTechniquesSections(contentRoot);
   }
+
+  if (typeof window.renderAccueilSection === "function") {
+    window.renderAccueilSection();
+  }
+
   construireMenu();
   initMenu();
   initTechniques();
   initTechniquesAccordion();
   initVideos();
   initLexique();
-  initPersonnalisation();
-  initContactForm();
+
+  if (typeof window.renderHistoryTiles === "function") {
+    window.renderHistoryTiles();
+  }
+  if (typeof window.renderLiensUtiles === "function") {
+    window.renderLiensUtiles();
+  }
+  if (typeof window.renderContactForm === "function") {
+    window.renderContactForm();
+  }
+
   initFooterYear();
+  activerSection("accueil");
 });
+
+

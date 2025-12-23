@@ -1,3 +1,4 @@
+// scripts/page-techniques.js
 // --- CONFIG AFFICHAGE TECHNIQUES ---
 
 // TUILES : Icônes par famille de techniques

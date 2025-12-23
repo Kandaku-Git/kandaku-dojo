@@ -1,3 +1,4 @@
+// scripts/page-lexique.js
 window.LEXIQUE = [
   {"term": "Age", "def": "Lever, monter, élever"},
   {"term": "Age Tsuki", "def": "Coup de poing court et remontant" },

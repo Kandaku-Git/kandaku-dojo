@@ -1,4 +1,8 @@
-/* Import de la police spécifique au diaporama */
+/* scripts/styles.css */
+/* =========================================================
+   IMPORTS & VARIABLES GLOBALES
+   ========================================================= */
+
 @import url("https://fonts.googleapis.com/css2?family=Lobster&display=swap");
 
 :root {
@@ -28,9 +32,15 @@
   --menu-width: 260px;
 }
 
-/* RESET SIMPLE */
+
+/* =========================================================
+   RESET DE BASE & BODY
+   ========================================================= */
+
 *, *::before, *::after { box-sizing: border-box; }
+
 html, body { margin: 0; padding: 0; height: 100%; }
+
 body {
   font-family: "Montserrat", system-ui, -apple-system, sans-serif;
   background: radial-gradient(circle at top left, #050509 0, #050509 45%, #050509 100%);
@@ -39,40 +49,59 @@ body {
 }
 
 
+/* =========================================================
+   HEADER PRINCIPAL
+   ========================================================= */
 
-/* --- HEADER (Version PC : Espaces normaux) --- */
 .site-header {
-  position: fixed; top: 0; left: 0; right: 0; 
+  position: fixed;
+  top: 0; left: 0; right: 0;
   height: var(--header-height);
   background: linear-gradient(120deg, var(--color-header-bg), #181822 60%, #121217 100%);
   border-bottom: 1px solid var(--color-header-border);
-  display: flex; align-items: center; padding: 0 1.5rem; z-index: 1000;
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  z-index: 1000;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
 }
 
-.logo-title { display: flex; align-items: center; gap: 1rem; }
+/* Logo + titre */
+.logo-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
+/* Logo circulaire Shotokan */
 .logo-shotokan {
-  width: 48px; height: 48px; border-radius: 999px;
+  width: 48px;
+  height: 48px;
+  border-radius: 999px;
   background: radial-gradient(circle at 30% 20%, #ff5b6c, var(--color-accent) 55%, #5a050f 100%);
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.07);
 }
+
 .logo-shotokan svg { width: 36px; height: 36px; }
 .logo-circle { fill: none; stroke: rgba(0, 0, 0, 0.7); stroke-width: 4; }
 .logo-tiger { fill: rgba(0, 0, 0, 0.75); }
 .logo-kanji { fill: rgba(255, 255, 255, 0.9); opacity: 0.9; }
 
+/* Titre principal */
 .title-block h1 {
   font-family: "Oswald", sans-serif;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin: 0; 
+  margin: 0;
   font-size: 1.8rem;
   line-height: 1.2;
 }
 
+/* Sous-titre */
 .title-block .subtitle {
   margin: 0;
   color: var(--color-muted);
@@ -80,83 +109,364 @@ body {
   line-height: 1.4;
 }
 
+/* Bouton MENU */
 .header-menu-button {
-  margin-left: auto; padding: 0.35rem 0.9rem; border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.35); background: transparent; color: #ffffff;
-  font-size: 0.85rem; letter-spacing: 0.12em; text-transform: uppercase; cursor: pointer;
-  transition: all 0.2s ease;
+  margin-left: auto;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+  background: linear-gradient(120deg, var(--color-accent), #ff5466);
+  color: #ffffff;
+  font-size: 0.85rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: transform 0.15s ease-out;
 }
-.header-menu-button:hover { background: var(--color-accent); border-color: rgba(0,0,0,0.6); }
 
-/* --- LAYOUT & MENU LATÉRAL --- */
-.app-layout { display: block; height: 100vh; padding-top: var(--header-height); }
+/* Au survol, juste un léger effet, pas de changement de couleur */
+.header-menu-button:hover {
+  transform: translateY(-1px);
+}
 
+.form-group {
+  margin-bottom: 1.2rem;
+}
+
+/* Un peu plus d'air avant les cases */
+.human-check-group {
+  margin-top: 1.2rem;
+}
+
+/* Espacement spécifique entre les deux cases */
+.human-check-group + .human-check-group {
+  margin-top: 3rem; /* espace supplémentaire avant "Je suis un humain" */
+}
+
+
+/* Container général */
+.human-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: var(--radius-md);
+  background: #111118;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* On cache les checkboxes natives */
+#humanCheck,
+#newsletterOptIn {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Label cliquable */
+.human-check label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+/* Faux carré de validation */
+.human-check-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+/* Texte "Je suis un humain" */
+.human-check-label {
+  color: var(--color-text);
+  font-size: 0.9rem;
+}
+
+/* État coché : carré rempli + petite coche */
+#humanCheck:checked + label .human-check-box {
+  background: linear-gradient(120deg, var(--color-accent), #ff5466);
+  border-color: var(--color-accent);
+}
+
+#humanCheck:checked + label .human-check-box::after {
+  content: "✓";
+  font-size: 0.9rem;
+  color: #fff;
+}
+/* État coché pour "Recevoir les actualités du KDojo" */
+#newsletterOptIn:checked + label .human-check-box {
+  background: linear-gradient(120deg, var(--color-accent), #ff5466);
+  border-color: var(--color-accent);
+}
+
+#newsletterOptIn:checked + label .human-check-box::after {
+  content: "✓";
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+/* Erreur sous la case */
+.form-error[data-for="humanCheck"] {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  color: #ff8080;
+}
+
+/* Messages d'erreur des formulaires */
+.form-error {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  color: #ff4d4d; /* rouge bien visible */
+}
+
+
+/* =========================================================
+   LAYOUT GLOBAL & MENU LATÉRAL
+   ========================================================= */
+
+.app-layout {
+  display: block;
+  height: 100vh;
+  padding-top: var(--header-height);
+}
+
+/* Menu latéral (slide-in) */
 .side-menu {
   background: radial-gradient(circle at top, #1b1b28, var(--color-menu-bg));
   border-left: 1px solid var(--color-menu-border);
-  position: fixed; top: var(--header-height); right: 0; width: min(280px, 90vw);
-  max-height: calc(100vh - var(--header-height)); overflow-y: auto;
-  opacity: 0; transform: translateY(-10px); transition: all 0.25s ease-out; z-index: 900;
+  position: fixed;
+  top: var(--header-height);
+  right: 0;
+  width: min(280px, 90vw);
+  max-height: calc(100vh - var(--header-height));
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.25s ease-out;
+  z-index: 900;
   box-shadow: -10px 10px 30px rgba(0,0,0,0.6);
-  pointer-events: none; 
+  pointer-events: none;
 }
 
-.side-menu.is-visible { opacity: 1; transform: translateY(0); padding: 1rem 0.5rem; pointer-events: auto; }
+.side-menu.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  padding: 1rem 0.5rem;
+  pointer-events: auto;
+}
 
+/* Clics désactivés quand le menu est fermé */
 .side-menu:not(.is-visible) .menu-root {
   pointer-events: none;
 }
 
+/* Clics réactivés quand le menu est ouvert */
 .side-menu.is-visible .menu-root {
   pointer-events: auto;
 }
 
-.menu-root { list-style: none; margin: 0; padding: 0.4rem 0; }
-.menu-root > li { margin-bottom: 0.35rem; }
-
-.menu-item, .submenu-link {
-  width: 100%; text-align: left; background: transparent; border: none; color: var(--color-text);
-  padding: 0.55rem 0.85rem; border-radius: var(--radius-md); cursor: pointer;
-  font-size: 0.9rem; display: flex; align-items: center; justify-content: space-between;
+/* Liste racine du menu */
+.menu-root {
+  list-style: none;
+  margin: 0;
+  padding: 0.4rem 0;
 }
-.menu-item:hover, .submenu-link:hover { background: var(--color-accent-soft); color: #fff; }
-.menu-item.is-active { background: linear-gradient(120deg, var(--color-accent), #ff5466); color: #fff; }
 
-.submenu { list-style: none; padding: 0.25rem 0.25rem 0.35rem 1.5rem; border-left: 1px solid rgba(255,255,255,0.05); max-height: 0; overflow: hidden; transition: 0.25s; opacity: 0; }
-.submenu.is-open { max-height: 800px; opacity: 1; transform: translateY(0); }
+.menu-root > li {
+  margin-bottom: 0.35rem;
+}
 
-/* --- CONTENU --- */
-.main-content { padding: 1.25rem 1.75rem; position: relative; overflow-y: auto; max-height: calc(100vh - var(--header-height)); }
-.content-section { display: none; opacity: 0; transform: translateY(10px); transition: 0.25s; }
-.content-section.is-active { display: block; opacity: 1; transform: translateY(0); }
-.content-section h2 { font-family: "Oswald"; font-size: 1.4rem; text-transform: uppercase; margin: 0 0 0.75rem 0; }
-.content-section p { color: var(--color-muted); line-height: 1.6; }
+/* Entrées de menu (niveau 1 + sous-menus) */
+.menu-item,
+.submenu-link {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  color: var(--color-text);
+  padding: 0.55rem 0.85rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 
-/* BOUTONS D'ACTION */
-.btn-accent, .btn-link {
-  display: inline-flex; align-items: center; justify-content: center;
-  padding: 0.55rem 1.1rem; border-radius: 999px; border: none;
-  background: linear-gradient(120deg, var(--color-accent), #ff5466); color: #fff;
-  font-weight: 600; text-decoration: none; cursor: pointer;
+.menu-item:hover,
+.submenu-link:hover {
+  background: var(--color-accent-soft);
+  color: #fff;
+}
+
+/* Élément de menu actif */
+.menu-item.is-active {
+  background: linear-gradient(120deg, var(--color-accent), #ff5466);
+  color: #fff;
+}
+
+/* Sous-menu repliable */
+.submenu {
+  list-style: none;
+  padding: 0.25rem 0.25rem 0.35rem 1.5rem;
+  border-left: 1px solid rgba(255,255,255,0.05);
+  max-height: 0;
+  overflow: hidden;
+  transition: 0.25s;
+  opacity: 0;
+}
+
+.submenu.is-open {
+  max-height: 800px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =========================================================
+   CONTENU PRINCIPAL
+   ========================================================= */
+
+.main-content {
+  padding: 1.25rem 1.75rem;
+  position: relative;
+  overflow-y: auto;
+  max-height: calc(100vh - var(--header-height));
+}
+
+/* Sections de contenu (accueil, techniques, vidéos, etc.) */
+.content-section {
+  display: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.25s;
+}
+
+.content-section.is-active {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.content-section h2 {
+  font-family: "Oswald";
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  margin: 0 0 0.75rem 0;
+}
+
+.content-section p {
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   BOUTONS D’ACTION
+   ========================================================= */
+
+.btn-accent,
+.btn-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.1rem;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(120deg, var(--color-accent), #ff5466);
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
   transition: transform 0.15s, box-shadow 0.15s;
 }
-.btn-accent:hover { transform: translateY(-1px); background: var(--color-link-hover); }
 
-/* --- GRILLE TECHNIQUES & CARTES --- */
-.section-header { padding-bottom: 1.5rem; padding-top: 0.5rem; }
-.section-title { font-size: 2.2rem; margin-bottom: 0.5rem; }
-.section-subtitle { font-size: 1rem; color: var(--color-muted); }
-
-.techniques-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem; }
-.technique-card {
-  display: flex; flex-direction: column; align-items: center; text-align: center;
-  background: var(--color-surface); border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-lg); padding: 1.5rem 1rem; cursor: pointer; transition: 0.15s;
+.btn-accent:hover {
+  transform: translateY(-1px);
+  background: var(--color-link-hover);
 }
-.technique-card:hover { transform: translateY(-3px); background: #252535; }
-.technique-card .card-icon { width: 80px; height: 80px; color: var(--color-accent); margin-bottom: 0.75rem; }
-.technique-card .card-title { font-size: 1rem; font-weight: 700; color: #fff; margin: 0; }
-.technique-card .card-description { font-size: 0.85rem; color: var(--color-muted); margin-top: 0.25rem; }
+
+
+/* =========================================================
+   GRILLE TECHNIQUES & CARTES
+   ========================================================= */
+
+.section-header {
+  padding-bottom: 1.5rem;
+  padding-top: 0.5rem;
+}
+
+.section-title {
+  font-size: 2.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--color-muted);
+}
+
+/* Grille des cartes techniques (PC/tablette) */
+.techniques-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* Carte technique générique */
+.technique-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1rem;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.technique-card:hover {
+  transform: translateY(-3px);
+  background: #252535;
+}
+
+/* Icône dans une carte technique */
+.technique-card .card-icon {
+  width: 80px;
+  height: 80px;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+/* Titre de carte technique */
+.technique-card .card-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+/* Description courte de carte technique */
+.technique-card .card-description {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  margin-top: 0.25rem;
+}
+
+/* Image dans une icône de carte */
 .card-icon-image {
   width: 100%;
   height: 100%;
@@ -164,7 +474,12 @@ body {
   display: block;
 }
 
-/* Grille des catégories de techniques (même logique que .video-tiles) */
+
+/* =========================================================
+   CATÉGORIES TECHNIQUES (tuiles)
+   ========================================================= */
+
+/* Grille de tuiles de catégories techniques */
 .techniques-categories-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -172,86 +487,75 @@ body {
   margin: 1rem 0 1.5rem;
 }
 
-
-/* Tuiles catégories techniques actives / inactives */
+/* Tuile de catégorie active */
 .technique-card.tech-category-tile.is-active {
   background: #252535;
 }
 
+/* Tuile de catégorie inactive */
 .technique-card.tech-category-tile:not(.is-active) {
   background: #181820;
 }
 
+/* Liste de lignes techniques (utilise renderMetalLinesList) */
 .line-list.techniques-list-lines {
   width: 100%;
 }
 
-/* Tuile de catégorie (déjà utilisée) : on affine un peu pour la grille */
+/* Tuiles de catégories techniques = pleine colonne */
 .technique-card.tech-category-tile {
   width: 100%;
 }
 
-/* Mobile : grille 2–3 tuiles par ligne pour les catégories techniques */
+/* Grille des catégories techniques sur mobile (1 à 3 colonnes) */
 @media (max-width: 768px) {
   .techniques-categories-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* 1 à 3 tuiles selon la largeur */
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 0.75rem;
     margin-top: 1rem;
   }
-
-  .technique-card.tech-category-tile {
-    width: 100%; /* occupe toute sa colonne, pas tout l'écran */
-  }
 }
 
-/* Tuile de catégorie : pleine largeur de sa colonne, pas de l'écran */
-.technique-card.tech-category-tile {
+
+/* =========================================================
+   CATÉGORIES VIDÉOS (tuiles)
+   ========================================================= */
+
+/* Grille de catégories vidéos (Kata / Kumite / Karaté Contact) */
+.video-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 1.5rem;
   width: 100%;
 }
 
 
-/* PC : les tuiles occupent toute la largeur de l'écran */
-@media (min-width: 1024px) {
-  .tech-categories-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 0.9rem;
-    width: 100%;          /* prend toute la largeur disponible */
-  }
-
-  .technique-card.tech-category-tile {
-    width: 100%;          /* la tuile remplit sa colonne */
-  }
+/* Tuiles de catégories vidéos */
+.video-card-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1rem;
+  cursor: pointer;
+  transition: 0.15s;
 }
 
-
-
-
-/* --- Tuiles catégories vidéos --- */
-
-/* Grille des catégories vidéos : 2–3 colonnes sur mobile */
-.video-tiles {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* 2–3 tuiles selon la largeur */
-  gap: 0.75rem;
-  margin: 1rem 0 1.5rem;
-}
-/* Mobile : 2–3 tuiles vidéo par ligne */
-@media (max-width: 768px) {
-  .video-tiles {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* 1 à 3 tuiles */
-    gap: 0.75rem;
-    margin: 1rem 0 1.5rem;
-  }
-
-  .video-card-tile {
-    width: 100%; /* la tuile remplit sa colonne, pas tout l'écran */
-  }
+/* Tuile vidéo active */
+.video-card-tile.is-active {
+  background: #252535;
 }
 
+/* Tuile vidéo inactive */
+.video-card-tile:not(.is-active) {
+  background: #181820;
+}
 
+/* Styles hérités d’une ancienne carte vidéo simple (conservés si réutilisés) */
 .video-tile {
   background: var(--color-surface);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -273,6 +577,7 @@ body {
   color: #fff;
 }
 
+/* Frame vidéo intégrée (YouTube) */
 .video-card iframe {
   width: 100%;
   aspect-ratio: 16 / 9;
@@ -281,10 +586,11 @@ body {
   border-radius: var(--radius-md);
 }
 
+/* Wrapper ratio 16:9 */
 .video-frame {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 16:9 */
+  padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
 }
@@ -299,207 +605,312 @@ body {
 }
 
 
-.video-card-tile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  background: var(--color-surface);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: var(--radius-lg);
-  padding: 1.5rem 1rem;
-  cursor: pointer;
-  transition: 0.15s;
-}
-.video-card-tile.is-active {
-  background: #252535; /* fond un peu plus clair/rouge si tu veux */
+/* =========================================================
+   LISTE DES TECHNIQUES (dans une catégorie)
+   ========================================================= */
+
+.techniques-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
-.video-card-tile:not(.is-active) {
-  background: #181820; /* gris foncé pour les non sélectionnées */
-}
-
-.techniques-list { list-style: none; padding: 0; margin: 0; }
+/* Ligne clicable : nom d’une technique */
 .tech-list-item {
-  width: 100%; text-align: left; background: none; border: none; color: var(--color-text);
-  font-size: 1.1rem; padding: 0.8rem 0; cursor: pointer; border-bottom: 1px solid rgba(255,255,255,0.05);
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-size: 1.1rem;
+  padding: 0.8rem 0;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
-.tech-list-item:hover { color: var(--color-accent); transform: translateX(3px); }
-.back-button { color: var(--color-accent); border: none; background: none; cursor: pointer; font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
 
-/* Forcer un retour à la ligne dans la grille des techniques */
+.tech-list-item:hover {
+  color: var(--color-accent);
+  transform: translateX(3px);
+}
+
+/* Bouton retour */
+.back-button {
+  color: var(--color-accent);
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Séparateur vertical entre groupes de techniques */
 .tech-line-break {
-  grid-column: 1 / -1; /* occupe toute la ligne */
+  grid-column: 1 / -1;
   height: 0.75rem;
   padding: 0;
   margin: 0;
 }
 
 
+/* =========================================================
+   DIAPORAMA (overlay techniques)
+   ========================================================= */
 
-/* --- DIAPORAMA (PC & GLOBAL) --- */
 #section-techniques {
-  display: flex; justify-content: center; align-items: center;
-  position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 10000;
-  opacity: 0; pointer-events: none; transition: opacity 0.05s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 10000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.05s ease;
 }
-#section-techniques.is-active { opacity: 1; pointer-events: auto; }
 
-/* 1. Cadre Principal */
+#section-techniques.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Cadre principal du diaporama */
 #mon-conteneur-wrapper {
   position: relative;
   width: 80vw;
   height: 85vh;
-  max-width: 1200px; max-height: 900px;
-  background: #ffffff; /* FOND BLANC */
+  max-width: 1200px;
+  max-height: 900px;
+  background: #ffffff;
   box-shadow: 0 0 50px rgba(0,0,0,0.9);
-  border-left: 4px solid #1a1a1a; 
+  border-left: 4px solid #1a1a1a;
   border-right: 4px solid #1a1a1a;
   transition: all 0.3s ease;
 }
-#mon-conteneur-wrapper.is-visible { opacity: 1; transform: scale(1); }
 
-/* 2. Conteneur JS */
+#mon-conteneur-wrapper.is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Racine JS du diaporama */
 #mon-conteneur.diaporama-container {
-    width: 100%; height: 100%;
-    background-color: transparent !important;
-    display: block !important;
-    margin: 0; padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: transparent !important;
+  display: block !important;
+  margin: 0;
+  padding: 0;
 }
 
-/* 3. Racine générée par JS */
 #diaporama-root {
-    width: 100%; height: 100%;
-    display: flex; flex-direction: column; overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
-/* Éléments internes : TITRE MÉTAL SOMBRE */
+/* Titre principal */
 .diaporama-main-title {
-    font-family: 'Lobster', cursive; 
-    font-size: 2.5rem; 
-    color: #fff;
-    text-shadow: 1px 1px 2px #000;
-    text-align: center; 
-    background: linear-gradient(180deg, #666666 0%, #2a2a2a 50%, #000000 51%, #444444 100%);
-    border-bottom: 1px solid #000;
-    padding: 0.5rem 0; margin: 0;
-    flex-shrink: 0;
+  font-family: 'Lobster', cursive;
+  font-size: 2.5rem;
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+  text-align: center;
+  background: linear-gradient(180deg, #666666 0%, #2a2a2a 50%, #000000 51%, #444444 100%);
+  border-bottom: 1px solid #000;
+  padding: 0.5rem 0;
+  margin: 0;
+  flex-shrink: 0;
 }
-.diaporama-main-title.hidden { display: none; }
 
-/* Slider : Fond BLANC */
+.diaporama-main-title.hidden {
+  display: none;
+}
+
+/* Container des slides */
 .diaporama-slider-container {
-    position: relative; flex-grow: 1; width: 100%;
-    min-height: 0; 
-    background: #ffffff; 
-    overflow: hidden;
-}
-
-.diaporama-slide { position: absolute; inset: 0; opacity: 0; pointer-events: none; }
-.diaporama-slide.active { opacity: 1; pointer-events: auto; z-index: 10; }
-.diaporama-slide-bg {
-    position: absolute; inset: 0;
-    background-size: contain; background-position: center; background-repeat: no-repeat;
-}
-
-.diaporama-details { position: absolute; inset: 0; background: rgba(0,0,0,0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.4s; z-index: 50; color: white; pointer-events: none; }
-.diaporama-details-active .diaporama-details { opacity: 1; pointer-events: auto; }
-.diaporama-description-content { padding: 0 10%; font-size: 1.3rem; line-height: 1.6; max-height: 80vh; overflow-y: auto; }
-
-/* ZONE TITRES L1 / L2 */
-.diaporama-title-zone {
-    background: #ffffff; 
-    border-top: 1px solid #dddddd; 
-    padding: 0.5rem; text-align: center;
-    min-height: 80px; 
-    display: flex; flex-direction: column; justify-content: center;
-    flex-shrink: 0; 
-    position: relative;
-    z-index: 60; /* Au-dessus de l'overlay détail */
-}
-.diaporama-title-zone.hidden { display: none; }
-
-/* L1 et L2 */
-.diaporama-text-l1 { 
-    text-transform: none !important;
-    font-size: 1.4rem; font-weight: bold; 
-    color: blue !important; 
-    margin: 0; line-height: 1.2; 
-    cursor: pointer; /* MAIN */
-}
-.diaporama-text-l2 { 
-    font-size: 1.3rem; font-weight: bold; 
-    color: green !important; 
-    margin: 0; line-height: 1.2; 
-    cursor: pointer; /* MAIN */
-}
-/* VOCABULAIRE : MAIN */
-.diaporama-vocab { 
-    border-bottom: 2px dotted currentColor; 
-    cursor: pointer; /* Change 'help' en 'pointer' */
-}
-
-/* Contrôles : MÉTAL SOMBRE */
-.diaporama-controls {
-    background: linear-gradient(180deg, #666666 0%, #2a2a2a 50%, #000000 51%, #444444 100%);
-    border-top: 1px solid #000; 
-    padding: 5px 0;
-    z-index: 30; flex-shrink: 0;
-}
-.diaporama-controls-top { display: flex; justify-content: space-between; padding: 0 1rem; width: 100%; }
-.diaporama-btn-group { display: flex; gap: 1rem; align-items: center; }
-
-/* --- STYLES DES BOUTONS (ICÔNES) --- */
-
-/* 1. Style par défaut pour TOUS les boutons (Blanc + Main) */
-.diaporama-btn { 
-    background: none; border: none; 
-    color: #fff; 
-    cursor: pointer; /* MAIN */
-    padding: 8px; 
-    font-size: 1.4rem; 
-    font-weight: 700;
-    display: flex; align-items: center; justify-content: center;
-}
-/* Par défaut, SVG blanc (incluant flèches, etc.) sans ombre */
-.diaporama-btn svg { width: 32px; height: 32px; fill: #ffffff; }
-
-/* 2. BOUTON MAISON (ID UNIQUE) : Transparent avec contour blanc */
-/* MODIFICATION : Harmonisation avec l'Oeil et la Flèche */
-#diaporama-home svg {
-    fill: none !important;      /* Intérieur transparent */
-    stroke: #ffffff !important; /* Contour blanc */
-    stroke-width: 2px;
-    filter: none !important;    /* Suppression des ombres relief */
-}
-
-/* 3. BOUTON OEIL (ID UNIQUE) : Transparent avec contour blanc */
-#diaporama-eye svg {
-    fill: none !important;   
-    stroke: #ffffff !important;
-    stroke-width: 2px;
-}
-
-/* 4. BOUTON RETOUR/BACK (ID UNIQUE) : Transparent avec contour blanc */
-#diaporama-back svg {
-    fill: none !important;
-    stroke: #ffffff !important;
-    stroke-width: 2px;
-}
-
-/* 5. BOUTON INFO ("D") */
-#diaporama-info {
-    font-size: 1.8rem; /* Agrandit le "D" */
-}
-
-.diaporama-hidden { display: none !important; }
-
-/* Infobulle vocabulaire diaporama */
-.diaporama-vocab {
   position: relative;
+  flex-grow: 1;
+  width: 100%;
+  min-height: 0;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+/* Slide individuelle */
+.diaporama-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.diaporama-slide.active {
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 10;
+}
+
+/* Background visuel d’un slide */
+.diaporama-slide-bg {
+  position: absolute;
+  inset: 0;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Overlay de détails de slide */
+.diaporama-details {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: 0.4s;
+  z-index: 50;
+  color: white;
+  pointer-events: none;
+}
+
+.diaporama-details-active .diaporama-details {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* Texte détaillé dans l’overlay */
+.diaporama-description-content {
+  padding: 0 10%;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Zone L1/L2 (bas du diaporama) */
+.diaporama-title-zone {
+  background: #ffffff;
+  border-top: 1px solid #dddddd;
+  padding: 0.5rem;
+  text-align: center;
+  min-height: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 60;
+}
+
+.diaporama-title-zone.hidden {
+  display: none;
+}
+
+/* Titre L1 */
+.diaporama-text-l1 {
+  text-transform: none !important;
+  font-size: 1.4rem;
+  font-weight: bold;
+  color: blue !important;
+  margin: 0;
+  line-height: 1.2;
   cursor: pointer;
 }
 
+/* Titre L2 */
+.diaporama-text-l2 {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: green !important;
+  margin: 0;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+/* Mot de vocabulaire cliquable dans le diaporama */
+.diaporama-vocab {
+  border-bottom: 2px dotted currentColor;
+  cursor: pointer;
+}
+
+/* Barre de contrôles */
+.diaporama-controls {
+  background: linear-gradient(180deg, #666666 0%, #2a2a2a 50%, #000000 51%, #444444 100%);
+  border-top: 1px solid #000;
+  padding: 5px 0;
+  z-index: 30;
+  flex-shrink: 0;
+}
+
+.diaporama-controls-top {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  width: 100%;
+}
+
+.diaporama-btn-group {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Boutons d’icônes du diaporama */
+.diaporama-btn {
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 8px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diaporama-btn svg {
+  width: 32px;
+  height: 32px;
+  fill: #ffffff;
+}
+
+/* Home / Eye / Back : contour blanc, intérieur transparent */
+#diaporama-home svg,
+#diaporama-eye svg,
+#diaporama-back svg {
+  fill: none !important;
+  stroke: #ffffff !important;
+  stroke-width: 2px;
+}
+
+/* Bouton Info “D” */
+#diaporama-info {
+  font-size: 1.8rem;
+}
+
+/* Masquage utilitaire */
+.diaporama-hidden {
+  display: none !important;
+}
+
+
+/* =========================================================
+   INFOBULLES VOCABULAIRE (diaporama)
+   ========================================================= */
+
+.diaporama-vocab {
+  position: relative;
+}
+
+/* Contenu de l’infobulle */
 .diaporama-tooltip {
   position: absolute;
   z-index: 2000;
@@ -512,13 +923,13 @@ body {
   line-height: 1.4;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
   transform: translate(-50%, -100%);
-  /* on la place au-dessus par défaut */
   left: 50%;
   bottom: 100%;
   margin-bottom: 0.35rem;
   pointer-events: none;
 }
 
+/* Flèche de l’infobulle */
 .diaporama-tooltip::after {
   content: "";
   position: absolute;
@@ -530,15 +941,20 @@ body {
   border-color: rgba(15, 15, 24, 0.95) transparent transparent transparent;
 }
 
-/* Élément pleine largeur pour forcer un retour à la ligne */
+
+/* =========================================================
+   LEXIQUE
+   ========================================================= */
+
+/* Séparateur logique dans la liste du lexique */
 .lexique-line-break {
-  grid-column: 1 / -1; /* occupe toute la rangée */
+  grid-column: 1 / -1;
   height: 0;
   padding: 0;
   margin: 0;
 }
 
-/* Contenu caché dans la ligne du lexique */
+/* Ancienne structure de ligne lexique (déroulante) */
 .lexique-line {
   align-items: flex-start;
   flex-direction: column;
@@ -552,13 +968,11 @@ body {
   width: 100%;
 }
 
-/* Texte du terme */
 .lexique-term {
   position: relative;
   z-index: 1;
 }
 
-/* Petite flèche à droite (optionnel) */
 .lexique-toggle-icon {
   position: relative;
   z-index: 1;
@@ -566,7 +980,6 @@ body {
   opacity: 0.7;
 }
 
-/* Bloc définition replié/déplié */
 .lexique-def {
   width: 100%;
   font-size: 0.9rem;
@@ -577,18 +990,21 @@ body {
   transition: max-height 0.25s ease, opacity 0.25s ease;
 }
 
-/* État ouvert */
 .lexique-line.is-open .lexique-def {
-  max-height: 200px; /* adapté à la hauteur max de texte */
+  max-height: 200px;
   opacity: 1;
 }
 
-/* Conteneur du lexique : liste verticale, plus de grille */
+/* Conteneur général du lexique */
 .lexique-list {
   margin-top: 1rem;
 }
 
-/* Liste de lignes réutilisable */
+
+/* =========================================================
+   LISTE GÉNÉRIQUE DE LIGNES MÉTALLIQUES
+   ========================================================= */
+
 .line-list {
   display: flex;
   flex-direction: column;
@@ -596,7 +1012,7 @@ body {
   margin-top: 1rem;
 }
 
-/* Ligne métallique de base */
+/* Ligne métallique générique */
 .line-metal {
   width: 100%;
   text-align: left;
@@ -607,10 +1023,10 @@ body {
   color: var(--color-text);
   cursor: pointer;
 
-  display: flex;               /* déjà présent */
-  align-items: center;         /* au lieu de center+column, garde en ligne */
-  justify-content: flex-start; /* on aligne à gauche */
-  gap: 0.75rem;                /* « tabulation » entre terme et définition */
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 0.75rem;
 
   font-size: 0.95rem;
   letter-spacing: 0.03em;
@@ -619,8 +1035,7 @@ body {
   overflow: hidden;
 }
 
-
-/* Légère texture métallique avec un reflet interne */
+/* Texture métallique */
 .line-metal::before {
   content: "";
   position: absolute;
@@ -637,7 +1052,7 @@ body {
   pointer-events: none;
 }
 
-/* Effet métallique brillant au survol */
+/* Survol : effet brillant */
 .line-metal:hover {
   transform: translateY(-1px);
   box-shadow: 0 0 18px rgba(255, 255, 255, 0.25);
@@ -645,7 +1060,7 @@ body {
   background: linear-gradient(135deg, #55565b 0%, #1d1e24 45%, #707076 100%);
 }
 
-/* Reflet qui balaye la ligne au survol (brillance) */
+/* Reflet mobile au hover */
 .line-metal::after {
   content: "";
   position: absolute;
@@ -663,30 +1078,29 @@ body {
   transform: translateX(220%);
 }
 
-
-/* Ligne lexique : terme + définition sur une seule ligne */
+/* Variante de ligne pour le lexique */
 .line-metal.lexique-line {
   display: flex;
-  flex-direction: row;      /* important : pas de colonne implicite */
-  align-items: baseline;    /* aligne les textes sur la même ligne de base */
-  justify-content: flex-start;  /* ou flex-start selon ton goût */
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: flex-start;
   gap: 1rem;
 }
 
-
-/* Définition*/
+/* Texte de définition / sous-titre */
 .line-metal-def {
   color: var(--color-muted);
   font-style: italic;
   font-size: 0.9rem;
 }
 
+/* Variante de ligne pour les vidéos */
 .line-metal.video-line {
   display: flex;
   flex-direction: row;
   align-items: baseline;
   justify-content: flex-start;
-  gap: 1rem; /* même tabulation visuelle que le lexique */
+  gap: 1rem;
 }
 
 .video-line .line-metal-def {
@@ -696,122 +1110,361 @@ body {
 }
 
 
-/* --- AUTRES SECTIONS --- */
-.video-card, .lexique-item { background: var(--color-surface); padding: 0.7rem; border-radius: var(--radius-md); box-shadow: var(--shadow-soft); }
-.video-thumb { height: 130px; background: #333; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 0.5rem; }
-.form-group input, .form-group textarea { width: 100%; padding: 0.4rem; background: var(--color-surface); border: 1px solid rgba(255,255,255,0.1); color: #fff; border-radius: 4px; }
+/* =========================================================
+   AUTRES BLOCS (cartes simples, vignettes, formulaires)
+   ========================================================= */
 
-/* ============================================= */
-/* 📱 RÉGLAGES SPÉCIFIQUES SMARTPHONES (Mobile) */
-/* ============================================= */
+/* Anciennes cartes vidéo/lexique (si encore utilisées) */
+.video-card,
+.lexique-item {
+  background: var(--color-surface);
+  padding: 0.7rem;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+}
+
+/* Vignette vidéo simple */
+.video-thumb {
+  height: 130px;
+  background: #333;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 0.5rem;
+}
+
+/* Champs de formulaire (contact) */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 0.4rem;
+  background: var(--color-surface);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: #fff;
+  border-radius: 4px;
+}
+/* Grille de tuiles d'histoires (même esprit que techniques / vidéos) */
+.history-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0 1.5rem;
+}
+
+/* Tuile d'histoire (ici : on réutilise le style des cartes techniques) */
+.history-tile.card-history {
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem 1rem;
+  cursor: pointer;
+  transition: 0.15s;
+  text-align: center;
+}
+
+.history-tile.card-history:hover {
+  transform: translateY(-3px);
+  background: #252535;
+}
+
+/* Tuile active (histoire sélectionnée) */
+.history-tile.card-history.is-active {
+  background: #252535;
+}
+
+/* Carte de contenu de l'histoire (sous les tuiles) */
+.history-content-card {
+  background: var(--color-surface);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  padding: 1.2rem 1.4rem;
+  box-shadow: var(--shadow-soft);
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* Titre du contenu d'histoire (si tu en ajoutes un via JS) */
+.history-content-card h3 {
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   RÉGLAGES SPÉCIFIQUES MOBILE (≤ 768px)
+   ========================================================= */
 
 @media (max-width: 768px) {
-    :root {
-        --header-height: 55px;
-    }
+  :root {
+    --header-height: 55px;
+  }
 
-    .site-header {
-        padding: 0 10px;
-        height: var(--header-height);
-        min-height: auto;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-    }
+  /* Header plus compact */
+  .site-header {
+    padding: 0 10px;
+    height: var(--header-height);
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 
-    .logo-title {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        flex: 1;
-        overflow: hidden;
-    }
+  .logo-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    overflow: hidden;
+  }
 
-    .logo-shotokan { width: 34px; height: 34px; flex-shrink: 0; }
+  .logo-shotokan {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+  }
 
-    .title-block {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+  .title-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-    .title-block h1 {
-        font-size: 1.2rem;
-        line-height: 0.85;
-        margin: 0 0 -3px 0;
-        white-space: nowrap;
-        padding: 0;
-    }
+  .title-block h1 {
+    font-size: 1.2rem;
+    line-height: 0.85;
+    margin: 0 0 -3px 0;
+    white-space: nowrap;
+    padding: 0;
+  }
 
-    .title-block .subtitle {
-        font-size: 0.65rem;
-        margin: 10px 0 0 0;
-        padding: 0;
-        line-height: 1;
-        color: var(--color-muted);
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+  .title-block .subtitle {
+    font-size: 0.65rem;
+    margin: 10px 0 0 0;
+    padding: 0;
+    line-height: 1;
+    color: var(--color-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
-    .header-menu-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 30px;
-        padding: 0 12px;
-        margin-left: 10px;
-        font-size: 0.7rem;
-        line-height: 1;
-        border: 1px solid rgba(255, 255, 255, 0.4);
-        background: transparent;
-        border-radius: 20px;
-    }
+  .header-menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    padding: 0 12px;
+    margin-left: 10px;
+    font-size: 0.7rem;
+    line-height: 1;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: transparent;
+    border-radius: 20px;
+  }
 
-    /* Desktop / par défaut : pas de fond forcé, taille gérée par layout */
-    #mon-conteneur-wrapper {
-      width: 100%;
-      height: auto;
-      border: none;
-      border-radius: 0;
-      background: transparent; /* plus de blanc ici */
-    }
+  /* Conteneur du diaporama ajusté sur mobile */
+  #mon-conteneur-wrapper {
+    width: 100%;
+    height: auto;
+    border: none;
+    border-radius: 0;
+    background: transparent;
+  }
 
-    /* Optionnel : si tu veux le plein écran blanc UNIQUEMENT sur mobile */
-    @media (max-width: 768px) {
-      #mon-conteneur-wrapper {
-        width: 100% !important;
-        height: 100% !important;
-        background: #ffffff;
-      }
-    }
+  .diaporama-main-title {
+    font-size: 1.8rem !important;
+    padding: 0.3rem 0 !important;
+  }
+
+  .diaporama-title-zone {
+    min-height: 80px !important;
+    padding: 0.5rem !important;
+  }
+
+  /* Grille techniques → flex wrap sur mobile */
+  .techniques-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .technique-card {
+    flex-direction: row !important;
+    padding: 0.8rem !important;
+    min-height: 70px;
+  }
+
+  .technique-card .card-description {
+    display: none !important;
+  }
+
+  .main-content {
+    padding: 1rem !important;
+  }
+
+  .side-menu {
+    top: var(--header-height);
+    padding-top: 0;
+  }
+
+  /* Catégories vidéos (tuiles) ajustées sur mobile */
+  .video-tiles {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); /* 1 à 3 tuiles selon la largeur */
+    gap: 0.75rem;
+  }
+}
+
+/* =========================================================
+   ACCUEIL (image + texte)
+========================================================= */
+.accueil-layout {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* on commence à gauche */
+  gap: 2rem;
+  margin-top: 1.5rem;
+  width: 90%;          /* 90% utile */
+  margin-left: 0;      /* collé à gauche */
+  margin-right: auto;  /* laisse ~10% de marge à droite */
+}
+
+/* 50% image / 40% texte à l'intérieur des 90% utiles */
+.accueil-col-image {
+  flex: 0 0 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Image : responsives en largeur ET en hauteur */
+.accueil-image {
+  max-width: 90%;
+  max-height: 70vh; /* ne dépasse pas 70% de la hauteur visible */
+  height: auto;
+  width: auto;
+  display: block;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+.logo-shotokan .logo-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
 
 
-    .diaporama-main-title { 
-        font-size: 1.8rem !important; 
-        padding: 0.3rem 0 !important; 
-    }
+/* Texte à droite plus grand */
+.accueil-col-texte {
+  flex: 0 0 40%;
+  text-align: left;
+  font-size: 1.2rem;
+  line-height: 1.7;
+  font-weight: 600;
+}
 
-    .diaporama-title-zone { 
-        min-height: 80px !important; 
-        padding: 0.5rem !important; 
-    }
+/* Marges des paragraphes */
+.accueil-col-texte p {
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
 
-    .techniques-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-    
-    .technique-card { 
-        flex-direction: row !important; 
-        padding: 0.8rem !important; 
-        min-height: 70px; 
-    }
-    
-    .technique-card .card-description { display: none !important; }
-    
-    .main-content { padding: 1rem !important; }
-    
-    .side-menu { top: var(--header-height); padding-top: 0; }
+/* Lien contact */
+.accueil-contact-link {
+  font-size: 1.2rem;
+  line-height: 1.7;
+  font-weight: 600;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--color-accent);
+  font-weight: 600;
+}
+
+/* Logo dans la page Contact */
+.contact-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+/* Bas du formulaire de contact : deux colonnes */
+.contact-bottom {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-top: 1.5rem;
+}
+
+/* Colonne gauche : cases + bouton */
+.contact-bottom-left {
+  flex: 1 1 50%;
+}
+
+/* Colonne droite : logo centré */
+/* Colonne droite : logo parfaitement centré */
+.contact-bottom-right {
+  flex: 0 0 70%;
+  display: flex;
+  justify-content: center; /* centre horizontalement */
+  align-items: bottom;     /* centre verticalement */
+  min-height: 140px;       /* hauteur mini pour bien voir le centrage */
+}
+
+/* Logo responsive */
+.contact-logo {
+  width: 25vw;
+  max-width: 180px;
+  height: auto;
+  display: block;
+  opacity: 0.9;
+}
+
+/* Responsive : empiler sur mobile */
+@media (max-width: 768px) {
+  .contact-bottom {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .contact-bottom-right {
+    justify-content: center;
+  }
+
+  .contact-logo {
+    width: 40vw;
+    max-width: 160px;
+  }
+}
+
+
+/* Responsive mobile : tout passe en pleine largeur */
+@media (max-width: 768px) {
+  .accueil-layout {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .accueil-col-image,
+  .accueil-col-texte {
+    flex: 0 0 auto;
+    width: 100%;
+  }
+
+  .accueil-image {
+    max-width: 70vw;
+    max-height: 50vh;
+  }
+
+  .accueil-col-texte {
+    font-size: 1rem;
+  }
 }
