@@ -14,7 +14,7 @@
 window.COUNT = 26;
 
 // 3. Description (Optionnel)
-window.DESCRIPTION = `<b>Heian Sandan</b> est un kata du style <b>Shotokan</b>, servant de support à l'apprentissage progressif des déplacements, des positions et des techniques de base.<br><br>Son étude aide le pratiquant à structurer le travail du rythme, des changements de direction et de la coordination entre blocages et attaques, tout en développant stabilité et concentration.`;
+window.DESCRIPTION = `<b>Heian Sandan</b> (平安三段), traduit par « paix et tranquillité, troisième niveau », provient des katas Pinan d'Anko Itosu, conçus au début du XXe siècle à Okinawa pour rendre le karaté accessible aux élèves des écoles primaires.<br><br> Gichin Funakoshi, lors de son introduction du karaté au Japon dans les années 1920, les rebaptisa Heian et les intégra dans son enseignement, les considérant essentiels pour bâtir les fondations techniques des pratiquants débutants.<br><br> Ce kata de 20 mouvements marque une évolution avec l'introduction du <b>Morote Uke</b> et des <b>Kiba Dachi</b>, combinés à <b>Gedan Barai</b>, <b>Oi Zuki</b> et <b>Shuto Uke</b> en <b>Zenkutsu Dachi</b> et <b>Kokutsu Dachi</b>, pour perfectionner l'équilibre et la puissance.`;
 
 // 4. Arrière-plan (Optionnel)
 window.BACKGROUND = 1;
