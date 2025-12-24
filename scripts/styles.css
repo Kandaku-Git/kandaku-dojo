@@ -1332,6 +1332,10 @@ body {
     flex-wrap: wrap;
     gap: 1rem;
   }
+  /* Marge sous la jauge du diaporama (mobile) */
+  .diaporama-controls-bottom {
+    padding-bottom: 12px; /* espace sous la jauge */
+  }
 
   .technique-card {
     flex-direction: row !important;
