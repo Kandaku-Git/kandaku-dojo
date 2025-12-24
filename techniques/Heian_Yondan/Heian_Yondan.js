@@ -14,7 +14,7 @@
 window.COUNT = 37;
 
 // 3. Description (Optionnel)
-window.DESCRIPTION = `<b>Heian Yodan</b> est un kata du style <b>Shotokan</b>, servant de support à l'apprentissage progressif des déplacements, des positions et des techniques de base.<br><br>Son étude aide le pratiquant à structurer le travail du rythme, des changements de direction et de la coordination entre blocages et attaques, tout en développant stabilité et concentration.`;
+window.DESCRIPTION = `<b>Heian Yodan</b> (平安四段), traduit par « paix et tranquillité, quatrième niveau », appartient à la série Pinan développée par Anko Itosu à Okinawa au début du XXe siècle pour simplifier l'enseignement du karaté aux enfants des écoles primaires.<br><br> Gichin Funakoshi, en transplantant le karaté au Japon dans les années 1920, les transforma en Heian et les positionna comme piliers de la progression technique, soulignant leur rôle dans le développement harmonieux du pratiquant.<br><br> Avec 27 mouvements, ce kata introduit le <b>Kizami Zuki</b> et des <b>Shuto Uke</b> en duo, ainsi que des déplacements latéraux en <b>Zenkutsu Dachi</b> et <b>Kokutsu Dachi</b>, exigeant une précision accrue dans les transitions et la respiration synchronisée.`;
 
 // 4. Arrière-plan (Optionnel)
 window.BACKGROUND = 1;
