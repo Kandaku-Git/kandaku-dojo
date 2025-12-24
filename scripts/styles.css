@@ -1336,6 +1336,10 @@ body {
   .diaporama-controls-bottom {
     padding: 4px 1rem 14px; /* même padding que desktop + marge un peu plus grande en bas */
   }
+  /* Espace sous toute la barre de contrôle (mobile) */
+  .diaporama-controls {
+    margin-bottom: 10px;
+  }
 
   .technique-card {
     flex-direction: row !important;
