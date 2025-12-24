@@ -406,7 +406,6 @@ window.afficherTechnique = function (nomTechnique /*, categoryName */) {
   });
 };
 
-let isRestoringTechniqueAfterWake = false;
 
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'visible') {
