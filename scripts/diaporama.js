@@ -100,36 +100,16 @@ class Diaporama {
   this.cacheDOM();
   this.bindEvents();
 
-  // Surveiller les changements de visibilité (entrée/sortie de veille)
+// Recharge la page quand l’onglet revient au premier plan (ex: sortie de veille)
 document.addEventListener("visibilitychange", () => {
-  // Quand la page REVIENT au premier plan
   if (document.visibilityState === "visible") {
-    // 1) Stopper toute lecture en cours
-    this.stopAutoSlide();
-    this.state.isScrubbing = false;
-    this.state.isPlaying = false;
-    this.updatePlayPauseIcon();
-
-    // 2) Réafficher proprement la slide courante
-    if (this.dom && this.dom.slides && this.dom.slides.length) {
-      this.dom.slides.forEach((s, i) =>
-        s.classList.toggle("active", i === this.state.currentIndex)
-      );
-    }
-
-    // 3) Resynchroniser la jauge avec l’index
-    if (this.dom && this.dom.gaugeFill) {
-      const total = this.config.images.length || 1;
-      const percent = ((this.state.currentIndex + 1) / total) * 100;
-      this.dom.gaugeFill.style.width = `${percent}%`;
-    }
-
-    // 4) (optionnel) Si tu veux relancer l’auto-play dès le retour
-    // this.state.isPlaying = true;
-    // this.updatePlayPauseIcon();
-    // this.startAutoSlide();
+    // Petit délai pour laisser le navigateur se stabiliser
+    setTimeout(() => {
+      location.reload();
+    }, 150);
   }
 });
+
 
 
   // 5. Passer en plein écran si possible
