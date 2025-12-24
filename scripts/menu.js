@@ -1,6 +1,8 @@
 // scripts/menu.js
 // Logique et données de navigation pour Kandaku Dojo.
 
+
+
 window.MENU_ITEMS = [
   { type: "item", label: "Accueil",      buttonClass: "menu-item", dataSection: "accueil" },
   { type: "item", label: "Techniques",   buttonClass: "menu-item", dataSection: "techniques-categories" },
@@ -394,13 +396,16 @@ function initPersonnalisation() {
 
 /* LANCEMENT GLOBAL */
 document.addEventListener("DOMContentLoaded", () => {
-  const contentRoot = $("main.main-content");
-  if (window.renderTechniquesSections && contentRoot) {
-    window.renderTechniquesSections(contentRoot);
-  }
+  const contentRoot = document.querySelector("main.main-content");
 
+  // 1) Remplir la section Accueil si la fonction existe
   if (typeof window.renderAccueilSection === "function") {
     window.renderAccueilSection();
+  }
+
+  // 2) Rendre les autres sections
+  if (window.renderTechniquesSections) {
+    window.renderTechniquesSections(contentRoot);
   }
 
   construireMenu();
@@ -420,8 +425,10 @@ document.addEventListener("DOMContentLoaded", () => {
     window.renderContactForm();
   }
 
-  initFooterYear();
+  // 3) Afficher l'accueil
   activerSection("accueil");
 });
+
+
 
 
