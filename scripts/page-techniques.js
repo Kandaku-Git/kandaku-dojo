@@ -407,34 +407,39 @@ window.afficherTechnique = function (nomTechnique /*, categoryName */) {
 };
 
 
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible') {
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") {
     if (window.currentTechniqueName) {
-      const section = document.querySelector('.section-techniques');
-      const wrapper = document.getElementById('mon-conteneur-wrapper');
-      const container = document.getElementById('mon-conteneur');
+      const section = document.querySelector(".section-techniques");
+      const wrapper = document.getElementById("mon-conteneur-wrapper");
+      const container = document.getElementById("mon-conteneur");
 
-      if (section) section.classList.remove('is-active');
-      if (wrapper) wrapper.classList.remove('is-visible');
-      if (container) container.innerHTML = '';
+      if (section) section.classList.remove("is-active");
+      if (wrapper) wrapper.classList.remove("is-visible");
+      if (container) container.innerHTML = "";
 
-      if (window.diaporamaInstance && typeof window.diaporamaInstance.destroy === 'function') {
+      if (
+        window.diaporamaInstance &&
+        typeof window.diaporamaInstance.destroy === "function"
+      ) {
         window.diaporamaInstance.destroy();
         window.diaporamaInstance = null;
       }
 
-      // On ré-ouvre la technique comme si on recliquait
-      setTimeout(async () => {
+      setTimeout(() => {
         window.afficherTechnique(window.currentTechniqueName);
 
-        // Tentative de retour plein écran si l'instance est prête
-        if (window.diaporamaInstance && typeof window.diaporamaInstance.forceFullscreen === "function") {
-          try {
-            await window.diaporamaInstance.forceFullscreen();
-          } catch (e) {}
+        // 👉 Afficher un toast pour proposer le retour plein écran
+        if (
+          window.diaporamaInstance &&
+          typeof window.diaporamaInstance.showToast === "function"
+        ) {
+          window.diaporamaInstance.showToast(
+            "Touchez ici pour revenir en plein écran"
+          );
         }
       }, 150);
-
     }
   }
 });
+

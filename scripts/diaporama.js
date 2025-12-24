@@ -721,6 +721,26 @@ class Diaporama {
         if (this.state.isPlaying) this.startAutoSlide();
       }
     });
+
+    const toast = document.getElementById("diaporama-toast");
+    if (toast) {
+      toast.style.cursor = "pointer";
+      toast.onclick = async () => {
+        this.hideToast();
+        if (!document.fullscreenElement && this.dom && this.dom.root) {
+          try {
+            if (this.dom.root.requestFullscreen) {
+              await this.dom.root.requestFullscreen();
+            } else if (this.dom.root.webkitRequestFullscreen) {
+              this.dom.root.webkitRequestFullscreen();
+            }
+          } catch (e) {
+            // ignore
+          }
+        }
+      };
+    }
+
   }
 
   showSlide(index) {
