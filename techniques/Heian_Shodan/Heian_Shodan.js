@@ -14,9 +14,10 @@
 window.COUNT = 23;
 
 // 3. Description (Optionnel)
-window.DESCRIPTION = `<b>Heian Shodan</b> est le premier kata de base du <b>karaté Shotokan</b>, structuré pour initier le pratiquant au travail des déplacements, des blocages et des coups de poing fondamentaux.[web:22][web:25]
-Son nom est généralement traduit par « paix et tranquillité, premier niveau », exprimant l'idée d'un esprit calme et stable au début du parcours technique du karatéka.[web:21][web:22]
-Il met l'accent sur un enchaînement clair de 21 mouvements, avec des changements de direction simples, en utilisant principalement <b>Gedan Barai</b>, <b>Oi Zuki</b>, <b>Jodan Age Uke</b> et <b>Shuto Uke</b> en positions <b>Zenkutsu Dachi</b> et <b>Kokutsu Dachi</b> pour construire des bases solides.[web:22][web:27]`;
+window.DESCRIPTION = `<b>Heian Shodan</b> (平安初段), traduit par « paix et tranquillité, premier niveau », tire son origine des katas Pinan créés par le maître okinawais Anko Itosu au début du XXe siècle pour enseigner le karaté aux écoliers.<br><br>
+Funakoshi Gichin, en introduisant le karaté au Japon dans les années 1920, les renomma Heian pour mieux les adapter à la langue japonaise et les rendre accessibles.<br>
+À l'origine, Heian Nidan précéderait Heian Shodan dans la séquence, mais Funakoshi inversa leur ordre dans les années 1930, jugeant Shodan plus simple pour les débutants.<br>
+Ce kata de 21 mouvements met l'accent sur des enchaînements clairs avec <b>Gedan Barai</b>, <b>Oi Zuki</b>, <b>Jodan Age Uke</b> et <b>Shuto Uke</b>, en positions <b>Zenkutsu Dachi</b> et <b>Kokutsu Dachi</b>.`;
 
 // 4. Arrière-plan (Optionnel)
 window.BACKGROUND = 1;
