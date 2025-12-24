@@ -1334,7 +1334,7 @@ body {
   }
   /* Marge sous la jauge du diaporama (mobile) */
   .diaporama-controls-bottom {
-    padding-bottom: 12px; /* espace sous la jauge */
+    padding: 4px 1rem 14px; /* même padding que desktop + marge un peu plus grande en bas */
   }
 
   .technique-card {
