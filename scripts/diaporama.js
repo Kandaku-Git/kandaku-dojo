@@ -543,7 +543,7 @@ class Diaporama {
    bindEvents() {
     const b = this.dom.btns;
 
-  // Boutons principaux
+    // Boutons principaux
     b.next.onclick = () => this.manualNav(1);
     b.prev.onclick = () => this.manualNav(-1);
     b.play.onclick = () => this.togglePlay();
@@ -734,6 +734,23 @@ const handleScrubbing = (clientX, targetElement) => {
       if (this.state.isPlaying) this.startAutoSlide();
     }
   });
+
+
+  
+    // Surveiller l'entrée / sortie du plein écran (utile sur mobile après veille)
+  document.addEventListener("fullscreenchange", () => {
+    const isFs = document.fullscreenElement !== null;
+
+    // Si on vient de QUITTER le plein écran
+    if (!isFs) {
+      // Sécuriser l'état interne du diaporama
+      this.stopAutoSlide();          // coupe les timers
+      this.state.isScrubbing = false;
+      this.state.isPlaying = false;  // on force en pause
+      this.updatePlayPauseIcon();    // met à jour le bouton Play/Pause
+    }
+  });
+
 }
 
 
