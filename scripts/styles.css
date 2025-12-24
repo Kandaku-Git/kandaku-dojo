@@ -767,6 +767,7 @@ body {
   min-height: 0;
   background: #ffffff;
   overflow: hidden;
+  touch-action: pan-y;
 }
 
 /* Slide individuelle */
