@@ -14,7 +14,9 @@ window.EXTENSION = `.png`;
 window.COUNT = 34;
 
 // 3. Description (Optionnel)
-window.DESCRIPTION = `<b>Heian Godan</b> est un kata du style <b>Shotokan</b>, servant de support à l'apprentissage progressif des déplacements, des positions et des techniques de base.<br><br>Son étude aide le pratiquant à structurer le travail du rythme, des changements de direction et de la coordination entre blocages et attaques, tout en développant stabilité et concentration.`;
+window.DESCRIPTION = `<b>Heian Godan</b> (平安五段), traduit par « paix et tranquillité, cinquième niveau », clôt la série Pinan conçue par Anko Itosu à Okinawa au début du XXe siècle pour adapter le karaté à l'enseignement scolaire des enfants.<br><br>
+Gichin Funakoshi, en les introduisant au Japon dans les années 1920, les renomma Heian et les érigea en socle de la formation shotokan, les présentant comme un chemin progressif vers la maîtrise technique et mentale.<br><br>
+Ce kata de 23 mouvements se distingue par l'usage du <b>Shotei Uke</b>, des coups de pied <b>Mae Geri</b> et des rotations en <b>Kiba Dachi</b>, ainsi que <b>Zenkutsu Dachi</b> et <b>Kokutsu Dachi</b>, pour forger coordination avancée et explosivité contrôlée.`;
 
 // 4. Arrière-plan (Optionnel)
 window.BACKGROUND = 1;
