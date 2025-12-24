@@ -752,20 +752,36 @@ showSlide(index) {
 
   this.state.currentIndex = (index + max) % max;
 
-  this.dom.slides.forEach((s, i) =>
-    s.classList.toggle("active", i === this.state.currentIndex)
-  );
+  // Appliquer la classe active
+  this.dom.slides.forEach((s, i) => {
+    s.classList.toggle("active", i === this.state.currentIndex);
+  });
 
-  if (!this.state.isTitleVisible) {
-    this.toggleTitle();
+  // 🔧 PATCH MOBILE : forcer le browser à recharger le background
+  const activeSlide = this.dom.slides[this.state.currentIndex];
+  if (activeSlide) {
+    const bg = activeSlide.querySelector(".diaporama-slide-bg");
+    if (bg && this.config.images[this.state.currentIndex]) {
+      const url = this.config.images[this.state.currentIndex];
+      // Retire et remet le background pour casser le cache graphique
+      bg.style.backgroundImage = "none";
+      // Petit délai pour certains moteurs (Samsung / Chrome Android)
+      setTimeout(() => {
+        bg.style.backgroundImage = `url("${url}")`;
+      }, 0);
+    }
   }
 
+  if (!this.state.isTitleVisible) this.toggleTitle();
   this.updateDataText();
 
   if (this.state.isPlaying && !this.state.isScrubbing) {
     this.startAutoSlide();
+  } else {
+    this.resetProgress();
   }
 }
+
 
 
 
