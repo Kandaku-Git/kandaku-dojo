@@ -279,7 +279,7 @@ class Diaporama {
   });
 
   return processed;
-}
+  }
 
 
     generateImagesFromTechnique() {
@@ -451,20 +451,20 @@ class Diaporama {
 
         const backBtnClass = this.state.history.length > 0 ? '' : 'diaporama-hidden';
 
-        this.container.innerHTML = `
-            <div class="diaporama-wrapper" id="diaporama-root" style="${bgStyle}">
-                <h1 class="diaporama-main-title">${mainTitle}</h1>
-                <div id="diaporama-slider" class="diaporama-slider-container">
-                    ${slidesHTML}
-                    <div class="diaporama-tap-zone diaporama-tap-left" id="diaporama-tap-left"></div>
-                    <div class="diaporama-tap-zone diaporama-tap-right" id="diaporama-tap-right"></div>
-                    <div id="diaporama-toast" class="diaporama-toast"></div>
-                </div>
-                <div id="diaporama-title-zone" class="diaporama-title-zone">
+          this.container.innerHTML = `
+              <div class="diaporama-wrapper" id="diaporama-root" style="${bgStyle}">
+                  <h1 class="diaporama-main-title">${mainTitle}</h1>
+                  <div id="diaporama-slider" class="diaporama-slider-container">
+                      ${slidesHTML}
+                      <div class="diaporama-tap-zone diaporama-tap-left" id="diaporama-tap-left"></div>
+                      <div class="diaporama-tap-zone diaporama-tap-right" id="diaporama-tap-right"></div>
+                      <div id="diaporama-toast" class="diaporama-toast"></div>
+                  </div>
+                  <div id="diaporama-title-zone" class="diaporama-title-zone">
                     <h2 id="diaporama-text-l1" class="diaporama-text-l1">...</h2>
                     <p id="diaporama-text-l2" class="diaporama-text-l2"></p>
-                </div>
-                <div class="diaporama-controls">
+                  </div>
+                  <div class="diaporama-controls">
                     <div class="diaporama-controls-top">
                         <div class="diaporama-btn-group">
                             <button class="diaporama-btn" id="diaporama-prev" title="Précédent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg></button>
@@ -476,36 +476,28 @@ class Diaporama {
                         </div>
 
                         <div class="diaporama-btn-group">
-    <button class="diaporama-btn ${backBtnClass}" id="diaporama-back" title="Retour au menu précédent">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M9 14 4 9l5-5"/>
-            <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/>
-        </svg>                            
-    </button>
+                          <button class="diaporama-btn ${backBtnClass}" id="diaporama-back" title="Retour au menu précédent">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                              <path d="M9 14 4 9l5-5"/>
+                              <path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"/>
+                            </svg>                            
+                          </button>
     
-    <!-- 👁 = titres -->
-    <button class="diaporama-btn" id="diaporama-eye" title="Afficher/Masquer les titres">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-            <circle cx="12" cy="12" r="3"></circle>
-        </svg>
-    </button>
-
-
-
-    <a href="index.html" class="diaporama-btn" id="diaporama-home" title="Accueil"
-       style="text-decoration:none;display:flex;align-items:center;justify-content:center;">
-        <svg class="diaporama-icon" viewBox="0 0 24 24">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
-                  stroke="#ff0000ff"
-                  stroke-width="1.5"
-                  stroke-linejoin="round"></path>
-            <rect x="10.5" y="16" width="3" height="5"
-                  fill="#f50626ff"
-                  stroke="none"></rect>
-        </svg>
-    </a>
-</div>
+                          <!-- 👁 = titres -->
+                          <button class="diaporama-btn" id="diaporama-eye" title="Afficher/Masquer les titres">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                          </button>
+                          <a href="index.html" class="diaporama-btn" id="diaporama-home" title="Accueil"
+                            style="text-decoration:none;display:flex;align-items:center;justify-content:center;">
+                            <svg class="diaporama-icon" viewBox="0 0 24 24">
+                              <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" stroke="#ff0000ff" stroke-width="1.5" stroke-linejoin="round"></path>
+                              <rect x="10.5" y="16" width="3" height="5" fill="#f50626ff" stroke="none"></rect>
+                            </svg>
+                          </a>
+                        </div>
 
                     </div>
 
@@ -654,19 +646,32 @@ class Diaporama {
   let startX = 0;
   let isDrag = false;
 
-  const handleScrubbing = (clientX, targetElement) => {
-    const rect = targetElement.getBoundingClientRect();
-    let x = clientX - rect.left;
-    if (x < 0) x = 0;
-    if (x > rect.width) x = rect.width;
-    const percent = x / rect.width;
-    const total = this.config.images.length;
-    let targetIndex = Math.floor(percent * total);
-    if (targetIndex >= total) targetIndex = total - 1;
-    if (targetIndex !== this.state.currentIndex) {
-      this.showSlide(targetIndex);
-    }
-  };
+const handleScrubbing = (clientX, targetElement) => {
+  const rect = targetElement.getBoundingClientRect();
+  let x = clientX - rect.left;
+
+  if (x < 0) x = 0;
+  if (x > rect.width) x = rect.width;
+
+  const percent = x / rect.width;
+  const total = this.config.images.length || 1;
+
+  // Index cible en fonction de la position du curseur
+  let targetIndex = Math.floor(percent * total);
+  if (targetIndex >= total) targetIndex = total - 1;
+
+  // Mettre à jour la jauge **pendant** le glissement
+  if (this.dom.gaugeFill) {
+    const globalPercent = ((targetIndex + 1) / total) * 100;
+    this.dom.gaugeFill.style.width = `${globalPercent}%`;
+  }
+
+  // Mettre la bonne diapo si elle change
+  if (targetIndex !== this.state.currentIndex) {
+    this.showSlide(targetIndex);
+  }
+};
+
 
   this.dom.gaugeContainer.addEventListener("pointerdown", (e) => {
     if (this.state.isSecondary) return;
@@ -734,35 +739,32 @@ class Diaporama {
 
 
 
-    showSlide(index) {
-        if (this.state.isDetailsOpen) this.toggleDetails();
-        this.hideToast();
-        this.hideVocabularyTooltip();
+showSlide(index) {
+  if (this.state.isDetailsOpen) this.toggleDetails();
+  this.hideToast();
+  this.hideVocabularyTooltip();
 
-        const max = this.config.images.length;
-        if (max === 0) return;
-        this.state.currentIndex = (index + max) % max;
+  const max = this.config.images.length;
+  if (max === 0) return;
 
-        this.dom.slides.forEach((s, i) => s.classList.toggle('active', i === this.state.currentIndex));
+  this.state.currentIndex = (index + max) % max;
 
-        if (this.dom.gaugeFill) {
-            const percent = ((this.state.currentIndex + 1) / max) * 100;
-            this.dom.gaugeFill.style.width = `${percent}%`;
-        }
+  this.dom.slides.forEach((s, i) =>
+    s.classList.toggle("active", i === this.state.currentIndex)
+  );
 
-        // ✅ Diaporama : forcer L1/L2 visibles si elles étaient cachées
-        if (!this.state.isTitleVisible) {
-            this.toggleTitle();
-         }
+  if (!this.state.isTitleVisible) {
+    this.toggleTitle();
+  }
 
-        this.updateDataText();
+  this.updateDataText();
 
-        if (this.state.isPlaying && !this.state.isScrubbing) {
-            this.startAutoSlide();
-        } else {
-            this.resetProgress();
-        }
-    }
+  if (this.state.isPlaying && !this.state.isScrubbing) {
+    this.startAutoSlide();
+  }
+}
+
+
 
 
     // --- MODIFICATION ICI : Ordre Vocabulaire / Liens inversé ---
@@ -806,41 +808,74 @@ class Diaporama {
 }
 
 
-    startAutoSlide() {
-        if (this.state.timerId) clearTimeout(this.state.timerId);
-        if (this.state.progressIntervalId) clearInterval(this.state.progressIntervalId);
+startAutoSlide() {
+  if (this.state.timerId) clearTimeout(this.state.timerId);
+  if (this.state.progressIntervalId) clearInterval(this.state.progressIntervalId);
 
-        if (this.state.isDetailsOpen || this.state.isScrubbing) return;
+  if (this.state.isDetailsOpen || this.state.isScrubbing) return;
 
-        const fullPath = this.config.images[this.state.currentIndex];
-        const filename = fullPath ? fullPath.split('/').pop().split('.')[0] : "";
-        let duration = this.config.slideDuration; 
+  const totalSlides = this.config.images.length || 1;
 
-        if (this.state.slideData[filename] && this.state.slideData[filename].time) {
-            duration = this.state.slideData[filename].time;
-        }
-
-        this.state.timerId = setTimeout(() => {
-            this.showSlide(this.state.currentIndex + 1);
-        }, duration);
-
-        let w = 0;
-        const intervalStep = 50;
-        this.state.progressIntervalId = setInterval(() => {
-            w += (100 / (duration / intervalStep));
-            if(w>100) w=100;
-            this.dom.gaugeFill.style.width = w + '0%';
-        }, intervalStep);
+  // Cas particulier : une seule diapo → barre toujours pleine, pas d'autoplay
+  if (totalSlides === 1) {
+    if (this.dom.gaugeFill) {
+      this.dom.gaugeFill.style.width = "100%";
     }
+    return;
+  }
+
+  const fullPath = this.config.images[this.state.currentIndex];
+  const filename = fullPath ? fullPath.split("/").pop().split(".")[0] : "";
+  let duration = this.config.slideDuration;
+
+  if (this.state.slideData[filename] && this.state.slideData[filename].time) {
+    duration = this.state.slideData[filename].time;
+  }
+
+  this.state.timerId = setTimeout(() => {
+    this.showSlide(this.state.currentIndex + 1);
+  }, duration);
+
+  const basePercent   = (this.state.currentIndex / totalSlides) * 100;
+  const targetPercent = ((this.state.currentIndex + 1) / totalSlides) * 100;
+
+  let w = basePercent;
+  const intervalStep = 50;
+  const step = (targetPercent - basePercent) / (duration / intervalStep);
+
+  this.state.progressIntervalId = setInterval(() => {
+    w += step;
+    if (w >= targetPercent) {
+      w = targetPercent;
+      clearInterval(this.state.progressIntervalId);
+      this.state.progressIntervalId = null;
+    }
+    if (this.dom.gaugeFill) {
+      this.dom.gaugeFill.style.width = w + "%";
+    }
+  }, intervalStep);
+}
+
+
+
 
     stopAutoSlide() {
         if (this.state.timerId) clearTimeout(this.state.timerId);
         if (this.state.progressIntervalId) clearInterval(this.state.progressIntervalId);
     }
 
-    resetProgress() {
-        this.dom.gaugeFill.style.width = '0%';
-    }
+resetProgress() {
+  const totalSlides = this.config.images.length || 1;
+  if (!this.dom.gaugeFill) return;
+
+  if (totalSlides === 1) {
+    // Une seule diapo : barre toujours pleine
+    this.dom.gaugeFill.style.width = "100%";
+  } else {
+    this.dom.gaugeFill.style.width = "0%";
+  }
+}
+
 
     handleEyeClick() {
   const slide = this.dom.slides[this.state.currentIndex];
