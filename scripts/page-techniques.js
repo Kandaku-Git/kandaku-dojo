@@ -424,9 +424,17 @@ document.addEventListener('visibilitychange', () => {
       }
 
       // On ré-ouvre la technique comme si on recliquait
-      setTimeout(() => {
+      setTimeout(async () => {
         window.afficherTechnique(window.currentTechniqueName);
+
+        // Tentative de retour plein écran si l'instance est prête
+        if (window.diaporamaInstance && typeof window.diaporamaInstance.forceFullscreen === "function") {
+          try {
+            await window.diaporamaInstance.forceFullscreen();
+          } catch (e) {}
+        }
       }, 150);
+
     }
   }
 });
