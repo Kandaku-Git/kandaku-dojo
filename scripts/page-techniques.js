@@ -378,3 +378,53 @@ window.renderTechniquesSections = function (root) {
     });
   });
 };
+
+// Technique actuellement affichée
+window.currentTechniqueName = null;
+
+// Fonction appelée pour ouvrir le diaporama d'une technique
+window.afficherTechnique = function (nomTechnique /*, categoryName */) {
+  window.currentTechniqueName = nomTechnique;
+
+  const section = document.querySelector('.section-techniques');
+  const wrapper = document.getElementById('mon-conteneur-wrapper');
+  const container = document.getElementById('mon-conteneur');
+
+  if (section) section.classList.add('is-active');
+  if (wrapper) wrapper.classList.add('is-visible');
+
+  // Détruit l'ancienne instance s'il y en a une
+  if (window.diaporamaInstance && typeof window.diaporamaInstance.destroy === 'function') {
+    window.diaporamaInstance.destroy();
+  }
+
+  // Crée une nouvelle instance
+  window.diaporamaInstance = new Diaporama('mon-conteneur', {
+    technique: nomTechnique,
+    title: nomTechnique,
+    autoPlay: true
+  });
+};
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible') {
+    if (window.currentTechniqueName) {
+      const section = document.querySelector('.section-techniques');
+      const wrapper = document.getElementById('mon-conteneur-wrapper');
+      const container = document.getElementById('mon-conteneur');
+
+      if (section) section.classList.remove('is-active');
+      if (wrapper) wrapper.classList.remove('is-visible');
+      if (container) container.innerHTML = '';
+
+      if (window.diaporamaInstance && typeof window.diaporamaInstance.destroy === 'function') {
+        window.diaporamaInstance.destroy();
+        window.diaporamaInstance = null;
+      }
+
+      // On ré-ouvre la technique comme si on recliquait
+      setTimeout(() => {
+        window.afficherTechnique(window.currentTechniqueName);
+      }, 150);
+    }
+  }
+});
