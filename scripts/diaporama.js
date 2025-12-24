@@ -741,28 +741,27 @@ const handleScrubbing = (clientX, targetElement) => {
 document.addEventListener("fullscreenchange", () => {
   const isFs = document.fullscreenElement !== null;
 
+  // On ne traite que la SORTIE du plein écran
   if (!isFs) {
-    // 1) Sécuriser l'état interne
+    // 1) Sauvegarder l'index courant
+    const currentIndex = this.state.currentIndex || 0;
+
+    // 2) Sécuriser l'état interne
     this.stopAutoSlide();
     this.state.isScrubbing = false;
     this.state.isPlaying = false;
     this.updatePlayPauseIcon();
 
-    // 2) Forcer le recalage de la slide active
-    if (this.dom && this.dom.slides && this.dom.slides.length) {
-      this.dom.slides.forEach((s, i) =>
-        s.classList.toggle("active", i === this.state.currentIndex)
-      );
-    }
+    // 3) RECONSTRUIRE le DOM du diaporama
+    this.renderDOM();
+    this.cacheDOM();
+    this.bindEvents();
 
-    // 3) S'assurer que la jauge correspond bien à la slide courante
-    if (this.dom && this.dom.gaugeFill) {
-      const total = this.config.images.length || 1;
-      const percent = ((this.state.currentIndex + 1) / total) * 100;
-      this.dom.gaugeFill.style.width = `${percent}%`;
-    }
+    // 4) Revenir sur la bonne slide
+    this.showSlide(currentIndex);
   }
 });
+
 
 
 }
