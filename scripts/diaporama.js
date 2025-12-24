@@ -100,18 +100,6 @@ class Diaporama {
   this.cacheDOM();
   this.bindEvents();
 
-// Recharge la page quand l’onglet revient au premier plan (ex: sortie de veille)
-document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible") {
-    // Petit délai pour laisser le navigateur se stabiliser
-    setTimeout(() => {
-      location.reload();
-    }, 150);
-  }
-});
-
-
-
   // 5. Passer en plein écran si possible
   if (!document.fullscreenElement) {
     try {
