@@ -14,7 +14,7 @@
 window.COUNT = 32;
 
 // 3. Description (Optionnel)
-window.DESCRIPTION = `<b>Heian Nidan</b> est un kata du style <b>Shotokan</b>, servant de support à l'apprentissage progressif des déplacements, des positions et des techniques de base.<br><br>Son étude aide le pratiquant à structurer le travail du rythme, des changements de direction et de la coordination entre blocages et attaques, tout en développant stabilité et concentration.`;
+window.DESCRIPTION = `<b>Heian Nidan</b> (平安二段), traduit par « paix et tranquillité, deuxième niveau », fait partie des katas Pinan créés par Anko Itosu à Okinawa au début du XXe siècle pour faciliter l'enseignement du karaté dans les écoles primaires.<br><br> Gichin Funakoshi, en les adaptant pour le Japon dans les années 1920, les renomma Heian et plaça initialement ce kata en premier dans la série, avant d'inverser l'ordre avec Heian Shodan vers 1930, car Shodan offrait une meilleure entrée pour les novices.<br><br> Composé de 26 mouvements, il introduit des techniques comme <b>Tate Zuki</b>, <b>Uchi Uke</b> et <b>Kake Uke</b> avec des pivots plus complexes en <b>Zenkutsu Dachi</b>, <b>Kokutsu Dachi</b> et <b>Kiba Dachi</b>, affinant le contrôle du corps et du timing.`;
 
 // 4. Arrière-plan (Optionnel)
 window.BACKGROUND = 1;
