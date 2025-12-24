@@ -99,7 +99,18 @@ class Diaporama {
     this.cacheDOM();
     this.bindEvents();
 
-    
+    // 5. Passer en plein écran si possible
+    if (!document.fullscreenElement) {
+      try {
+        if (this.container.requestFullscreen) {
+          await this.container.requestFullscreen();
+        } else if (this.container.webkitRequestFullscreen) {
+          this.container.webkitRequestFullscreen();
+        }
+      } catch (e) {
+        // On ignore les erreurs de fullscreen (refus utilisateur, etc.)
+      }
+    }
 
     // 6. Afficher la première slide et démarrer l'auto‑play
     this.showSlide(0);
