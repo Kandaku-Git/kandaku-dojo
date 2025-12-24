@@ -736,20 +736,34 @@ const handleScrubbing = (clientX, targetElement) => {
   });
 
 
-  
-    // Surveiller l'entrée / sortie du plein écran (utile sur mobile après veille)
-  document.addEventListener("fullscreenchange", () => {
-    const isFs = document.fullscreenElement !== null;
 
-    // Si on vient de QUITTER le plein écran
-    if (!isFs) {
-      // Sécuriser l'état interne du diaporama
-      this.stopAutoSlide();          // coupe les timers
-      this.state.isScrubbing = false;
-      this.state.isPlaying = false;  // on force en pause
-      this.updatePlayPauseIcon();    // met à jour le bouton Play/Pause
+// Surveiller l'entrée / sortie du plein écran (utile sur mobile après veille)
+document.addEventListener("fullscreenchange", () => {
+  const isFs = document.fullscreenElement !== null;
+
+  if (!isFs) {
+    // 1) Sécuriser l'état interne
+    this.stopAutoSlide();
+    this.state.isScrubbing = false;
+    this.state.isPlaying = false;
+    this.updatePlayPauseIcon();
+
+    // 2) Forcer le recalage de la slide active
+    if (this.dom && this.dom.slides && this.dom.slides.length) {
+      this.dom.slides.forEach((s, i) =>
+        s.classList.toggle("active", i === this.state.currentIndex)
+      );
     }
-  });
+
+    // 3) S'assurer que la jauge correspond bien à la slide courante
+    if (this.dom && this.dom.gaugeFill) {
+      const total = this.config.images.length || 1;
+      const percent = ((this.state.currentIndex + 1) / total) * 100;
+      this.dom.gaugeFill.style.width = `${percent}%`;
+    }
+  }
+});
+
 
 }
 
