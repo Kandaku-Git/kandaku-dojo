@@ -36,7 +36,7 @@
 /* Jauge de progression globale du diaporama (barre verte) */
 .diaporama-gauge-container {
   width: 100%;
-  height: 16px;
+  height: 18px; /* ~+10% par rapport à 16px */
   background: rgba(255, 255, 255, 0.15);
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 10px;
@@ -56,6 +56,7 @@
   transition: width 0.1s linear;
   border-radius: 10px;
 }
+
 
 
 
@@ -874,6 +875,9 @@ body {
   z-index: 30;
   flex-shrink: 0;
 }
+.diaporama-controls-bottom {
+  padding: 4px 1rem 10px; /* 10px de marge sous la jauge */
+}
 
 .diaporama-controls-top {
   display: flex;
@@ -1300,15 +1304,17 @@ body {
     border-radius: 0;
     background: transparent;
   }
-    /* Jauge du diaporama plus lisible sur mobile */
+
+  /* Jauge du diaporama plus lisible sur mobile */
   .diaporama-gauge-container {
-    height: 20px;                 /* plus haute pour le doigt */
+    height: 22px;   /* un peu plus haute sur mobile */
     border-width: 1px;
   }
 
   .diaporama-gauge-fill {
-    border-radius: 999px;         /* barre bien arrondie */
+    border-radius: 999px;
   }
+
 
   .diaporama-main-title {
     font-size: 1.8rem !important;
