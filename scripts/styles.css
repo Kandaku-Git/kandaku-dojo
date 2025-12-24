@@ -1300,6 +1300,15 @@ body {
     border-radius: 0;
     background: transparent;
   }
+    /* Jauge du diaporama plus lisible sur mobile */
+  .diaporama-gauge-container {
+    height: 20px;                 /* plus haute pour le doigt */
+    border-width: 1px;
+  }
+
+  .diaporama-gauge-fill {
+    border-radius: 999px;         /* barre bien arrondie */
+  }
 
   .diaporama-main-title {
     font-size: 1.8rem !important;
