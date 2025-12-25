@@ -4,7 +4,7 @@
 window.LIENS_UTILES = [
   {
     label: "Kandaku's World",
-    url: "http://kandaku.free.fr/index.html",
+    url: "http://legacy.kandaku.com",
     comment:
       "C'est la version legacy du site actuel.",
   },
@@ -62,3 +62,4 @@ window.renderLiensUtiles = function () {
     container.appendChild(card);
   });
 };
+
