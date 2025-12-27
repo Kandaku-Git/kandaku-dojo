@@ -73,8 +73,44 @@ body {
   background: radial-gradient(circle at top left, #050509 0, #050509 45%, #050509 100%);
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
+
+   /* AJOUT : Nécessaire pour le positionnement du filigrane */
+   position: relative; 
+   min-height: 100vh;
+   
+   /* AJOUT CRUCIAL ICI : */
+  z-index: 0;
 }
 
+body::before {
+  content: "";
+  position: fixed; /* L'image reste au centre même si on scrolle */
+  top: var(--header-height); /* Au lieu de top: 0, on commence sous le header */
+  left: 0;
+  width: 100%;
+  height: calc(100% - var(--header-height));
+  z-index: -1; /* Place l'image DERRIÈRE le texte */
+  pointer-events: none; /* Permet de cliquer à travers l'image */
+
+  /* Chemin vers ton image */
+  background-image: url('../images/logo.png'); 
+
+  /* REGLAGE 1 : MODE "LOGO ENTIER" (Recommandé pour un logo) */
+  /* L'image est centrée, ne se répète pas, et s'adapte sans être coupée */
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain; /* Essaie aussi '50%' si 'contain' est trop gros */
+  
+  /* REGLAGE 2 : MODE "PLEIN ECRAN" (Si tu préfères que ça remplisse tout) */
+  /* Décommente la ligne ci-dessous et commente 'background-size: contain' */
+  /* background-size: cover; */
+
+  /* TRANSPARENCE FORTE */
+  opacity: 0.15; /* 0.15 est très subtil. Augmente à 0.3 si tu veux qu'il se voie plus */
+  
+  /* Mélange l'image avec le fond noir pour un effet plus incrusté */
+  /* mix-blend-mode: overlay; */
+}
 
 /* =========================================================
    HEADER PRINCIPAL
@@ -1331,7 +1367,6 @@ body {
     font-size: 0.7rem;
     line-height: 1;
     border: 1px solid rgba(255, 255, 255, 0.4);
-    background: transparent;
     border-radius: 20px;
   }
 
@@ -1555,4 +1590,17 @@ body {
   .accueil-col-texte {
     font-size: 1rem;
   }
+}
+
+/* =========================================================
+   GESTION DU FILIGRANE (Caché sur l'accueil)
+   ========================================================= */
+
+/* Si le body contient l'élément #section-accueil avec la classe .is-active,
+   alors on cache l'élément ::before du body (le logo)
+*/
+body:has(#section-accueil.is-active)::before {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease; /* Effet de transition doux */
 }
