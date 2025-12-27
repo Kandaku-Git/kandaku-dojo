@@ -10,7 +10,7 @@ window.renderAccueilSection = function () {
 
   // Titre de bienvenue (respect majuscules/minuscules)
   const h2 = document.createElement("h2");
-  h2.textContent = "Bienvenue au KDojo";
+  h2.textContent = "BIENVENUE AU KDojo";
   section.appendChild(h2);
 
   // Saut de ligne après le titre

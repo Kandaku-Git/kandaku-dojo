@@ -428,6 +428,11 @@ body::before {
   margin: 0 0 0.75rem 0;
 }
 
+/* Exception pour le titre de l'accueil : autoriser les minuscules */
+#section-accueil h2 {
+    text-transform: none; /* Désactive la majuscule forcée */
+}
+
 .content-section p {
   color: var(--color-muted);
   line-height: 1.6;
