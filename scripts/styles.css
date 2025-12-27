@@ -90,7 +90,7 @@ body::before {
   pointer-events: none; /* Permet de cliquer à travers l'image */
 
   /* Chemin vers ton image */
-  background-image: url('../images/logo.png'); 
+  background-image: url('images/logo.png'); 
 
   /* REGLAGE 1 : MODE "LOGO ENTIER" (Recommandé pour un logo) */
   /* L'image est centrée, ne se répète pas, et s'adapte sans être coupée */
@@ -1590,3 +1590,4 @@ body::before {
   }
 
 }
+
