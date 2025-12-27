@@ -77,12 +77,15 @@ body {
    /* AJOUT : Nécessaire pour le positionnement du filigrane */
    position: relative; 
    min-height: 100vh;
+   
+   /* AJOUT CRUCIAL ICI : */
+  z-index: 0;
 }
 
 body::before {
   content: "";
   position: fixed; /* L'image reste au centre même si on scrolle */
-  top: 0;
+  top: var(--header-height); /* Au lieu de top: 0, on commence sous le header */
   left: 0;
   width: 100%;
   height: 100%;
@@ -106,7 +109,7 @@ body::before {
   opacity: 0.15; /* 0.15 est très subtil. Augmente à 0.3 si tu veux qu'il se voie plus */
   
   /* Mélange l'image avec le fond noir pour un effet plus incrusté */
-  mix-blend-mode: overlay; 
+  /* mix-blend-mode: overlay; */
 }
 
 /* =========================================================
@@ -1588,7 +1591,4 @@ body::before {
   .accueil-col-texte {
     font-size: 1rem;
   }
-
 }
-
-
