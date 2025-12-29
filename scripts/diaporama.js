@@ -96,14 +96,6 @@ class Diaporama {
 
     // 4. Construire le DOM, mettre en cache et binder
     this.renderDOM();
-    // Force le redraw après veille
-if (window.isBackFromSleep) {
-  this.dom.root.style.transform = 'translateZ(0)';
-  setTimeout(() => {
-    this.dom.root.style.transform = '';
-  }, 100);
-}
-
     this.cacheDOM();
     this.bindEvents();
 
@@ -542,7 +534,37 @@ if (window.isBackFromSleep) {
       }
     };
   }
+  
+ // === NOUVELLE MÉTHODE ===
+  closeToCategories() {
+    this.isClosing = true;
 
+    const wrapper = document.getElementById("mon-conteneur-wrapper");
+    if (wrapper) {
+      wrapper.classList.remove("is-visible");
+    }
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    }
+
+    const container = this.container || document.getElementById("mon-conteneur");
+    if (container) {
+      container.innerHTML = "";
+    }
+
+    this.stopAutoSlide();
+
+    if (window.diaporamaInstance && typeof window.diaporamaInstance.destroy === "function") {
+      try { window.diaporamaInstance.destroy(); } catch (e) {}
+      window.diaporamaInstance = null;
+    }
+
+    if (typeof window.activerSection === "function") {
+      window.activerSection("techniques-categories");
+    }
+  }
+  
   bindEvents() {
     const b = this.dom.btns;
 
@@ -553,42 +575,14 @@ if (window.isBackFromSleep) {
     b.eye.onclick = () => this.handleEyeClick();   
     b.back.onclick = () => this.restoreParentDiaporama();
 
-    // 🏠 Bouton maison : fermer le diaporama SANS flash et aller sur les catégories
-    if (b.home) {
-      b.home.onclick = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        this.isClosing = true;
-
-        const wrapper = document.getElementById("mon-conteneur-wrapper");
-        if (wrapper) {
-            wrapper.classList.remove("is-visible");
-        }
-
-        if (document.fullscreenElement) {
-            document.exitFullscreen().catch(() => {});
-        }
-
-        const container = this.container || document.getElementById("mon-conteneur");
-        if (container) {
-            container.innerHTML = "";
-        }
-
-        this.stopAutoSlide();
-
-        if (window._diaporamaInstance && typeof window._diaporamaInstance.destroy === "function") {
-            try { window._diaporamaInstance.destroy(); } catch (e) {}
-            window._diaporamaInstance = null;
-        }
-
-        if (typeof window.activerSection === "function") {
-            window.activerSection("techniques-categories");
-        }
-        window.DiapoAlive = 0;s
-        return false;
-      };
-    }
+      if (b.home) {
+    b.home.onclick = (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      this.closeToCategories();   // <-- on réutilise la méthode
+      return false;
+    };
+  }
 
     // Clics dans la zone de titre (liens & vocabulaire)
     this.dom.titleZone.addEventListener("click", (e) => {
@@ -767,19 +761,19 @@ if (window.isBackFromSleep) {
     });
 
     // 🔧 PATCH MOBILE : forcer le browser à recharger le background
-const activeSlide = this.dom.slides[this.state.currentIndex];
-if (activeSlide) {
-  const bg = activeSlide.querySelector('.diaporama-slide-bg');
-  if (bg) {
-    const url = this.config.images[this.state.currentIndex];
-    bg.style.backgroundImage = 'none';
-    setTimeout(() => {
-      bg.style.backgroundImage = `url(${url})`;
-    }, 0);
-  }
-}
-
-
+    const activeSlide = this.dom.slides[this.state.currentIndex];
+    if (activeSlide) {
+      const bg = activeSlide.querySelector(".diaporama-slide-bg");
+      if (bg && this.config.images[this.state.currentIndex]) {
+        const url = this.config.images[this.state.currentIndex];
+        // Retire et remet le background pour casser le cache graphique
+        bg.style.backgroundImage = "none";
+        // Petit délai pour certains moteurs (Samsung / Chrome Android)
+        setTimeout(() => {
+          bg.style.backgroundImage = `url("${url}")`;
+        }, 0);
+      }
+    }
 
     if (!this.state.isTitleVisible) this.toggleTitle();
     this.updateDataText();
@@ -1002,11 +996,11 @@ if (activeSlide) {
 
 window.afficherTechnique = function (nomTechnique) {
   // Détruit une instance précédente si tu veux éviter les fuites
-  if (window._diaporamaInstance && typeof window._diaporamaInstance.destroy === "function") {
-    window._diaporamaInstance.destroy();
+  if (window.diaporamaInstance && typeof window.diaporamaInstance.destroy === "function") {
+    window.diaporamaInstance.destroy();
   }
 
-  window._diaporamaInstance = new Diaporama("mon-conteneur", {
+  window.diaporamaInstance = new Diaporama("mon-conteneur", {
     technique: nomTechnique,
     title: nomTechnique,
   });

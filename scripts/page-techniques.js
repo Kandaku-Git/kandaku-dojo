@@ -1,9 +1,6 @@
 // scripts/page-techniques.js
 // --- CONFIG AFFICHAGE TECHNIQUES ---
 
-// Variable globale pour savoir si le diaporama est actif ou non (utilie pour reveil du smartphone)
-window.DiapoAlive = 0;
-
 // TUILES : Icônes par famille de techniques
 const imageMap = {
   "Zuki Waza": "images/zuki-waza.png",
@@ -388,7 +385,6 @@ window.currentTechniqueName = null;
 // Fonction appelée pour ouvrir le diaporama d'une technique
 window.afficherTechnique = function (nomTechnique /*, categoryName */) {
   window.currentTechniqueName = nomTechnique;
-  window.DiapoAlive = 1; // diapo principal actif
 
   const section = document.querySelector('.section-techniques');
   const wrapper = document.getElementById('mon-conteneur-wrapper');
@@ -410,10 +406,15 @@ window.afficherTechnique = function (nomTechnique /*, categoryName */) {
   });
 };
 
+
+
 document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible" && window.diaporamaInstance) {
-    // Force un redraw de la slide active (texte + image)
-    const d = window.diaporamaInstance;
-    d.showSlide(d.state.currentIndex);
+  // On ne s'intéresse qu'au moment où la page redevient visible
+  if (document.visibilityState !== "visible") return;
+
+  // S'il y a une instance de diaporama, on lui demande de faire comme si on avait cliqué sur la maison
+  if (window.diaporamaInstance && typeof window.diaporamaInstance.closeToCategories === "function") {
+    window.diaporamaInstance.closeToCategories();
   }
 });
+
