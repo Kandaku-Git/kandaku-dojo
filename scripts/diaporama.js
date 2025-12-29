@@ -577,7 +577,7 @@ class Diaporama {
         if (typeof window.activerSection === "function") {
             window.activerSection("techniques-categories");
         }
-
+        window.DiapoAlive = 0;s
         return false;
       };
     }

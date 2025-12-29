@@ -1,6 +1,9 @@
 // scripts/page-techniques.js
 // --- CONFIG AFFICHAGE TECHNIQUES ---
 
+// Variable globale pour savoir si le diaporama est actif ou non (utilie pour reveil du smartphone)
+window.DiapoAlive = 0;
+
 // TUILES : Icônes par famille de techniques
 const imageMap = {
   "Zuki Waza": "images/zuki-waza.png",
@@ -385,6 +388,7 @@ window.currentTechniqueName = null;
 // Fonction appelée pour ouvrir le diaporama d'une technique
 window.afficherTechnique = function (nomTechnique /*, categoryName */) {
   window.currentTechniqueName = nomTechnique;
+  window.DiapoAlive = 1; // diapo principal actif
 
   const section = document.querySelector('.section-techniques');
   const wrapper = document.getElementById('mon-conteneur-wrapper');
@@ -408,38 +412,36 @@ window.afficherTechnique = function (nomTechnique /*, categoryName */) {
 
 
 document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible") {
-    if (window.currentTechniqueName) {
-      const section = document.querySelector(".section-techniques");
-      const wrapper = document.getElementById("mon-conteneur-wrapper");
-      const container = document.getElementById("mon-conteneur");
+  if (document.visibilityState !== "visible") return;
 
-      if (section) section.classList.remove("is-active");
-      if (wrapper) wrapper.classList.remove("is-visible");
-      if (container) container.innerHTML = "";
+  // Si le diaporama principal n’est pas censé être actif, ne fais rien
+  if (!window.DiapoAlive || !window.currentTechniqueName) return;
 
-      if (
-        window.diaporamaInstance &&
-        typeof window.diaporamaInstance.destroy === "function"
-      ) {
-        window.diaporamaInstance.destroy();
-        window.diaporamaInstance = null;
+  const section = document.querySelector(".section-techniques");
+  const wrapper = document.getElementById("mon-conteneur-wrapper");
+  const container = document.getElementById("mon-conteneur");
+
+  if (section) section.classList.remove("is-active");
+  if (wrapper) wrapper.classList.remove("is-visible");
+  if (container) container.innerHTML = "";
+
+  if (window.diaporamaInstance && typeof window.diaporamaInstance.destroy === "function") {
+    window.diaporamaInstance.destroy();
+  }
+  window.diaporamaInstance = null;
+
+  setTimeout(() => {
+    window.afficherTechnique(window.currentTechniqueName);
+
+    if (window.diaporamaInstance) {
+      // Tentative de repasser en plein écran automatiquement
+      if (typeof window.diaporamaInstance.forceFullscreen === "function") {
+        window.diaporamaInstance.forceFullscreen();
       }
 
-      setTimeout(() => {
-        window.afficherTechnique(window.currentTechniqueName);
-
-        // 👉 Afficher un toast pour proposer le retour plein écran
-        if (
-          window.diaporamaInstance &&
-          typeof window.diaporamaInstance.showToast === "function"
-        ) {
-          window.diaporamaInstance.showToast(
-            "Touchez ici pour revenir en plein écran"
-          );
-        }
-      }, 150);
+      if (typeof window.diaporamaInstance.showToast === "function") {
+        window.diaporamaInstance.showToast("Touchez ici pour revenir en plein écran");
+      }
     }
-  }
+  }, 400);
 });
-
