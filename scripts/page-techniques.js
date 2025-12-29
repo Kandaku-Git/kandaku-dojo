@@ -384,7 +384,6 @@ window.renderTechniquesSections = function (root) {
 
 // Technique actuellement affichée
 window.currentTechniqueName = null;
-window.isBackFromSleep = false;
 
 // Fonction appelée pour ouvrir le diaporama d'une technique
 window.afficherTechnique = function (nomTechnique /*, categoryName */) {
@@ -411,44 +410,10 @@ window.afficherTechnique = function (nomTechnique /*, categoryName */) {
   });
 };
 
-
-let wasVisible = !document.hidden;
 document.addEventListener("visibilitychange", () => {
-  const nowVisible = document.visibilityState === "visible";
-  
-  if (nowVisible && !wasVisible) {
-    // ✅ RETOUR de veille/onglet
-    console.log("🔥 RETOUR DE VEILLE détecté");
-    window.isBackFromSleep = true;  // <- FLAG ACTIVÉ
-  }
-  wasVisible = nowVisible;
-  
-  if (nowVisible && window.currentTechniqueName && window.isBackFromSleep) {
-    console.log("🔄 Relance diaporama après veille");
-    const section = document.querySelector(".section-techniques");
-    const wrapper = document.getElementById("mon-conteneur-wrapper");
-    const container = document.getElementById("mon-conteneur");
-
-    if (section) section.classList.remove("is-active");
-    if (wrapper) wrapper.classList.remove("is-visible");
-    if (container) container.innerHTML = "";
-    
-    if (window.diaporamaInstance && typeof window.diaporamaInstance.destroy === "function") {
-      window.diaporamaInstance.destroy();
-    }
-    window.diaporamaInstance = null;
-
-    setTimeout(() => {
-      window.afficherTechnique(window.currentTechniqueName);
-      
-      // ✅ FORCE le rechargement de la slide COURANTE après reconstruction
-      if (window.diaporamaInstance) {
-        setTimeout(() => {
-          window.diaporamaInstance.showSlide(window.diaporamaInstance.state.currentIndex);
-          window.isBackFromSleep = false;  // Reset flag
-        }, 500);
-      }
-    }, 400);
+  if (document.visibilityState === "visible" && window.diaporamaInstance) {
+    // Force un redraw de la slide active (texte + image)
+    const d = window.diaporamaInstance;
+    d.showSlide(d.state.currentIndex);
   }
 });
-

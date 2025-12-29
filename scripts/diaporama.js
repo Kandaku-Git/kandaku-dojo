@@ -767,29 +767,18 @@ if (window.isBackFromSleep) {
     });
 
     // 🔧 PATCH MOBILE : forcer le browser à recharger le background
-    // PATCH MOBILE forcer le browser recharger le background
 const activeSlide = this.dom.slides[this.state.currentIndex];
 if (activeSlide) {
   const bg = activeSlide.querySelector('.diaporama-slide-bg');
   if (bg) {
     const url = this.config.images[this.state.currentIndex];
-    
-    // ULTRA-AGRESSIF : 3x setTimeout imbriqués + cache buster
     bg.style.backgroundImage = 'none';
     setTimeout(() => {
       bg.style.backgroundImage = `url(${url})`;
-      // 2e passage pour Samsung récalcitrants
-      setTimeout(() => {
-        bg.style.backgroundImage = `none`;
-        setTimeout(() => {
-          // Cache buster avec timestamp
-          const timestamp = new Date().getTime();
-          bg.style.backgroundImage = `url(${url}?t=${timestamp})`;
-        }, 50);
-      }, 100);
     }, 0);
   }
 }
+
 
 
     if (!this.state.isTitleVisible) this.toggleTitle();
