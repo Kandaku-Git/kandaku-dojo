@@ -96,6 +96,14 @@ class Diaporama {
 
     // 4. Construire le DOM, mettre en cache et binder
     this.renderDOM();
+    // Force le redraw après veille
+if (window.isBackFromSleep) {
+  this.dom.root.style.transform = 'translateZ(0)';
+  setTimeout(() => {
+    this.dom.root.style.transform = '';
+  }, 100);
+}
+
     this.cacheDOM();
     this.bindEvents();
 
@@ -759,19 +767,30 @@ class Diaporama {
     });
 
     // 🔧 PATCH MOBILE : forcer le browser à recharger le background
-    const activeSlide = this.dom.slides[this.state.currentIndex];
-    if (activeSlide) {
-      const bg = activeSlide.querySelector(".diaporama-slide-bg");
-      if (bg && this.config.images[this.state.currentIndex]) {
-        const url = this.config.images[this.state.currentIndex];
-        // Retire et remet le background pour casser le cache graphique
-        bg.style.backgroundImage = "none";
-        // Petit délai pour certains moteurs (Samsung / Chrome Android)
+    // PATCH MOBILE forcer le browser recharger le background
+const activeSlide = this.dom.slides[this.state.currentIndex];
+if (activeSlide) {
+  const bg = activeSlide.querySelector('.diaporama-slide-bg');
+  if (bg) {
+    const url = this.config.images[this.state.currentIndex];
+    
+    // ULTRA-AGRESSIF : 3x setTimeout imbriqués + cache buster
+    bg.style.backgroundImage = 'none';
+    setTimeout(() => {
+      bg.style.backgroundImage = `url(${url})`;
+      // 2e passage pour Samsung récalcitrants
+      setTimeout(() => {
+        bg.style.backgroundImage = `none`;
         setTimeout(() => {
-          bg.style.backgroundImage = `url("${url}")`;
-        }, 0);
-      }
-    }
+          // Cache buster avec timestamp
+          const timestamp = new Date().getTime();
+          bg.style.backgroundImage = `url(${url}?t=${timestamp})`;
+        }, 50);
+      }, 100);
+    }, 0);
+  }
+}
+
 
     if (!this.state.isTitleVisible) this.toggleTitle();
     this.updateDataText();
