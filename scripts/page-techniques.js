@@ -384,6 +384,9 @@ window.currentTechniqueName = null;
 
 // Fonction appelée pour ouvrir le diaporama d'une technique
 window.afficherTechnique = function (nomTechnique /*, categoryName */) {
+    // mémoriser la dernière technique pour la sortie de veille
+  window.lastTechnique = nomTechnique;
+
   window.currentTechniqueName = nomTechnique;
 
   const section = document.querySelector('.section-techniques');
@@ -406,5 +409,23 @@ window.afficherTechnique = function (nomTechnique /*, categoryName */) {
   });
 };
 
+
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && window.lastTechnique) {
+
+    // 1. Retour à l’accueil (comme un clic sur le menu Accueil)
+    window.activerSection('accueil');
+
+    // 2. Activer la section Techniques
+    setTimeout(() => {
+      window.activerSection('techniques');
+
+      // 3. Après un petit délai, réouvrir la technique
+      setTimeout(() => {
+        window.afficherTechnique(window.lastTechnique);
+      }, 200);
+    }, 200);
+  }
+});
 
 
