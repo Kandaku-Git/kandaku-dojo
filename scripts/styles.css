@@ -1659,3 +1659,29 @@ body:has(#section-accueil.is-active)::before {
     margin-top: auto !important;
   }
 }
+
+#diapo-fullscreen-prompt {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diapo-fs-prompt-content {
+  text-align: center;
+}
+
+.diapo-fs-prompt-button {
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  border: none;
+  background: #00c853;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: bold;
+  padding: 1rem;
+}

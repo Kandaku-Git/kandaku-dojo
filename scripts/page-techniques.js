@@ -408,24 +408,3 @@ window.afficherTechnique = function (nomTechnique /*, categoryName */) {
     autoPlay: true
   });
 };
-
-
-document.addEventListener('visibilitychange', () => {
-  if (document.visibilityState === 'visible' && window.lastTechnique) {
-
-    // 1. Retour à l’accueil (comme un clic sur le menu Accueil)
-    window.activerSection('accueil');
-
-    // 2. Activer la section Techniques
-    setTimeout(() => {
-      window.activerSection('techniques');
-
-      // 3. Après un petit délai, réouvrir la technique
-      setTimeout(() => {
-        window.afficherTechnique(window.lastTechnique);
-      }, 200);
-    }, 200);
-  }
-});
-
-
