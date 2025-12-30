@@ -534,242 +534,216 @@ class Diaporama {
       }
     };
   }
+  
+ // === NOUVELLE MÉTHODE ===
+  closeToCategories() {
+    this.isClosing = true;
 
+    const wrapper = document.getElementById("mon-conteneur-wrapper");
+    if (wrapper) {
+      wrapper.classList.remove("is-visible");
+    }
+
+    if (document.fullscreenElement) {
+      document.exitFullscreen().catch(() => {});
+    }
+
+    const container = this.container || document.getElementById("mon-conteneur");
+    if (container) {
+      container.innerHTML = "";
+    }
+
+    this.stopAutoSlide();
+
+    if (window._diaporamaInstance && typeof window._diaporamaInstance.destroy === "function") {
+      try { window._diaporamaInstance.destroy(); } catch (e) {}
+      window._diaporamaInstance = null;
+    }
+
+    if (typeof window.activerSection === "function") {
+      window.activerSection("techniques-categories");
+    }
+  }
+  
   bindEvents() {
-  const b = this.dom.btns;
+    const b = this.dom.btns;
 
-  // Boutons principaux
-  b.next.onclick = () => this.manualNav(1);
-  b.prev.onclick = () => this.manualNav(-1);
-  b.play.onclick = () => this.togglePlay();
-  b.eye.onclick = () => this.handleEyeClick();
-  b.back.onclick = () => this.restoreParentDiaporama();
+    // Boutons principaux
+    b.next.onclick = () => this.manualNav(1);
+    b.prev.onclick = () => this.manualNav(-1);
+    b.play.onclick = () => this.togglePlay();
+    b.eye.onclick = () => this.handleEyeClick();   
+    b.back.onclick = () => this.restoreParentDiaporama();
 
-  // 🏠 Bouton maison : fermer le diaporama SANS flash et aller sur les catégories
-  if (b.home) {
+      if (b.home) {
     b.home.onclick = (event) => {
       event.preventDefault();
       event.stopPropagation();
-
-      this.isClosing = true;
-
-      const wrapper = document.getElementById("mon-conteneur-wrapper");
-      if (wrapper) {
-        wrapper.classList.remove("is-visible");
-      }
-
-      if (document.fullscreenElement || document.webkitFullscreenElement) {
-        (document.exitFullscreen || document.webkitExitFullscreen)?.call(document);
-      }
-
-      const container = this.container || document.getElementById("mon-conteneur");
-      if (container) {
-        container.innerHTML = "";
-      }
-
-      this.stopAutoSlide();
-
-      if (window.diaporamaInstance && typeof window.diaporamaInstance.destroy === "function") {
-        try { window.diaporamaInstance.destroy(); } catch (e) {}
-        window.diaporamaInstance = null;
-      }
-
-      if (typeof window.activerSection === "function") {
-        window.activerSection("techniques-categories");
-      }
-
+      this.closeToCategories();   // <-- on réutilise la méthode
       return false;
     };
   }
 
-  // Clics dans la zone de titre (liens & vocabulaire)
-  this.dom.titleZone.addEventListener("click", (e) => {
-    // 1. Vocabulaire en priorité
-    const vocabEl = e.target.closest(".diaporama-vocab");
-    if (vocabEl && this.dom.titleZone.contains(vocabEl)) {
-      const def = vocabEl.getAttribute("data-def");
-      if (def) {
-        // Si c'est le même élément qui a déjà une infobulle, on la ferme
-        if (this.state.tooltipTarget === vocabEl) {
-          this.hideVocabularyTooltip();
-        } else {
-          this.showVocabularyTooltip(vocabEl, def);
-        }
-      }
-      return;
-    }
-
-    // 2. Liens
-    const linkEl = e.target.closest(".diaporama-link");
-    if (linkEl && this.dom.titleZone.contains(linkEl)) {
-      const target = linkEl.getAttribute("data-target");
-      if (target) this.loadSubDiaporama(target);
-      return;
-    }
-  });
-
-  // Empêcher les clics dans la zone détails de fermer / déclencher autre chose
-  this.dom.slides.forEach((slide) => {
-    const details = slide.querySelector(".diaporama-details");
-    if (details) {
-      details.addEventListener("pointerdown", (e) => {
-        e.stopPropagation();
-      });
-      details.addEventListener("pointerup", (e) => {
-        if (
-          e.target.tagName === "A" ||
-          e.target.classList.contains("diaporama-link")
-        ) {
-          return;
-        }
-        e.stopPropagation();
-        if (this.state.isDetailsOpen) {
-          this.toggleDetails();
-        }
-      });
-    }
-  });
-
-  // Scrubbing sur la jauge
-  let startX = 0;
-  let isDrag = false;
-
-  const handleScrubbing = (clientX, targetElement) => {
-    const rect = targetElement.getBoundingClientRect();
-    let x = clientX - rect.left;
-    if (x < 0) x = 0;
-    if (x > rect.width) x = rect.width;
-
-    const percent = x / rect.width;
-    const total = this.config.images.length || 1;
-
-    // Index cible en fonction de la position du curseur
-    let targetIndex = Math.floor(percent * total);
-    if (targetIndex >= total) targetIndex = total - 1;
-
-    // Mettre à jour la jauge **pendant** le glissement
-    if (this.dom.gaugeFill) {
-      const globalPercent = ((targetIndex + 1) / total) * 100;
-      this.dom.gaugeFill.style.width = `${globalPercent}%`;
-    }
-
-    // Mettre la bonne diapo si elle change
-    if (targetIndex !== this.state.currentIndex) {
-      this.showSlide(targetIndex);
-    }
-  };
-
-  this.dom.gaugeContainer.addEventListener("pointerdown", (e) => {
-    if (this.state.isSecondary) return;
-
-    this.state.isScrubbing = true;
-    this.stopAutoSlide();
-    this.dom.gaugeContainer.setPointerCapture(e.pointerId);
-
-    handleScrubbing(e.clientX, this.dom.gaugeContainer);
-  });
-
-  this.dom.gaugeContainer.addEventListener("pointermove", (e) => {
-    if (!this.state.isScrubbing) return;
-    handleScrubbing(e.clientX, this.dom.gaugeContainer);
-  });
-
-  this.dom.gaugeContainer.addEventListener("pointerup", (e) => {
-    if (this.state.isScrubbing) {
-      this.state.isScrubbing = false;
-      this.dom.gaugeContainer.releasePointerCapture(e.pointerId);
-      if (this.state.isPlaying) {
-        this.startAutoSlide();
-      }
-    }
-  });
-
-  // Scrubbing / clic sur toute la zone slider
-  this.dom.slider.addEventListener("pointerdown", (e) => {
-    if (e.target.closest(".diaporama-toast")) return;
-    if (e.target.closest(".diaporama-details") && this.state.isDetailsOpen) return;
-    // Ne pas intercepter les clics sur le titre L1/L2
-    if (e.target.closest(".diaporama-title-zone")) return;
-    if (this.state.isSecondary) return;
-
-    e.preventDefault();
-    this.state.isScrubbing = true;
-    startX = e.clientX;
-    isDrag = false;
-    this.stopAutoSlide();
-    this.dom.slider.setPointerCapture(e.pointerId);
-  });
-
-  this.dom.slider.addEventListener("pointermove", (e) => {
-    if (!this.state.isScrubbing) return;
-
-    if (!isDrag && Math.abs(e.clientX - startX) > 10) {
-      isDrag = true;
-    }
-
-    if (isDrag) {
-      handleScrubbing(e.clientX, this.dom.slider);
-    }
-  });
-
-  this.dom.slider.addEventListener("pointerup", (e) => {
-    if (!this.state.isScrubbing) return;
-    this.state.isScrubbing = false;
-    this.dom.slider.releasePointerCapture(e.pointerId);
-
-    if (!isDrag) {
-      // Clic simple : play/pause ou fermer la description
-      if (!this.state.isDetailsOpen) {
-        this.togglePlay();
-      } else if (this.state.isPlaying) {
-        this.startAutoSlide();
-      }
-    } else if (this.state.isPlaying) {
-      this.startAutoSlide();
-    }
-  });
-
-  // Clique sur le toast : tentative de retour plein écran
-  const toast = document.getElementById("diaporama-toast");
-  if (toast) {
-    toast.style.cursor = "pointer";
-    toast.onclick = async () => {
-      this.hideToast();
-      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-        const root = this.dom.root;
-        if (!root) return;
-        try {
-          if (root.requestFullscreen) {
-            await root.requestFullscreen();
-          } else if (root.webkitRequestFullscreen) {
-            root.webkitRequestFullscreen();
+    // Clics dans la zone de titre (liens & vocabulaire)
+    this.dom.titleZone.addEventListener("click", (e) => {
+      // 1. Vocabulaire en priorité
+      const vocabEl = e.target.closest(".diaporama-vocab");
+      if (vocabEl && this.dom.titleZone.contains(vocabEl)) {
+        const def = vocabEl.getAttribute("data-def");
+        if (def) {
+          // Si c'est le même élément qui a déjà une infobulle, on la ferme
+          if (this.state.tooltipTarget === vocabEl) {
+            this.hideVocabularyTooltip();
+          } else {
+            this.showVocabularyTooltip(vocabEl, def);
           }
-        } catch (e) {
-          // ignore
         }
+        return;
+      }
+
+      // 2. Liens
+      const linkEl = e.target.closest(".diaporama-link");
+      if (linkEl && this.dom.titleZone.contains(linkEl)) {
+        const target = linkEl.getAttribute("data-target");
+        if (target) this.loadSubDiaporama(target);
+        return;
+      }
+    });
+
+    // Empêcher les clics dans la zone détails de fermer / déclencher autre chose
+    this.dom.slides.forEach((slide) => {
+      const details = slide.querySelector(".diaporama-details");
+      if (details) {
+        details.addEventListener("pointerdown", (e) => {
+          e.stopPropagation();
+        });
+        details.addEventListener("pointerup", (e) => {
+          if (
+            e.target.tagName === "A" ||
+            e.target.classList.contains("diaporama-link")
+          ) {
+            return;
+          }
+          e.stopPropagation();
+          if (this.state.isDetailsOpen) {
+            this.toggleDetails();
+          }
+        });
+      }
+    });
+
+    // Scrubbing sur la jauge
+    let startX = 0;
+    let isDrag = false;
+
+    const handleScrubbing = (clientX, targetElement) => {
+      const rect = targetElement.getBoundingClientRect();
+      let x = clientX - rect.left;
+
+      if (x < 0) x = 0;
+      if (x > rect.width) x = rect.width;
+
+      const percent = x / rect.width;
+      const total = this.config.images.length || 1;
+
+      // Index cible en fonction de la position du curseur
+      let targetIndex = Math.floor(percent * total);
+      if (targetIndex >= total) targetIndex = total - 1;
+
+      // Mettre à jour la jauge **pendant** le glissement
+      if (this.dom.gaugeFill) {
+        const globalPercent = ((targetIndex + 1) / total) * 100;
+        this.dom.gaugeFill.style.width = `${globalPercent}%`;
+      }
+
+      // Mettre la bonne diapo si elle change
+      if (targetIndex !== this.state.currentIndex) {
+        this.showSlide(targetIndex);
       }
     };
+
+    this.dom.gaugeContainer.addEventListener("pointerdown", (e) => {
+      if (this.state.isSecondary) return;
+      this.state.isScrubbing = true;
+      this.stopAutoSlide();
+      this.dom.gaugeContainer.setPointerCapture(e.pointerId);
+      handleScrubbing(e.clientX, this.dom.gaugeContainer);
+    });
+
+    this.dom.gaugeContainer.addEventListener("pointermove", (e) => {
+      if (!this.state.isScrubbing) return;
+      handleScrubbing(e.clientX, this.dom.gaugeContainer);
+    });
+
+    this.dom.gaugeContainer.addEventListener("pointerup", (e) => {
+      if (this.state.isScrubbing) {
+        this.state.isScrubbing = false;
+        this.dom.gaugeContainer.releasePointerCapture(e.pointerId);
+        if (this.state.isPlaying) this.startAutoSlide();
+      }
+    });
+
+    // Scrubbing / clic sur toute la zone slider
+    this.dom.slider.addEventListener("pointerdown", (e) => {
+      if (e.target.closest(".diaporama-toast")) return;
+      if (e.target.closest(".diaporama-details") && this.state.isDetailsOpen) return;
+        // Ne pas intercepter les clics sur le titre (L1/L2)
+      if (e.target.closest("#diaporama-title-zone")) return;
+
+      if (this.state.isSecondary) return;
+
+      e.preventDefault();
+      this.state.isScrubbing = true;
+      startX = e.clientX;
+      isDrag = false;
+      this.stopAutoSlide();
+      this.dom.slider.setPointerCapture(e.pointerId);
+    });
+
+    this.dom.slider.addEventListener("pointermove", (e) => {
+      if (!this.state.isScrubbing) return;
+      if (Math.abs(e.clientX - startX) > 10) {
+        isDrag = true;
+        handleScrubbing(e.clientX, this.dom.slider);
+      }
+    });
+
+    this.dom.slider.addEventListener("pointerup", (e) => {
+      if (!this.state.isScrubbing) return;
+      this.state.isScrubbing = false;
+      this.dom.slider.releasePointerCapture(e.pointerId);
+
+      if (!isDrag) {
+        if (!this.state.isDetailsOpen) {
+          this.togglePlay();
+        } else if (this.state.isPlaying) {
+          this.startAutoSlide();
+        }
+      } else {
+        if (this.state.isPlaying) this.startAutoSlide();
+      }
+    });
+
+    const toast = document.getElementById("diaporama-toast");
+    if (toast) {
+      toast.style.cursor = "pointer";
+      toast.onclick = async () => {
+        this.hideToast();
+        if (!document.fullscreenElement && this.dom && this.dom.root) {
+          try {
+            if (this.dom.root.requestFullscreen) {
+              await this.dom.root.requestFullscreen();
+            } else if (this.dom.root.webkitRequestFullscreen) {
+              this.dom.root.webkitRequestFullscreen();
+            }
+          } catch (e) {
+            // ignore
+          }
+        }
+      };
+    }
+
   }
-
-  // 🔄 NOUVEAU : gestion de la sortie de veille
-  document.addEventListener("visibilitychange", () => {
-    if (document.visibilityState === "visible" && !this.isClosing) {
-      this.resumeFromSleep?.();
-    }
-  });
-
-  // 🔲 NOUVEAU : re-demander le plein écran si perdu
-  const handleFsChange = () => {
-    const isFs =
-      document.fullscreenElement || document.webkitFullscreenElement;
-    if (!isFs && !this.isClosing) {
-      setTimeout(() => this.forceFullscreen?.(), 100);
-    }
-  };
-  document.addEventListener("fullscreenchange", handleFsChange);
-  document.addEventListener("webkitfullscreenchange", handleFsChange);
-}
-
 
   showSlide(index) {
     if (this.state.isDetailsOpen) this.toggleDetails();
@@ -810,52 +784,6 @@ class Diaporama {
       this.resetProgress();
     }
   }
-
-// Reprise après veille
-resumeFromSleep() {
-  // Tente de revenir en plein écran
-  if (typeof this.forceFullscreen === "function") {
-    this.forceFullscreen();
-  }
-
-  // Force le rafraîchissement de la slide courante (images + texte)
-  this.showSlide(this.state.currentIndex);
-
-  // Relance l’autoplay uniquement si c’était déjà en lecture
-  if (this.state.isPlaying) {
-    this.startAutoSlide();
-  }
-
-  // Petit feedback optionnel
-  if (typeof this.showToast === "function") {
-    this.showToast("Diaporama repris");
-  }
-}
-
-// Renforcé pour mobile
-async forceFullscreen() {
-  try {
-    const root = this.dom?.root || this.container;
-    if (!root) return;
-
-    const isFs =
-      document.fullscreenElement || document.webkitFullscreenElement;
-
-    if (!isFs) {
-      if (root.requestFullscreen) {
-        await root.requestFullscreen();
-      } else if (root.webkitRequestFullscreen) {
-        await root.webkitRequestFullscreen();
-      }
-
-      // Fallback CSS au cas où l’API fullscreen échoue sur mobile
-      root.classList.add("force-fullscreen");
-    }
-  } catch (e) {
-    // navigateur ou utilisateur refusent : on s'abstient
-  }
-}
-
 
   // --- MODIFICATION ICI : Ordre Vocabulaire / Liens inversé ---
   updateDataText() {
@@ -1051,5 +979,29 @@ async forceFullscreen() {
     this.dom.btns.eye.classList.toggle('active', !this.state.isTitleVisible);
   }
 
+  async forceFullscreen() {
+  try {
+    if (!document.fullscreenElement && this.dom && this.dom.root) {
+      if (this.dom.root.requestFullscreen) {
+        await this.dom.root.requestFullscreen();
+      } else if (this.dom.root.webkitRequestFullscreen) {
+        await this.dom.root.webkitRequestFullscreen();
+      }
+    }
+  } catch (e) {
+    // on ignore si le navigateur refuse
+  }
+}
 }
 
+window.afficherTechnique = function (nomTechnique) {
+  // Détruit une instance précédente si tu veux éviter les fuites
+  if (window._diaporamaInstance && typeof window._diaporamaInstance.destroy === "function") {
+    window._diaporamaInstance.destroy();
+  }
+
+  window._diaporamaInstance = new Diaporama("mon-conteneur", {
+    technique: nomTechnique,
+    title: nomTechnique,
+  });
+};

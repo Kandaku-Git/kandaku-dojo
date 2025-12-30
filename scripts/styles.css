@@ -438,6 +438,18 @@ body::before {
   line-height: 1.6;
 }
 
+/* Fallback plein écran diaporama (mobile / refus API) */
+.force-fullscreen,
+:fullscreen,
+:-webkit-full-screen {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 9999 !important;
+  background: #000 !important;
+}
+
 
 /* =========================================================
    BOUTONS D’ACTION
@@ -581,6 +593,11 @@ body::before {
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
     gap: 0.75rem;
     margin-top: 1rem;
+  }
+}
+@media (max-width: 768px) {
+  .diaporama-slider-container {
+    min-height: 45vh;   /* un peu plus de place sur smartphone */
   }
 }
 
@@ -805,7 +822,7 @@ body::before {
   position: relative;
   flex-grow: 1;
   width: 100%;
-  min-height: 0;
+  min-height: 40vh; /* hauteur mini pour éviter le 0px */
   background: #ffffff;
   overflow: hidden;
 }
