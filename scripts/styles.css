@@ -1626,3 +1626,61 @@ body:has(#section-accueil.is-active)::before {
     visibility: hidden;
     transition: opacity 0.3s ease; /* Effet de transition doux */
 }
+
+/* Plein écran quand le diaporama demande force-fullscreen */
+.section-techniques.is-active .diaporama-wrapper.force-fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  max-width: none;
+  max-height: none;
+  border-radius: 0;
+}
+
+/* Fix veille mobile - hauteur garantie après recréation */
+@media (max-width: 480px) {
+  .section-techniques.is-active .diaporama-wrapper {
+    min-height: 85vh !important;
+    max-height: 90vh !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  #diaporama-slider {
+    flex-grow: 1 !important;
+    min-height: 50vh !important;
+  }
+  
+  .diaporama-controls {
+    flex-shrink: 0 !important;
+    margin-top: auto !important;
+  }
+}
+
+#diapo-fullscreen-prompt {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diapo-fs-prompt-content {
+  text-align: center;
+}
+
+.diapo-fs-prompt-button {
+  border: none;                /* plus de bordure */
+  padding: 0;                  /* pas de padding */
+  background: transparent;     /* plus de fond vert */
+  width: 220px;                /* taille du cercle d’avant */
+  height: 220px;
+  border-radius: 50%;          /* reste rond pour le hit area */
+  cursor: pointer;
+}
+

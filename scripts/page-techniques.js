@@ -384,6 +384,9 @@ window.currentTechniqueName = null;
 
 // Fonction appelée pour ouvrir le diaporama d'une technique
 window.afficherTechnique = function (nomTechnique /*, categoryName */) {
+    // mémoriser la dernière technique pour la sortie de veille
+  window.lastTechnique = nomTechnique;
+
   window.currentTechniqueName = nomTechnique;
 
   const section = document.querySelector('.section-techniques');
@@ -405,6 +408,3 @@ window.afficherTechnique = function (nomTechnique /*, categoryName */) {
     autoPlay: true
   });
 };
-
-
-

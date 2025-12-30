@@ -117,6 +117,98 @@ class Diaporama {
     if (this.state.isPlaying) {
       this.startAutoSlide();
     }
+  } // ← fin de init()
+
+
+  // Vérifie si le document est en plein écran
+  isActuallyFullscreen() {
+    return !!document.fullscreenElement || !!document.webkitFullscreenElement;
+  }
+
+  
+/**
+ * Reprend la lecture du diaporama après une mise en veille.
+ * - Si le fullscreen est perdu : affiche le bouton pour le redemander.
+ * - Si le fullscreen est encore actif : rafraîchit la slide et l'autoplay.
+ */
+resumeFromSleep() {
+  const isFs =
+    !!document.fullscreenElement ||
+    !!document.webkitFullscreenElement;
+
+  // 1) Pas de fullscreen → on affiche le gros bouton vert
+  if (!isFs) {
+    if (typeof this.showFullscreenPrompt === "function") {
+      this.showFullscreenPrompt();
+    }
+
+    // On peut quand même rafraîchir la slide courante sans relancer l'autoplay
+    if (typeof this.showSlide === "function") {
+      this.showSlide(this.state.currentIndex);
+    }
+
+    if (typeof this.showToast === "function") {
+      this.showToast("Cliquez pour relancer le diaporama en plein écran");
+    }
+
+    return;
+  }
+
+  // 2) Fullscreen encore actif → reprise normale
+  if (typeof this.hideFullscreenPrompt === "function") {
+    this.hideFullscreenPrompt();
+  }
+
+  if (typeof this.showSlide === "function") {
+    this.showSlide(this.state.currentIndex);
+  }
+
+  if (this.state.isPlaying && typeof this.startAutoSlide === "function") {
+    this.startAutoSlide();
+  }
+
+  if (typeof this.showToast === "function") {
+    this.showToast("Diaporama repris");
+  }
+}
+
+showFullscreenPrompt() {
+    // Ne pas dupliquer
+    if (document.getElementById('diapo-fullscreen-prompt')) return;
+
+    const overlay = document.createElement('div');
+    overlay.id = 'diapo-fullscreen-prompt';
+overlay.innerHTML = `
+  <div class="diapo-fs-prompt-content">
+    <button class="diapo-fs-prompt-button">
+      <img src="images/bouton.png"
+           alt="Cliquer pour afficher le diaporama en plein écran"
+           style="width:100%;height:100%;object-fit:contain;" />
+    </button>
+  </div>
+`;
+    document.body.appendChild(overlay);
+
+    const btn = overlay.querySelector('.diapo-fs-prompt-button');
+    btn.addEventListener('click', async () => {
+      // 1. S'assurer que le diaporama est en place
+      // (si nécessaire : window.afficherTechnique(window.lastTechnique);)
+
+      // 2. Demander le plein écran avec un vrai geste utilisateur
+      try {
+        await this.container.requestFullscreen();
+      } catch (e) {
+        // on ignore, certains navigateurs peuvent encore refuser
+      }
+
+      overlay.remove();
+    });
+}
+
+
+  hideFullscreenPrompt() {
+    const overlay = document.getElementById('diapo-fullscreen-prompt');
+    if (overlay) overlay.remove();
   }
 
   // --- DONNÉES ---
@@ -758,16 +850,7 @@ class Diaporama {
     }
   });
 
-  // 🔲 NOUVEAU : re-demander le plein écran si perdu
-  const handleFsChange = () => {
-    const isFs =
-      document.fullscreenElement || document.webkitFullscreenElement;
-    if (!isFs && !this.isClosing) {
-      setTimeout(() => this.forceFullscreen?.(), 100);
-    }
-  };
-  document.addEventListener("fullscreenchange", handleFsChange);
-  document.addEventListener("webkitfullscreenchange", handleFsChange);
+
 }
 
 
@@ -810,27 +893,6 @@ class Diaporama {
       this.resetProgress();
     }
   }
-
-// Reprise après veille
-resumeFromSleep() {
-  // Tente de revenir en plein écran
-  if (typeof this.forceFullscreen === "function") {
-    this.forceFullscreen();
-  }
-
-  // Force le rafraîchissement de la slide courante (images + texte)
-  this.showSlide(this.state.currentIndex);
-
-  // Relance l’autoplay uniquement si c’était déjà en lecture
-  if (this.state.isPlaying) {
-    this.startAutoSlide();
-  }
-
-  // Petit feedback optionnel
-  if (typeof this.showToast === "function") {
-    this.showToast("Diaporama repris");
-  }
-}
 
 // Renforcé pour mobile
 async forceFullscreen() {
