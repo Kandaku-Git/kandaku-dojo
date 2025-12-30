@@ -407,45 +407,4 @@ window.afficherTechnique = function (nomTechnique /*, categoryName */) {
 };
 
 
-document.addEventListener("visibilitychange", () => {
-  if (document.visibilityState === "visible") {
-    if (window.currentTechniqueName) {
-      const section = document.querySelector(".section-techniques");
-      const wrapper = document.getElementById("mon-conteneur-wrapper");
-      const container = document.getElementById("mon-conteneur");
-
-      if (section) section.classList.remove("is-active");
-      if (wrapper) wrapper.classList.remove("is-visible");
-      if (container) container.innerHTML = "";
-
-      if (
-        window.diaporamaInstance &&
-        typeof window.diaporamaInstance.destroy === "function"
-      ) {
-        window.diaporamaInstance.destroy();
-        window.diaporamaInstance = null;
-      }
-
-setTimeout(() => {
-  console.log("→ visibilitychange: avant afficherTechnique, currentTechniqueName =", window.currentTechniqueName);
-  window.afficherTechnique(window.currentTechniqueName);
-
-  console.log("→ visibilitychange: après afficherTechnique, diaporamaInstance =", window.diaporamaInstance);
-
-  if (
-    window.diaporamaInstance &&
-    typeof window.diaporamaInstance.showToast === "function"
-  ) {
-    console.log("→ visibilitychange: appel showToast");
-    window.diaporamaInstance.showToast(
-      "Touchez ici pour revenir en plein écran"
-    );
-  } else {
-    console.log("→ visibilitychange: pas d'instance ou pas de showToast");
-  }
-}, 400);
-
-    }
-  }
-});
 

@@ -438,6 +438,18 @@ body::before {
   line-height: 1.6;
 }
 
+/* Fallback plein écran diaporama (mobile / refus API) */
+.force-fullscreen,
+:fullscreen,
+:-webkit-full-screen {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 9999 !important;
+  background: #000 !important;
+}
+
 
 /* =========================================================
    BOUTONS D’ACTION
