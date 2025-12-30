@@ -1638,3 +1638,24 @@ body:has(#section-accueil.is-active)::before {
   max-height: none;
   border-radius: 0;
 }
+
+/* Fix veille mobile - hauteur garantie après recréation */
+@media (max-width: 480px) {
+  .section-techniques.is-active .diaporama-wrapper {
+    min-height: 85vh !important;
+    max-height: 90vh !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  
+  #diaporama-slider {
+    flex-grow: 1 !important;
+    min-height: 50vh !important;
+  }
+  
+  .diaporama-controls {
+    flex-shrink: 0 !important;
+    margin-top: auto !important;
+  }
+}
