@@ -569,9 +569,9 @@ class Diaporama {
 
       this.stopAutoSlide();
 
-      if (window._diaporamaInstance && typeof window._diaporamaInstance.destroy === "function") {
-        try { window._diaporamaInstance.destroy(); } catch (e) {}
-        window._diaporamaInstance = null;
+      if (window.diaporamaInstance && typeof window.diaporamaInstance.destroy === "function") {
+        try { window.diaporamaInstance.destroy(); } catch (e) {}
+        window.diaporamaInstance = null;
       }
 
       if (typeof window.activerSection === "function") {
@@ -1051,29 +1051,5 @@ async forceFullscreen() {
     this.dom.btns.eye.classList.toggle('active', !this.state.isTitleVisible);
   }
 
-  async forceFullscreen() {
-  try {
-    if (!document.fullscreenElement && this.dom && this.dom.root) {
-      if (this.dom.root.requestFullscreen) {
-        await this.dom.root.requestFullscreen();
-      } else if (this.dom.root.webkitRequestFullscreen) {
-        await this.dom.root.webkitRequestFullscreen();
-      }
-    }
-  } catch (e) {
-    // on ignore si le navigateur refuse
-  }
-}
 }
 
-window.afficherTechnique = function (nomTechnique) {
-  // Détruit une instance précédente si tu veux éviter les fuites
-  if (window._diaporamaInstance && typeof window._diaporamaInstance.destroy === "function") {
-    window._diaporamaInstance.destroy();
-  }
-
-  window._diaporamaInstance = new Diaporama("mon-conteneur", {
-    technique: nomTechnique,
-    title: nomTechnique,
-  });
-};
