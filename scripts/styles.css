@@ -1626,3 +1626,15 @@ body:has(#section-accueil.is-active)::before {
     visibility: hidden;
     transition: opacity 0.3s ease; /* Effet de transition doux */
 }
+
+/* Plein écran quand le diaporama demande force-fullscreen */
+.section-techniques.is-active .diaporama-wrapper.force-fullscreen {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  max-width: none;
+  max-height: none;
+  border-radius: 0;
+}
