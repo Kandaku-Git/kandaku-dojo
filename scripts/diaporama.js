@@ -534,37 +534,7 @@ class Diaporama {
       }
     };
   }
-  
- // === NOUVELLE MÉTHODE ===
-  closeToCategories() {
-    this.isClosing = true;
 
-    const wrapper = document.getElementById("mon-conteneur-wrapper");
-    if (wrapper) {
-      wrapper.classList.remove("is-visible");
-    }
-
-    if (document.fullscreenElement) {
-      document.exitFullscreen().catch(() => {});
-    }
-
-    const container = this.container || document.getElementById("mon-conteneur");
-    if (container) {
-      container.innerHTML = "";
-    }
-
-    this.stopAutoSlide();
-
-    if (window.diaporamaInstance && typeof window.diaporamaInstance.destroy === "function") {
-      try { window.diaporamaInstance.destroy(); } catch (e) {}
-      window.diaporamaInstance = null;
-    }
-
-    if (typeof window.activerSection === "function") {
-      window.activerSection("techniques-categories");
-    }
-  }
-  
   bindEvents() {
     const b = this.dom.btns;
 
@@ -575,14 +545,42 @@ class Diaporama {
     b.eye.onclick = () => this.handleEyeClick();   
     b.back.onclick = () => this.restoreParentDiaporama();
 
-      if (b.home) {
-    b.home.onclick = (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-      this.closeToCategories();   // <-- on réutilise la méthode
-      return false;
-    };
-  }
+    // 🏠 Bouton maison : fermer le diaporama SANS flash et aller sur les catégories
+    if (b.home) {
+      b.home.onclick = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        this.isClosing = true;
+
+        const wrapper = document.getElementById("mon-conteneur-wrapper");
+        if (wrapper) {
+            wrapper.classList.remove("is-visible");
+        }
+
+        if (document.fullscreenElement) {
+            document.exitFullscreen().catch(() => {});
+        }
+
+        const container = this.container || document.getElementById("mon-conteneur");
+        if (container) {
+            container.innerHTML = "";
+        }
+
+        this.stopAutoSlide();
+
+        if (window._diaporamaInstance && typeof window._diaporamaInstance.destroy === "function") {
+            try { window._diaporamaInstance.destroy(); } catch (e) {}
+            window._diaporamaInstance = null;
+        }
+
+        if (typeof window.activerSection === "function") {
+            window.activerSection("techniques-categories");
+        }
+
+        return false;
+      };
+    }
 
     // Clics dans la zone de titre (liens & vocabulaire)
     this.dom.titleZone.addEventListener("click", (e) => {
@@ -996,11 +994,11 @@ class Diaporama {
 
 window.afficherTechnique = function (nomTechnique) {
   // Détruit une instance précédente si tu veux éviter les fuites
-  if (window.diaporamaInstance && typeof window.diaporamaInstance.destroy === "function") {
-    window.diaporamaInstance.destroy();
+  if (window._diaporamaInstance && typeof window._diaporamaInstance.destroy === "function") {
+    window._diaporamaInstance.destroy();
   }
 
-  window.diaporamaInstance = new Diaporama("mon-conteneur", {
+  window._diaporamaInstance = new Diaporama("mon-conteneur", {
     technique: nomTechnique,
     title: nomTechnique,
   });

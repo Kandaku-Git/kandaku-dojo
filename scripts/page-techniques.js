@@ -407,14 +407,45 @@ window.afficherTechnique = function (nomTechnique /*, categoryName */) {
 };
 
 
-
 document.addEventListener("visibilitychange", () => {
-  // On ne s'intéresse qu'au moment où la page redevient visible
-  if (document.visibilityState !== "visible") return;
+  if (document.visibilityState === "visible") {
+    if (window.currentTechniqueName) {
+      const section = document.querySelector(".section-techniques");
+      const wrapper = document.getElementById("mon-conteneur-wrapper");
+      const container = document.getElementById("mon-conteneur");
 
-  // S'il y a une instance de diaporama, on lui demande de faire comme si on avait cliqué sur la maison
-  if (window.diaporamaInstance && typeof window.diaporamaInstance.closeToCategories === "function") {
-    window.diaporamaInstance.closeToCategories();
+      if (section) section.classList.remove("is-active");
+      if (wrapper) wrapper.classList.remove("is-visible");
+      if (container) container.innerHTML = "";
+
+      if (
+        window.diaporamaInstance &&
+        typeof window.diaporamaInstance.destroy === "function"
+      ) {
+        window.diaporamaInstance.destroy();
+        window.diaporamaInstance = null;
+      }
+
+setTimeout(() => {
+  console.log("→ visibilitychange: avant afficherTechnique, currentTechniqueName =", window.currentTechniqueName);
+  window.afficherTechnique(window.currentTechniqueName);
+
+  console.log("→ visibilitychange: après afficherTechnique, diaporamaInstance =", window.diaporamaInstance);
+
+  if (
+    window.diaporamaInstance &&
+    typeof window.diaporamaInstance.showToast === "function"
+  ) {
+    console.log("→ visibilitychange: appel showToast");
+    window.diaporamaInstance.showToast(
+      "Touchez ici pour revenir en plein écran"
+    );
+  } else {
+    console.log("→ visibilitychange: pas d'instance ou pas de showToast");
+  }
+}, 400);
+
+    }
   }
 });
 
