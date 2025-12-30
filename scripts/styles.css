@@ -1675,13 +1675,12 @@ body:has(#section-accueil.is-active)::before {
 }
 
 .diapo-fs-prompt-button {
-  width: 220px;
+  border: none;                /* plus de bordure */
+  padding: 0;                  /* pas de padding */
+  background: transparent;     /* plus de fond vert */
+  width: 220px;                /* taille du cercle d’avant */
   height: 220px;
-  border-radius: 50%;
-  border: none;
-  background: #00c853;
-  color: #fff;
-  font-size: 1.1rem;
-  font-weight: bold;
-  padding: 1rem;
+  border-radius: 50%;          /* reste rond pour le hit area */
+  cursor: pointer;
 }
+

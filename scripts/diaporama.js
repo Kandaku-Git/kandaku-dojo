@@ -172,20 +172,21 @@ resumeFromSleep() {
   }
 }
 
-
 showFullscreenPrompt() {
     // Ne pas dupliquer
     if (document.getElementById('diapo-fullscreen-prompt')) return;
 
     const overlay = document.createElement('div');
     overlay.id = 'diapo-fullscreen-prompt';
-    overlay.innerHTML = `
-      <div class="diapo-fs-prompt-content">
-        <button class="diapo-fs-prompt-button">
-          Cliquer pour afficher le diaporama
-        </button>
-      </div>
-    `;
+overlay.innerHTML = `
+  <div class="diapo-fs-prompt-content">
+    <button class="diapo-fs-prompt-button">
+      <img src="images/bouton.png"
+           alt="Cliquer pour afficher le diaporama en plein écran"
+           style="width:100%;height:100%;object-fit:contain;" />
+    </button>
+  </div>
+`;
     document.body.appendChild(overlay);
 
     const btn = overlay.querySelector('.diapo-fs-prompt-button');
@@ -202,7 +203,8 @@ showFullscreenPrompt() {
 
       overlay.remove();
     });
-  }
+}
+
 
   hideFullscreenPrompt() {
     const overlay = document.getElementById('diapo-fullscreen-prompt');
