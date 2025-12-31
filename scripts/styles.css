@@ -57,6 +57,9 @@
   border-radius: 10px;
 }
 
+.diaporama-btn.active {
+  background-color: rgba(255,255,255,0.15);
+}
 
 
 
@@ -1660,27 +1663,13 @@ body:has(#section-accueil.is-active)::before {
   }
 }
 
-#diapo-fullscreen-prompt {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.8);
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.diapo-fs-blink svg {
+  animation: diapoFsBlink 1s infinite;
 }
 
-.diapo-fs-prompt-content {
-  text-align: center;
-}
-
-.diapo-fs-prompt-button {
-  border: none;                /* plus de bordure */
-  padding: 0;                  /* pas de padding */
-  background: transparent;     /* plus de fond vert */
-  width: 220px;                /* taille du cercle d’avant */
-  height: 220px;
-  border-radius: 50%;          /* reste rond pour le hit area */
-  cursor: pointer;
+@keyframes diapoFsBlink {
+  0%   { stroke: #ff0000; fill: #ff0000; }
+  50%  { stroke: #ffffff; fill: #ffffff; }
+  100% { stroke: #ff0000; fill: #ff0000; }
 }
 
