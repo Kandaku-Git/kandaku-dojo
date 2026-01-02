@@ -139,7 +139,7 @@ window.renderContactForm = function () {
 
   const humanText = document.createElement("span");
   humanText.className = "human-check-label";
-  humanText.textContent = "Je suis un humain";
+  humanText.textContent = "Je suis un humain *";
 
   humanLabel.appendChild(humanBox);
   humanLabel.appendChild(humanText);
