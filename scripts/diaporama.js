@@ -125,31 +125,91 @@ class Diaporama {
     return !!document.fullscreenElement || !!document.webkitFullscreenElement;
   }
 
+  
+/**
+ * Reprend la lecture du diaporama après une mise en veille.
+ * - Si le fullscreen est perdu : affiche le bouton pour le redemander.
+ * - Si le fullscreen est encore actif : rafraîchit la slide et l'autoplay.
+ */
 resumeFromSleep() {
   const isFs =
     !!document.fullscreenElement ||
     !!document.webkitFullscreenElement;
 
+  // 1) Pas de fullscreen → on affiche le gros bouton vert
   if (!isFs) {
-    // Plus d’overlay : on se contente de rafraîchir l’image
+    if (typeof this.showFullscreenPrompt === "function") {
+      this.showFullscreenPrompt();
+    }
+
+    // On peut quand même rafraîchir la slide courante sans relancer l'autoplay
     if (typeof this.showSlide === "function") {
       this.showSlide(this.state.currentIndex);
     }
+
+    if (typeof this.showToast === "function") {
+      this.showToast("Cliquez pour relancer le diaporama en plein écran");
+    }
+
     return;
   }
 
+  // 2) Fullscreen encore actif → reprise normale
   if (typeof this.hideFullscreenPrompt === "function") {
     this.hideFullscreenPrompt();
   }
+
   if (typeof this.showSlide === "function") {
     this.showSlide(this.state.currentIndex);
   }
+
   if (this.state.isPlaying && typeof this.startAutoSlide === "function") {
     this.startAutoSlide();
   }
+
+  if (typeof this.showToast === "function") {
+    this.showToast("Diaporama repris");
+  }
+}
+
+showFullscreenPrompt() {
+    // Ne pas dupliquer
+    if (document.getElementById('diapo-fullscreen-prompt')) return;
+
+    const overlay = document.createElement('div');
+    overlay.id = 'diapo-fullscreen-prompt';
+overlay.innerHTML = `
+  <div class="diapo-fs-prompt-content">
+    <button class="diapo-fs-prompt-button">
+      <img src="images/bouton.png"
+           alt="Cliquer pour afficher le diaporama en plein écran"
+           style="width:100%;height:100%;object-fit:contain;" />
+    </button>
+  </div>
+`;
+    document.body.appendChild(overlay);
+
+    const btn = overlay.querySelector('.diapo-fs-prompt-button');
+    btn.addEventListener('click', async () => {
+      // 1. S'assurer que le diaporama est en place
+      // (si nécessaire : window.afficherTechnique(window.lastTechnique);)
+
+      // 2. Demander le plein écran avec un vrai geste utilisateur
+      try {
+        await this.container.requestFullscreen();
+      } catch (e) {
+        // on ignore, certains navigateurs peuvent encore refuser
+      }
+
+      overlay.remove();
+    });
 }
 
 
+  hideFullscreenPrompt() {
+    const overlay = document.getElementById('diapo-fullscreen-prompt');
+    if (overlay) overlay.remove();
+  }
 
   // --- DONNÉES ---
 
@@ -518,15 +578,6 @@ resumeFromSleep() {
                             <circle cx="12" cy="12" r="3"></circle>
                             </svg>
                         </button>
-                        <!-- 🔳 NOUVEAU : bouton plein écran -->
-                        <button class="diaporama-btn" id="diaporama-fs" title="Plein écran">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
-                            <path d="M21 8V5a2 2 0 0 0-2-2h-3"/>
-                            <path d="M3 16v3a2 2 0 0 0 2 2h3"/>
-                            <path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
-                          </svg>
-                        </button>
                         <a href="index.html" class="diaporama-btn" id="diaporama-home" title="Accueil"
                             style="text-decoration:none;display:flex;align-items:center;justify-content:center;">
                             <svg class="diaporama-icon" viewBox="0 0 24 24">
@@ -571,8 +622,7 @@ resumeFromSleep() {
         play: id("diaporama-play"),
         back: id("diaporama-back"),
         eye:  id("diaporama-eye"),
-        home: id("diaporama-home"),
-        fs:   id("diaporama-fs") 
+        home: id("diaporama-home") 
       }
     };
   }
@@ -586,57 +636,6 @@ resumeFromSleep() {
   b.play.onclick = () => this.togglePlay();
   b.eye.onclick = () => this.handleEyeClick();
   b.back.onclick = () => this.restoreParentDiaporama();
-
-  // 🔳 Bouton plein écran (toggle)
-  if (b.fs) {
-    b.fs.onclick = async (event) => {
-      event.preventDefault();
-      event.stopPropagation();
-
-      const root = this.dom.root || this.container;
-      if (!root) return;
-
-      try {
-        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-          if (root.requestFullscreen) {
-            await root.requestFullscreen();
-          } else if (root.webkitRequestFullscreen) {
-            await root.webkitRequestFullscreen();
-          }
-        } else {
-          if (document.exitFullscreen) {
-            await document.exitFullscreen();
-          } else if (document.webkitExitFullscreen) {
-            await document.webkitExitFullscreen();
-          }
-        }
-      } catch (e) {
-        // Optionnel : petit toast
-        this.showToast?.("Le plein écran a été refusé par le navigateur");
-      }
-    };
-  }
-
-document.addEventListener("fullscreenchange", () => {
-  const isFs =
-    !!document.fullscreenElement ||
-    !!document.webkitFullscreenElement;
-
-  if (!this.dom?.btns?.fs) return;
-
-  if (isFs) {
-    // En plein écran : bouton caché, plus de clignotement
-    this.dom.btns.fs.classList.add("diaporama-hidden");
-    this.dom.btns.fs.classList.remove("diapo-fs-blink");
-  } else {
-    // Hors plein écran : bouton visible + clignotement
-    this.dom.btns.fs.classList.remove("diaporama-hidden");
-    this.dom.btns.fs.classList.add("diapo-fs-blink");
-  }
-});
-
-
-
 
   // 🏠 Bouton maison : fermer le diaporama SANS flash et aller sur les catégories
   if (b.home) {
