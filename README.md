@@ -6,7 +6,8 @@ Liens externes :
 - Web3Forms : formulaire contact
 
 ## A faire
-- [ ] Fixer bug barre de défilement (diaporama en pause, quand on clique 1 fois sur la barre, elle se vide, une deuxieme fois elle se rempi jusqu'au curseur...)
+- [ ] Ajouter les fiche d'explication & un lien vers elle dans la page d'accueil
+- [ ] Ajoutezr les déplacements
 - [ ] Ajouter et vérifier les katas manquants
 - [ ] Techniques hors ligne
 - [ ] Humaniser les schemas
