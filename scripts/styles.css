@@ -503,7 +503,7 @@ body::before { /* Filigrane en arrière-plan (logo en watermark) */
   top: 0 !important;
   left: 0 !important;
   width: 100vw !important;
-  height: 100vh !important;
+  height: 100dvh !important; /* dvh s'adapte à la barre Android */
   
   /* CRUCIAL : Annule les styles du wrapper (bordures, animation, centrage) */
   transform: none !important; 
@@ -1825,7 +1825,7 @@ body:has(#section-accueil.is-active)::before {
   position: fixed; /* Diaporama collé à la fenêtre */
   inset: 0; /* Couvre toute la surface */
   width: 100vw; /* Pleine largeur */
-  height: 100vh; /* Pleine hauteur */
+  height: 100dvh; /* Force la hauteur dynamique ici aussi */
   margin: 0; /* Supprime les marges */
   max-width: none; /* Enlève les limites de largeur */
   max-height: none; /* Enlève les limites de hauteur */
@@ -1882,7 +1882,7 @@ body:has(#section-accueil.is-active)::before {
     flex-shrink: 0 !important;
     margin-top: auto !important;
     background: #000; /* Fond noir pour masquer le vide */
-    padding-bottom: max(10px, env(safe-area-inset-bottom)) !important; /* Gère iPhone X+ */
+    padding-bottom: max(30px, env(safe-area-inset-bottom)) !important; /* On force 30px minimum, ce qui remontera ta barre verte au dessus des boutons Android */
   }
   
   /* Sécurité supplémentaire : on force la barre de titre L1/L2 à ne pas être écrasée */
