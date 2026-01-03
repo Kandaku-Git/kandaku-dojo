@@ -119,18 +119,19 @@ class Diaporama {
     this.cacheDOM();
     this.bindEvents();
 
-    // 5. Gestion du plein écran au démarrage (Mobile uniquement)
+    // 5. Gestion du plein écran (Immersif par défaut sur Mobile ET PC)
     const wrapper = document.getElementById("mon-conteneur-wrapper");
-    
-    // Détection mobile (< 768px)
-    const isMobile = window.innerWidth <= 768; 
 
-    if (wrapper && isMobile) {
-      // On force le mode "faux plein écran" via CSS
+    if (wrapper) {
+      // On force le mode "faux plein écran" via CSS pour tout le monde
+      // Cela permet d'occuper toute la fenêtre du navigateur sans le message système
       wrapper.classList.add("force-fullscreen");
-    } else {
-       // Sur PC, on s'assure que la classe est retirée
-       if (wrapper) wrapper.classList.remove("force-fullscreen");
+    }
+
+    // 6. Afficher la première slide et démarrer l'auto‑play
+    this.showSlide(0);
+    if (this.state.isPlaying) {
+      this.startAutoSlide();
     }
 
     // 6. Afficher la première slide et démarrer l'auto‑play

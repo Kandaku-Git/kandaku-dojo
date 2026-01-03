@@ -1834,47 +1834,59 @@ body:has(#section-accueil.is-active)::before {
 
 
 /* Fix veille mobile - hauteur garantie après recréation */
-@media (max-width: 480px) {
-  /* On force le conteneur principal à aligner le contenu en haut */
-  #section-techniques {
-    align-items: flex-start !important; /* Colle le diaporama en haut */
+/* On élargit à 768px pour couvrir tous les smartphones (y compris format paysage ou grand écran) */
+@media (max-width: 768px) {
+  
+  /* 1. CRUCIAL : Désactive l'animation transform sur le conteneur parent.
+     Cela permet au "position: fixed" de l'enfant de se coller correctement au vrai haut de l'écran. */
+  #section-techniques.is-active {
+    transform: none !important; 
+    align-items: flex-start !important; /* Force l'alignement tout en haut */
+    padding-top: 0 !important; /* Sécurité anti-padding */
   }
 
-  /* On force le wrapper à prendre tout l'espace */
+  /* 2. On force le wrapper du diaporama à prendre 100% de l'écran réel */
   .section-techniques.is-active .diaporama-wrapper {
+    position: fixed !important; /* S'assure qu'il est fixé à l'écran */
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    
     width: 100% !important;
-    height: 100% !important;      /* Prend toute la hauteur disponible */
-    min-height: 100vh !important; /* Force la hauteur écran */
-    max-height: none !important;  /* Supprime la limite qui coupait le bas */
-    margin: 0 !important;         /* Supprime les marges externes */
-    border-radius: 0 !important;  /* Supprime les arrondis sur mobile */
+    height: 100% !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
     
     display: flex !important;
     flex-direction: column !important;
+    z-index: 20000 !important; /* Au-dessus de tout */
   }
 
-  /* Ajustement du slider pour qu'il remplisse l'espace restant */
+  /* 3. Ajustement du titre pour éviter qu'il soit caché sous l'encoche (notch) des iPhone */
+  .diaporama-main-title {
+    padding-top: max(0.5rem, env(safe-area-inset-top)) !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* 4. La zone centrale (slider) prend tout l'espace restant */
   #diaporama-slider {
     flex-grow: 1 !important;
-    min-height: 0 !important; /* Laisse le flex-grow gérer la hauteur */
+    min-height: 0 !important;
+    border-radius: 0 !important;
   }
 
+  /* 5. La barre de contrôle collée en bas avec marge de sécurité pour la barre de swipe */
   .diaporama-controls {
     flex-shrink: 0 !important;
     margin-top: auto !important;
-    background: #000; /* Assure un fond noir sous les boutons sur mobile */
-    padding-bottom: env(safe-area-inset-bottom, 10px); /* Gère la barre de swipe iPhone */
+    background: #000; /* Fond noir pour masquer le vide */
+    padding-bottom: max(10px, env(safe-area-inset-bottom)) !important; /* Gère iPhone X+ */
   }
-}
-
-
-.diapo-fs-blink svg {
-  animation: diapoFsBlink 1s infinite; /* Fait clignoter l’icône de plein écran */
-}
-
-
-@keyframes diapoFsBlink {
-  0%   { stroke: #ff0000; fill: #ff0000; } /* Rouge opaque au début */
-  50%  { stroke: #ffffff; fill: #ffffff; } /* Blanc au milieu de l’animation */
-  100% { stroke: #ff0000; fill: #ff0000; } /* Rouge à la fin (boucle) */
+  
+  /* Sécurité supplémentaire : on force la barre de titre L1/L2 à ne pas être écrasée */
+  .diaporama-title-zone {
+      flex-shrink: 0 !important;
+  }
 }
