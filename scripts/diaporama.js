@@ -68,7 +68,9 @@ class Diaporama {
       wasPlayingBeforeDetails: false,
       isSecondary: false,
       tooltipElement: null,
-      tooltipTarget: null
+      tooltipTarget: null,
+      tooltipTimer: null,
+      tooltipIsFixed: false
     };
 
     this.isClosing = false; // Drapeau de fermeture
@@ -383,7 +385,7 @@ class Diaporama {
 
   /**
    * Met à jour les textes L1 / L2 de la slide courante
-   * avec les données fixes / par image + vocabulaire + liens.
+   * MODIFIÉ : Ne met à jour le DOM (et ne ferme la bulle) QUE si le texte change.
    */
   updateDataText() {
     const fullPath = this.config.images[this.state.currentIndex];
@@ -400,16 +402,33 @@ class Diaporama {
       if (this.state.slideData[filename].l2) l2Text = this.state.slideData[filename].l2;
     }
 
-    // 1. Enrichissement vocabulaire
+    // Enrichissement & Liens
     l1Text = this.enrichTextWithVocabulary(l1Text);
     l2Text = this.enrichTextWithVocabulary(l2Text);
-
-    // 2. Création des liens
     l1Text = this.parseLinks(l1Text);
     l2Text = this.parseLinks(l2Text);
 
-    this.dom.txtL1.innerHTML = l1Text;
-    this.dom.txtL2.innerHTML = l2Text;
+    // --- LOGIQUE INTELLIGENTE ---
+    
+    // Vérification L1 : Si le texte change, on met à jour et on ferme l'infobulle si elle était là
+    if (this.dom.txtL1.innerHTML !== l1Text) {
+      this.dom.txtL1.innerHTML = l1Text;
+      // Si l'infobulle était attachée à un mot de L1 qui vient de disparaître, on ferme
+      if (this.state.tooltipTarget && this.dom.txtL1.contains(this.state.tooltipTarget)) {
+         this.hideVocabularyTooltip();
+      }
+    }
+
+    // Vérification L2 : Idem
+    if (this.dom.txtL2.innerHTML !== l2Text) {
+      this.dom.txtL2.innerHTML = l2Text;
+      if (this.state.tooltipTarget && this.dom.txtL2.contains(this.state.tooltipTarget)) {
+         this.hideVocabularyTooltip();
+      }
+    }
+    
+    // Si le texte est IDENTIQUE (cas FIXE), on ne fait rien.
+    // L'infobulle reste donc affichée car le DOM n'est pas détruit.
   }
 
   /* =======================
@@ -573,6 +592,7 @@ class Diaporama {
 
   /**
    * Réinitialise la jauge de progression.
+   * CORRECTION : Calcule la position réelle au lieu de remettre à 0%.
    */
   resetProgress() {
     const totalSlides = this.config.images.length || 1;
@@ -581,7 +601,9 @@ class Diaporama {
     if (totalSlides === 1) {
       this.dom.gaugeFill.style.width = "100%";
     } else {
-      this.dom.gaugeFill.style.width = "0%";
+      // MODIFICATION ICI : On calcule le % basé sur l'index actuel
+      const pct = (this.state.currentIndex / totalSlides) * 100;
+      this.dom.gaugeFill.style.width = pct + "%";
     }
   }
 
@@ -1130,7 +1152,11 @@ class Diaporama {
   showSlide(index) {
     if (this.state.isDetailsOpen) this.toggleDetails();
     this.hideToast();
-    this.hideVocabularyTooltip();
+    // Si l'infobulle n'est pas "FIXE", on la ferme au changement de slide.
+    // Sinon, on la laisse ouverte (elle se fermera si le texte change, voir updateDataText).
+    if (!this.state.tooltipIsFixed) {
+      this.hideVocabularyTooltip();
+    }
 
     const max = this.config.images.length;
     if (max === 0) return;
@@ -1158,9 +1184,11 @@ class Diaporama {
     if (!this.state.isTitleVisible) this.toggleTitle();
     this.updateDataText();
 
+    // MODIFICATION DE LA LOGIQUE ICI
     if (this.state.isPlaying && !this.state.isScrubbing) {
       this.startAutoSlide();
-    } else {
+    } else if (!this.state.isScrubbing) {
+      // On ne reset la barre QUE si l'utilisateur n'est pas en train de la manipuler (scrubbing)
       this.resetProgress();
     }
   }
@@ -1196,22 +1224,35 @@ class Diaporama {
 
   /**
    * Affiche l'infobulle de vocabulaire au-dessus du mot cliqué.
+   * MODIFIÉ : Gestion du timer 6s + Détection si texte FIXE
    */
   showVocabularyTooltip(targetEl, text) {
-    // Fermer une éventuelle infobulle précédente
+    // 1. Nettoyage préventif
     this.hideVocabularyTooltip();
 
+    // 2. Détection : Est-ce que ce mot vient d'un texte FIXE ?
+    // On regarde si la slide courante possède une donnée spécifique pour la zone cliquée (L1 ou L2)
+    const fullPath = this.config.images[this.state.currentIndex];
+    const filename = fullPath ? fullPath.split("/").pop().split(".")[0] : "";
+    
+    // Le mot est-il dans L1 ?
+    const isL1 = this.dom.txtL1.contains(targetEl);
+    
+    // Y a-t-il une donnée spécifique pour cette slide ?
+    const slideSpecificData = this.state.slideData[filename];
+    const hasSpecificData = slideSpecificData && (isL1 ? slideSpecificData.l1 : slideSpecificData.l2);
+
+    // Si PAS de donnée spécifique, alors c'est du FIXE (ou titre par défaut)
+    this.state.tooltipIsFixed = !hasSpecificData;
+
+    // 3. Création et affichage (code existant)
     const tooltip = document.createElement("div");
     tooltip.className = "diaporama-tooltip";
     tooltip.textContent = text;
-
-    // On attache dans le titre (zone L1/L2)
     this.dom.titleZone.appendChild(tooltip);
 
-    // Position par rapport au mot cliqué
     const rectTarget = targetEl.getBoundingClientRect();
     const rectZone = this.dom.titleZone.getBoundingClientRect();
-
     const centerX = rectTarget.left + rectTarget.width / 2;
     const relX = centerX - rectZone.left;
 
@@ -1220,12 +1261,27 @@ class Diaporama {
 
     this.state.tooltipElement = tooltip;
     this.state.tooltipTarget = targetEl;
+
+    // 4. TIMER : Fermeture automatique après 4 secondes
+    if (this.state.tooltipTimer) clearTimeout(this.state.tooltipTimer);
+    this.state.tooltipTimer = setTimeout(() => {
+      this.hideVocabularyTooltip();
+    }, 4000);
   }
 
   /**
    * Masque l'infobulle de vocabulaire.
+   * MODIFIÉ : Nettoyage du timer
    */
   hideVocabularyTooltip() {
+    // On coupe le timer s'il tourne encore
+    if (this.state.tooltipTimer) {
+      clearTimeout(this.state.tooltipTimer);
+      this.state.tooltipTimer = null;
+    }
+    
+    this.state.tooltipIsFixed = false; // Reset de l'état
+
     if (this.state.tooltipElement && this.state.tooltipElement.parentNode) {
       this.state.tooltipElement.parentNode.removeChild(this.state.tooltipElement);
     }
