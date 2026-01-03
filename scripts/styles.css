@@ -494,16 +494,32 @@ body::before { /* Filigrane en arrière-plan (logo en watermark) */
 }
 
 
-/* Fallback plein écran diaporama (mobile / refus API) */
+/* Fallback plein écran diaporama */
 .force-fullscreen,
 :fullscreen,
 :-webkit-full-screen {
-  position: fixed !important; /* Force un mode plein écran */
-  inset: 0 !important; /* Étendu à toute la fenêtre */
-  width: 100vw !important; /* Pleine largeur */
-  height: 100vh !important; /* Pleine hauteur */
-  z-index: 9999 !important; /* Au-dessus de tout */
-  background: #000 !important; /* Fond noir uniforme */
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  
+  /* CRUCIAL : Annule les styles du wrapper (bordures, animation, centrage) */
+  transform: none !important; 
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  max-width: none !important;
+  max-height: none !important;
+
+  z-index: 20000 !important; /* Passe au-dessus de tout */
+  background: #ffffff !important; /* Force le fond blanc (ou var(--color-bg) selon préférence) */
+}
+
+/* Optionnel : Assurer que le fond soit blanc spécifiquement si la classe est active sur le wrapper */
+.diaporama-wrapper.force-fullscreen {
+    background-color: #fff; /* Force le blanc si c'est le conteneur principal */
 }
 
 
