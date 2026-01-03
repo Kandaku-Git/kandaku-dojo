@@ -120,20 +120,14 @@ class Diaporama {
     this.bindEvents();
 
     // 5. Gestion du plein écran au démarrage (Mobile uniquement)
-    // On cible le wrapper parent pour éviter les conflits de positionnement (transform CSS)
     const wrapper = document.getElementById("mon-conteneur-wrapper");
     
     // Détection mobile (< 768px)
     const isMobile = window.innerWidth <= 768; 
 
     if (wrapper && isMobile) {
-      // On applique la classe sur le WRAPPER, pas sur le container interne
+      // On force le mode "faux plein écran" via CSS
       wrapper.classList.add("force-fullscreen");
-      
-      // Cacher le bouton FS sur mobile car on y est déjà forcé
-      if(this.dom && this.dom.btns && this.dom.btns.fs) {
-          this.dom.btns.fs.classList.add("diaporama-hidden");
-      }
     } else {
        // Sur PC, on s'assure que la classe est retirée
        if (wrapper) wrapper.classList.remove("force-fullscreen");
@@ -602,12 +596,24 @@ class Diaporama {
 
   /**
    * Ouvre / ferme la zone de description détaillée.
+   * Gère l'affichage sélectif des boutons (Mode épuré).
    */
   toggleDetails() {
     this.state.isDetailsOpen = !this.state.isDetailsOpen;
     const slide = this.dom.slides[this.state.currentIndex];
+    
+    // Raccourcis vers les éléments à masquer/afficher
+    const elsToHide = [
+        this.dom.btns.prev,
+        this.dom.btns.play,
+        this.dom.btns.next,
+        this.dom.btns.back,
+        this.dom.gaugeContainer
+    ];
 
     if (this.state.isDetailsOpen) {
+      // --- MODE DESCRIPTION (OUVERTURE) ---
+      
       const contentDiv = slide.querySelector(".diaporama-description-content");
       if (slide.classList.contains("is-error")) {
         contentDiv.innerHTML =
@@ -619,20 +625,42 @@ class Diaporama {
       slide.classList.add("diaporama-details-active");
       this.dom.btns.eye.classList.add("active");
 
+      // 1. Masquer tout sauf Oeil et Maison
+      elsToHide.forEach(el => {
+          if(el) el.classList.add("diaporama-hidden");
+      });
+
       // Mémoriser l'état de lecture avant description
       this.state.wasPlayingBeforeDetails = this.state.isPlaying;
 
-      // Mettre en pause pendant la description
+      // Mettre en pause
       this.state.isPlaying = false;
       this.updatePlayPauseIcon();
       this.stopAutoSlide();
+
     } else {
+      // --- MODE DESCRIPTION (FERMETURE) ---
+      
       slide.classList.remove("diaporama-details-active");
       this.dom.btns.eye.classList.remove("active");
 
-      // Sortie de description
+      // 1. Réafficher la jauge (toujours)
+      if (this.dom.gaugeContainer) this.dom.gaugeContainer.classList.remove("diaporama-hidden");
+
+      // 2. Réafficher le bouton Retour SI l'historique n'est pas vide
+      if (this.state.history.length > 0 && this.dom.btns.back) {
+          this.dom.btns.back.classList.remove("diaporama-hidden");
+      }
+
+      // 3. Réafficher Prev/Next/Play SI il y a plus d'une image
+      if (this.config.images.length > 1) {
+          if(this.dom.btns.prev) this.dom.btns.prev.classList.remove("diaporama-hidden");
+          if(this.dom.btns.next) this.dom.btns.next.classList.remove("diaporama-hidden");
+          if(this.dom.btns.play) this.dom.btns.play.classList.remove("diaporama-hidden");
+      }
+
+      // Reprise de la lecture selon le contexte
       if (this.state.isSecondary) {
-        // Diaporama secondaire : reprend l'état précédent
         if (this.state.wasPlayingBeforeDetails) {
           this.state.isPlaying = true;
           this.updatePlayPauseIcon();
@@ -643,7 +671,6 @@ class Diaporama {
           this.stopAutoSlide();
         }
       } else {
-        // Diaporama principal : reste en pause
         this.state.isPlaying = false;
         this.updatePlayPauseIcon();
         this.stopAutoSlide();
@@ -714,6 +741,9 @@ class Diaporama {
       .join("");
 
     const backBtnClass = this.state.history.length > 0 ? "" : "diaporama-hidden";
+    
+    // NOUVEAU : Si une seule image, on cache les boutons de navigation (Prev, Play, Next)
+    const navBtnClass = this.config.images.length <= 1 ? "diaporama-hidden" : "";
 
     // 1) Assurer l'existence d'un root unique
     let root = document.getElementById("diaporama-root");
@@ -743,12 +773,12 @@ class Diaporama {
     <div class="diaporama-controls">
       <div class="diaporama-controls-top">
         <div class="diaporama-btn-group">
-          <button class="diaporama-btn" id="diaporama-prev" title="Précédent">
+          <button class="diaporama-btn ${navBtnClass}" id="diaporama-prev" title="Précédent">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="m15 18-6-6 6-6"/>
             </svg>
           </button>
-          <button class="diaporama-btn" id="diaporama-play" title="Lecture/Pause">
+          <button class="diaporama-btn ${navBtnClass}" id="diaporama-play" title="Lecture/Pause">
             <svg id="icon-play" class="${this.state.isPlaying ? "diaporama-hidden" : ""}" viewBox="0 0 24 24" fill="currentColor" stroke="none">
               <polygon points="5 3 19 12 5 21 5 3"/>
             </svg>
@@ -757,7 +787,7 @@ class Diaporama {
               <rect x="14" y="4" width="4" height="16"/>
             </svg>
           </button>
-          <button class="diaporama-btn" id="diaporama-next" title="Suivant">
+          <button class="diaporama-btn ${navBtnClass}" id="diaporama-next" title="Suivant">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="m9 18 6-6-6-6"/>
             </svg>
@@ -777,14 +807,6 @@ class Diaporama {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
               <circle cx="12" cy="12" r="3"></circle>
-            </svg>
-          </button>
-
-          <button class="diaporama-btn diapo-fs-blink ${
-            document.fullscreenElement || document.webkitFullscreenElement ? "diaporama-hidden" : ""
-          }" id="diaporama-fs" title="Plein écran">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
             </svg>
           </button>
 
@@ -834,8 +856,7 @@ class Diaporama {
         play: id("diaporama-play"),
         back: id("diaporama-back"),
         eye: id("diaporama-eye"),
-        home: id("diaporama-home"),
-        fs: id("diaporama-fs")
+        home: id("diaporama-home")
       }
     };
   }
@@ -851,46 +872,6 @@ class Diaporama {
    */
   bindEvents() {
     const b = this.dom.btns;
-
-    // Bouton plein écran : Bascule CSS uniquement
-    if (b.fs) {
-      b.fs.onclick = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        const root = this.dom.root || this.container;
-        if (!root) return;
-
-        // Bascule la classe CSS au lieu d'appeler l'API système
-        root.classList.toggle("force-fullscreen");
-        
-        // Gestion visuelle du bouton (optionnel selon vos goûts)
-        const isFakeFs = root.classList.contains("force-fullscreen");
-        if (isFakeFs) {
-            b.fs.classList.remove("diapo-fs-blink");
-             // b.fs.classList.add("diaporama-hidden"); // Décommentez pour cacher le bouton une fois cliqué
-        } else {
-            b.fs.classList.add("diapo-fs-blink");
-        }
-      };
-    }
-
-    // Met à jour l’apparence du bouton en fonction du fullscreen
-    document.addEventListener("fullscreenchange", () => {
-      const isFs =
-        !!document.fullscreenElement ||
-        !!document.webkitFullscreenElement;
-
-      if (!this.dom?.btns?.fs) return;
-
-      if (isFs) {
-        this.dom.btns.fs.classList.add("diaporama-hidden");
-        this.dom.btns.fs.classList.remove("diapo-fs-blink");
-      } else {
-        this.dom.btns.fs.classList.remove("diaporama-hidden");
-        this.dom.btns.fs.classList.add("diapo-fs-blink");
-      }
-    });
 
     // Boutons principaux
     b.next.onclick = () => this.manualNav(1);
