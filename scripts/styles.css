@@ -498,12 +498,17 @@ body::before { /* Filigrane en arrière-plan (logo en watermark) */
 .force-fullscreen,
 :fullscreen,
 :-webkit-full-screen {
-  position: fixed !important; /* Force un mode plein écran */
-  inset: 0 !important; /* Étendu à toute la fenêtre */
-  width: 100vw !important; /* Pleine largeur */
-  height: 100vh !important; /* Pleine hauteur */
-  z-index: 9999 !important; /* Au-dessus de tout */
-  background: #000 !important; /* Fond noir uniforme */
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 20000 !important; /* Augmenté pour être sûr de passer au-dessus du header et overlays */
+  background: inherit; /* Laisse le JS ou l'élément décider de la couleur */
+}
+
+/* Optionnel : Assurer que le fond soit blanc spécifiquement si la classe est active sur le wrapper */
+.diaporama-wrapper.force-fullscreen {
+    background-color: #fff; /* Force le blanc si c'est le conteneur principal */
 }
 
 

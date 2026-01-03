@@ -119,20 +119,23 @@ class Diaporama {
     this.cacheDOM();
     this.bindEvents();
 
-    // 5. Passer en plein écran si possible (sur le root unique)
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-      const root = this.dom?.root || this.container;
-      if (root) {
-        try {
-          if (root.requestFullscreen) {
-            await root.requestFullscreen();
-          } else if (root.webkitRequestFullscreen) {
-            root.webkitRequestFullscreen();
-          }
-        } catch (e) {
-          // On ignore les erreurs de fullscreen (refus utilisateur, etc.)
-        }
+    // 5. Gestion du plein écran au démarrage
+    const root = this.dom?.root || this.container;
+    
+    // DÉTECTION MOBILE SIMPLE (Largeur d'écran < 768px)
+    // On n'active le "faux plein écran" automatique QUE sur mobile.
+    // Sur PC, on garde le mode "boîte modale" par défaut.
+    const isMobile = window.innerWidth <= 768; 
+
+    if (root && isMobile) {
+      root.classList.add("force-fullscreen");
+      // Cacher le bouton FS sur mobile car on y est déjà forcé
+      if(this.dom && this.dom.btns && this.dom.btns.fs) {
+          this.dom.btns.fs.classList.add("diaporama-hidden");
       }
+    } else {
+       // Sur PC, on s'assure que la classe n'est pas là par défaut
+       if (root) root.classList.remove("force-fullscreen");
     }
 
     // 6. Afficher la première slide et démarrer l'auto‑play
@@ -148,49 +151,13 @@ class Diaporama {
    * - Rafraîchit la slide et l'autoplay.
    */
   resumeFromSleep() {
-    const wasFs =
-      !!document.fullscreenElement ||
-      !!document.webkitFullscreenElement;
-
-    // 1) Si pas en plein écran → tentative de fullscreen
-    if (!wasFs) {
-      const root = this.dom?.root || this.container;
-
-      if (root) {
-        (async () => {
-          try {
-            if (root.requestFullscreen) {
-              await root.requestFullscreen();
-            } else if (root.webkitRequestFullscreen) {
-              await root.webkitRequestFullscreen();
-            }
-          } catch (e) {
-            // Refus utilisateur / navigateur → on ne fait rien ici
-          }
-
-          // Après tentative, on re-teste
-          const stillNotFs =
-            !document.fullscreenElement &&
-            !document.webkitFullscreenElement;
-
-          // Si toujours pas en plein écran → afficher le bouton PE
-          const fsBtn = this.dom?.btns?.fs;
-          if (stillNotFs && fsBtn) {
-            fsBtn.classList.remove("diaporama-hidden");
-            fsBtn.classList.add("diapo-fs-blink");
-          }
-        })();
-      }
-
-      // Rafraîchir la slide courante
-      if (typeof this.showSlide === "function") {
-        this.showSlide(this.state.currentIndex);
-      }
-
-      return;
+    // On s'assure simplement que la classe CSS est bien là
+    const root = this.dom?.root || this.container;
+    if (root && !root.classList.contains("force-fullscreen")) {
+       root.classList.add("force-fullscreen");
     }
 
-    // 2) Fullscreen encore actif → reprise normale
+    // Rafraîchir la slide courante
     if (typeof this.showSlide === "function") {
       this.showSlide(this.state.currentIndex);
     }
@@ -884,28 +851,25 @@ class Diaporama {
   bindEvents() {
     const b = this.dom.btns;
 
-    // Bouton plein écran : entrée uniquement (pas de sortie)
+    // Bouton plein écran : Bascule CSS uniquement
     if (b.fs) {
-      b.fs.onclick = async (event) => {
+      b.fs.onclick = (event) => {
         event.preventDefault();
         event.stopPropagation();
 
         const root = this.dom.root || this.container;
         if (!root) return;
 
-        // Si on est déjà en plein écran, on ne fait rien
-        if (document.fullscreenElement || document.webkitFullscreenElement) {
-          return;
-        }
-
-        try {
-          if (root.requestFullscreen) {
-            await root.requestFullscreen();
-          } else if (root.webkitRequestFullscreen) {
-            await root.webkitRequestFullscreen();
-          }
-        } catch (e) {
-          // refus navigateur / utilisateur : on ignore
+        // Bascule la classe CSS au lieu d'appeler l'API système
+        root.classList.toggle("force-fullscreen");
+        
+        // Gestion visuelle du bouton (optionnel selon vos goûts)
+        const isFakeFs = root.classList.contains("force-fullscreen");
+        if (isFakeFs) {
+            b.fs.classList.remove("diapo-fs-blink");
+             // b.fs.classList.add("diaporama-hidden"); // Décommentez pour cacher le bouton une fois cliqué
+        } else {
+            b.fs.classList.add("diapo-fs-blink");
         }
       };
     }
