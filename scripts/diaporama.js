@@ -119,23 +119,24 @@ class Diaporama {
     this.cacheDOM();
     this.bindEvents();
 
-    // 5. Gestion du plein écran au démarrage
-    const root = this.dom?.root || this.container;
+    // 5. Gestion du plein écran au démarrage (Mobile uniquement)
+    // On cible le wrapper parent pour éviter les conflits de positionnement (transform CSS)
+    const wrapper = document.getElementById("mon-conteneur-wrapper");
     
-    // DÉTECTION MOBILE SIMPLE (Largeur d'écran < 768px)
-    // On n'active le "faux plein écran" automatique QUE sur mobile.
-    // Sur PC, on garde le mode "boîte modale" par défaut.
+    // Détection mobile (< 768px)
     const isMobile = window.innerWidth <= 768; 
 
-    if (root && isMobile) {
-      root.classList.add("force-fullscreen");
+    if (wrapper && isMobile) {
+      // On applique la classe sur le WRAPPER, pas sur le container interne
+      wrapper.classList.add("force-fullscreen");
+      
       // Cacher le bouton FS sur mobile car on y est déjà forcé
       if(this.dom && this.dom.btns && this.dom.btns.fs) {
           this.dom.btns.fs.classList.add("diaporama-hidden");
       }
     } else {
-       // Sur PC, on s'assure que la classe n'est pas là par défaut
-       if (root) root.classList.remove("force-fullscreen");
+       // Sur PC, on s'assure que la classe est retirée
+       if (wrapper) wrapper.classList.remove("force-fullscreen");
     }
 
     // 6. Afficher la première slide et démarrer l'auto‑play

@@ -1835,22 +1835,35 @@ body:has(#section-accueil.is-active)::before {
 
 /* Fix veille mobile - hauteur garantie après recréation */
 @media (max-width: 480px) {
-  .section-techniques.is-active .diaporama-wrapper {
-    min-height: 85vh !important; /* Assure une hauteur minimale confortable */
-    max-height: 90vh !important; /* Évite de dépasser totalement */
-    margin: 0 auto !important; /* Centre verticalement / horizontalement */
-    display: flex !important; /* Permet de gérer le contenu interne en flex */
-    flex-direction: column !important; /* Titre, slider, commandes en colonne */
+  /* On force le conteneur principal à aligner le contenu en haut */
+  #section-techniques {
+    align-items: flex-start !important; /* Colle le diaporama en haut */
   }
 
+  /* On force le wrapper à prendre tout l'espace */
+  .section-techniques.is-active .diaporama-wrapper {
+    width: 100% !important;
+    height: 100% !important;      /* Prend toute la hauteur disponible */
+    min-height: 100vh !important; /* Force la hauteur écran */
+    max-height: none !important;  /* Supprime la limite qui coupait le bas */
+    margin: 0 !important;         /* Supprime les marges externes */
+    border-radius: 0 !important;  /* Supprime les arrondis sur mobile */
+    
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Ajustement du slider pour qu'il remplisse l'espace restant */
   #diaporama-slider {
-    flex-grow: 1 !important; /* Le slider prend tout l’espace disponible */
-    min-height: 50vh !important; /* Hauteur minimale raisonnable */
+    flex-grow: 1 !important;
+    min-height: 0 !important; /* Laisse le flex-grow gérer la hauteur */
   }
 
   .diaporama-controls {
-    flex-shrink: 0 !important; /* Empêche la barre de contrôle de se comprimer */
-    margin-top: auto !important; /* L’ancre en bas du conteneur */
+    flex-shrink: 0 !important;
+    margin-top: auto !important;
+    background: #000; /* Assure un fond noir sous les boutons sur mobile */
+    padding-bottom: env(safe-area-inset-bottom, 10px); /* Gère la barre de swipe iPhone */
   }
 }
 
