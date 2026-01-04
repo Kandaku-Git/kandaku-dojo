@@ -64,6 +64,220 @@
       </section> <!-- Section Accueil, affichée par défaut au chargement -->
 
       <section
+        id="section-techniques"
+        class="content-section"
+        aria-label="Diaporama Technique"
+      >
+        <div id="mon-conteneur-wrapper" class="diaporama-wrapper"> <!-- Cadre du diaporama (overlay et plein écran) -->
+          <div id="mon-conteneur" class="diaporama-container">
+          </div> <!-- Conteneur dans lequel diaporama.js monte toute l’UI du diaporama -->
+        </div>
+      </section> <!-- Section Techniques : héberge le diaporama des techniques -->
+
+      <section
+        id="section-videos"
+        class="content-section"
+        aria-label="Vidéos"
+      >
+        <h2>Vidéos</h2> <!-- Titre principal de la section vidéos -->
+
+        <div class="videos-controls">
+          <p>Cliquez sur une catégorie pour afficher les vidéos correspondantes</p>
+        </div> <!-- Message d’aide au-dessus des catégories de vidéos -->
+
+        <div class="video-tiles"></div> <!-- Conteneur des tuiles de catégories vidéo (rendu par page-videos.js) -->
+
+        <div id="videosGrid" aria-live="polite"></div> <!-- Grille dynamique des vidéos, annoncée aux lecteurs d’écran -->
+      </section>
+
+      <section
+        id="section-lexique"
+        class="content-section"
+        aria-label="Lexique japonais"
+      >
+        <h2>Lexique de termes japonais</h2> <!-- Titre principal de la section lexique -->
+
+        <div class="lexique-search">
+          <label for="lexiqueSearch">Rechercher un terme :</label> <!-- Libellé du champ de recherche dans le lexique -->
+          <input
+            type="text"
+            id="lexiqueSearch"
+            placeholder="Rechercher un terme…"
+          /> <!-- Champ texte pour filtrer les entrées du lexique -->
+        </div>
+
+        <div id="lexiqueListe" class="lexique-list"></div> <!-- Conteneur de la liste du lexique, rendu par page-lexique.js -->
+      </section>
+
+      <section
+        id="section-histoires"
+        class="content-section"
+        aria-label="Histoires"
+      >
+        <h2>Histoires</h2> <!-- Titre principal de la section histoires -->
+
+        <p>Cliquez sur une titre pour afficher l'histoire correspondante</p> <!-- Instruction d’utilisation de la section -->
+
+        <div class="history-tiles"></div> <!-- Grille de tuiles d’histoires générées par page-histoires.js -->
+
+        <article
+          id="historyContent"
+          class="history-content-card"
+          hidden
+        ></article></article> <!-- Contenu détaillé de l’histoire sélectionnée (double fermeture article à corriger) -->
+      </section>
+
+      <section
+        id="section-liens"
+        class="content-section"
+        aria-label="Liens utiles"
+      >
+        <h2>Liens utiles</h2> <!-- Titre de la section listant les ressources externes -->
+
+        <div class="links-grid" id="linksGrid"></div> <!-- Grille de cartes de liens, remplie par page-liens.js -->
+      </section>
+
+      <section
+        id="section-interface-tutoriel"
+        class="content-section"
+        aria-label="Tutoriel"
+      >
+        <h2>Tutoriel d’utilisation</h2> <!-- Titre de la section expliquant comment utiliser l’interface -->
+
+        <ol class="tutoriel-steps">
+          <li>Utilise le bouton MENU pour naviguer.</li> <!-- Étape 1 : navigation principale via le bouton MENU -->
+          <li>Dans Techniques, choisis une catégorie puis une technique.</li> <!-- Étape 2 : usage de la section Techniques -->
+          <li>Dans Vidéos, clique pour voir les contenus externes.</li> <!-- Étape 3 : usage de la section Vidéos -->
+        </ol>
+      </section>
+
+      <section
+        id="section-interface-personnalisation"
+        class="content-section"
+        aria-label="Personnalisation"
+      >
+        <h2>Personnalisation des couleurs</h2> <!-- Titre de la section de personnalisation du thème -->
+
+        <form class="theme-form"> <!-- Formulaire simple pour ajuster les variables CSS du thème -->
+          <div class="color-control">
+            <label for="colorBg">Fond principal</label> <!-- Libellé de la couleur de fond principale -->
+            <input
+              type="color"
+              id="colorBg"
+              data-css-var="--color-bg"
+              value="#101014"
+            /> <!-- Input color lié à la variable CSS --color-bg -->
+          </div>
+
+          <div class="color-control">
+            <label for="colorAccent">Couleur d’accent</label> <!-- Libellé de la couleur d’accent principale -->
+            <input
+              type="color"
+              id="colorAccent"
+              data-css-var="--color-accent"
+              value="#d7263d"
+            /> <!-- Input color lié à la variable CSS --color-accent -->
+          </div>
+        </form>
+      </section>
+
+      <section
+        id="section-contact"
+        class="content-section"
+        aria-label="Contact"
+      >
+        <h2>Me contacter</h2> <!-- Titre de la section contact -->
+
+        <div id="contactRoot"></div> <!-- Point de montage du formulaire de contact (rendu par page-contact.js) -->
+      </section>
+    </main>
+  </div>
+  
+  <script src="scripts/debug.js"></script> <!-- Outils éventuels de debug pour le développement -->
+  <script src="scripts/diaporama.js"></script> <!-- Logique du diaporama technique (slides, vocabulaire, navigation) -->
+  <script src="scripts/fonctions.js"></script> <!-- Fonctions utilitaires réutilisées dans plusieurs modules -->
+  <script src="scripts/page-lexique.js"></script> <!-- Construction et rendu de la section Lexique -->
+  <script src="scripts/vocabulaire.js"></script> <!-- Données de vocabulaire exploitées par le lexique et le diaporama -->
+  <script src="scripts/page-techniques.js"></script> <!-- Construction des sections/cartes Techniques -->
+  <script src="scripts/page-videos.js"></script> <!-- Construction des catégories et de la grille de vidéos -->
+  <script src="scripts/page-histoires.js"></script> <!-- Construction des tuiles et contenus d’histoires -->
+  <script src="scripts/page-liens.js"></script> <!-- Construction des cartes de liens utiles -->
+  <script src="scripts/page-contact.js"></script> <!-- Construction du formulaire de contact et validations -->
+  <script src="scripts/page-accueil.js"></script> <!-- Contenu dynamique de la section Accueil -->
+  <script src="scripts/menu.js"></script> <!-- Gestion du menu latéral et de la navigation entre sections -->
+  
+  <!-- Vercel Speed Insights -->
+  <script>
+    window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
+  </script>
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+<!DOCTYPE html> <!-- Déclaration du type de document HTML5 -->
+<html lang="fr"> <!-- Langue principale du document : français -->
+<head>
+  <meta charset="UTF-8" /> <!-- Encodage UTF-8 pour bien gérer les caractères accentués -->
+  <title>Kandaku Dojo - Karaté Shotokan</title> <!-- Titre affiché dans l’onglet du navigateur -->
+
+  <link rel="icon" type="image/png" href="images/favicon.png" /> <!-- Favicon de l’onglet -->
+  <link rel="apple-touch-icon" href="images/favicon.png" /> <!-- Icône pour l’ajout à l’écran d’accueil (iOS, PWA) -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Viewport responsive, nécessaire pour le mobile -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" /> <!-- Pré-connexion à Google Fonts pour accélérer le chargement -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> <!-- Pré-connexion au domaine des fichiers de polices -->
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Oswald:wght@400;600&family=Lobster&display=swap"
+    rel="stylesheet"
+  /> <!-- Chargement des polices Montserrat, Oswald et Lobster utilisées dans le design -->
+
+  <link rel="stylesheet" href="scripts/styles.css" /> <!-- Feuille de styles principale de l’application -->
+</head>
+<body>
+  <header class="site-header"> <!-- En-tête fixe contenant le logo, le titre et le bouton de menu -->
+    <div class="logo-title"> <!-- Regroupe le logo et le bloc de titre -->
+      <div class="logo-shotokan" aria-hidden="true"> <!-- Conteneur décoratif du logo (ignoré par les lecteurs d’écran) -->
+        <img src="images/logo.png" alt="" class="logo-image" /> <!-- Image du logo, stylée via .logo-shotokan .logo-image -->
+      </div>
+
+      <div class="title-block"> <!-- Bloc de texte avec le nom du dojo et son sous-titre -->
+        <h1>Kandaku Dojo</h1> <!-- Titre principal du site -->
+        <p class="subtitle">A virtual Shotokan Experience</p> <!-- Sous-titre décrivant l’expérience -->
+      </div>
+    </div>
+
+    <button
+      class="header-menu-button"
+      id="headerMenuButton"
+      type="button"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false"
+    >
+      MENU
+    </button> <!-- Bouton qui ouvre/ferme le menu latéral (géré par menu.js) -->
+  </header>
+
+  <div class="app-layout"> <!-- Layout général : contient le menu latéral et le contenu principal -->
+    <nav
+      id="sideMenu"
+      class="side-menu"
+      role="navigation"
+      aria-label="Navigation principale"
+    >
+      <ul class="menu-root" id="menuRoot">
+      </ul> <!-- Liste de navigation remplie dynamiquement à partir de window.MENUITEMS -->
+    </nav>
+
+    <main class="main-content"> <!-- Zone centrale avec les différentes sections “écran” -->
+      <section
+        id="section-accueil"
+        class="content-section is-active"
+        aria-labelledby="menu-accueil"
+      >
+        <!-- Contenu injecté par page-accueil.js -->
+      </section> <!-- Section Accueil, affichée par défaut au chargement -->
+
+      <section
         id="section-tuto"
         class="content-section"
         aria-label="Tutoriel du visionneur"
