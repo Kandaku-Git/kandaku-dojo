@@ -132,7 +132,6 @@ window.LEXIQUE = [
   {"term": "Dai Nippon Butokukai", "def": "Originalement organisation fasciste gouvernementale responsable pour la militarisation des arts martiaux japonais au service de la conquête impériale. Dissoute pendant l'occupation américaine et remplacée par une organisation du même nom mais plus pacifiq",},
   {"term": "Daitai", "def": "cuisse",},
   {"term": "Dan", "def": "niveau, grade supérieur (à partir de la ceinture noire)",},
-  {"term": "De", "def": "Avancé",},
   {"term": "De Ashi Barai", "def": "Balayage du pied avancé",},
   {"term": "Den", "def": "cours, cursus d'un style",},
   {"term": "Denbu", "def": "postérieur (fesses) fondement, forme polie (!)",},
