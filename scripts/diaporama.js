@@ -68,7 +68,9 @@ class Diaporama {
       wasPlayingBeforeDetails: false,
       isSecondary: false,
       tooltipElement: null,
-      tooltipTarget: null
+      tooltipTarget: null,
+      tooltipTimer: null,
+      tooltipIsFixed: false
     };
 
     this.isClosing = false; // Drapeau de fermeture
@@ -117,20 +119,19 @@ class Diaporama {
     this.cacheDOM();
     this.bindEvents();
 
-    // 5. Passer en plein écran si possible (sur le root unique)
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-      const root = this.dom?.root || this.container;
-      if (root) {
-        try {
-          if (root.requestFullscreen) {
-            await root.requestFullscreen();
-          } else if (root.webkitRequestFullscreen) {
-            root.webkitRequestFullscreen();
-          }
-        } catch (e) {
-          // On ignore les erreurs de fullscreen (refus utilisateur, etc.)
-        }
-      }
+    // 5. Gestion du plein écran (Immersif par défaut sur Mobile ET PC)
+    const wrapper = document.getElementById("mon-conteneur-wrapper");
+
+    if (wrapper) {
+      // On force le mode "faux plein écran" via CSS pour tout le monde
+      // Cela permet d'occuper toute la fenêtre du navigateur sans le message système
+      wrapper.classList.add("force-fullscreen");
+    }
+
+    // 6. Afficher la première slide et démarrer l'auto‑play
+    this.showSlide(0);
+    if (this.state.isPlaying) {
+      this.startAutoSlide();
     }
 
     // 6. Afficher la première slide et démarrer l'auto‑play
@@ -146,49 +147,13 @@ class Diaporama {
    * - Rafraîchit la slide et l'autoplay.
    */
   resumeFromSleep() {
-    const wasFs =
-      !!document.fullscreenElement ||
-      !!document.webkitFullscreenElement;
-
-    // 1) Si pas en plein écran → tentative de fullscreen
-    if (!wasFs) {
-      const root = this.dom?.root || this.container;
-
-      if (root) {
-        (async () => {
-          try {
-            if (root.requestFullscreen) {
-              await root.requestFullscreen();
-            } else if (root.webkitRequestFullscreen) {
-              await root.webkitRequestFullscreen();
-            }
-          } catch (e) {
-            // Refus utilisateur / navigateur → on ne fait rien ici
-          }
-
-          // Après tentative, on re-teste
-          const stillNotFs =
-            !document.fullscreenElement &&
-            !document.webkitFullscreenElement;
-
-          // Si toujours pas en plein écran → afficher le bouton PE
-          const fsBtn = this.dom?.btns?.fs;
-          if (stillNotFs && fsBtn) {
-            fsBtn.classList.remove("diaporama-hidden");
-            fsBtn.classList.add("diapo-fs-blink");
-          }
-        })();
-      }
-
-      // Rafraîchir la slide courante
-      if (typeof this.showSlide === "function") {
-        this.showSlide(this.state.currentIndex);
-      }
-
-      return;
+    // On s'assure simplement que la classe CSS est bien là
+    const root = this.dom?.root || this.container;
+    if (root && !root.classList.contains("force-fullscreen")) {
+       root.classList.add("force-fullscreen");
     }
 
-    // 2) Fullscreen encore actif → reprise normale
+    // Rafraîchir la slide courante
     if (typeof this.showSlide === "function") {
       this.showSlide(this.state.currentIndex);
     }
@@ -241,41 +206,49 @@ class Diaporama {
    * Charge le vocabulaire global (scripts/vocabulaire.js) si nécessaire
    * et le parse vers this.state.vocabulary.
    */
+  /**
+   * Charge le lexique global (scripts/page-lexique.js) si nécessaire
+   * et le convertit pour le diaporama.
+   */
   loadVocabulary() {
     return new Promise((resolve) => {
-      if (window.VOCABULAIRE_TECHNIQUE) {
-        this.parseVocabulary(window.VOCABULAIRE_TECHNIQUE);
+      // 1. Si le lexique est déjà chargé (ex: on vient de la page lexique)
+      if (window.LEXIQUE && Array.isArray(window.LEXIQUE)) {
+        this.buildVocabularyFromLexique(window.LEXIQUE);
         resolve();
         return;
       }
 
+      // 2. Sinon on charge le script
       const script = document.createElement("script");
-      script.src = "scripts/vocabulaire.js";
+      script.src = "scripts/page-lexique.js"; // <--- CHANGEMENT DE FICHIER
       script.onload = () => {
-        if (window.VOCABULAIRE_TECHNIQUE) {
-          this.parseVocabulary(window.VOCABULAIRE_TECHNIQUE);
+        if (window.LEXIQUE && Array.isArray(window.LEXIQUE)) {
+          this.buildVocabularyFromLexique(window.LEXIQUE);
         }
         resolve();
       };
-      script.onerror = () => resolve();
+      script.onerror = () => {
+        console.warn("Impossible de charger scripts/page-lexique.js");
+        resolve();
+      };
       document.body.appendChild(script);
     });
   }
 
   /**
-   * Parse le texte du vocabulaire en tableau clé → définition.
+   * Transforme le tableau LEXIQUE en dictionnaire pour le diaporama.
    */
-  parseVocabulary(text) {
-    const lines = text.split("\n");
-    lines.forEach((line) => {
-      const parts = line.split(":");
-      if (parts.length >= 2) {
-        const term = parts[0].trim();
-        const def = parts.slice(1).join(":").trim();
-        if (term && def) {
-          this.state.vocabulary[term] = def;
-        }
-      }
+  buildVocabularyFromLexique(lexiqueArray) {
+    this.state.vocabulary = {};
+    
+    lexiqueArray.forEach(item => {
+      // On ignore les séparateurs et les entrées vides
+      if (item.term === "RetourLigne") return;
+      if (!item.term || !item.def) return;
+
+      // On stocke : "Terme" => "Définition"
+      this.state.vocabulary[item.term] = item.def;
     });
   }
 
@@ -343,10 +316,17 @@ class Diaporama {
   enrichTextWithVocabulary(htmlText) {
     if (!htmlText) return "";
     let enriched = htmlText;
-    Object.keys(this.state.vocabulary).forEach(term => {
+
+    // IMPORTANT : On trie les clés par longueur décroissante (les mots longs d'abord)
+    // Cela évite que "Age" ne soit détecté à l'intérieur de "Age Zuki"
+    const terms = Object.keys(this.state.vocabulary).sort((a, b) => b.length - a.length);
+
+    terms.forEach(term => {
+      // Regex : Soit une balise HTML (qu'on ignore), soit le mot exact (\b)
       const regex = new RegExp(`(<[^>]+>|\"[^\"]+\")|(\\b${term}\\b)`, "gi");
 
       enriched = enriched.replace(regex, (match, protectedPart, foundTerm) => {
+        // Si c'est du HTML ou entre guillemets, on ne touche pas
         if (protectedPart) return protectedPart;
 
         const def = this.state.vocabulary[term].replace(/"/g, "&quot;");
@@ -383,7 +363,7 @@ class Diaporama {
 
   /**
    * Met à jour les textes L1 / L2 de la slide courante
-   * avec les données fixes / par image + vocabulaire + liens.
+   * MODIFIÉ : Ne met à jour le DOM (et ne ferme la bulle) QUE si le texte change.
    */
   updateDataText() {
     const fullPath = this.config.images[this.state.currentIndex];
@@ -400,16 +380,33 @@ class Diaporama {
       if (this.state.slideData[filename].l2) l2Text = this.state.slideData[filename].l2;
     }
 
-    // 1. Enrichissement vocabulaire
+    // Enrichissement & Liens
     l1Text = this.enrichTextWithVocabulary(l1Text);
     l2Text = this.enrichTextWithVocabulary(l2Text);
-
-    // 2. Création des liens
     l1Text = this.parseLinks(l1Text);
     l2Text = this.parseLinks(l2Text);
 
-    this.dom.txtL1.innerHTML = l1Text;
-    this.dom.txtL2.innerHTML = l2Text;
+    // --- LOGIQUE INTELLIGENTE ---
+    
+    // Vérification L1 : Si le texte change, on met à jour et on ferme l'infobulle si elle était là
+    if (this.dom.txtL1.innerHTML !== l1Text) {
+      this.dom.txtL1.innerHTML = l1Text;
+      // Si l'infobulle était attachée à un mot de L1 qui vient de disparaître, on ferme
+      if (this.state.tooltipTarget && this.dom.txtL1.contains(this.state.tooltipTarget)) {
+         this.hideVocabularyTooltip();
+      }
+    }
+
+    // Vérification L2 : Idem
+    if (this.dom.txtL2.innerHTML !== l2Text) {
+      this.dom.txtL2.innerHTML = l2Text;
+      if (this.state.tooltipTarget && this.dom.txtL2.contains(this.state.tooltipTarget)) {
+         this.hideVocabularyTooltip();
+      }
+    }
+    
+    // Si le texte est IDENTIQUE (cas FIXE), on ne fait rien.
+    // L'infobulle reste donc affichée car le DOM n'est pas détruit.
   }
 
   /* =======================
@@ -573,6 +570,7 @@ class Diaporama {
 
   /**
    * Réinitialise la jauge de progression.
+   * CORRECTION : Calcule la position réelle au lieu de remettre à 0%.
    */
   resetProgress() {
     const totalSlides = this.config.images.length || 1;
@@ -581,7 +579,9 @@ class Diaporama {
     if (totalSlides === 1) {
       this.dom.gaugeFill.style.width = "100%";
     } else {
-      this.dom.gaugeFill.style.width = "0%";
+      // MODIFICATION ICI : On calcule le % basé sur l'index actuel
+      const pct = (this.state.currentIndex / totalSlides) * 100;
+      this.dom.gaugeFill.style.width = pct + "%";
     }
   }
 
@@ -612,12 +612,24 @@ class Diaporama {
 
   /**
    * Ouvre / ferme la zone de description détaillée.
+   * Gère l'affichage sélectif des boutons (Mode épuré).
    */
   toggleDetails() {
     this.state.isDetailsOpen = !this.state.isDetailsOpen;
     const slide = this.dom.slides[this.state.currentIndex];
+    
+    // Raccourcis vers les éléments à masquer/afficher
+    const elsToHide = [
+        this.dom.btns.prev,
+        this.dom.btns.play,
+        this.dom.btns.next,
+        this.dom.btns.back,
+        this.dom.gaugeContainer
+    ];
 
     if (this.state.isDetailsOpen) {
+      // --- MODE DESCRIPTION (OUVERTURE) ---
+      
       const contentDiv = slide.querySelector(".diaporama-description-content");
       if (slide.classList.contains("is-error")) {
         contentDiv.innerHTML =
@@ -629,20 +641,42 @@ class Diaporama {
       slide.classList.add("diaporama-details-active");
       this.dom.btns.eye.classList.add("active");
 
+      // 1. Masquer tout sauf Oeil et Maison
+      elsToHide.forEach(el => {
+          if(el) el.classList.add("diaporama-hidden");
+      });
+
       // Mémoriser l'état de lecture avant description
       this.state.wasPlayingBeforeDetails = this.state.isPlaying;
 
-      // Mettre en pause pendant la description
+      // Mettre en pause
       this.state.isPlaying = false;
       this.updatePlayPauseIcon();
       this.stopAutoSlide();
+
     } else {
+      // --- MODE DESCRIPTION (FERMETURE) ---
+      
       slide.classList.remove("diaporama-details-active");
       this.dom.btns.eye.classList.remove("active");
 
-      // Sortie de description
+      // 1. Réafficher la jauge (toujours)
+      if (this.dom.gaugeContainer) this.dom.gaugeContainer.classList.remove("diaporama-hidden");
+
+      // 2. Réafficher le bouton Retour SI l'historique n'est pas vide
+      if (this.state.history.length > 0 && this.dom.btns.back) {
+          this.dom.btns.back.classList.remove("diaporama-hidden");
+      }
+
+      // 3. Réafficher Prev/Next/Play SI il y a plus d'une image
+      if (this.config.images.length > 1) {
+          if(this.dom.btns.prev) this.dom.btns.prev.classList.remove("diaporama-hidden");
+          if(this.dom.btns.next) this.dom.btns.next.classList.remove("diaporama-hidden");
+          if(this.dom.btns.play) this.dom.btns.play.classList.remove("diaporama-hidden");
+      }
+
+      // Reprise de la lecture selon le contexte
       if (this.state.isSecondary) {
-        // Diaporama secondaire : reprend l'état précédent
         if (this.state.wasPlayingBeforeDetails) {
           this.state.isPlaying = true;
           this.updatePlayPauseIcon();
@@ -653,7 +687,6 @@ class Diaporama {
           this.stopAutoSlide();
         }
       } else {
-        // Diaporama principal : reste en pause
         this.state.isPlaying = false;
         this.updatePlayPauseIcon();
         this.stopAutoSlide();
@@ -724,6 +757,9 @@ class Diaporama {
       .join("");
 
     const backBtnClass = this.state.history.length > 0 ? "" : "diaporama-hidden";
+    
+    // NOUVEAU : Si une seule image, on cache les boutons de navigation (Prev, Play, Next)
+    const navBtnClass = this.config.images.length <= 1 ? "diaporama-hidden" : "";
 
     // 1) Assurer l'existence d'un root unique
     let root = document.getElementById("diaporama-root");
@@ -753,12 +789,12 @@ class Diaporama {
     <div class="diaporama-controls">
       <div class="diaporama-controls-top">
         <div class="diaporama-btn-group">
-          <button class="diaporama-btn" id="diaporama-prev" title="Précédent">
+          <button class="diaporama-btn ${navBtnClass}" id="diaporama-prev" title="Précédent">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="m15 18-6-6 6-6"/>
             </svg>
           </button>
-          <button class="diaporama-btn" id="diaporama-play" title="Lecture/Pause">
+          <button class="diaporama-btn ${navBtnClass}" id="diaporama-play" title="Lecture/Pause">
             <svg id="icon-play" class="${this.state.isPlaying ? "diaporama-hidden" : ""}" viewBox="0 0 24 24" fill="currentColor" stroke="none">
               <polygon points="5 3 19 12 5 21 5 3"/>
             </svg>
@@ -767,7 +803,7 @@ class Diaporama {
               <rect x="14" y="4" width="4" height="16"/>
             </svg>
           </button>
-          <button class="diaporama-btn" id="diaporama-next" title="Suivant">
+          <button class="diaporama-btn ${navBtnClass}" id="diaporama-next" title="Suivant">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="m9 18 6-6-6-6"/>
             </svg>
@@ -787,14 +823,6 @@ class Diaporama {
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
               <circle cx="12" cy="12" r="3"></circle>
-            </svg>
-          </button>
-
-          <button class="diaporama-btn diapo-fs-blink ${
-            document.fullscreenElement || document.webkitFullscreenElement ? "diaporama-hidden" : ""
-          }" id="diaporama-fs" title="Plein écran">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
             </svg>
           </button>
 
@@ -844,8 +872,7 @@ class Diaporama {
         play: id("diaporama-play"),
         back: id("diaporama-back"),
         eye: id("diaporama-eye"),
-        home: id("diaporama-home"),
-        fs: id("diaporama-fs")
+        home: id("diaporama-home")
       }
     };
   }
@@ -861,49 +888,6 @@ class Diaporama {
    */
   bindEvents() {
     const b = this.dom.btns;
-
-    // Bouton plein écran : entrée uniquement (pas de sortie)
-    if (b.fs) {
-      b.fs.onclick = async (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        const root = this.dom.root || this.container;
-        if (!root) return;
-
-        // Si on est déjà en plein écran, on ne fait rien
-        if (document.fullscreenElement || document.webkitFullscreenElement) {
-          return;
-        }
-
-        try {
-          if (root.requestFullscreen) {
-            await root.requestFullscreen();
-          } else if (root.webkitRequestFullscreen) {
-            await root.webkitRequestFullscreen();
-          }
-        } catch (e) {
-          // refus navigateur / utilisateur : on ignore
-        }
-      };
-    }
-
-    // Met à jour l’apparence du bouton en fonction du fullscreen
-    document.addEventListener("fullscreenchange", () => {
-      const isFs =
-        !!document.fullscreenElement ||
-        !!document.webkitFullscreenElement;
-
-      if (!this.dom?.btns?.fs) return;
-
-      if (isFs) {
-        this.dom.btns.fs.classList.add("diaporama-hidden");
-        this.dom.btns.fs.classList.remove("diapo-fs-blink");
-      } else {
-        this.dom.btns.fs.classList.remove("diaporama-hidden");
-        this.dom.btns.fs.classList.add("diapo-fs-blink");
-      }
-    });
 
     // Boutons principaux
     b.next.onclick = () => this.manualNav(1);
@@ -1130,7 +1114,11 @@ class Diaporama {
   showSlide(index) {
     if (this.state.isDetailsOpen) this.toggleDetails();
     this.hideToast();
-    this.hideVocabularyTooltip();
+    // Si l'infobulle n'est pas "FIXE", on la ferme au changement de slide.
+    // Sinon, on la laisse ouverte (elle se fermera si le texte change, voir updateDataText).
+    if (!this.state.tooltipIsFixed) {
+      this.hideVocabularyTooltip();
+    }
 
     const max = this.config.images.length;
     if (max === 0) return;
@@ -1158,9 +1146,11 @@ class Diaporama {
     if (!this.state.isTitleVisible) this.toggleTitle();
     this.updateDataText();
 
+    // MODIFICATION DE LA LOGIQUE ICI
     if (this.state.isPlaying && !this.state.isScrubbing) {
       this.startAutoSlide();
-    } else {
+    } else if (!this.state.isScrubbing) {
+      // On ne reset la barre QUE si l'utilisateur n'est pas en train de la manipuler (scrubbing)
       this.resetProgress();
     }
   }
@@ -1196,22 +1186,35 @@ class Diaporama {
 
   /**
    * Affiche l'infobulle de vocabulaire au-dessus du mot cliqué.
+   * MODIFIÉ : Gestion du timer 6s + Détection si texte FIXE
    */
   showVocabularyTooltip(targetEl, text) {
-    // Fermer une éventuelle infobulle précédente
+    // 1. Nettoyage préventif
     this.hideVocabularyTooltip();
 
+    // 2. Détection : Est-ce que ce mot vient d'un texte FIXE ?
+    // On regarde si la slide courante possède une donnée spécifique pour la zone cliquée (L1 ou L2)
+    const fullPath = this.config.images[this.state.currentIndex];
+    const filename = fullPath ? fullPath.split("/").pop().split(".")[0] : "";
+    
+    // Le mot est-il dans L1 ?
+    const isL1 = this.dom.txtL1.contains(targetEl);
+    
+    // Y a-t-il une donnée spécifique pour cette slide ?
+    const slideSpecificData = this.state.slideData[filename];
+    const hasSpecificData = slideSpecificData && (isL1 ? slideSpecificData.l1 : slideSpecificData.l2);
+
+    // Si PAS de donnée spécifique, alors c'est du FIXE (ou titre par défaut)
+    this.state.tooltipIsFixed = !hasSpecificData;
+
+    // 3. Création et affichage (code existant)
     const tooltip = document.createElement("div");
     tooltip.className = "diaporama-tooltip";
     tooltip.textContent = text;
-
-    // On attache dans le titre (zone L1/L2)
     this.dom.titleZone.appendChild(tooltip);
 
-    // Position par rapport au mot cliqué
     const rectTarget = targetEl.getBoundingClientRect();
     const rectZone = this.dom.titleZone.getBoundingClientRect();
-
     const centerX = rectTarget.left + rectTarget.width / 2;
     const relX = centerX - rectZone.left;
 
@@ -1220,12 +1223,27 @@ class Diaporama {
 
     this.state.tooltipElement = tooltip;
     this.state.tooltipTarget = targetEl;
+
+    // 4. TIMER : Fermeture automatique après 4 secondes
+    if (this.state.tooltipTimer) clearTimeout(this.state.tooltipTimer);
+    this.state.tooltipTimer = setTimeout(() => {
+      this.hideVocabularyTooltip();
+    }, 4000);
   }
 
   /**
    * Masque l'infobulle de vocabulaire.
+   * MODIFIÉ : Nettoyage du timer
    */
   hideVocabularyTooltip() {
+    // On coupe le timer s'il tourne encore
+    if (this.state.tooltipTimer) {
+      clearTimeout(this.state.tooltipTimer);
+      this.state.tooltipTimer = null;
+    }
+    
+    this.state.tooltipIsFixed = false; // Reset de l'état
+
     if (this.state.tooltipElement && this.state.tooltipElement.parentNode) {
       this.state.tooltipElement.parentNode.removeChild(this.state.tooltipElement);
     }

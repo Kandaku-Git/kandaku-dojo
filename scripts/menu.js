@@ -1,33 +1,38 @@
 // scripts/menu.js
+
 // Logique et données de navigation pour Kandaku Dojo.
 
-
-
-window.MENU_ITEMS = [
-  { type: "item", label: "Accueil",      buttonClass: "menu-item", dataSection: "accueil" },
-  { type: "item", label: "Techniques",   buttonClass: "menu-item", dataSection: "techniques-categories" },
-  { type: "item", label: "Vidéos",       buttonClass: "menu-item", dataSection: "videos" },
-  { type: "item", label: "Lexique",      buttonClass: "menu-item", dataSection: "lexique" },
-  { type: "item", label: "Histoires",    buttonClass: "menu-item", dataSection: "histoires" },
-  { type: "item", label: "Liens",        buttonClass: "menu-item", dataSection: "liens" },
-  { type: "item", label: "Me contacter", buttonClass: "menu-item", dataSection: "contact" },
+// Définition des entrées du menu
+window.MENUITEMS = [
+  { type: "item", label: "Accueil",       buttonClass: "menu-item", dataSection: "accueil" },
+  { type: "item", label: "Techniques",    buttonClass: "menu-item", dataSection: "techniques-categories" },
+  { type: "item", label: "Vidéos",        buttonClass: "menu-item", dataSection: "videos" },
+  { type: "item", label: "Lexique",       buttonClass: "menu-item", dataSection: "lexique" },
+  { type: "item", label: "Histoires",     buttonClass: "menu-item", dataSection: "histoires" },
+  { type: "item", label: "Liens",         buttonClass: "menu-item", dataSection: "liens" },
+  { type: "item", label: "Tuto du site",  buttonClass: "menu-item", dataSection: "tuto" },
+  { type: "item", label: "Me contacter",  buttonClass: "menu-item", dataSection: "contact" }
 ];
 
 /* UTILITAIRES */
+
 function $(selector, scope) {
   return (scope || document).querySelector(selector);
 }
+
 function $all(selector, scope) {
   return Array.from((scope || document).querySelectorAll(selector));
 }
 
 /* CONSTRUCTION DU MENU */
+
 function construireMenu() {
   const root = document.getElementById("menuRoot");
-  if (!root || !Array.isArray(window.MENU_ITEMS)) return;
+  if (!root || !Array.isArray(window.MENUITEMS)) return;
+
   root.innerHTML = "";
 
-  window.MENU_ITEMS.forEach((item) => {
+  window.MENUITEMS.forEach((item) => {
     const li = document.createElement("li");
 
     if (item.type === "item") {
@@ -56,6 +61,7 @@ function construireMenu() {
 
       (item.children || []).forEach((child) => {
         const liChild = document.createElement("li");
+
         if (child.type === "submenu-button") {
           const b = document.createElement("button");
           b.type = "button";
@@ -64,6 +70,7 @@ function construireMenu() {
           b.textContent = child.label;
           liChild.appendChild(b);
         }
+
         ul.appendChild(liChild);
       });
 
@@ -75,6 +82,7 @@ function construireMenu() {
 }
 
 /* Activation d'une section principale */
+
 function activerSection(sectionName) {
   const targetId = "section-" + sectionName;
   const sections = $all(".content-section");
@@ -95,11 +103,13 @@ function activerSection(sectionName) {
 }
 
 /* Reset des états internes (tuiles + contenus) pour une section */
+
 function resetSectionState(sectionName) {
   // Techniques : catégories + liste
   if (sectionName === "techniques-categories") {
     const techTiles = document.querySelectorAll(".tech-category-tile.is-active");
     techTiles.forEach((t) => t.classList.remove("is-active"));
+
     const itemsContainer = document.getElementById("techniquesItemsContainer");
     if (itemsContainer) itemsContainer.innerHTML = "";
   }
@@ -108,6 +118,7 @@ function resetSectionState(sectionName) {
   if (sectionName === "videos") {
     const videoTiles = document.querySelectorAll("#section-videos .video-card-tile.is-active");
     videoTiles.forEach((t) => t.classList.remove("is-active"));
+
     const grid = document.getElementById("videosGrid");
     if (grid) grid.innerHTML = "";
   }
@@ -116,6 +127,7 @@ function resetSectionState(sectionName) {
   if (sectionName === "histoires") {
     const historyTiles = document.querySelectorAll("#section-histoires .history-tile.is-active");
     historyTiles.forEach((t) => t.classList.remove("is-active"));
+
     const historyContent = document.getElementById("historyContent");
     if (historyContent) {
       historyContent.innerHTML = "";
@@ -133,13 +145,13 @@ function resetSectionState(sectionName) {
   }
 }
 
-
 /* INITIALISATION DU MENU */
-function initMenu() {
-  const sideMenu = $("#sideMenu");
-  const headerMenuButton = $("#headerMenuButton");
 
-  // Bouton MENU (ouverture/fermeture)
+function initMenu() {
+  const sideMenu = document.getElementById("sideMenu");
+  const headerMenuButton = document.getElementById("headerMenuButton");
+
+  // Bouton MENU : ouverture/fermeture
   if (headerMenuButton && sideMenu) {
     headerMenuButton.addEventListener("click", () => {
       const isVisible = sideMenu.classList.toggle("is-visible");
@@ -147,20 +159,20 @@ function initMenu() {
     });
   }
 
-  // Gestion de l'état actif du bouton principal
+  /* Gestion de l’état actif du bouton principal */
+
   function setMainButtonActive(targetSection) {
-    let targetButton = $all(".menu-item").find((b) =>
-      b.getAttribute("data-section") === targetSection ||
-      b.closest("li")?.querySelector(`[data-section="${targetSection}"]`)
+    let targetButton = $all(".menu-item").find(
+      (b) => b.getAttribute("data-section") === targetSection
     );
 
-    // Cas particuliers : sous-sections techniques
+    // Cas particuliers : sous-sections techniques -> bouton "Techniques"
     if (
       targetSection.includes("-waza") ||
       targetSection.includes("dachi") ||
-      targetSection.includes("kata") ||
-      targetSection === "techniques-categories"
+      targetSection.includes("kata")
     ) {
+      targetSection = "techniques-categories";
       targetButton = $all(".menu-item").find((b) =>
         b.textContent?.trim().startsWith("Techniques")
       );
@@ -179,7 +191,6 @@ function initMenu() {
 
       // Reset uniquement quand la navigation vient du menu
       resetSectionState(section);
-
       activerSection(section);
       setMainButtonActive(section);
 
@@ -188,7 +199,7 @@ function initMenu() {
     });
   });
 
-  // Gestion des éventuels groupes (submenus) — conservé pour compatibilité
+  // Gestion d’éventuels groupes (submenus) – conservé pour compatibilité
   const parents = $all(".menu-parent");
   parents.forEach((parentBtn) => {
     const controlsId = parentBtn.getAttribute("aria-controls");
@@ -196,6 +207,7 @@ function initMenu() {
 
     parentBtn.addEventListener("click", () => {
       if (!submenu) return;
+
       const isCurrentlyOpen = submenu.classList.contains("is-open");
 
       parents.forEach((otherBtn) => {
@@ -214,7 +226,7 @@ function initMenu() {
     });
   });
 
-  // Liens de sous-menu (si présents)
+  // Liens de sous-menu si présents
   const submenuLinks = $all(".submenu-link[data-section]");
   submenuLinks.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -222,7 +234,6 @@ function initMenu() {
       if (!section) return;
 
       resetSectionState(section);
-
       activerSection(section);
       setMainButtonActive(section);
 
@@ -238,12 +249,13 @@ function initMenu() {
       const section = el.getAttribute("data-section");
       if (!section) return;
 
+      // Si on clique depuis le contenu vers une autre section que le diaporama plein écran
       if (section !== "techniques") {
         const wrapper = $("#mon-conteneur-wrapper");
         if (wrapper) wrapper.classList.remove("is-visible");
       }
 
-      // Ici : pas de resetSectionState => on conserve l'état interne
+      // Ici on ne fait PAS de resetSectionState pour conserver l’état interne
       activerSection(section);
       setMainButtonActive(section);
     });
@@ -251,17 +263,18 @@ function initMenu() {
 }
 
 /* TECHNIQUES : ouverture diaporama depuis une ligne/tuile */
-function initTechniques() {
-  const wrapper = $("#mon-conteneur-wrapper");
 
-  // 1) On détache tous les anciens listeners
+function initTechniques() {
+  const wrapper = document.getElementById("mon-conteneur-wrapper");
+
+  // 1. On détache tous les anciens listeners
   const oldLinks = $all("[data-technique]");
   oldLinks.forEach((link) => {
     const clone = link.cloneNode(true);
     link.parentNode.replaceChild(clone, link);
   });
 
-  // 2) On récupère de nouveau TOUS les éléments [data-technique]
+  // 2. On récupère de nouveau TOUS les éléments data-technique
   const techniqueLinks = $all("[data-technique]");
   techniqueLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
@@ -271,8 +284,8 @@ function initTechniques() {
 
       activerSection("techniques");
 
-      const sideMenu = $("#sideMenu");
-      const headerMenuButton = $("#headerMenuButton");
+      const sideMenu = document.getElementById("sideMenu");
+      const headerMenuButton = document.getElementById("headerMenuButton");
 
       if (sideMenu) sideMenu.classList.remove("is-visible");
       if (headerMenuButton) headerMenuButton.setAttribute("aria-expanded", "false");
@@ -286,23 +299,25 @@ function initTechniques() {
   });
 }
 
+// Placeholder pour une éventuelle version accordéon
 function initTechniquesAccordion() {
   // Pour évolution future si besoin
 }
 
-/* VIDÉOS : catégories + filtre */
+/* VÍDEOS : catégories + filtre */
+
 function initVideos() {
   if (window.renderVideosCategories) {
     window.renderVideosCategories();
   }
 
-  const grid = $("#videosGrid");
+  const grid = document.getElementById("videosGrid");
   if (grid) grid.innerHTML = "";
 
   const tiles = $all("#section-videos .video-card-tile");
   tiles.forEach((tile) => {
     tile.addEventListener("click", () => {
-      const filter = tile.getAttribute("data-video-filter") || "";
+      const filter = tile.getAttribute("data-video-filter");
 
       // état visuel des tuiles
       tiles.forEach((t) => t.classList.remove("is-active"));
@@ -310,11 +325,8 @@ function initVideos() {
 
       // construction de la grille si besoin
       if (grid && grid.children.length === 0 && typeof window.construireVideos === "function") {
-        window.construireVideos();
-      }
-
-      // filtre
-      if (typeof window.filtrerVideos === "function") {
+        window.construireVideos(filter);
+      } else if (typeof window.filtrerVideos === "function") {
         window.filtrerVideos(filter);
       }
     });
@@ -322,6 +334,7 @@ function initVideos() {
 }
 
 /* LEXIQUE */
+
 function construireLexique(liste) {
   const container = document.getElementById("lexiqueListe");
   if (!container) return;
@@ -340,7 +353,7 @@ function construireLexique(liste) {
 }
 
 function initLexique() {
-  const searchInput = $("#lexiqueSearch");
+  const searchInput = document.getElementById("lexiqueSearch");
 
   if (Array.isArray(window.LEXIQUE)) {
     construireLexique(window.LEXIQUE);
@@ -362,26 +375,32 @@ function initLexique() {
   }
 }
 
-  // Clic sur le logo ou le titre => retour à l'accueil
+/* Clic sur le logo ou le titre : retour à l’accueil */
+
+function initLogoAccueil() {
   const logoShotokan = document.querySelector(".logo-shotokan");
-  const titleBlock   = document.querySelector(".title-block");
+  const titleBlock = document.querySelector(".title-block");
 
   [logoShotokan, titleBlock].forEach((el) => {
     if (!el) return;
     el.style.cursor = "pointer";
     el.addEventListener("click", () => {
       activerSection("accueil");
-      // mettre le bouton Accueil en actif dans le menu
-      const accueilBtn = Array.from(document.querySelectorAll(".menu-item"))
-        .find((b) => b.getAttribute("data-section") === "accueil");
+
+      const accueilBtn = Array.from(document.querySelectorAll(".menu-item")).find(
+        (b) => b.getAttribute("data-section") === "accueil"
+      );
+
       document.querySelectorAll(".menu-item").forEach((b) =>
         b.classList.remove("is-active")
       );
       if (accueilBtn) accueilBtn.classList.add("is-active");
     });
   });
+}
 
 /* PERSONNALISATION (optionnel) */
+
 function initPersonnalisation() {
   const colorInputs = $all("[data-css-var]");
   colorInputs.forEach((input) => {
@@ -393,18 +412,23 @@ function initPersonnalisation() {
   });
 }
 
-
 /* LANCEMENT GLOBAL */
+
 document.addEventListener("DOMContentLoaded", () => {
   const contentRoot = document.querySelector("main.main-content");
 
-  // 1) Remplir la section Accueil si la fonction existe
+  // 1. Remplir la section Accueil si la fonction existe
   if (typeof window.renderAccueilSection === "function") {
     window.renderAccueilSection();
   }
 
-  // 2) Rendre les autres sections
-  if (window.renderTechniquesSections) {
+  // 1b. Remplir la section Tuto si la fonction existe
+  if (typeof window.renderTutoSection === "function") {
+    window.renderTutoSection();
+  }
+
+  // 2. Rendre les autres sections
+  if (typeof window.renderTechniquesSections === "function") {
     window.renderTechniquesSections(contentRoot);
   }
 
@@ -414,6 +438,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initTechniquesAccordion();
   initVideos();
   initLexique();
+  initLogoAccueil();
+  initPersonnalisation();
 
   if (typeof window.renderHistoryTiles === "function") {
     window.renderHistoryTiles();
@@ -425,10 +451,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.renderContactForm();
   }
 
-  // 3) Afficher l'accueil
+  // 3. Afficher l’accueil
   activerSection("accueil");
 });
-
-
-
-

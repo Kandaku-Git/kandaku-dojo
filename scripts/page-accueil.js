@@ -41,9 +41,11 @@ window.renderAccueilSection = function () {
 
 const p = document.createElement("p");
 p.innerHTML =
-  "Bonjour et bienvenue au KDojo&nbsp;!<br><br>Tu as ici accès à mon encyclopédie du karaté Shotokan, présentée sous forme animée.<br>Techniques, lexique et vidéos constituent un véritable mémento portable que tu peux glisser entre ta ceinture et ton karatégi.<br><br>" +
-  "Si tu repères une erreur ou un contenu manquant, n’hésite pas à me le signaler. Et pour être au courant des mises à jour, abonne-toi depuis la " +
-  "<button type=\"button\" class=\"btn-link accueil-contact-link\" data-section=\"contact\">page de contact</button>.";
+  "Bonjour et bienvenue au KDojo&nbsp;!<br><br>Tu as ici accès à une encyclopédie du karaté Shotokan présentée sous forme animée : techniques, lexique et vidéos à emporter partout." +
+  "<br><br>" +
+  "Pour apprendre à naviguer dans le site et utiliser le KPlayer, commence par le <button type=\"button\" class=\"btn-link accueil-contact-link\" data-section=\"tuto\">tuto du site</button>. " +
+  "Si tu repères une erreur ou un contenu manquant, dis‑le moi depuis la <button type=\"button\" class=\"btn-link accueil-contact-link\" data-section=\"contact\">page de contact</button>." +
+  "<br><br> Bon entraînement… et à très vite sur le tatami virtuel du KDojo ! ";
 
   right.appendChild(p);
   layout.appendChild(right);

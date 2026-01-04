@@ -718,7 +718,7 @@ window.LEXIQUE = [
   {"term": "Mokuso", "def": "Méditation, relaxation en position Seiza",},
   {"term": "Momo", "def": "Cuisse",},
   {"term": "Mondo", "def": "Discussion",},
-  {"term": "Morote", "def": "A deux mains - Renforcement de l'action d'une technique de bras par le second, poing fermé",},
+  {"term": "Morote", "def": "Double - A deux mains - Renforcement de l'action d'une technique de bras par le second, poing fermé",},
   {"term": "Morote Dori", "def": "Tenir un opposant à deux mains",},
   {"term": "Morote Gari", "def": "Fauchage deux jambes à deux mains",},
   {"term": "Morote Jime", "def": "Etranglement à deux mains",},
@@ -1146,7 +1146,7 @@ window.LEXIQUE = [
   {"term": "Tzuki", "def": "Lune",},
   {"term": "RetourLigne", "def": "" },
 
-  {"term": "Uchi", "def": "Intérieur - Frapper",},
+  {"term": "Uchi", "def": "Intérieur vers exterieur - Attaque",},
   {"term": "Uchi Deishi", "def": "Elève direct d'un maître, disciple. Un élève vivant au Dojo et se vouant à l'entraînement et à l'entretient du Dojo (et qui traditionnellement se place au service du Sensei du Dojo)",},
   {"term": "Uchi Empi", "def": "Mouvement du coude vers l'intérieur du corps",},
   {"term": "Uchi Komi", "def": "Attaques répétées, éducation du style, de l'automatisme et de la vitesse",},
