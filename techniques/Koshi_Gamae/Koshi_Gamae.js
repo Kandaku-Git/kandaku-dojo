@@ -33,6 +33,6 @@ Le poing du dessus est à la verticale
 
 // --- 4. Données Techniques ---
 window.DONNEES = `
-FIXE_L1 Dachi Waza
+FIXE_L1 Dachi
 FIXE_L2 Technique de position
 `;
