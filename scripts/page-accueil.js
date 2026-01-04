@@ -43,7 +43,7 @@ const p = document.createElement("p");
 p.innerHTML =
   "Découvre ici une encyclopédie vivante du karaté Shotokan&nbsp;: techniques animées, lexique et vidéos à emporter partout." +
   "<br><br>" +
-  "Le KPlayer <button type=\"button\" class=\"btn-link accueil-contact-link\" data-section=\"tuto\">(tuto)</button> te servira de mémento&nbsp;: il t'aide à naviguer entre les techniques et à approfondir tes connaissances." +
+  "Le KPlayer (<button type=\"button\" class=\"btn-link accueil-contact-link\" data-section=\"tuto\">tuto</button>) te servira de mémento&nbsp;: il t'aide à naviguer entre les techniques et à approfondir tes connaissances." +
   "<br>" +
   "Depuis la <button type=\"button\" class=\"btn-link accueil-contact-link\" data-section=\"contact\">page de contact</button>, tu peux me contacter et t'abonner aux mises à jour." +
   "<br><br>Garde ton smartphone bien calé entre la ceinture et le kimono… et bon entraînement au KDojo&nbsp;!";
@@ -52,3 +52,4 @@ p.innerHTML =
   layout.appendChild(right);
 
 };
+
