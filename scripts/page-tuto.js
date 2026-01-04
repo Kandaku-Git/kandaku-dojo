@@ -214,7 +214,7 @@ window.renderTutoSection = function () {
               <img
                 src="images/tuto/tuto-retour.png"
                 alt="Bouton Retour du diaporama pour revenir au kata"
-                class="tuto-guide-image js-tuto-zoomable"
+                class="tuto-guide-image js-tuto-zoomable tuto-retour-icon"
               >
             </div>
           </div>

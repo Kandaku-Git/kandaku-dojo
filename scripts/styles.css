@@ -1996,6 +1996,13 @@ body:has(#section-accueil.is-active)::before {
   padding-bottom: 0.7rem;
 }
 
+/* Icône flèche (tuto C4) alignée sur la taille de l'icône Maison */
+.tuto-retour-icon {
+  width: 48px;      /* même largeur que la Maison */
+  height: 48px;     /* même hauteur */
+  object-fit: contain;
+}
+
 /* Mobile : on repasse en grille multi-lignes classique */
 @media (max-width: 768px) {
   .tuto-tiles-grid {
@@ -2061,4 +2068,11 @@ body:has(#section-accueil.is-active)::before {
   .diaporama-title-zone {
       flex-shrink: 0 !important;
   }
+}
+
+/* Taille forcée pour l'icône flèche du tuto (C4) */
+.tuto-retour-icon {
+  width: 48px !important;   /* mets ici la largeur exacte de ton icône Maison */
+  height: 48px !important;  /* même hauteur */
+  object-fit: contain;
 }
