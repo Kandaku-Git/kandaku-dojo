@@ -12,7 +12,7 @@ window.renderTutoSection = function () {
       Ce guide présente comment naviguer dans le site et comment utiliser le visionneur de techniques, le KPlayer.
     </p>
 
-    <!-- Tuiles de navigation interne -->
+        <!-- Tuiles de navigation interne -->
     <div class="tuto-tiles-grid">
       <article class="technique-card tuto-tile" data-tuto-target="tuto-nav-kdojo">
         <h3 class="card-title">Naviguer dans le KDojo</h3>
@@ -23,25 +23,32 @@ window.renderTutoSection = function () {
       </article>
 
       <article class="technique-card tuto-tile" data-tuto-target="tuto-kplayer-lecture">
-        <h3 class="card-title">KPlayer : lecture</h3>
-      </article>
+  <h3 class="card-title">KPlayer</h3>
+  <p class="card-description">Navigation</p>
+</article>
 
-      <article class="technique-card tuto-tile" data-tuto-target="tuto-kplayer-fiche">
-        <h3 class="card-title">KPlayer : fiche</h3>
-      </article>
+<article class="technique-card tuto-tile" data-tuto-target="tuto-kplayer-fiche">
+  <h3 class="card-title">KPlayer</h3>
+  <p class="card-description">Détails techniques</p>
+</article>
 
-      <article class="technique-card tuto-tile" data-tuto-target="tuto-kplayer-vocab">
-        <h3 class="card-title">KPlayer : vocabulaire</h3>
-      </article>
+<article class="technique-card tuto-tile" data-tuto-targer="tuto-kplayer-vocab">
+  <h3 class="card-title">KPlayer</h3>
+  <p class="card-description">Vocabulaire</p>
+</article>
 
-      <article class="technique-card tuto-tile" data-tuto-target="tuto-kplayer-liens">
-        <h3 class="card-title">KPlayer : variantes</h3>
-      </article>
+<article class="technique-card tuto-tile" data-tuto-target="tuto-kplayer-liens">
+  <h3 class="card-title">KPlayer</h3>
+  <p class="card-description">Cibler une technique</p>
+</article>
 
-      <article class="technique-card tuto-tile" data-tuto-target="tuto-kplayer-home">
-        <h3 class="card-title">KPlayer : Maison</h3>
-      </article>
+<article class="technique-card tuto-tile" data-tuto-target="tuto-kplayer-home">
+  <h3 class="card-title">KPlayer</h3>
+  <p class="card-description">Exit</p>
+</article>
+
     </div>
+
 
     <div class="tuto-guide-container">
 
@@ -188,28 +195,32 @@ window.renderTutoSection = function () {
         </div>
       </section>
 
-      <!-- C4. KPlayer : Variantes et techniques liées -->
+      <!-- C4. KPlayer : Cibler une technique  -->
       <section class="tuto-guide-section" id="tuto-kplayer-liens">
         <div class="tuto-guide-section-header">
-          <h3 class="tuto-guide-title">C4. KPlayer : explorer les variantes et techniques liées</h3>
+          <h3 class="tuto-guide-title">C4. KPlayer : cibler une technique</h3>
           <button class="tuto-back-top" type="button" data-tuto-top>
             <img src="images/haut.png" alt="Retour en haut de la page" class="tuto-back-top-icon">
           </button>
         </div>
         <div class="tuto-guide-content tuto-guide-content--image-left">
           <div class="tuto-guide-image-box tuto-guide-image-box--medium">
-            <img
-              src="images/tuto/tuto-retour.png"
-              alt="Bouton Retour du diaporama dans la barre de contrôle"
-              class="tuto-guide-image js-tuto-zoomable"
-            >
+            <div class="tuto-kplayer-liens-images">
+              <img
+                src="images/tuto/tuto-lien.png"
+                alt="Lien cliquable vers une technique depuis un kata"
+                class="tuto-guide-image js-tuto-zoomable"
+              >
+              <img
+                src="images/tuto/tuto-retour.png"
+                alt="Bouton Retour du diaporama pour revenir au kata"
+                class="tuto-guide-image js-tuto-zoomable"
+              >
+            </div>
           </div>
           <div class="tuto-guide-text">
-            <p>Le visionneur te permet de passer rapidement d’une technique à une autre :</p>
-            <ul>
-              <li>Si le nom d’une autre technique apparaît dans le texte, clique dessus pour ouvrir directement sa démonstration.</li>
-              <li>Utilise ensuite le bouton <strong>Retour</strong> (flèche courbée) pour revenir à ta technique de départ.</li>
-            </ul>
+            <p>Dans un kata, certains noms de techniques sont cliquables, ce qui permet d’ouvrir un diaporama dédié qui détaille précisément ce mouvement.</p>
+            <p>Le bouton avec la flèche courbée permet ensuite de quitter la description de la technique et de revenir au kata dont elle est issue.</p>
           </div>
         </div>
       </section>
