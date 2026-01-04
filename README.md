@@ -6,8 +6,7 @@ Liens externes :
 - Web3Forms : formulaire contact
 
 ## A faire
-- [ ] Ajouter les fiche d'explication & un lien vers elle dans la page d'accueil
-- [ ] Ajoutezr les déplacements
+- [ ] Ajouter les déplacements
 - [ ] Ajouter et vérifier les katas manquants
 - [ ] Techniques hors ligne
 - [ ] Humaniser les schemas
