@@ -206,41 +206,49 @@ class Diaporama {
    * Charge le vocabulaire global (scripts/vocabulaire.js) si nécessaire
    * et le parse vers this.state.vocabulary.
    */
+  /**
+   * Charge le lexique global (scripts/page-lexique.js) si nécessaire
+   * et le convertit pour le diaporama.
+   */
   loadVocabulary() {
     return new Promise((resolve) => {
-      if (window.VOCABULAIRE_TECHNIQUE) {
-        this.parseVocabulary(window.VOCABULAIRE_TECHNIQUE);
+      // 1. Si le lexique est déjà chargé (ex: on vient de la page lexique)
+      if (window.LEXIQUE && Array.isArray(window.LEXIQUE)) {
+        this.buildVocabularyFromLexique(window.LEXIQUE);
         resolve();
         return;
       }
 
+      // 2. Sinon on charge le script
       const script = document.createElement("script");
-      script.src = "scripts/vocabulaire.js";
+      script.src = "scripts/page-lexique.js"; // <--- CHANGEMENT DE FICHIER
       script.onload = () => {
-        if (window.VOCABULAIRE_TECHNIQUE) {
-          this.parseVocabulary(window.VOCABULAIRE_TECHNIQUE);
+        if (window.LEXIQUE && Array.isArray(window.LEXIQUE)) {
+          this.buildVocabularyFromLexique(window.LEXIQUE);
         }
         resolve();
       };
-      script.onerror = () => resolve();
+      script.onerror = () => {
+        console.warn("Impossible de charger scripts/page-lexique.js");
+        resolve();
+      };
       document.body.appendChild(script);
     });
   }
 
   /**
-   * Parse le texte du vocabulaire en tableau clé → définition.
+   * Transforme le tableau LEXIQUE en dictionnaire pour le diaporama.
    */
-  parseVocabulary(text) {
-    const lines = text.split("\n");
-    lines.forEach((line) => {
-      const parts = line.split(":");
-      if (parts.length >= 2) {
-        const term = parts[0].trim();
-        const def = parts.slice(1).join(":").trim();
-        if (term && def) {
-          this.state.vocabulary[term] = def;
-        }
-      }
+  buildVocabularyFromLexique(lexiqueArray) {
+    this.state.vocabulary = {};
+    
+    lexiqueArray.forEach(item => {
+      // On ignore les séparateurs et les entrées vides
+      if (item.term === "RetourLigne") return;
+      if (!item.term || !item.def) return;
+
+      // On stocke : "Terme" => "Définition"
+      this.state.vocabulary[item.term] = item.def;
     });
   }
 
@@ -308,10 +316,17 @@ class Diaporama {
   enrichTextWithVocabulary(htmlText) {
     if (!htmlText) return "";
     let enriched = htmlText;
-    Object.keys(this.state.vocabulary).forEach(term => {
+
+    // IMPORTANT : On trie les clés par longueur décroissante (les mots longs d'abord)
+    // Cela évite que "Age" ne soit détecté à l'intérieur de "Age Zuki"
+    const terms = Object.keys(this.state.vocabulary).sort((a, b) => b.length - a.length);
+
+    terms.forEach(term => {
+      // Regex : Soit une balise HTML (qu'on ignore), soit le mot exact (\b)
       const regex = new RegExp(`(<[^>]+>|\"[^\"]+\")|(\\b${term}\\b)`, "gi");
 
       enriched = enriched.replace(regex, (match, protectedPart, foundTerm) => {
+        // Si c'est du HTML ou entre guillemets, on ne touche pas
         if (protectedPart) return protectedPart;
 
         const def = this.state.vocabulary[term].replace(/"/g, "&quot;");

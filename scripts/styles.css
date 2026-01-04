@@ -1832,6 +1832,169 @@ body:has(#section-accueil.is-active)::before {
   border-radius: 0; /* Bords droits */
 }
 
+/* =========================================================
+   Mise en page générale du tuto
+   ========================================================= */
+.tuto-guide-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.tuto-guide-section {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem 1.6rem;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Ligne titre + icône haut dans les sections du tuto */
+.tuto-guide-section-header {
+  display: inline-flex;          /* Titre + icône sur une même ligne */
+  align-items: center;           /* Alignement vertical parfait */
+  gap: 0.8rem;                   /* Espace entre titre et icône (≈ 2 espaces visuels) */
+}
+
+.tuto-guide-title {
+  margin: 0 0 0.75rem 0;
+  font-family: Oswald, sans-serif;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+.tuto-guide-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+/* Variantes gauche / droite */
+.tuto-guide-content--image-right .tuto-guide-text {
+  order: 1;
+  flex: 1 1 260px;
+}
+
+.tuto-guide-content--image-right .tuto-guide-image-box {
+  order: 2;
+  flex: 0 0 auto;
+}
+
+.tuto-guide-content--image-left .tuto-guide-image-box {
+  order: 1;
+  flex: 0 0 auto;
+}
+
+.tuto-guide-content--image-left .tuto-guide-text {
+  order: 2;
+  flex: 1 1 260px;
+}
+
+/* Tailles des images */
+.tuto-guide-image-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tuto-guide-image-box--small {
+  max-width: 260px;
+}
+
+.tuto-guide-image-box--medium {
+  max-width: 380px;
+}
+
+.tuto-guide-image-box--large {
+  max-width: 520px;
+}
+
+/* Image : border et redimensionnement */
+.tuto-guide-image {
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-md);
+  cursor: zoom-in;
+}
+
+/* Overlay plein écran pour l’image */
+.tuto-image-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 12000;
+}
+
+.tuto-image-overlay img {
+  max-width: 95vw;
+  max-height: 95vh;
+  border: 1px solid #fff;
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+  cursor: zoom-out;
+}
+
+/* Bouton retour haut de page dans chaque bloc du tuto */
+.tuto-back-top {
+  border: none;                 /* Pas de bordure du bouton */
+  background: transparent;      /* Fond transparent */
+  padding: 0;                   /* Pas de padding autour */
+  margin: 0 0 0.5rem 0;         /* Petit espace sous le titre */
+  cursor: pointer;              /* Curseur main */
+  display: inline-flex;         /* Contient juste l’icône */
+  align-items: center;          /* Centre l’image dans la hauteur de ligne */
+  justify-content: center;
+}
+
+.tuto-back-top-icon {
+  height: 1.1rem;                /* Même hauteur que le font-size du titre */
+  width: auto;                   /* Conserve le ratio du logo */
+  display: block;
+}
+
+.tuto-back-top:hover .tuto-back-top-icon {
+  filter: brightness(1.2);      /* Légère mise en avant au survol */
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .tuto-guide-content {
+    flex-direction: column;
+  }
+
+  .tuto-guide-image-box--small,
+  .tuto-guide-image-box--medium,
+  .tuto-guide-image-box--large {
+    max-width: 100%;
+  }
+}
+
+/* Grille des tuiles du tuto (sommaire KPlayer) */
+.tuto-tiles-grid {
+  display: grid;                           /* Utilise une grille comme pour les catégories techniques */
+  grid-auto-flow: column;                  /* Toutes les tuiles sur une seule ligne */
+  grid-auto-columns: minmax(180px, 1fr);   /* Largeur mini de chaque tuile */
+  gap: 1rem;                               /* Espacement entre tuiles */
+  margin: 1.5rem 0 2rem;                   /* Espace autour du bloc de tuiles */
+}
+
+/* Chaque tuile réutilise le style .technique-card mais on s'assure qu'elle occupe bien sa colonne */
+.tuto-tile {
+  width: 100%;
+}
+
+/* Mobile : on repasse en grille multi-lignes classique */
+@media (max-width: 768px) {
+  .tuto-tiles-grid {
+    grid-auto-flow: row;                   /* On n’impose plus une seule ligne */
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+}
+
 
 /* Fix veille mobile - hauteur garantie après recréation */
 /* On élargit à 768px pour couvrir tous les smartphones (y compris format paysage ou grand écran) */
