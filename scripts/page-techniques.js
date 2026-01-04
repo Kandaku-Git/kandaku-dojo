@@ -112,6 +112,7 @@ window.TECHNIQUES_CATEGORIES = [
       { label: "Juji Uke", dataTechnique: "Juji_Uke", dataSection: "techniques" },
             { label: "", dataTechnique: "RetourLigne", dataSection: "techniques" },
       { label: "Kake Uke", dataTechnique: "Kake_Uke", dataSection: "techniques" },
+      { label: "Kakete Uke", dataTechnique: "Kakete_Uke", dataSection: "techniques" },
       { label: "Kakiwake Uke", dataTechnique: "Kakiwake_Uke", dataSection: "techniques" },
       { label: "Kosa Uke", dataTechnique: "Kosa_Uke", dataSection: "techniques" },
             { label: "", dataTechnique: "RetourLigne", dataSection: "techniques" },

@@ -5,9 +5,8 @@ Liens externes :
 - PorkBun : nom de domain dojo.kandaku.com (lié à vercel)
 - Web3Forms : formulaire contact
 
-# Tehniques manquantes dans Bassai Dai :
-- [ ] Kakete Uke
-
 ## A faire
+- [ ] Ajouter les déplacements
+- [ ] Ajouter et vérifier les katas manquants
 - [ ] Techniques hors ligne
 - [ ] Humaniser les schemas

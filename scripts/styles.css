@@ -494,16 +494,32 @@ body::before { /* Filigrane en arrière-plan (logo en watermark) */
 }
 
 
-/* Fallback plein écran diaporama (mobile / refus API) */
+/* Fallback plein écran diaporama */
 .force-fullscreen,
 :fullscreen,
 :-webkit-full-screen {
-  position: fixed !important; /* Force un mode plein écran */
-  inset: 0 !important; /* Étendu à toute la fenêtre */
-  width: 100vw !important; /* Pleine largeur */
-  height: 100vh !important; /* Pleine hauteur */
-  z-index: 9999 !important; /* Au-dessus de tout */
-  background: #000 !important; /* Fond noir uniforme */
+  position: fixed !important;
+  inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100dvh !important; /* dvh s'adapte à la barre Android */
+  
+  /* CRUCIAL : Annule les styles du wrapper (bordures, animation, centrage) */
+  transform: none !important; 
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  max-width: none !important;
+  max-height: none !important;
+
+  z-index: 20000 !important; /* Passe au-dessus de tout */
+  background: #ffffff !important; /* Force le fond blanc (ou var(--color-bg) selon préférence) */
+}
+
+/* Optionnel : Assurer que le fond soit blanc spécifiquement si la classe est active sur le wrapper */
+.diaporama-wrapper.force-fullscreen {
+    background-color: #fff; /* Force le blanc si c'est le conteneur principal */
 }
 
 
@@ -1809,43 +1825,254 @@ body:has(#section-accueil.is-active)::before {
   position: fixed; /* Diaporama collé à la fenêtre */
   inset: 0; /* Couvre toute la surface */
   width: 100vw; /* Pleine largeur */
-  height: 100vh; /* Pleine hauteur */
+  height: 100dvh; /* Force la hauteur dynamique ici aussi */
   margin: 0; /* Supprime les marges */
   max-width: none; /* Enlève les limites de largeur */
   max-height: none; /* Enlève les limites de hauteur */
   border-radius: 0; /* Bords droits */
 }
 
+/* =========================================================
+   Mise en page générale du tuto
+   ========================================================= */
+.tuto-guide-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.tuto-guide-section {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 1.4rem 1.6rem;
+  box-shadow: var(--shadow-soft);
+}
+
+/* Ligne titre + icône haut dans les sections du tuto */
+.tuto-guide-section-header {
+  display: inline-flex;          /* Titre + icône sur une même ligne */
+  align-items: center;           /* Alignement vertical parfait */
+  gap: 0.8rem;                   /* Espace entre titre et icône (≈ 2 espaces visuels) */
+}
+
+.tuto-guide-title {
+  margin: 0 0 0.75rem 0;
+  font-family: Oswald, sans-serif;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+}
+
+.tuto-guide-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+/* Variantes gauche / droite */
+.tuto-guide-content--image-right .tuto-guide-text {
+  order: 1;
+  flex: 1 1 260px;
+}
+
+.tuto-guide-content--image-right .tuto-guide-image-box {
+  order: 2;
+  flex: 0 0 auto;
+}
+
+.tuto-guide-content--image-left .tuto-guide-image-box {
+  order: 1;
+  flex: 0 0 auto;
+}
+
+.tuto-guide-content--image-left .tuto-guide-text {
+  order: 2;
+  flex: 1 1 260px;
+}
+
+/* Tailles des images */
+.tuto-guide-image-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tuto-guide-image-box--small {
+  max-width: 260px;
+}
+
+.tuto-guide-image-box--medium {
+  max-width: 380px;
+}
+
+.tuto-guide-image-box--large {
+  max-width: 520px;
+}
+
+/* Image : border et redimensionnement */
+.tuto-guide-image {
+  width: 100%;
+  height: auto;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius-md);
+  cursor: zoom-in;
+}
+
+/* Overlay plein écran pour l’image */
+.tuto-image-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 12000;
+}
+
+.tuto-image-overlay img {
+  max-width: 95vw;
+  max-height: 95vh;
+  border: 1px solid #fff;
+  border-radius: var(--radius-md);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+  cursor: zoom-out;
+}
+
+/* Bloc spécifique C4 : deux captures l'une sous l'autre */
+.tuto-kplayer-liens-images {
+  display: flex;
+  flex-direction: column; /* Empile en colonne */
+  gap: 0.75rem;           /* Espace vertical entre les deux images */
+}
+
+/* Bouton retour haut de page dans chaque bloc du tuto */
+.tuto-back-top {
+  border: none;                 /* Pas de bordure du bouton */
+  background: transparent;      /* Fond transparent */
+  padding: 0;                   /* Pas de padding autour */
+  margin: 0 0 0.5rem 0;         /* Petit espace sous le titre */
+  cursor: pointer;              /* Curseur main */
+  display: inline-flex;         /* Contient juste l’icône */
+  align-items: center;          /* Centre l’image dans la hauteur de ligne */
+  justify-content: center;
+}
+
+.tuto-back-top-icon {
+  height: 1.1rem;                /* Même hauteur que le font-size du titre */
+  width: auto;                   /* Conserve le ratio du logo */
+  display: block;
+}
+
+.tuto-back-top:hover .tuto-back-top-icon {
+  filter: brightness(1.2);      /* Légère mise en avant au survol */
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .tuto-guide-content {
+    flex-direction: column;
+  }
+
+  .tuto-guide-image-box--small,
+  .tuto-guide-image-box--medium,
+  .tuto-guide-image-box--large {
+    max-width: 100%;
+  }
+}
+
+/* Grille des tuiles du tuto (sommaire KPlayer) */
+.tuto-tiles-grid {
+  display: grid;                           /* Utilise une grille comme pour les catégories techniques */
+  grid-auto-flow: column;                  /* Toutes les tuiles sur une seule ligne */
+  grid-auto-columns: minmax(180px, 1fr);   /* Largeur mini de chaque tuile */
+  gap: 1rem;                               /* Espacement entre tuiles */
+  margin: 1.5rem 0 2rem;                   /* Espace autour du bloc de tuiles */
+}
+
+/* Chaque tuile réutilise le style .technique-card mais on s'assure qu'elle occupe bien sa colonne */
+.tuto-tile {
+  width: 100%;
+  padding-top: 0.9rem;
+  padding-bottom: 0.7rem;
+}
+
+/* Icône flèche (tuto C4) alignée sur la taille de l'icône Maison */
+.tuto-retour-icon {
+  width: 48px;      /* même largeur que la Maison */
+  height: 48px;     /* même hauteur */
+  object-fit: contain;
+}
+
+/* Mobile : on repasse en grille multi-lignes classique */
+@media (max-width: 768px) {
+  .tuto-tiles-grid {
+    grid-auto-flow: row;                   /* On n’impose plus une seule ligne */
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+}
+
 
 /* Fix veille mobile - hauteur garantie après recréation */
-@media (max-width: 480px) {
+/* On élargit à 768px pour couvrir tous les smartphones (y compris format paysage ou grand écran) */
+@media (max-width: 768px) {
+  
+  /* 1. CRUCIAL : Désactive l'animation transform sur le conteneur parent.
+     Cela permet au "position: fixed" de l'enfant de se coller correctement au vrai haut de l'écran. */
+  #section-techniques.is-active {
+    transform: none !important; 
+    align-items: flex-start !important; /* Force l'alignement tout en haut */
+    padding-top: 0 !important; /* Sécurité anti-padding */
+  }
+
+  /* 2. On force le wrapper du diaporama à prendre 100% de l'écran réel */
   .section-techniques.is-active .diaporama-wrapper {
-    min-height: 85vh !important; /* Assure une hauteur minimale confortable */
-    max-height: 90vh !important; /* Évite de dépasser totalement */
-    margin: 0 auto !important; /* Centre verticalement / horizontalement */
-    display: flex !important; /* Permet de gérer le contenu interne en flex */
-    flex-direction: column !important; /* Titre, slider, commandes en colonne */
+    position: fixed !important; /* S'assure qu'il est fixé à l'écran */
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    
+    display: flex !important;
+    flex-direction: column !important;
+    z-index: 20000 !important; /* Au-dessus de tout */
   }
 
+  /* 3. Ajustement du titre pour éviter qu'il soit caché sous l'encoche (notch) des iPhone */
+  .diaporama-main-title {
+    padding-top: max(0.5rem, env(safe-area-inset-top)) !important;
+    flex-shrink: 0 !important;
+  }
+
+  /* 4. La zone centrale (slider) prend tout l'espace restant */
   #diaporama-slider {
-    flex-grow: 1 !important; /* Le slider prend tout l’espace disponible */
-    min-height: 50vh !important; /* Hauteur minimale raisonnable */
+    flex-grow: 1 !important;
+    min-height: 0 !important;
+    border-radius: 0 !important;
   }
 
+  /* 5. La barre de contrôle collée en bas avec marge de sécurité pour la barre de swipe */
   .diaporama-controls {
-    flex-shrink: 0 !important; /* Empêche la barre de contrôle de se comprimer */
-    margin-top: auto !important; /* L’ancre en bas du conteneur */
+    flex-shrink: 0 !important;
+    margin-top: auto !important;
+    background: #000; /* Fond noir pour masquer le vide */
+    padding-bottom: max(30px, env(safe-area-inset-bottom)) !important; /* On force 30px minimum, ce qui remontera ta barre verte au dessus des boutons Android */
+  }
+  
+  /* Sécurité supplémentaire : on force la barre de titre L1/L2 à ne pas être écrasée */
+  .diaporama-title-zone {
+      flex-shrink: 0 !important;
   }
 }
 
-
-.diapo-fs-blink svg {
-  animation: diapoFsBlink 1s infinite; /* Fait clignoter l’icône de plein écran */
-}
-
-
-@keyframes diapoFsBlink {
-  0%   { stroke: #ff0000; fill: #ff0000; } /* Rouge opaque au début */
-  50%  { stroke: #ffffff; fill: #ffffff; } /* Blanc au milieu de l’animation */
-  100% { stroke: #ff0000; fill: #ff0000; } /* Rouge à la fin (boucle) */
+/* Taille forcée pour l'icône flèche du tuto (C4) */
+.tuto-retour-icon {
+  width: 48px !important;   /* mets ici la largeur exacte de ton icône Maison */
+  height: 48px !important;  /* même hauteur */
+  object-fit: contain;
 }
