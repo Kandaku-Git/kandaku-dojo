@@ -26,8 +26,8 @@ window.SLIDEDURATION = 800;
 window.DONNEES = `
 Tekki_Shodan_1_L1 Yoi "Tekki Shodan"
 Tekki_Shodan_1_L2 <Heisoku Dachi>
-Tekki_Shodan_2_L1 Croiser le pied gauche devant le pied droit
-Tekki_Shodan_2_L2 Bien fléchir les genoux
+Tekki_Shodan_2_L1 "Croiser le pied gauche devant le pied droit"
+Tekki_Shodan_2_L2 "Bien fléchir les genoux"
 Tekki_Shodan_3_L1 .
 Tekki_Shodan_3_L2 .
 Tekki_Shodan_4_L1 Migi Yoko <Fumikomi> - Migi Chudan <<Haishu Uke>><Haishu>
@@ -40,7 +40,7 @@ Tekki_Shodan_7_L1 Hidari <Gedan Barai>
 Tekki_Shodan_7_L2 <Kiba Dachi>
 Tekki_Shodan_8_L1 Migi Chudan <Kagi Zuki>
 Tekki_Shodan_8_L2 <Kiba Dachi>
-Tekki_Shodan_9_L1 Croiser le pied droit devant le pied gauche ...
+Tekki_Shodan_9_L1 "Croiser le pied droit devant le pied gauche ..."
 Tekki_Shodan_9_L2 .
 Tekki_Shodan_10_L1 .
 Tekki_Shodan_10_L2 .
@@ -53,10 +53,10 @@ Tekki_Shodan_13_L2 .
 Tekki_Shodan_14_L1 Hidari <Ura Zuki> "Le poing droit reste sous le coude gauche"
 Tekki_Shodan_14_L2 
 Tekki_Shodan_15_L1 .
-Tekki_Shodan_15_L2 Ramener le pied gauche au niveau du bas ventre ...
+Tekki_Shodan_15_L2 "Ramener le pied gauche au niveau du bas ventre ..."
 Tekki_Shodan_16_L1 Hidari Chudan <Morote Uke> "Phalanges du poing gauche tournées vers l’extérieur – Poing droit sous le coude gauche"
 Tekki_Shodan_16_L2 <Kiba Dachi>
-Tekki_Shodan_17_L1 Ramener le pied droit au niveau du bas ventre ...
+Tekki_Shodan_17_L1 "Ramener le pied droit au niveau du bas ventre ..."
 Tekki_Shodan_17_L2 .
 Tekki_Shodan_18_L1 Hidari Chudan <Morote Uke> "Phalanges du poing gauche tournées vers l’extérieur – Poing droit sous le coude gauche"
 Tekki_Shodan_18_L2 <Kiba Dachi>
@@ -76,7 +76,7 @@ Tekki_Shodan_25_L1 Migi <Gedan Barai>
 Tekki_Shodan_25_L2 <Kiba Dachi>
 Tekki_Shodan_26_L1 Hidari Chudan <Kagi Zuki>
 Tekki_Shodan_26_L2 <Kiba Dachi>
-Tekki_Shodan_27_L1 Croiser le pied gauche devant le pied droit ... 
+Tekki_Shodan_27_L1 "Croiser le pied gauche devant le pied droit ..."
 Tekki_Shodan_27_L2 .
 Tekki_Shodan_28_L1 .
 Tekki_Shodan_28_L2 .
@@ -93,7 +93,7 @@ Tekki_Shodan_33_L2 .
 Tekki_Shodan_34_L1 Migi Chudan <Morote Uke> "Phalanges du poing droit tournées vers l’intérieur – Poing gauche sous le coude droit"
 Tekki_Shodan_34_L2 <Kiba Dachi> 
 Tekki_Shodan_35_L1 .
-Tekki_Shodan_35_L2 Ramener le pied gauche au niveau du bas ventre ...
+Tekki_Shodan_35_L2 "Ramener le pied gauche au niveau du bas ventre ..."
 Tekki_Shodan_36_L1 Migi Chudan <Morote Uke> "Phalanges du poing droit tournées vers l’intérieur – Poing gauche sous le coude droit"
 Tekki_Shodan_36_L2 <Kiba Dachi> 
 Tekki_Shodan_37_L1 Migi <Koshi Gamae>
