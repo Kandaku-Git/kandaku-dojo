@@ -1093,6 +1093,20 @@ body::before { /* Filigrane en arrière-plan (logo en watermark) */
   cursor: pointer; /* Cliquable (ex: accent sur vocabulaire) */
 }
 
+/* Mots issus de "..." dans L1 */
+.diaporama-text-l1 .diaporama-quoted {
+  font-size: 1.1rem;      /* ~2 px de moins que 1.4rem */
+  font-weight: normal;     /* annule le gras hérité */
+  color: #888888;          /* gris moyen */
+}
+
+/* Mots issus de "..." dans L2 */
+.diaporama-text-l2 .diaporama-quoted {
+  font-size: 1.0rem;       /* ~2 px de moins que 1.3rem */
+  font-weight: normal;     /* annule le gras hérité */
+  color: #888888;          /* gris moyen */
+}
+
 
 /* Mot de vocabulaire cliquable dans le diaporama */
 .diaporama-vocab {

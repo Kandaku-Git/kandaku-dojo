@@ -313,28 +313,46 @@ class Diaporama {
    * Enrichit un texte HTML avec les spans de vocabulaire.
    * Protège le contenu entre <...> et "..." pour éviter les faux positifs.
    */
-  enrichTextWithVocabulary(htmlText) {
-    if (!htmlText) return "";
+enrichTextWithVocabulary(htmlText) {
+    if (!htmlText) return '';
     let enriched = htmlText;
 
-    // IMPORTANT : On trie les clés par longueur décroissante (les mots longs d'abord)
-    // Cela évite que "Age" ne soit détecté à l'intérieur de "Age Zuki"
+    // 1) Guillemets -> span.quoted, sans guillemets visibles
+    enriched = enriched.replace(/"([^"]+)"/g, (match, inner) => {
+        return `<span class="diaporama-quoted">${inner}</span>`;
+    });
+
+    // 2) Vocabulaire, en ignorant :
+    //    - les balises HTML
+    //    - tout contenu déjà dans un <span ...> (dont .diaporama-quoted)
     const terms = Object.keys(this.state.vocabulary).sort((a, b) => b.length - a.length);
 
     terms.forEach(term => {
-      // Regex : Soit une balise HTML (qu'on ignore), soit le mot exact (\b)
-      const regex = new RegExp(`(<[^>]+>|\"[^\"]+\")|(\\b${term}\\b)`, "gi");
+        if (!term) return;
+        const escapedTerm = term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-      enriched = enriched.replace(regex, (match, protectedPart, foundTerm) => {
-        // Si c'est du HTML ou entre guillemets, on ne touche pas
-        if (protectedPart) return protectedPart;
+        // Groupe 1 : balise HTML OU span complet, Groupe 2 : terme nu
+        const regex = new RegExp(
+            '(<span[^>]*>.*?<\\/span>|<[^>]+>)|(' + escapedTerm + ')',
+            'gi'
+        );
 
-        const def = this.state.vocabulary[term].replace(/"/g, "&quot;");
-        return `<span class="diaporama-vocab" data-def="${def}">${foundTerm}</span>`;
-      });
+        enriched = enriched.replace(regex, (match, protectedBlock, foundTerm) => {
+            // Si balise / span protégé, on renvoie tel quel
+            if (protectedBlock) return protectedBlock;
+
+            if (!foundTerm) return match;
+
+            const def = this.state.vocabulary[term].replace(/"/g, '&quot;');
+            return `<span class="diaporama-vocab" data-def="${def}">${foundTerm}</span>`;
+        });
     });
+
     return enriched;
-  }
+}
+
+
+
 
   /**
    * Transforme les balises de lien personnalisées en spans cliquables.
