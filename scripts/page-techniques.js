@@ -146,7 +146,9 @@ window.TECHNIQUES_CATEGORIES = [
       { label: "Heian Nidan", dataTechnique: "Heian_Nidan", dataSection: "techniques" },
       { label: "Heian Sandan", dataTechnique: "Heian_Sandan", dataSection: "techniques" },
       { label: "Heian Yondan", dataTechnique: "Heian_Yondan", dataSection: "techniques" },
-      { label: "Heian Godan", dataTechnique: "Heian_Godan", dataSection: "techniques" }
+      { label: "Heian Godan", dataTechnique: "Heian_Godan", dataSection: "techniques" },
+            { label: "", dataTechnique: "RetourLigne", dataSection: "techniques" },
+      { label: "Tekki Shodan", dataTechnique: "Tekki_Shodan", dataSection: "techniques" }
     ]
   },
   {
